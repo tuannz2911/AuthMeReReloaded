@@ -57,16 +57,6 @@ public final class RegistrationSettings implements SettingsHolder {
         newProperty("settings.registration.forceLoginAfterRegister", false);
 
     @Comment({
-        "Enable to display the welcome message (welcome.txt) after a login",
-        "You can use colors in this welcome.txt + some replaced strings:",
-        "{PLAYER}: player name, {ONLINE}: display number of online players,",
-        "{MAXPLAYERS}: display server slots, {IP}: player ip, {LOGINS}: number of players logged,",
-        "{WORLD}: player current world, {SERVER}: server name",
-        "{VERSION}: get current bukkit version, {COUNTRY}: player country"})
-    public static final Property<Boolean> USE_WELCOME_MESSAGE =
-        newProperty("settings.useWelcomeMessage", true);
-
-    @Comment({
         "Broadcast the welcome message to the server or only to the player?",
         "set true for server or false for player"})
     public static final Property<Boolean> BROADCAST_WELCOME_MESSAGE =

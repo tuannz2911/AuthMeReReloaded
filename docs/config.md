@@ -304,13 +304,6 @@ settings:
         forceKickAfterRegister: false
         # Does AuthMe need to enforce a /login after a successful registration?
         forceLoginAfterRegister: false
-    # Enable to display the welcome message (welcome.txt) after a login
-    # You can use colors in this welcome.txt + some replaced strings:
-    # {PLAYER}: player name, {ONLINE}: display number of online players,
-    # {MAXPLAYERS}: display server slots, {IP}: player ip, {LOGINS}: number of players logged,
-    # {WORLD}: player current world, {SERVER}: server name
-    # {VERSION}: get current bukkit version, {COUNTRY}: player country
-    useWelcomeMessage: true
     # Broadcast the welcome message to the server or only to the player?
     # set true for server or false for player
     broadcastWelcomeMessage: false

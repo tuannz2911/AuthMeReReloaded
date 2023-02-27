@@ -17,7 +17,6 @@ import fr.xephi.authme.service.SessionService;
 import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
-import fr.xephi.authme.settings.WelcomeMessageConfiguration;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
@@ -70,9 +69,6 @@ public class AsynchronousJoin implements AsynchronousProcess {
 
     @Inject
     private ValidationService validationService;
-
-    @Inject
-    private WelcomeMessageConfiguration welcomeMessageConfiguration;
 
     @Inject
     private SessionService sessionService;
@@ -150,9 +146,6 @@ public class AsynchronousJoin implements AsynchronousProcess {
                 return;
             }
         } else if (!service.getProperty(RegistrationSettings.FORCE)) {
-            bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(() -> {
-                welcomeMessageConfiguration.sendWelcomeMessage(player);
-            });
 
             // Skip if registration is optional
 

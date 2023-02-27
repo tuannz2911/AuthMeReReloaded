@@ -14,7 +14,6 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.JoinMessageService;
 import fr.xephi.authme.service.TeleportationService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
-import fr.xephi.authme.settings.WelcomeMessageConfiguration;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import org.bukkit.entity.Player;
@@ -48,9 +47,6 @@ public class ProcessSyncPlayerLogin implements SynchronousProcess {
 
     @Inject
     private CommonService commonService;
-
-    @Inject
-    private WelcomeMessageConfiguration welcomeMessageConfiguration;
 
     @Inject
     private JoinMessageService joinMessageService;
@@ -101,9 +97,6 @@ public class ProcessSyncPlayerLogin implements SynchronousProcess {
 
         // The Login event now fires (as intended) after everything is processed
         bukkitService.callEvent(new LoginEvent(player));
-
-        // Login is done, display welcome message
-        welcomeMessageConfiguration.sendWelcomeMessage(player);
 
         // Login is now finished; we can force all commands
         if (isFirstLogin) {
