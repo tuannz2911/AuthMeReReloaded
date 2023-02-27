@@ -19,6 +19,7 @@ import fr.xephi.authme.listener.PlayerListener111;
 import fr.xephi.authme.listener.PlayerListener19;
 import fr.xephi.authme.listener.PlayerListener19Spigot;
 import fr.xephi.authme.listener.ServerListener;
+import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.security.crypts.Sha256;
 import fr.xephi.authme.service.BackupService;
@@ -28,6 +29,7 @@ import fr.xephi.authme.service.bungeecord.BungeeReceiver;
 import fr.xephi.authme.service.yaml.YamlParseException;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SettingsWarner;
+import fr.xephi.authme.settings.properties.EmailSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.task.CleanupTask;
 import fr.xephi.authme.task.purge.PurgeService;
@@ -42,6 +44,8 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.function.Consumer;
 
 import static fr.xephi.authme.service.BukkitService.TICKS_PER_MINUTE;
@@ -65,6 +69,7 @@ public class AuthMe extends JavaPlugin {
     private CommandHandler commandHandler;
     private Settings settings;
     private DataSource database;
+    private EmailService emailService;
     private BukkitService bukkitService;
     private Injector injector;
     private BackupService backupService;
@@ -306,6 +311,12 @@ public class AuthMe extends JavaPlugin {
             : injector.createIfHasDependencies(OnShutdownPlayerSaver.class);
         if (onShutdownPlayerSaver != null) {
             onShutdownPlayerSaver.saveAllPlayers();
+        }
+
+        if (settings.getProperty(EmailSettings.SHOUTDOWN_MAIL)){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'年'MM'月'dd'日' HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            emailService.sendShutDown("wujiaxin752@icloud.com",dateFormat.format(date));
         }
 
         // Do backup on stop if enabled

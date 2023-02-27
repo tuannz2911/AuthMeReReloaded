@@ -74,6 +74,9 @@ public final class EmailSettings implements SettingsHolder {
     @Comment("The OAuth2 token")
     public static final Property<String> OAUTH2_TOKEN =
         newProperty("Email.emailOauth2Token", "");
+    @Comment("Email notifications when the server shuts down")
+    public static final Property<Boolean> SHOUTDOWN_MAIL =
+        newProperty("Email.shutDownEmail", true);
 
     private EmailSettings() {
     }

@@ -165,6 +165,11 @@ public final class RestrictionSettings implements SettingsHolder {
     public static final Property<String> ALLOWED_PASSWORD_REGEX =
         newProperty("settings.restrictions.allowedPasswordCharacters", "[!-~]*");
 
+    @Comment("Regex syntax for allowed chars in email.")
+    public static final Property<String> ALLOWED_EMAIL_REGEX =
+        newProperty("settings.restrictions.allowedEmailCharacters", "^[A-Za-z0-9]{4,15}@(qq|163|icloud).com$");
+
+
     @Comment("Force survival gamemode when player joins?")
     public static final Property<Boolean> FORCE_SURVIVAL_MODE =
         newProperty("settings.GameMode.ForceSurvivalMode", false);

@@ -17,7 +17,6 @@ import fr.xephi.authme.settings.properties.ProtectionSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.PlayerUtils;
-import fr.xephi.authme.util.StringUtils;
 import fr.xephi.authme.util.Utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -50,6 +49,7 @@ public class ValidationService implements Reloadable {
     private GeoIpService geoIpService;
 
     private Pattern passwordRegex;
+    private Pattern emailRegex;
     private Multimap<String, String> restrictedNames;
 
     ValidationService() {
@@ -62,6 +62,7 @@ public class ValidationService implements Reloadable {
         restrictedNames = settings.getProperty(RestrictionSettings.ENABLE_RESTRICTED_USERS)
             ? loadNameRestrictions(settings.getProperty(RestrictionSettings.RESTRICTED_USERS))
             : HashMultimap.create();
+        emailRegex = Utils.safePatternCompile(settings.getProperty(RestrictionSettings.ALLOWED_EMAIL_REGEX));
     }
 
     /**
@@ -93,12 +94,7 @@ public class ValidationService implements Reloadable {
      * @return true if the email is valid, false otherwise
      */
     public boolean validateEmail(String email) {
-        if (Utils.isEmailEmpty(email) || !StringUtils.isInsideString('@', email)) {
-            return false;
-        }
-        final String emailDomain = email.split("@")[1];
-        return validateWhitelistAndBlacklist(
-            emailDomain, EmailSettings.DOMAIN_WHITELIST, EmailSettings.DOMAIN_BLACKLIST);
+        return emailRegex.matcher(email).matches();
     }
 
     /**
