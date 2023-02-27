@@ -62,6 +62,7 @@ public class ValidationService implements Reloadable {
         restrictedNames = settings.getProperty(RestrictionSettings.ENABLE_RESTRICTED_USERS)
             ? loadNameRestrictions(settings.getProperty(RestrictionSettings.RESTRICTED_USERS))
             : HashMultimap.create();
+
         emailRegex = Utils.safePatternCompile(settings.getProperty(RestrictionSettings.ALLOWED_EMAIL_REGEX));
     }
 

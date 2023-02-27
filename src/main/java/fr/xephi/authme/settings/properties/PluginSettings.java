@@ -18,21 +18,21 @@ public final class PluginSettings implements SettingsHolder {
         "expired, he will not need to authenticate."
     })
     public static final Property<Boolean> SESSIONS_ENABLED =
-        newProperty("settings.sessions.enabled", false);
+        newProperty("settings.sessions.enabled", true);
 
     @Comment({
         "After how many minutes should a session expire?",
         "A player's session ends after the timeout or if his IP has changed"
     })
     public static final Property<Integer> SESSIONS_TIMEOUT =
-        newProperty("settings.sessions.timeout", 10);
+        newProperty("settings.sessions.timeout", 43200);
 
     @Comment({
         "Message language, available languages:",
         "https://github.com/AuthMe/AuthMeReloaded/blob/master/docs/translations.md"
     })
     public static final Property<String> MESSAGES_LANGUAGE =
-        newProperty("settings.messagesLanguage", "en");
+        newProperty("settings.messagesLanguage", "zhcn");
 
     @Comment({
         "Enables switching a player to defined permission groups before they log in.",

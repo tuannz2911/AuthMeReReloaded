@@ -14,7 +14,7 @@ public final class ProtectionSettings implements SettingsHolder {
 
     @Comment("Enable some servers protection (country based login, antibot)")
     public static final Property<Boolean> ENABLE_PROTECTION =
-        newProperty("Protection.enableProtection", false);
+        newProperty("Protection.enableProtection", true);
 
     @Comment("Apply the protection also to registered usernames")
     public static final Property<Boolean> ENABLE_PROTECTION_REGISTERED =
@@ -37,7 +37,7 @@ public final class ProtectionSettings implements SettingsHolder {
         "Use \"LOCALHOST\" for local addresses.",
         "PLEASE USE QUOTES!"})
     public static final Property<List<String>> COUNTRIES_WHITELIST =
-        newListProperty("Protection.countries", "US", "GB", "LOCALHOST");
+        newListProperty("Protection.countries", "CN", "LOCALHOST");
 
     @Comment({
         "Countries not allowed to join the server and register",
@@ -69,7 +69,7 @@ public final class ProtectionSettings implements SettingsHolder {
 
     @Comment("Kicks the player that issued a command before the defined time after the join process")
     public static final Property<Integer> QUICK_COMMANDS_DENIED_BEFORE_MILLISECONDS =
-        newProperty("Protection.quickCommands.denyCommandsBeforeMilliseconds", 1000);
+        newProperty("Protection.quickCommands.denyCommandsBeforeMilliseconds", 3000);
 
     private ProtectionSettings() {
     }

@@ -18,7 +18,7 @@ public final class RegistrationSettings implements SettingsHolder {
         "Send every X seconds a message to a player to",
         "remind him that he has to login/register"})
     public static final Property<Integer> MESSAGE_INTERVAL =
-        newProperty("settings.registration.messageInterval", 5);
+        newProperty("settings.registration.messageInterval", 600);
 
     @Comment({
         "Only registered and logged in players can play.",
@@ -55,16 +55,9 @@ public final class RegistrationSettings implements SettingsHolder {
     @Comment("Does AuthMe need to enforce a /login after a successful registration?")
     public static final Property<Boolean> FORCE_LOGIN_AFTER_REGISTER =
         newProperty("settings.registration.forceLoginAfterRegister", false);
-
-    @Comment({
-        "Broadcast the welcome message to the server or only to the player?",
-        "set true for server or false for player"})
-    public static final Property<Boolean> BROADCAST_WELCOME_MESSAGE =
-        newProperty("settings.broadcastWelcomeMessage", false);
-
     @Comment("Should we delay the join message and display it once the player has logged in?")
     public static final Property<Boolean> DELAY_JOIN_MESSAGE =
-        newProperty("settings.delayJoinMessage", false);
+        newProperty("settings.delayJoinMessage", true);
 
     @Comment({
         "The custom join message that will be sent after a successful login,",
@@ -78,15 +71,15 @@ public final class RegistrationSettings implements SettingsHolder {
 
     @Comment("Should we remove the leave messages of unlogged users?")
     public static final Property<Boolean> REMOVE_UNLOGGED_LEAVE_MESSAGE =
-        newProperty("settings.removeUnloggedLeaveMessage", false);
+        newProperty("settings.removeUnloggedLeaveMessage", true);
 
     @Comment("Should we remove join messages altogether?")
     public static final Property<Boolean> REMOVE_JOIN_MESSAGE =
-        newProperty("settings.removeJoinMessage", false);
+        newProperty("settings.removeJoinMessage", true);
 
     @Comment("Should we remove leave messages altogether?")
     public static final Property<Boolean> REMOVE_LEAVE_MESSAGE =
-        newProperty("settings.removeLeaveMessage", false);
+        newProperty("settings.removeLeaveMessage", true);
 
     @Comment("Do we need to add potion effect Blinding before login/register?")
     public static final Property<Boolean> APPLY_BLIND_EFFECT =

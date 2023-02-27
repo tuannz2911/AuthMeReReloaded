@@ -41,7 +41,10 @@
 #     executor: CONSOLE
 #     ifNumberOfAccountsAtLeast: 5
 # Commands to run for players logging in whose 'last login date' was empty
-onFirstLogin: {}
+onFirstLogin:
+  broadcast:
+    command: 'cmi broadcast &b欢迎 &r%p &7( %ip ) &b光临服务器,请大家多多关照!'
+    executor: CONSOLE
 onJoin: {}
 onLogin: {}
 # These commands are called whenever a logged in player uses /logout or quits.

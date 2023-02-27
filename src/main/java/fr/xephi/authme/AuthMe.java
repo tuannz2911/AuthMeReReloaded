@@ -62,8 +62,8 @@ public class AuthMe extends JavaPlugin {
     private static final int CLEANUP_INTERVAL = 5 * TICKS_PER_MINUTE;
 
     // Version and build number values
-    private static String pluginVersion = "N/D";
-    private static String pluginBuildNumber = "Unknown";
+    private static String pluginVersion = "5.6.0";
+    private static String pluginBuildNumber = "Custom";
 
     // Private instances
     private CommandHandler commandHandler;
@@ -78,8 +78,6 @@ public class AuthMe extends JavaPlugin {
     /**
      * Constructor.
      */
-    public AuthMe() {
-    }
 
     /*
      * Constructor for unit testing.
@@ -313,10 +311,10 @@ public class AuthMe extends JavaPlugin {
             onShutdownPlayerSaver.saveAllPlayers();
         }
 
-        if (settings.getProperty(EmailSettings.SHOUTDOWN_MAIL)){
+        if (settings.getProperty(EmailSettings.SHUTDOWN_MAIL)){
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'年'MM'月'dd'日' HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
-            emailService.sendShutDown("wujiaxin752@icloud.com",dateFormat.format(date));
+            emailService.sendShutDown(settings.getProperty(EmailSettings.SHUTDOWN_MAIL_ADDRESS),dateFormat.format(date));
         }
 
         // Do backup on stop if enabled
