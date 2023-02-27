@@ -21,15 +21,10 @@ import org.bukkit.entity.Player;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static fr.xephi.authme.util.FileUtils.copyFileFromResource;
 import static fr.xephi.authme.util.lazytags.TagBuilder.createTag;
 
 /**
@@ -83,9 +78,6 @@ public class WelcomeMessageConfiguration implements Reloadable {
         }
 
         List<String> welcomeMessage = new ArrayList<>();
-        for (String line : readWelcomeFile()) {
-            welcomeMessage.add(ChatColor.translateAlternateColorCodes('&', line));
-        }
         messageSupplier = TagReplacer.newReplacer(availableTags, welcomeMessage);
     }
 
@@ -113,26 +105,5 @@ public class WelcomeMessageConfiguration implements Reloadable {
                 welcomeMessage.forEach(player::sendMessage);
             }
         }
-    }
-
-    /**
-     * @return the lines of the welcome message file
-     */
-    private List<String> readWelcomeFile() {
-        if (!(service.getProperty(RegistrationSettings.USE_WELCOME_MESSAGE))) {
-            return Collections.emptyList();
-        }
-
-        File welcomeFile = new File(pluginFolder, "welcome.txt");
-        if (copyFileFromResource(welcomeFile, "welcome.txt")) {
-            try {
-                return Files.readAllLines(welcomeFile.toPath(), StandardCharsets.UTF_8);
-            } catch (IOException e) {
-                logger.logException("Failed to read welcome.txt file:", e);
-            }
-        } else {
-            logger.warning("Failed to copy welcome.txt from JAR");
-        }
-        return Collections.emptyList();
     }
 }
