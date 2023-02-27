@@ -33,17 +33,18 @@ public final class RegistrationSettings implements SettingsHolder {
         "More info at https://github.com/AuthMe/AuthMeReloaded/wiki/Registration"
     })
     public static final Property<RegistrationType> REGISTRATION_TYPE =
-        newProperty(RegistrationType.class, "settings.registration.type", RegistrationType.PASSWORD);
+        newProperty(RegistrationType.class, "settings.registration.type", RegistrationType.EMAIL);
 
     @Comment({
-        "Second argument the /register command should take: NONE = no 2nd argument",
+        "Second argument the /register command should take: ",
+        "NONE = no 2nd argument",
         "CONFIRMATION = must repeat first argument (pass or email)",
         "EMAIL_OPTIONAL = for password register: 2nd argument can be empty or have email address",
         "EMAIL_MANDATORY = for password register: 2nd argument MUST be an email address"
     })
     public static final Property<RegisterSecondaryArgument> REGISTER_SECOND_ARGUMENT =
         newProperty(RegisterSecondaryArgument.class, "settings.registration.secondArg",
-            RegisterSecondaryArgument.CONFIRMATION);
+            RegisterSecondaryArgument.NONE);
 
     @Comment({
         "Do we force kick a player after a successful registration?",
