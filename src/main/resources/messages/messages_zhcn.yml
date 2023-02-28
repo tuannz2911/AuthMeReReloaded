@@ -57,7 +57,7 @@ unregister:
 misc:
     account_not_activated: |-
       &a一封包含密码的邮件已发送至您的收件箱.
-      &a请在十分钟内完成激活,否则将注销此账户.
+      &a请在十分钟内完成登录,否则将注销此账户.
     not_activated: '&c账户未激活,请注册激活后再次尝试.'
     password_changed: '&a*** 密码已修改 ***'
     logout: '&a*** 已成功登出 ***'

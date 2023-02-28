@@ -180,17 +180,15 @@ public class RegisterCommand extends PlayerCommand {
                 @Override
                 public void run() {
                     if (dataSource.getAuth(player.getName()) != null) {
-                        if (dataSource.getAuth(player.getName()).getLastLogin() == null && (dataSource.getAuth(player.getName()).getRegistrationDate() + 600000) < System.currentTimeMillis()) {
+                        if (dataSource.getAuth(player.getName()).getLastLogin() == null) {
                             management.performUnregisterByAdmin(null, player.getName(), player);
-                            timer.cancel();
-                        } else if (dataSource.getAuth(player.getName()).getLastLogin() != null) {
                             timer.cancel();
                         }
                     } else {
                         timer.cancel();
                     }
                 }
-            }, 60000, 60000);
+            }, 600000);
         }
     }
 
