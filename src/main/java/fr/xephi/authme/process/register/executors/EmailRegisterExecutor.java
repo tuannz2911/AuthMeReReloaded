@@ -14,7 +14,6 @@ import fr.xephi.authme.util.RandomStringUtils;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

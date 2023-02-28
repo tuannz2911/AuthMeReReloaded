@@ -10,8 +10,8 @@ import ch.jalu.configme.resource.PropertyResource;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import fr.xephi.authme.ConsoleLogger;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.util.FileUtils;
 
 import java.io.File;

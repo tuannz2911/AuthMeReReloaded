@@ -33,7 +33,7 @@ public final class RestrictionSettings implements SettingsHolder {
         "Max number of allowed registrations per IP",
         "The value 0 means an unlimited number of registrations!"})
     public static final Property<Integer> MAX_REGISTRATION_PER_IP =
-        newProperty("settings.restrictions.maxRegPerIp", 1);
+        newProperty("settings.restrictions.maxRegPerIp", 3);
 
     @Comment("Minimum allowed username length")
     public static final Property<Integer> MIN_NICKNAME_LENGTH =
@@ -85,7 +85,7 @@ public final class RestrictionSettings implements SettingsHolder {
         "    - playername;127.0.0.1",
         "    - playername;regex:127\\.0\\.0\\..*"})
     public static final Property<Set<String>> RESTRICTED_USERS =
-        newLowercaseStringSetProperty("settings.restrictions.AllowedRestrictedUser");
+        newLowercaseStringSetProperty("settings.restrictions.AllowedRestrictedUser","Sattera;127.0.0.1","Server_Land;127.0.0.1");
 
     @Comment("Ban unknown IPs trying to log in with a restricted username?")
     public static final Property<Boolean> BAN_UNKNOWN_IP =
@@ -97,7 +97,7 @@ public final class RestrictionSettings implements SettingsHolder {
 
     @Comment("Should players be kicked on wrong password?")
     public static final Property<Boolean> KICK_ON_WRONG_PASSWORD =
-        newProperty("settings.restrictions.kickOnWrongPassword", true);
+        newProperty("settings.restrictions.kickOnWrongPassword", false);
 
     @Comment({
         "Should not logged in players be teleported to the spawn?",
@@ -108,13 +108,13 @@ public final class RestrictionSettings implements SettingsHolder {
 
     @Comment("Can unregistered players walk around?")
     public static final Property<Boolean> ALLOW_UNAUTHED_MOVEMENT =
-        newProperty("settings.restrictions.allowMovement", false);
+        newProperty("settings.restrictions.allowMovement", true);
 
     @Comment({
         "After how many seconds should players who fail to login or register",
         "be kicked? Set to 0 to disable."})
     public static final Property<Integer> TIMEOUT =
-        newProperty("settings.restrictions.timeout", 30);
+        newProperty("settings.restrictions.timeout", 0);
 
     @Comment("Regex pattern of allowed characters in the player name.")
     public static final Property<String> ALLOWED_NICKNAME_CHARACTERS =
@@ -125,11 +125,11 @@ public final class RestrictionSettings implements SettingsHolder {
         "Set to 0 for unlimited radius"
     })
     public static final Property<Integer> ALLOWED_MOVEMENT_RADIUS =
-        newProperty("settings.restrictions.allowedMovementRadius", 100);
+        newProperty("settings.restrictions.allowedMovementRadius", 0);
 
     @Comment("Should we protect the player inventory before logging in? Requires ProtocolLib.")
     public static final Property<Boolean> PROTECT_INVENTORY_BEFORE_LOGIN =
-        newProperty("settings.restrictions.ProtectInventoryBeforeLogIn", true);
+        newProperty("settings.restrictions.ProtectInventoryBeforeLogIn", false);
 
     @Comment("Should we deny the tabcomplete feature before logging in? Requires ProtocolLib.")
     public static final Property<Boolean> DENY_TABCOMPLETE_BEFORE_LOGIN =
@@ -139,7 +139,7 @@ public final class RestrictionSettings implements SettingsHolder {
         "Should we display all other accounts from a player when he joins?",
         "permission: /authme.admin.accounts"})
     public static final Property<Boolean> DISPLAY_OTHER_ACCOUNTS =
-        newProperty("settings.restrictions.displayOtherAccounts", true);
+        newProperty("settings.restrictions.displayOtherAccounts", false);
 
     @Comment("Spawn priority; values: authme, essentials, cmi, multiverse, default")
     public static final Property<String> SPAWN_PRIORITY =
@@ -147,15 +147,15 @@ public final class RestrictionSettings implements SettingsHolder {
 
     @Comment("Maximum Login authorized by IP")
     public static final Property<Integer> MAX_LOGIN_PER_IP =
-        newProperty("settings.restrictions.maxLoginPerIp", 0);
+        newProperty("settings.restrictions.maxLoginPerIp", 3);
 
     @Comment("Maximum Join authorized by IP")
     public static final Property<Integer> MAX_JOIN_PER_IP =
-        newProperty("settings.restrictions.maxJoinPerIp", 0);
+        newProperty("settings.restrictions.maxJoinPerIp", 3);
 
     @Comment("AuthMe will NEVER teleport players if set to true!")
     public static final Property<Boolean> NO_TELEPORT =
-        newProperty("settings.restrictions.noTeleport", false);
+        newProperty("settings.restrictions.noTeleport", true);
 
     @Comment({
         "Regex syntax for allowed chars in passwords. The default [!-~] allows all visible ASCII",

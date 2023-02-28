@@ -5,8 +5,8 @@ import fr.xephi.authme.data.ProxySessionManager;
 import fr.xephi.authme.data.limbo.LimboService;
 import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.events.ProtectInventoryEvent;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.permission.PlayerStatePermission;
 import fr.xephi.authme.process.AsynchronousProcess;
 import fr.xephi.authme.process.login.AsynchronousLogin;
@@ -30,7 +30,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.inject.Inject;
-
 import java.util.Locale;
 
 import static fr.xephi.authme.service.BukkitService.TICKS_PER_SECOND;

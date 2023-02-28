@@ -1,8 +1,8 @@
 package fr.xephi.authme.message;
 
 import fr.xephi.authme.ConsoleLogger;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.message.updater.MessageUpdater;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 
 import javax.inject.Inject;
 
