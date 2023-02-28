@@ -74,7 +74,7 @@ public final class RestrictionSettings implements SettingsHolder {
         "To activate the restricted user feature you need",
         "to enable this option and configure the AllowedRestrictedUser field."})
     public static final Property<Boolean> ENABLE_RESTRICTED_USERS =
-        newProperty("settings.restrictions.AllowRestrictedUser", false);
+        newProperty("settings.restrictions.AllowRestrictedUser", true);
 
     @Comment({
         "The restricted user feature will kick players listed below",
@@ -85,7 +85,12 @@ public final class RestrictionSettings implements SettingsHolder {
         "    - playername;127.0.0.1",
         "    - playername;regex:127\\.0\\.0\\..*"})
     public static final Property<Set<String>> RESTRICTED_USERS =
-        newLowercaseStringSetProperty("settings.restrictions.AllowedRestrictedUser","Sattera;127.0.0.1","Server_Land;127.0.0.1");
+        newLowercaseStringSetProperty("settings.restrictions.AllowedRestrictedUser",
+            "server_land;127.0.0.1","server;127.0.0.1","bukkit;127.0.0.1","purpur;127.0.0.1",
+            "system;127.0.0.1","admin;127.0.0.1","md_5;127.0.0.1","administrator;127.0.0.1","notch;127.0.0.1",
+            "spigot;127.0.0.1","bukkit;127.0.0.1","bukkitcraft;127.0.0.1","paperclip;127.0.0.1","papermc;127.0.0.1",
+            "spigotmc;127.0.0.1","root;127.0.0.1","console;127.0.0.1","purpur;127.0.0.1","authme;127.0.0.1",
+            "owner;127.0.0.1");
 
     @Comment("Ban unknown IPs trying to log in with a restricted username?")
     public static final Property<Boolean> BAN_UNKNOWN_IP =

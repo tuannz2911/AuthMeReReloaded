@@ -2,7 +2,6 @@ package fr.xephi.authme;
 
 import ch.jalu.injector.Injector;
 import ch.jalu.injector.InjectorBuilder;
-import com.google.common.annotations.VisibleForTesting;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.command.CommandHandler;
 import fr.xephi.authme.datasource.DataSource;
@@ -37,16 +36,15 @@ import fr.xephi.authme.util.ExceptionUtils;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.JavaPluginLoader;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static fr.xephi.authme.service.BukkitService.TICKS_PER_MINUTE;
@@ -80,14 +78,6 @@ public class AuthMe extends JavaPlugin {
      * Constructor.
      */
     public AuthMe() {
-    }
-
-    /*
-     * Constructor for unit testing.
-     */
-    @VisibleForTesting
-    AuthMe(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
-        super(loader, description, dataFolder, file);
     }
 
     /**
@@ -156,7 +146,7 @@ public class AuthMe extends JavaPlugin {
                 th.printStackTrace();
             } else {
                 logger.logException("File '" + yamlParseException.getFile() + "' contains invalid YAML. "
-                    + "Please run its contents through http://yamllint.com", yamlParseException);
+                    + "Please run its contents through https://yamllint.com", yamlParseException);
             }
             stopOrUnload();
             return;

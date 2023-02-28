@@ -10,7 +10,7 @@ public final class EmailSettings implements SettingsHolder {
 
     @Comment("Email SMTP server host")
     public static final Property<String> SMTP_HOST =
-        newProperty("Email.mailSMTP", "smtp.gmail.com");
+        newProperty("Email.mailSMTP", "smtp.163.com");
 
     @Comment("Email SMTP server port")
     public static final Property<Integer> SMTP_PORT =
