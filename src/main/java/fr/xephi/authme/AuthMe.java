@@ -42,6 +42,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -66,10 +67,10 @@ public class AuthMe extends JavaPlugin {
     private static String pluginBuildNumber = "Custom";
 
     // Private instances
+    private EmailService emailService;
     private CommandHandler commandHandler;
     private Settings settings;
     private DataSource database;
-    private EmailService emailService;
     private BukkitService bukkitService;
     private Injector injector;
     private BackupService backupService;
@@ -78,6 +79,8 @@ public class AuthMe extends JavaPlugin {
     /**
      * Constructor.
      */
+    public AuthMe() {
+    }
 
     /*
      * Constructor for unit testing.
@@ -173,7 +176,7 @@ public class AuthMe extends JavaPlugin {
         OnStartupTasks.sendMetrics(this, settings);
 
         // Successful message
-        logger.info("AuthMe " + getPluginVersion() + " build n." + getPluginBuildNumber() + " successfully enabled!");
+        logger.info("AuthMeReloaded successfully enabled!");
 
         // Purge on start if enabled
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
@@ -248,6 +251,7 @@ public class AuthMe extends JavaPlugin {
         database = injector.getSingleton(DataSource.class);
         bukkitService = injector.getSingleton(BukkitService.class);
         commandHandler = injector.getSingleton(CommandHandler.class);
+        emailService = injector.getSingleton(EmailService.class);
         backupService = injector.getSingleton(BackupService.class);
 
         // Trigger instantiation (class not used elsewhere)
@@ -310,7 +314,6 @@ public class AuthMe extends JavaPlugin {
         if (onShutdownPlayerSaver != null) {
             onShutdownPlayerSaver.saveAllPlayers();
         }
-
         if (settings.getProperty(EmailSettings.SHUTDOWN_MAIL)){
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'年'MM'月'dd'日' HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
@@ -341,8 +344,8 @@ public class AuthMe extends JavaPlugin {
      * @return True if the command was executed, false otherwise.
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd,
-                             String commandLabel, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd,
+                             @NotNull String commandLabel, String[] args) {
         // Make sure the command handler has been initialized
         if (commandHandler == null) {
             getLogger().severe("AuthMe command handler is not available");
