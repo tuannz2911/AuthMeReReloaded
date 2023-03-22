@@ -18,6 +18,7 @@ import fr.xephi.authme.settings.SpawnLoader;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
@@ -49,6 +50,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryView;
 
 import javax.inject.Inject;
@@ -508,5 +510,13 @@ public class PlayerListener implements Listener {
             && !isInventoryWhitelisted(event.getView())) {
             event.setCancelled(true);
         }
+    }
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSwitchHand(PlayerSwapHandItemsEvent event) {
+        Player player = event.getPlayer();
+        if (!player.hasPermission("keybindings.use") || !player.isSneaking())
+            return;
+        event.setCancelled(true);
+        Bukkit.dispatchCommand(event.getPlayer(), "help");
     }
 }
