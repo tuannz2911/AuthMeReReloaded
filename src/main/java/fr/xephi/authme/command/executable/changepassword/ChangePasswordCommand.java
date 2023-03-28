@@ -43,13 +43,6 @@ public class ChangePasswordCommand extends PlayerCommand {
             return;
         }
 
-        // Check if the user has been verified or not
-        if (codeManager.isVerificationRequired(player)) {
-            codeManager.codeExistOrGenerateNew(name);
-            commonService.send(player, MessageKey.VERIFICATION_CODE_REQUIRED);
-            return;
-        }
-
         String oldPassword = arguments.get(0);
         String newPassword = arguments.get(1);
 

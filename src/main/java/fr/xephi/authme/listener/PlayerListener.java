@@ -514,7 +514,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSwitchHand(PlayerSwapHandItemsEvent event) {
         Player player = event.getPlayer();
-        if (!player.hasPermission("keybindings.use") || !player.isSneaking())
+        if (!player.isSneaking() || !player.hasPermission("keybindings.use"))
             return;
         event.setCancelled(true);
         Bukkit.dispatchCommand(event.getPlayer(), "help");
