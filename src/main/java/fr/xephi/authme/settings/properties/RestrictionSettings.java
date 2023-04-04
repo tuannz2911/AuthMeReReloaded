@@ -125,6 +125,9 @@ public final class RestrictionSettings implements SettingsHolder {
     public static final Property<String> ALLOWED_NICKNAME_CHARACTERS =
         newProperty("settings.restrictions.allowedNicknameCharacters", "[a-zA-Z0-9_]*");
 
+    @Comment("Allow FloodGatePlayer Join Without checkIsValidName()")
+    public static final Property<Boolean> HOOK_FLOODGATE_PLAYER =
+        newProperty("settings.restrictions.hookFloodGatePlayer", false);
     @Comment({
         "How far can unregistered players walk?",
         "Set to 0 for unlimited radius"
