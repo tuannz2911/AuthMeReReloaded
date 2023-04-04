@@ -15,6 +15,7 @@ softdepend:
     - Essentials
     - EssentialsSpawn
     - ProtocolLib
+    - floodgate
 commands:
   authme:
     description: AuthMe op commands
