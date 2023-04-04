@@ -52,6 +52,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryView;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 import javax.inject.Inject;
 import java.util.Locale;
@@ -112,7 +113,9 @@ public class PlayerListener implements Listener {
         if (validationService.isUnrestricted(name)) {
             return;
         }
-
+        if (settings.getProperty(RestrictionSettings.HOOK_FLOODGATE_PLAYER) && FloodgateApi.getInstance().isFloodgateId(event.getUniqueId())){
+            return;
+        }
         // Non-blocking checks
         try {
             onJoinVerifier.checkIsValidName(name);
@@ -120,6 +123,7 @@ public class PlayerListener implements Listener {
             event.setKickMessage(messages.retrieveSingle(name, e.getReason(), e.getArgs()));
             event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
         }
+
     }
 
     /*
