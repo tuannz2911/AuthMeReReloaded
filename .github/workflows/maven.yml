@@ -1,4 +1,4 @@
-name: Java CI
+name: 自托管构建
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  build_and_test:
+  Build:
     strategy:
       matrix:
         jdkversion: [11]
@@ -25,5 +25,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: 生成的文件
-        path: ${{ github.workspace }}/target/
+        path: ${{ github.workspace }}/target/*.jar
       
