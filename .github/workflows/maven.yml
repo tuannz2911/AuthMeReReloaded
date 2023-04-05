@@ -20,6 +20,6 @@ jobs:
         distribution: 'temurin'
         java-version: ${{ matrix.jdkversion }}
         cache: 'maven'
-        path: ${{ github.workspace }}/target
+        path: ${{ github.workspace }}
     - name: Build
       run: /usr/actions-runner/apache-maven-3.9.1/bin/mvn -V -B clean package --file pom.xml
