@@ -1,6 +1,6 @@
-# AuthMeReloaded
+# AuthMeReReloaded
 **"The best authentication plugin for the Bukkit modding API!"**
-
+**"请前往Actions下载最新版本"**
 <img src="wallpaper.png?raw=true" alt="AuthMeLogo"/>
 
 | Type              | Badges                                                                                                                                                                                                                                                                                                                                                                                |
