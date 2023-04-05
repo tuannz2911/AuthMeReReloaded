@@ -25,5 +25,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: 生成的文件
-        path: ${{ github.workspace }}/target/*.jar
+        path: ${{ github.workspace }}/target/AuthMe-5.6.0-FORK.jar
       
