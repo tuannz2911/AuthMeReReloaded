@@ -20,7 +20,7 @@ jobs:
         java-version: ${{ matrix.jdkversion }}
         cache: 'maven'
     - name: 使用Maven构建
-      run: /usr/actions-runner/apache-maven-3.9.1/bin/mvn -V -B clean package --file pom.xml
+      run: mvn -V -B clean package --file pom.xml
     - name: 上传文件
       uses: actions/upload-artifact@v1
       with:
