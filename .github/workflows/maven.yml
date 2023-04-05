@@ -1,4 +1,4 @@
-name: 自托管构建
+name: AutoBuilder
 
 on:
   push:
