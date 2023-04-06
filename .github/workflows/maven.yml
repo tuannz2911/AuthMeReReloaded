@@ -1,4 +1,4 @@
-name: AutoTester
+name: Ubuntu CI 
 
 on:
   push:
