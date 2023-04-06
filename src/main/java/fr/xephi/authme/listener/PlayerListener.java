@@ -94,9 +94,7 @@ public class PlayerListener implements Listener {
     private PermissionsManager permissionsManager;
     @Inject
     private QuickCommandsProtectionManager quickCommandsProtectionManager;
-    @Inject
-    private FloodgateApi Floodgate;
-
+    FloodgateApi Floodgate = org.geysermc.floodgate.api.FloodgateApi.getInstance();
     // Lowest priority to apply fast protection checks
     @EventHandler(priority = EventPriority.LOWEST)
     public void onAsyncPlayerPreLoginEventLowest(AsyncPlayerPreLoginEvent event) {
