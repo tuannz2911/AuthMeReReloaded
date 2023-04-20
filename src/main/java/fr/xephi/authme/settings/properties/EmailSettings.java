@@ -65,7 +65,7 @@ public final class EmailSettings implements SettingsHolder {
         newProperty("Email.emailOauth2Token", "");
     @Comment("Email notifications when the server shuts down")
     public static final Property<Boolean> SHUTDOWN_MAIL =
-        newProperty("Email.shutDownEmail", true);
+        newProperty("Email.shutDownEmail", false);
     @Comment("Email notification address when the server is shut down")
     public static final Property<String> SHUTDOWN_MAIL_ADDRESS =
         newProperty("Email.shutDownEmailAddress", "your@mail.com");
