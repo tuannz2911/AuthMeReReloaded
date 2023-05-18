@@ -15,3 +15,7 @@ Changes to the original AuthMe(相较于原版AuthMe的变化):
 7.Block unsafe passwords by querying API
 8.Self hash check to prevent jar virus infection
 9.Updater
+
+
+**Known Folia issue**
+1.If the teleport distance too far away,the player may be frozen
