@@ -68,7 +68,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&b【AuthMe】&6您已經成功登入!'
+    
     invalid_session: '&b【AuthMe】&6Session驗證不相符!'
 
 # Error messages when joining

@@ -69,7 +69,7 @@ misc:
 
 # Session
 session:
-    valid_session: '&aVous avez été automatiquement connecté !'
+    
     invalid_session: 'Session expirée suite à un changement d''IP.'
 
 # Erreurs lors d'une tentative connexion

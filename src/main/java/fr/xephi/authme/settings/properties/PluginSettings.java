@@ -21,6 +21,12 @@ public final class PluginSettings implements SettingsHolder {
         newProperty("settings.sessions.enabled", true);
 
     @Comment({
+        "Do you want to hide login success message to player?"
+    })
+    public static final Property<Boolean> HIDE_SESSIONS_LOGIN =
+        newProperty("settings.sessions.hidelogin", true);
+
+    @Comment({
         "After how many minutes should a session expire?",
         "A player's session ends after the timeout or if his IP has changed"
     })

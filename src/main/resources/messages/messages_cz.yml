@@ -66,7 +66,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&cAutomatické znovupřihlášení.'
+    
     invalid_session: '&cChyba: Počkej než vyprší tvoje relace.'
 
 # Error messages when joining

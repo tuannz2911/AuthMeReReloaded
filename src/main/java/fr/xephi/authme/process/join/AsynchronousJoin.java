@@ -19,6 +19,7 @@ import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.HooksSettings;
+import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.util.InternetProtocolUtils;
@@ -128,18 +129,16 @@ public class AsynchronousJoin implements AsynchronousProcess {
 
             // Session logic
             if (sessionService.canResumeSession(player)) {
-                service.send(player, MessageKey.SESSION_RECONNECTION);
                 // Run commands
                 bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(
                     () -> commandManager.runCommandsOnSessionLogin(player));
-                bukkitService.runTaskOptionallyAsync(() -> asynchronousLogin.forceLogin(player));
+                bukkitService.runTaskOptionallyAsync(() -> asynchronousLogin.forceLogin(player,service.getProperty(PluginSettings.HIDE_SESSIONS_LOGIN) ? 1 : 0));
                 return;
             } else if (proxySessionManager.shouldResumeSession(name)) {
-                service.send(player, MessageKey.SESSION_RECONNECTION);
                 // Run commands
                 bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(
                     () -> commandManager.runCommandsOnSessionLogin(player));
-                bukkitService.runTaskOptionallyAsync(() -> asynchronousLogin.forceLogin(player));
+                bukkitService.runTaskOptionallyAsync(() -> asynchronousLogin.forceLogin(player,service.getProperty(PluginSettings.HIDE_SESSIONS_LOGIN) ? 1 : 0));
                 logger.info("The user " + player.getName() + " has been automatically logged in, "
                     + "as present in autologin queue.");
                 return;

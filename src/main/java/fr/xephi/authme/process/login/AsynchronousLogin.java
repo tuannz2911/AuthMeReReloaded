@@ -102,7 +102,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
                 limboService.getLimboPlayer(player.getName()).setState(LimboPlayerState.TOTP_REQUIRED);
                 // TODO #1141: Check if we should check limbo state before processing password
             } else {
-                performLogin(player, auth);
+                performLogin(player, auth, false);
             }
         }
     }
@@ -112,10 +112,10 @@ public class AsynchronousLogin implements AsynchronousProcess {
      *
      * @param player the player to log in
      */
-    public void forceLogin(Player player) {
+    public void forceLogin(Player player,int quiet) {
         PlayerAuth auth = getPlayerAuth(player);
         if (auth != null) {
-            performLogin(player, auth);
+            performLogin(player, auth, quiet == 1);
         }
     }
 
@@ -128,7 +128,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
     public void forceLogin(Player player, boolean quiet) {
         PlayerAuth auth = getPlayerAuth(player, quiet);
         if (auth != null) {
-            performLogin(player, auth);
+            performLogin(player, auth, false);
         }
     }
 
@@ -265,7 +265,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
      * @param player the player to log in
      * @param auth the associated PlayerAuth object
      */
-    public void performLogin(Player player, PlayerAuth auth) {
+    public void performLogin(Player player, PlayerAuth auth, boolean quiet) {
         if (player.isOnline()) {
             boolean isFirstLogin = (auth.getLastLogin() == null);
 
@@ -284,7 +284,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
             tempbanManager.resetCount(ip, name);
             player.setNoDamageTicks(0);
 
-            service.send(player, MessageKey.LOGIN_SUCCESS);
+            if (!quiet) {service.send(player, MessageKey.LOGIN_SUCCESS);}
 
             // Other auths
             List<String> auths = dataSource.getAllAuthsByIp(auth.getLastIp());

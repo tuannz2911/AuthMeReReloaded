@@ -67,7 +67,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2Autenticato automaticamente attraverso la precedente sessione!'
+    
     invalid_session: '&cIl tuo indirizzo IP è cambiato e la tua sessione è stata terminata!'
 
 # Error messages when joining

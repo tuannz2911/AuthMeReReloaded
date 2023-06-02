@@ -35,9 +35,6 @@ public enum MessageKey {
     /** In-game registration is disabled! */
     REGISTRATION_DISABLED("registration.disabled"),
 
-    /** Logged-in due to Session Reconnection. */
-    SESSION_RECONNECTION("session.valid_session"),
-
     /** Successful login! */
     LOGIN_SUCCESS("login.success"),
 

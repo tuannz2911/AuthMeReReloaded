@@ -66,7 +66,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2Ulogovani ste zbog ponovnog povezivanja sesije.'
+    
     invalid_session: '&cVaš IP je promenjen i vaši podaci o sesiji su istekli!'
 
 # Error messages when joining

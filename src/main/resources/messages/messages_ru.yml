@@ -61,7 +61,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2Вы автоматически авторизовались!'
+    
     invalid_session: '&cСессия некорректна. Дождитесь, пока она закончится.'
 
 # Error messages when joining

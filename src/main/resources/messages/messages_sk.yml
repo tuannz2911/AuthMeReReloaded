@@ -72,7 +72,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&cAutomatické prihlásenie z dôvodu pokračovania relácie.'
+    
     invalid_session: '&fTvoja IP sa zmenila a tvoje prihlásenie(relácia) vypršalo(/a).'
 
 # Error messages when joining
