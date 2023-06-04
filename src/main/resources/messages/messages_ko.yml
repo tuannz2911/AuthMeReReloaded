@@ -68,7 +68,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2세션 재 연결로 인해 로그인 되었습니다.'
+    
     invalid_session: '&cIP가 변경되어 세션이 만료되었습니다!'
 
 # Error messages when joining

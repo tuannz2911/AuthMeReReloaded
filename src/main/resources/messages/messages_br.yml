@@ -69,7 +69,7 @@ misc:
 
 # Mensagens de sessão
 session:
-    valid_session: '&2Você deslogou recentemente, então sua sessão foi retomada!'
+    
     invalid_session: '&fO seu IP foi alterado e sua sessão expirou!'
 
 # Mensagens de erro ao entrar

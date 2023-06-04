@@ -66,7 +66,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2Ensalutantojn pro Sesio Rekonektas.'
+    
     invalid_session: '&cVia IP estis ŝanĝita kaj via seanco datumoj finiĝis!'
 
 # Error messages when joining

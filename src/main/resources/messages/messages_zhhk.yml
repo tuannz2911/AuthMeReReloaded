@@ -69,7 +69,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&8[&6用戶系統&8] &b嗨 ！ 歡迎回來喔～'
+    
     invalid_session: '&8[&6用戶系統&8] &f登入階段資料已損壞，請等待登入階段結束。'
 
 # Error messages when joining

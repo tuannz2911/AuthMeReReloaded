@@ -68,7 +68,6 @@ misc:
 
 # Session messages
 session:
-    valid_session: ''
     invalid_session: '&c*** 请重新登录 ***'
 
 # Error messages when joining

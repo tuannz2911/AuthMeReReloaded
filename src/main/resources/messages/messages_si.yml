@@ -65,7 +65,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2Uspešna povezava.'
+    
     invalid_session: '&cVas IP je bil spremenjen in vasa seja je potekla!'
 
 # Error messages when joining
@@ -154,4 +154,3 @@ time:
     hours: 'ure'
     day: 'dan'
     days: 'dni'
-    

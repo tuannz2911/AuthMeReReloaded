@@ -67,7 +67,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&cInicio de sesión'
+    
     invalid_session: '&fLos datos de sesión no corresponden. Por favor espera a terminar la sesión.'
 
 # Error messages when joining

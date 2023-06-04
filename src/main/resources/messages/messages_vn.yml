@@ -66,7 +66,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2Phiên đăng nhập đã được kết nối trở lại.'
+    
     invalid_session: '&cIP của bạn đã bị thay đổi và phiên đăng nhập của bạn đã hết hạn!'
 
 # Error messages when joining

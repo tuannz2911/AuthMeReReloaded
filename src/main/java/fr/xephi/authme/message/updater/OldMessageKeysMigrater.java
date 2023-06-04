@@ -30,7 +30,6 @@ final class OldMessageKeysMigrater {
         .put(MessageKey.WRONG_PASSWORD, "wrong_pwd")
         .put(MessageKey.UNREGISTERED_SUCCESS, "unregistered")
         .put(MessageKey.REGISTRATION_DISABLED, "reg_disabled")
-        .put(MessageKey.SESSION_RECONNECTION, "valid_session")
         .put(MessageKey.ACCOUNT_NOT_ACTIVATED, "vb_nonActiv")
         .put(MessageKey.NAME_ALREADY_REGISTERED, "user_regged")
         .put(MessageKey.NO_PERMISSION, "no_perm")

@@ -66,7 +66,7 @@ misc:
 
 # Session messages
 session:
-    valid_session: '&2由於會話重新連接而登錄.'
+    
     invalid_session: '&c您的IP已更改，並且您的會話數據已過期！'
 
 # Error messages when joining
