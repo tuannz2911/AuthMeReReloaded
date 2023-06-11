@@ -13,7 +13,7 @@ Changes to the original AuthMe(相较于原版AuthMe的变化):
 5.Anti ghost player
 6.GUI captcha for unregistered players
 7.Block unsafe passwords by querying API
-8.Self hash check to prevent jar virus infection
+8.Self hash check to prevent jar virus infection(abandoned)
 9.Updater
 
 
