@@ -124,6 +124,7 @@ public enum AdminPermission implements PermissionNode {
      * Permission to see Antibot messages.
      */
     ANTIBOT_MESSAGES("authme.admin.antibotmessages"),
+    WHITELIST_MESSAGE("authme.admin.whitelistmessage"),
 
     /**
      * Permission to use the update messages command.

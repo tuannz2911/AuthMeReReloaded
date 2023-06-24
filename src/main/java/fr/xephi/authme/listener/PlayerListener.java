@@ -148,6 +148,7 @@ public class PlayerListener implements Listener {
             final PlayerAuth auth = dataSource.getAuth(name);
             final boolean isAuthAvailable = auth != null;
             onJoinVerifier.checkKickNonRegistered(isAuthAvailable);
+            onJoinVerifier.checkWhitelist(name, isAuthAvailable);
             onJoinVerifier.checkAntibot(name, isAuthAvailable);
             onJoinVerifier.checkNameCasing(name, auth);
             final String ip = event.getAddress().getHostAddress();

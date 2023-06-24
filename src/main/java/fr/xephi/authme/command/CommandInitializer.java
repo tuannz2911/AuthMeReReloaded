@@ -29,6 +29,7 @@ import fr.xephi.authme.command.executable.authme.TotpViewStatusCommand;
 import fr.xephi.authme.command.executable.authme.UnregisterAdminCommand;
 import fr.xephi.authme.command.executable.authme.UpdateHelpMessagesCommand;
 import fr.xephi.authme.command.executable.authme.VersionCommand;
+import fr.xephi.authme.command.executable.authme.WhitelistCommand;
 import fr.xephi.authme.command.executable.authme.debug.DebugCommand;
 import fr.xephi.authme.command.executable.captcha.CaptchaCommand;
 import fr.xephi.authme.command.executable.changepassword.ChangePasswordCommand;
@@ -418,6 +419,16 @@ public class CommandInitializer {
             .withArgument("mode", "ON / OFF", OPTIONAL)
             .permission(AdminPermission.SWITCH_ANTIBOT)
             .executableCommand(SwitchAntiBotCommand.class)
+            .register();
+
+        CommandDescription.builder()
+            .parent(authmeBase)
+            .labels("whitelist")
+            .description("Switch whitelist mode")
+            .detailedDescription("Switch or toggle the whitelist mode to the specified state.")
+            .withArgument("mode", "ON / OFF", OPTIONAL)
+            .permission(AdminPermission.SWITCH_ANTIBOT)
+            .executableCommand(WhitelistCommand.class)
             .register();
 
         // Register the reload command

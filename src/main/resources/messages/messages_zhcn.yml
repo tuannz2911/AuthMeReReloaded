@@ -65,6 +65,8 @@ misc:
     usage_change_password: '&a正确用法:“/changepassword 旧密码 新密码”'
     accounts_owned_self: '您拥有 %count 个账户:'
     accounts_owned_other: '玩家 %name 拥有 %count 个账户:'
+    whitelist_enabled: '&c*** 服务器已暂停注册 ***'
+    whitelist_disabled: '&a*** 服务器已开放注册 ***'
 
 # Session messages
 session:
@@ -87,7 +89,10 @@ on_join_validation:
       &c如果您并不知情,请更换您的用户名重新加入该服务器.
     invalid_name_case: '&c您应该使用 %valid 登录服务器,当前名字: %invalid .'
     quick_command: '&c您发送命令的速度太快了,请重新加入服务器等待一会后再使用命令'
-
+    kick_whitelist: |-
+      &6[&b&lAccount Security System&6]
+      &c本服务器已经暂停注册,请用下面的联系方式了解详细情况.
+      &cQQ群聊号码: 550984860 &b| &c QQ: 2125368097 &b| &cTelegram: @Stabrinai
 # Email
 email:
     add_email_request: ''
