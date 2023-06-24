@@ -67,6 +67,7 @@ misc:
     accounts_owned_other: '玩家 %name 拥有 %count 个账户:'
     whitelist_enabled: '&c*** 服务器已暂停注册 ***'
     whitelist_disabled: '&a*** 服务器已开放注册 ***'
+    whitelist_kick: '&7玩家 &c%p &7请求加入服务器,但是被拒绝了.'
 
 # Session messages
 session:

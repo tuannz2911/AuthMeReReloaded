@@ -199,6 +199,7 @@ public enum MessageKey {
 
     /** [AntiBotService] AntiBot disabled after %m minutes! */
     ANTIBOT_AUTO_DISABLED_MESSAGE("antibot.auto_disabled", "%m"),
+    WHITELIST_KICK("misc.whitelist_kick", "%p"),
 
     /** The email address is already being used */
     EMAIL_ALREADY_USED_ERROR("email.already_used"),
