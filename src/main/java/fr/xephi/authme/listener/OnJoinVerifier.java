@@ -7,11 +7,13 @@ import fr.xephi.authme.initialization.Reloadable;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
+import fr.xephi.authme.permission.AdminPermission;
 import fr.xephi.authme.permission.PermissionsManager;
 import fr.xephi.authme.permission.PlayerStatePermission;
 import fr.xephi.authme.service.AntiBotService;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.service.ValidationService;
+import fr.xephi.authme.service.WhiteListService;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.ProtectionSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
@@ -46,6 +48,8 @@ public class OnJoinVerifier implements Reloadable {
     @Inject
     private AntiBotService antiBotService;
     @Inject
+    private WhiteListService whiteListService;
+    @Inject
     private ValidationService validationService;
     @Inject
     private BukkitService bukkitService;
@@ -79,6 +83,18 @@ public class OnJoinVerifier implements Reloadable {
         if (antiBotService.shouldKick()) {
             antiBotService.addPlayerKick(name);
             throw new FailedVerificationException(MessageKey.KICK_ANTIBOT);
+        }
+    }
+    public void checkWhitelist(String name, boolean isAuthAvailable) throws FailedVerificationException {
+        if (isAuthAvailable || permissionsManager.hasPermissionOffline(name, PlayerStatePermission.WHITELIST)) {
+            return;
+        } else {
+            bukkitService.getOnlinePlayers().stream()
+                .filter(player -> permissionsManager.hasPermission(player, AdminPermission.WHITELIST_MESSAGE))
+                .forEach(player -> messages.send(player, MessageKey.WHITELIST_KICK, name));
+        }
+        if (whiteListService.shouldKick()) {
+            throw new FailedVerificationException(MessageKey.KICK_WHITELIST);
         }
     }
 

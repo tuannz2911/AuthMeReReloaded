@@ -16,6 +16,9 @@ public enum MessageKey {
 
     /** AntiBot protection mode is enabled! You have to wait some minutes before joining the server. */
     KICK_ANTIBOT("antibot.kick_antibot"),
+    KICK_WHITELIST("on_join_validation.kick_whitelist"),
+    WHITELIST_ENABLED_MESSAGE("misc.whitelist_enabled"),
+    WHITELIST_DISABLED_MESSAGE("misc.whitelist_disabled"),
 
     /** This user isn't registered! */
     UNKNOWN_USER("error.unregistered_user"),
@@ -196,6 +199,7 @@ public enum MessageKey {
 
     /** [AntiBotService] AntiBot disabled after %m minutes! */
     ANTIBOT_AUTO_DISABLED_MESSAGE("antibot.auto_disabled", "%m"),
+    WHITELIST_KICK("misc.whitelist_kick", "%p"),
 
     /** The email address is already being used */
     EMAIL_ALREADY_USED_ERROR("email.already_used"),

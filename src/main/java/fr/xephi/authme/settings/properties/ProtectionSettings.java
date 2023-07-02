@@ -19,7 +19,9 @@ public final class ProtectionSettings implements SettingsHolder {
     @Comment("Apply the protection also to registered usernames")
     public static final Property<Boolean> ENABLE_PROTECTION_REGISTERED =
         newProperty("Protection.enableProtectionRegistered", true);
-
+    @Comment("Only allow registed usernames join server")
+    public static final Property<Boolean> ENABLE_WHITELIST =
+        newProperty("Protection.enableWhiteList", true);
     @Comment({
         "Countries allowed to join the server and register. For country codes, see",
         "https://dev.maxmind.com/geoip/legacy/codes/iso3166/",
