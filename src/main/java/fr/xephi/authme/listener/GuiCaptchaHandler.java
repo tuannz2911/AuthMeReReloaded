@@ -38,7 +38,7 @@ public class GuiCaptchaHandler implements Listener {
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
     //define global enabled
-    public static boolean enabled=true;
+
     //define timesLeft
     private int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
@@ -61,9 +61,7 @@ public class GuiCaptchaHandler implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
-            ItemStack item = event.getCurrentItem();
             // 获取点击事件的容器
-            Inventory inventory = event.getInventory();
             if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
                 if(AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && ( getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)){
                     return;
