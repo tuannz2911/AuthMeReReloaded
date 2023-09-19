@@ -2,12 +2,12 @@ package fr.xephi.authme.settings.properties;
 
 import ch.jalu.configme.Comment;
 import ch.jalu.configme.SettingsHolder;
-import ch.jalu.configme.properties.BooleanProperty;
+
 import ch.jalu.configme.properties.Property;
 import fr.xephi.authme.security.HashAlgorithm;
 import fr.xephi.authme.settings.EnumSetProperty;
 import java.util.Set;
-import fr.xephi.authme.listener.PlayerQuitListener;
+
 import static ch.jalu.configme.properties.PropertyInitializer.newLowercaseStringSetProperty;
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
@@ -41,9 +41,7 @@ public final class SecuritySettings implements SettingsHolder {
 //    "(Set this to 0 to disable)(Default: 4)"})
 //    public static final Property<Integer> GUI_CAPTCHA_MAX_TRY = newProperty("3rdPartyFeature.captcha.maxTryTimes",4);
 
-//    @Comment({"Kick the players when they didn't finish the gui captcha in time? " ,
-//        "(0 is disabled)"})
-//    public static final Property<Integer> CAPTCHA_TIMEOUT = newProperty("3rdPartyFeature.captcha.timeout",0);
+
     //@Comment({"Using which API to get hash data?",
         //"Available options: github, gitee, ghproxy (if your server is in China, please use gitee or ghproxy.)"})
     //public static final Property<String> SHA_CHECK_METHOD = newProperty("Plugin.hashing.hashApi","github");
