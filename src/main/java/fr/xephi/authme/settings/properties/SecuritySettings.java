@@ -34,7 +34,7 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Integer> GUI_CAPTCHA_TIMEOUT = newProperty("3rdPartyFeature.captcha.timeOut",0);
 
     @Comment({"Should we ignore floodgate players when sending GUI captcha?",
-        "(require hookFloodgate enabled)"})
+        "(Requires floodgate and hookFloodgate: true)"})
     public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY = newProperty("3rdPartyFeature.captcha.ignoreBedrock",false);
 
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
