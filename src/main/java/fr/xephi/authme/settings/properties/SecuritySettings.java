@@ -38,8 +38,8 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY = newProperty("3rdPartyFeature.captcha.ignoreBedrock",false);
 
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
-//    "(Set this to 0 to disable)(Default: 4)"})
-//    public static final Property<Integer> GUI_CAPTCHA_MAX_TRY = newProperty("3rdPartyFeature.captcha.maxTryTimes",4);
+//    "(Minimum value is 1)(Default: 3)"})
+//    public static final Property<Integer> GUI_CAPTCHA_MAX_TRY = newProperty("3rdPartyFeature.captcha.maxTryTimes",3);
 
 
     //@Comment({"Using which API to get hash data?",

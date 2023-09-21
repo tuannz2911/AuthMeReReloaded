@@ -40,7 +40,7 @@ public class GuiCaptchaHandler implements Listener {
     //define global enabled
 
     //define timesLeft
-    private int timesLeft = 3;
+    public int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
     protected static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
     //define randomStringSet
@@ -49,7 +49,17 @@ public class GuiCaptchaHandler implements Listener {
     Random randomItemSet = new Random();
     Random howManyRandom = new Random();
 
-
+//    public int tryTimesReset(){
+//        int tmp = 1;
+//        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_MAX_TRY) < 1){
+//            return tmp;
+//        }
+//        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_MAX_TRY) >= 1){
+//            tmp = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_MAX_TRY);
+//            return tmp;
+//        }
+//        return 3;
+//    }
 
     int howLongIsRandomString = (howManyRandom.nextInt(3)+1);
     public GuiCaptchaHandler(Plugin plugin) {
