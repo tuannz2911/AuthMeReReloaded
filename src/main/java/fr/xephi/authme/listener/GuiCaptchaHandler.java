@@ -135,7 +135,7 @@ public class GuiCaptchaHandler implements Listener {
                     ItemMeta meta = item.getItemMeta();
                     try {
                         if (meta != null) {
-                            meta.setDisplayName("§a我是"  + "§a真人");
+                            meta.setDisplayName("§a我是真人");
                             item.setItemMeta(meta);
 //                            goldBlock.setItemMeta(meta);
                         }
@@ -166,7 +166,8 @@ public class GuiCaptchaHandler implements Listener {
                         long timeOut = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
                         if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT)){
                             Bukkit.getScheduler().runTask(this.plugin,() -> {
-                                Bukkit.getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" + AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will make the GUI captcha follow the Login timeout seconds, please check and modify your config.");
+                                Bukkit.getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
+                                    AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
                             });
                             timeOut = AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT);
                         }
