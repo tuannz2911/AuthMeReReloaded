@@ -8,6 +8,8 @@ import com.comphenix.protocol.events.PacketEvent;
 
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -24,6 +26,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+
+import javax.inject.Inject;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,9 +35,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
-
 public class GuiCaptchaHandler implements Listener {
-
+    @Inject
+    private Messages messages;
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
@@ -80,7 +84,8 @@ public class GuiCaptchaHandler implements Listener {
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
-                    player.sendMessage("§a验证完成");
+//                    player.sendMessage("§a验证完成");
+                    messages.send(player, MessageKey.GUI_CAPTCHA_SUCCESS);
                 } else {
                     player.sendMessage("§c验证失败,你还有" + timesLeft + "§c次机会");
                     timesLeft--;
