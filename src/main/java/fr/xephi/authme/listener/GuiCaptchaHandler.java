@@ -8,8 +8,7 @@ import com.comphenix.protocol.events.PacketEvent;
 
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
-import fr.xephi.authme.message.MessageKey;
-import fr.xephi.authme.message.Messages;
+
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -36,8 +35,6 @@ import java.util.logging.Level;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 public class GuiCaptchaHandler implements Listener {
-    @Inject
-    private Messages messages;
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
@@ -97,11 +94,6 @@ public class GuiCaptchaHandler implements Listener {
 
     @EventHandler(ignoreCancelled = true,priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-//        if (settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER)) {
-//            if (getServer().getPluginManager().getPlugin("floodgate") != null) {
-//                if (org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getUniqueId())) return;
-//            }
-//        }
         randomString="";
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
@@ -131,32 +123,17 @@ public class GuiCaptchaHandler implements Listener {
                     AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
                     Inventory menu = Bukkit.createInventory(null, 27, randomString+"请验证你是真人");
                     ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
-//                    ItemStack goldBlock = new ItemStack(Material.GOLD_BLOCK);
                     ItemMeta meta = item.getItemMeta();
                     try {
                         if (meta != null) {
                             meta.setDisplayName("§a我是真人");
                             item.setItemMeta(meta);
-//                            goldBlock.setItemMeta(meta);
                         }
                     } catch (NullPointerException e) {
                         getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
                     }
                     Bukkit.getScheduler().runTask(this.plugin,()-> {
                         menu.setItem(random_num.get(), item);
-//                        for (int i = 0; i < 27; i++) {
-//                            if (i == random_num.get()) {
-//                                int finalI1 = i;
-//                                Bukkit.getScheduler().runTask(this.plugin, () -> {
-//                                    menu.setItem(finalI1, item);
-//                                });
-//                            } else {
-//                                int finalI = i;
-//                                Bukkit.getScheduler().runTask(this.plugin, () -> {
-//                                    menu.setItem(finalI, goldBlock);
-//                                });
-//                            }
-//                        }
                     });
                     menu.setItem(random_num.get(), item);
                     Bukkit.getScheduler().runTask(this.plugin, () -> {
@@ -206,20 +183,6 @@ public class GuiCaptchaHandler implements Listener {
                                             menu.setItem(random_num.get(), item);
                                         });
 
-
-//                                        for (int i = 0; i < 27; i++) {
-//                                            if (i == random_num.get()) {
-//                                                int finalI = i;
-//                                                Bukkit.getScheduler().runTask(plugin, () -> {
-//                                                    menu.setItem(finalI, item);
-//                                                });
-//                                            } else {
-//                                                int finalI1 = i;
-//                                                Bukkit.getScheduler().runTask(plugin, () -> {
-//                                                    menu.setItem(finalI1, goldBlock); // 其他位置填充为金块
-//                                                });
-//                                            }
-//                                        }
                                         Bukkit.getScheduler().runTask(plugin, () -> {
                                             playerunreg.openInventory(menu);
                                         });
@@ -243,30 +206,16 @@ public class GuiCaptchaHandler implements Listener {
 
                 });
             });
-
-
-
         }
     }
-/*
-            chatListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
-                @Override
-                public void onPacketReceiving(PacketEvent event) {
-                    if (event.getPlayer() == player) {
-                        event.setCancelled(true);
-
-                    }
-                }
-            };
-*/
-
-//            getLogger().log(Level.INFO, "TESTTEST");
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         String name = player.getName();
-        if (!authmeApi.isRegistered(name)){closeReasonMap.remove(player);}
+        if (!authmeApi.isRegistered(name)){
+            closeReasonMap.remove(player);
+        }
     }
 
 
