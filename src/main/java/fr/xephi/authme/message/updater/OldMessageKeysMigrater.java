@@ -18,7 +18,6 @@ final class OldMessageKeysMigrater {
 
     @VisibleForTesting
     static final Map<MessageKey, String> KEYS_TO_OLD_PATH = ImmutableMap.<MessageKey, String>builder()
-        .put(MessageKey.GUI_CAPTCHA_SUCCESS, "gui_captcha_verified")
         .put(MessageKey.LOGIN_SUCCESS, "login")
         .put(MessageKey.ERROR, "error")
         .put(MessageKey.DENIED_COMMAND, "denied_command")

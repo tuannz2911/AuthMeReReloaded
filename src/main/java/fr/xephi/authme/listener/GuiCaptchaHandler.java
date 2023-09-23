@@ -84,8 +84,7 @@ public class GuiCaptchaHandler implements Listener {
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
-//                    player.sendMessage("§a验证完成");
-                    messages.send(player, MessageKey.GUI_CAPTCHA_SUCCESS);
+                    player.sendMessage("§a验证完成");
                 } else {
                     player.sendMessage("§c验证失败,你还有" + timesLeft + "§c次机会");
                     timesLeft--;
