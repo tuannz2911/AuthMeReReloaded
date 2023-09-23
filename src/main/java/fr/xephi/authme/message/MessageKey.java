@@ -4,7 +4,8 @@ package fr.xephi.authme.message;
  * Keys for translatable messages managed by {@link Messages}.
  */
 public enum MessageKey {
-
+    /** Successfully verified! */
+    GUI_CAPTCHA_SUCCESS("3rdpartyfeature.gui_captcha.success"),
     /** In order to use this command you must be authenticated! */
     DENIED_COMMAND("error.denied_command"),
 
