@@ -33,6 +33,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
@@ -206,24 +207,15 @@ public class GuiCaptchaHandler implements Listener {
         }
     }
 
-    private boolean shouldDeletePlayerData(Player player) {
-        if (!closeReasonMap.containsKey(player)){
-            return true;
-        }else {
-            return false;
-        }
-
-
-    }
     private void deletePlayerData(UUID playerUUID) {
         // 获取服务器的存储文件夹路径
         File serverFolder = Bukkit.getServer().getWorldContainer();
         String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建playerdata文件夹路径
-        File playerDataFolder = new File(serverFolder, worldFolderName+File.separator+"playerdata"+File.separator);
+        File playerDataFolder = new File(serverFolder, File.separator+worldFolderName+File.separator+"playerdata");
 
         // 构建玩家数据文件路径
-        File playerDataFile = new File(playerDataFolder, playerUUID + ".dat");
+        File playerDataFile = new File(playerDataFolder, File.separator+playerUUID + ".dat");
 
         // 删除玩家数据文件
         if (playerDataFile.exists()) {
@@ -235,12 +227,11 @@ public class GuiCaptchaHandler implements Listener {
         File serverFolder = Bukkit.getServer().getWorldContainer();
         String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建stats文件夹路径
-        File statsFolder = new File(serverFolder, worldFolderName+File.separator+"stats"+File.separator);
-
+        File statsFolder = new File(serverFolder, File.separator+worldFolderName+File.separator+"stats");
         // 构建玩家统计数据文件路径
-        File statsFile = new File(statsFolder, playerUUID + ".json");
-
+        File statsFile = new File(statsFolder, File.separator+playerUUID + ".json");
         // 删除玩家统计数据文件
+
         if (statsFile.exists()) {
             statsFile.delete();
         }
@@ -252,10 +243,11 @@ public class GuiCaptchaHandler implements Listener {
         String name = player.getName();
         UUID playerUUID = event.getPlayer().getUniqueId();
         if (!authmeApi.isRegistered(name)) {
-            if(shouldDeletePlayerData(player) && AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA)){
-                deletePlayerData(playerUUID);
-                deletePlayerStats(playerUUID);
-                return;
+            if(AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)){
+                Bukkit.getScheduler().runTaskLater(this.plugin,() -> {
+                    deletePlayerData(playerUUID);
+                    deletePlayerStats(playerUUID);
+                },100L);
             }
             closeReasonMap.remove(player);
         }
