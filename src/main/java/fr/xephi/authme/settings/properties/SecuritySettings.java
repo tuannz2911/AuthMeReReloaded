@@ -41,7 +41,7 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.captcha.delPlayerData",false);
 
     @Comment("Which world's playerdata should be deleted?(Enter the world *FOLDER* name where your player first logged in)")
-    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.delPlayerData","world");
+    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.delPlayerData.worldFolderName","world");
 
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
 //    "(Minimum value is 1)(Default: 3)"})
