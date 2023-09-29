@@ -73,7 +73,7 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> CHECK_FOR_UPDATES =
         newProperty("Plugin.updates.checkForUpdates", true);
 
-    @Comment("Should we show the Authme banner on startup?")
+    @Comment("Should we show the AuthMe banner on startup?")
     public static final Property<Boolean> SHOW_STARTUP_BANNER =
         newProperty("Plugin.banners.showBanners", true);
 
