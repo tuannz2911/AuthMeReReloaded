@@ -220,7 +220,7 @@ public class GuiCaptchaHandler implements Listener {
         File serverFolder = Bukkit.getServer().getWorldContainer();
         String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建playerdata文件夹路径
-        File playerDataFolder = new File(serverFolder, worldFolderName+File.separator+"playerdata");
+        File playerDataFolder = new File(serverFolder, worldFolderName+File.separator+"playerdata"+File.separator);
 
         // 构建玩家数据文件路径
         File playerDataFile = new File(playerDataFolder, playerUUID + ".dat");
@@ -235,7 +235,7 @@ public class GuiCaptchaHandler implements Listener {
         File serverFolder = Bukkit.getServer().getWorldContainer();
         String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建stats文件夹路径
-        File statsFolder = new File(serverFolder, worldFolderName+File.separator+"stats");
+        File statsFolder = new File(serverFolder, worldFolderName+File.separator+"stats"+File.separator);
 
         // 构建玩家统计数据文件路径
         File statsFile = new File(statsFolder, playerUUID + ".json");
