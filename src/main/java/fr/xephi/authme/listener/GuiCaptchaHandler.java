@@ -27,9 +27,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 
-
+import java.io.File;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -53,19 +54,8 @@ public class GuiCaptchaHandler implements Listener {
     Random howManyRandom = new Random();
 
 
-//    public int tryTimesReset(){
-//        int tmp = 1;
-//        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_MAX_TRY) < 1){
-//            return tmp;
-//        }
-//        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_MAX_TRY) >= 1){
-//            tmp = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_MAX_TRY);
-//            return tmp;
-//        }
-//        return 3;
-//    }
+    int howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
 
-    int howLongIsRandomString = (howManyRandom.nextInt(3)+1);
     public GuiCaptchaHandler(Plugin plugin) {
         this.plugin = plugin;
     }
@@ -77,7 +67,11 @@ public class GuiCaptchaHandler implements Listener {
             Player player = (Player) event.getWhoClicked();
             // 获取点击事件的容器
             if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
-                if(AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && ( getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)){
+                if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
+                    if (!closeReasonMap.containsKey(player)) {
+                        closeReasonMap.put(player,"verified");
+                        return;
+                    }
                     return;
                 }
                 if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.REDSTONE_BLOCK)) {
@@ -89,26 +83,26 @@ public class GuiCaptchaHandler implements Listener {
                     player.sendMessage("§c验证失败,你还有" + timesLeft + "§c次机会");
                     timesLeft--;
                 }
-                    //force to string
+                //force to string
             }
         }
     }
 
 
-    @EventHandler(ignoreCancelled = true,priority = EventPriority.HIGHEST)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        randomString="";
+        randomString = "";
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
         if (!authmeApi.isRegistered(name)) {
-            if(AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)){
+            if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
                 closeReasonMap.put(playerunreg, "verified");
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
             }
             Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
                 StringBuilder sb = new StringBuilder();
-                howLongIsRandomString = (howManyRandom.nextInt(3)+1);
+                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
                 for (int i = 0; i < howLongIsRandomString; i++) {
                     //生成随机索引号
                     int index = randomItemSet.nextInt(randomSet.length());
@@ -124,7 +118,7 @@ public class GuiCaptchaHandler implements Listener {
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
                     AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
-                    Inventory menu = Bukkit.createInventory(null, 27, randomString+"请验证你是真人");
+                    Inventory menu = Bukkit.createInventory(null, 27, randomString + "请验证你是真人");
                     ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
                     ItemMeta meta = item.getItemMeta();
                     try {
@@ -135,17 +129,17 @@ public class GuiCaptchaHandler implements Listener {
                     } catch (NullPointerException e) {
                         getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
                     }
-                    Bukkit.getScheduler().runTask(this.plugin,()-> {
+                    Bukkit.getScheduler().runTask(this.plugin, () -> {
                         menu.setItem(random_num.get(), item);
                     });
                     menu.setItem(random_num.get(), item);
                     Bukkit.getScheduler().runTask(this.plugin, () -> {
                         playerunreg.openInventory(menu);
                     });
-                    if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT)>0) {
+                    if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
                         long timeOut = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
-                        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT)){
-                            Bukkit.getScheduler().runTask(this.plugin,() -> {
+                        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT)) {
+                            Bukkit.getScheduler().runTask(this.plugin, () -> {
                                 Bukkit.getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
                                     AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
                             });
@@ -162,7 +156,7 @@ public class GuiCaptchaHandler implements Listener {
                         });
                     }
 
-                    Bukkit.getScheduler().runTask(this.plugin,()-> {
+                    Bukkit.getScheduler().runTask(this.plugin, () -> {
                         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
                             @Override
                             public void onPacketReceiving(PacketEvent event) {
@@ -212,16 +206,62 @@ public class GuiCaptchaHandler implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event){
-        Player player = event.getPlayer();
-        String name = player.getName();
-        if (!authmeApi.isRegistered(name)){
-            closeReasonMap.remove(player);
+    private boolean shouldDeletePlayerData(Player player) {
+        if (!closeReasonMap.containsKey(player)){
+            return true;
+        }else {
+            return false;
+        }
+
+
+    }
+    private void deletePlayerData(UUID playerUUID) {
+        // 获取服务器的存储文件夹路径
+        File serverFolder = Bukkit.getServer().getWorldContainer();
+        String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
+        // 构建playerdata文件夹路径
+        File playerDataFolder = new File(serverFolder, worldFolderName+File.separator+"playerdata");
+
+        // 构建玩家数据文件路径
+        File playerDataFile = new File(playerDataFolder, playerUUID + ".dat");
+
+        // 删除玩家数据文件
+        if (playerDataFile.exists()) {
+            playerDataFile.delete();
+        }
+    }
+    private void deletePlayerStats(UUID playerUUID) {
+        // 获取服务器的存储文件夹路径
+        File serverFolder = Bukkit.getServer().getWorldContainer();
+        String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
+        // 构建stats文件夹路径
+        File statsFolder = new File(serverFolder, worldFolderName+File.separator+"stats");
+
+        // 构建玩家统计数据文件路径
+        File statsFile = new File(statsFolder, playerUUID + ".json");
+
+        // 删除玩家统计数据文件
+        if (statsFile.exists()) {
+            statsFile.delete();
         }
     }
 
-
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        String name = player.getName();
+        UUID playerUUID = event.getPlayer().getUniqueId();
+        if (!authmeApi.isRegistered(name)) {
+            if(shouldDeletePlayerData(player) && AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA)){
+                deletePlayerData(playerUUID);
+                deletePlayerStats(playerUUID);
+                return;
+            }
+            closeReasonMap.remove(player);
+        }
+    }
 }
+
+
 
 
