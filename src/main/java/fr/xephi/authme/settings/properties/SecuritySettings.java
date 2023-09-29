@@ -40,7 +40,7 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment("Should we delete playerdata and stats when they didn't finish the captcha?")
     public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.captcha.delPlayerData",false);
 
-    @Comment("Which world's playerdata should be deleted?(Enter the world *FOLDER* name where your player first logged in)")
+    @Comment("Which world's playerdata should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
     public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.delPlayerData.worldFolderName","world");
 
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
