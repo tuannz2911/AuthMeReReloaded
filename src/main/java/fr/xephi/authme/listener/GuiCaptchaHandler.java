@@ -244,6 +244,7 @@ public class GuiCaptchaHandler implements Listener {
                     deletePlayerData(playerUUID);
                     deletePlayerStats(playerUUID);
                 },100L);
+                return;
             }
             closeReasonMap.remove(player);
         }
