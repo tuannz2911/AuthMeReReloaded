@@ -126,7 +126,6 @@ public class AuthMe extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-
         // Load the plugin version data from the plugin description file
         loadPluginInfo(getDescription().getVersion());
 
@@ -134,19 +133,29 @@ public class AuthMe extends JavaPlugin {
         ConsoleLogger.initialize(getLogger(), new File(getDataFolder(), LOG_FILENAME));
         logger = ConsoleLoggerFactory.get(AuthMe.class);
         logger.info("You are running an unofficial fork version of AuthMe!");
+        if(settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
+            logger.info("\n" + "|\\   __  \\|\\  \\|\\  \\|\\___   ___\\\\  \\|\\  \\|\\   _ \\  _   \\|\\  ___ \\     \n" +
+                "\\ \\  \\|\\  \\ \\  \\\\\\  \\|___ \\  \\_\\ \\  \\\\\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|    \n" +
+                " \\ \\   __  \\ \\  \\\\\\  \\   \\ \\  \\ \\ \\   __  \\ \\  \\\\|__| \\  \\ \\  \\_|/__  \n" +
+                "  \\ \\  \\ \\  \\ \\  \\\\\\  \\   \\ \\  \\ \\ \\  \\ \\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\ \n" +
+                "   \\ \\__\\ \\__\\ \\_______\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\    \\ \\__\\ \\_______\\\n" +
+                "    \\|__|\\|__|\\|_______|    \\|__|  \\|__|\\|__|\\|__|     \\|__|\\|_______|\n" +
+                "                                                                      ");
+        }
 
         // Check server version
         if (!isClassLoaded("org.spigotmc.event.player.PlayerSpawnLocationEvent")
             || !isClassLoaded("org.bukkit.event.player.PlayerInteractAtEntityEvent")) {
-            logger.warning("你正在运行不受支持的服务器版本 (" + getServerNameVersionSafe() + "). "
-                + "AuthMe 仅支持Spigot 1.9及之后的版本!");
+            logger.warning("You are running an unsupported server version (" + getServerNameVersionSafe() + "). "
+                + "AuthMe requires Spigot 1.8.X or later!");
             stopOrUnload();
             return;
         }
+
         // Prevent running AuthMeBridge due to major exploit issues
         if (getServer().getPluginManager().isPluginEnabled("AuthMeBridge")) {
-            logger.warning("检测到 AuthMeBridge被加载, 对AuthMeBridge的支持已经停止 "
-                + "且可能会造成严重漏洞! 已中止加载!");
+            logger.warning("Detected AuthMeBridge, support for it has been dropped as it was "
+                + "causing exploit issues, please use AuthMeBungee instead! Aborting!");
             stopOrUnload();
             return;
         }
@@ -157,11 +166,11 @@ public class AuthMe extends JavaPlugin {
         } catch (Throwable th) {
             YamlParseException yamlParseException = ExceptionUtils.findThrowableInCause(YamlParseException.class, th);
             if (yamlParseException == null) {
-                logger.logException("已中止AuthMeReReloaded的初始化,原因:", th);
+                logger.logException("Aborting initialization of AuthMe:", th);
                 th.printStackTrace();
             } else {
-                logger.logException("文件 '" + yamlParseException.getFile() + "' 包含YAML语法错误. "
-                    + "请尝试在 https://yamllint.com 中检查文件内容", yamlParseException);
+                logger.logException("File '" + yamlParseException.getFile() + "' contains invalid YAML. "
+                    + "Please run its contents through http://yamllint.com", yamlParseException);
             }
             stopOrUnload();
             return;

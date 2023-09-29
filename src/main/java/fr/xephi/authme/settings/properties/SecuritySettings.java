@@ -73,6 +73,10 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> CHECK_FOR_UPDATES =
         newProperty("Plugin.updates.checkForUpdates", true);
 
+    @Comment("Should we show the Authme banner on startup?")
+    public static final Property<Boolean> SHOW_STARTUP_BANNER =
+        newProperty("Plugin.updates.showBanners", true);
+
     @Comment("Max allowed tries before a captcha is required")
     public static final Property<Integer> MAX_LOGIN_TRIES_BEFORE_CAPTCHA =
         newProperty("Security.captcha.maxLoginTry", 8);

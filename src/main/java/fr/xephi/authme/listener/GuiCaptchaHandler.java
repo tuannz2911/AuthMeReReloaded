@@ -25,6 +25,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import javax.inject.Inject;
 import java.util.Objects;
@@ -38,17 +39,19 @@ public class GuiCaptchaHandler implements Listener {
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
-    //define global enabled
+
 
     //define timesLeft
     public int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
+    /* We used many async tasks so there is concurrent**/
     protected static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
     //define randomStringSet
     String randomSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!@#%&*()_+";
     String randomString = "";
     Random randomItemSet = new Random();
     Random howManyRandom = new Random();
+
 
 //    public int tryTimesReset(){
 //        int tmp = 1;
