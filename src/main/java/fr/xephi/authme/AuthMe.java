@@ -218,7 +218,7 @@ public class AuthMe extends JavaPlugin {
                 logger.warning("ProtocolLib is not loaded, we can't enable GUI Captcha.");
             }
             //logger.info("以上功能尚在测试中,如有问题请反馈,如需关闭请前往config.yml修改");
-            logger.info("GitHub Issue: github.com/HaHaWTH/AuthMeReReloaded/issues");
+            logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
         }
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
             checkForUpdates();
