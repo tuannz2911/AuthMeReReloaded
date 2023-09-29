@@ -37,11 +37,11 @@ public final class SecuritySettings implements SettingsHolder {
         "(Requires floodgate and hookFloodgate: true)"})
     public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY = newProperty("3rdPartyFeature.captcha.ignoreBedrock",false);
 
-    @Comment("Should we delete playerdata and stats when they didn't finish the captcha?")
-    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.captcha.delPlayerData",false);
+    @Comment("Should we delete player data and stats when they didn't finish the captcha?")
+    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.captcha.purgePlayerData",false);
 
-    @Comment("Which world's playerdata should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
-    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.delPlayerData.worldFolderName","world");
+    @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
+    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.purgePlayerData.worldFolderName","world");
 
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
 //    "(Minimum value is 1)(Default: 3)"})
