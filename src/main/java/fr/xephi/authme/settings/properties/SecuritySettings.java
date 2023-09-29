@@ -77,9 +77,9 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> SHOW_STARTUP_BANNER =
         newProperty("Plugin.banners.showBanners", true);
 
-    @Comment("Should we show the Authme banner on startup?")
+    @Comment("Should we show the Authme banner on startup? (Default: §r)")
     public static final Property<String> STARTUP_BANNER_COLOR =
-        newProperty("Plugin.banners.bannerColor", "r");
+        newProperty("Plugin.banners.bannerColor", "§r");
 
 
     @Comment("Max allowed tries before a captcha is required")
