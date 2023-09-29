@@ -134,13 +134,13 @@ public class AuthMe extends JavaPlugin {
         logger = ConsoleLoggerFactory.get(AuthMe.class);
         logger.info("You are running an unofficial fork version of AuthMe!");
         if(settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
-            logger.info("\n" + "|\\   __  \\|\\  \\|\\  \\|\\___   ___\\\\  \\|\\  \\|\\   _ \\  _   \\|\\  ___ \\     \n" +
-                "\\ \\  \\|\\  \\ \\  \\\\\\  \\|___ \\  \\_\\ \\  \\\\\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|    \n" +
-                " \\ \\   __  \\ \\  \\\\\\  \\   \\ \\  \\ \\ \\   __  \\ \\  \\\\|__| \\  \\ \\  \\_|/__  \n" +
-                "  \\ \\  \\ \\  \\ \\  \\\\\\  \\   \\ \\  \\ \\ \\  \\ \\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\ \n" +
-                "   \\ \\__\\ \\__\\ \\_______\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\    \\ \\__\\ \\_______\\\n" +
-                "    \\|__|\\|__|\\|_______|    \\|__|  \\|__|\\|__|\\|__|     \\|__|\\|_______|\n" +
-                "                                                                      ");
+            String loadColorConfig = settings.getProperty(SecuritySettings.STARTUP_BANNER_COLOR);
+            logger.info("\n"+"§"+loadColorConfig+"    ___         __  __    __  ___   \n" +
+                "§"+loadColorConfig+"   /   | __  __/ /_/ /_  /  |/  /__ \n" +
+                "§"+loadColorConfig+"  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
+                "§"+loadColorConfig+" / ___ / /_/ / /_/ / / / /  / /  __/\n" +
+                "§"+loadColorConfig+"/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
+                "§"+loadColorConfig+"                                    ");
         }
 
         // Check server version
