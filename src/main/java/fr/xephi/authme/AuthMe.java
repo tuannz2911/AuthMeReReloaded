@@ -133,15 +133,7 @@ public class AuthMe extends JavaPlugin {
         ConsoleLogger.initialize(getLogger(), new File(getDataFolder(), LOG_FILENAME));
         logger = ConsoleLoggerFactory.get(AuthMe.class);
         logger.info("You are running an unofficial fork version of AuthMe!");
-        if(settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
-            String loadColorConfig = settings.getProperty(SecuritySettings.STARTUP_BANNER_COLOR);
-            logger.info("\n"+"§"+loadColorConfig+"    ___         __  __    __  ___   \n" +
-                "§"+loadColorConfig+"   /   | __  __/ /_/ /_  /  |/  /__ \n" +
-                "§"+loadColorConfig+"  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
-                "§"+loadColorConfig+" / ___ / /_/ / /_/ / / / /  / /  __/\n" +
-                "§"+loadColorConfig+"/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
-                "§"+loadColorConfig+"                                    ");
-        }
+
 
         // Check server version
         if (!isClassLoaded("org.spigotmc.event.player.PlayerSpawnLocationEvent")
@@ -187,6 +179,15 @@ public class AuthMe extends JavaPlugin {
 
         // Set up Metrics
         OnStartupTasks.sendMetrics(this, settings);
+        if(settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
+            String loadColorConfig = settings.getProperty(SecuritySettings.STARTUP_BANNER_COLOR);
+            logger.info("\n"+"§"+loadColorConfig+"    ___         __  __    __  ___   \n" +
+                "§"+loadColorConfig+"   /   | __  __/ /_/ /_  /  |/  /__ \n" +
+                "§"+loadColorConfig+"  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
+                "§"+loadColorConfig+" / ___ / /_/ / /_/ / / / /  / /  __/\n" +
+                "§"+loadColorConfig+"/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
+                "§"+loadColorConfig+"                                    ");
+        }
         // Successful message
         //detect server brand with classloader
         checkServerType();
