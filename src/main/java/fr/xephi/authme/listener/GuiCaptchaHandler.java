@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.earth2me.essentials.libs.checkerframework.checker.nullness.qual.NonNull;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.settings.properties.HooksSettings;
@@ -69,6 +70,7 @@ public class GuiCaptchaHandler implements Listener {
                     }
                     return;
                 }
+                /* Line 74 may throw NullPointerException, we can't solve it for now.*/
                 if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.REDSTONE_BLOCK)) {
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
