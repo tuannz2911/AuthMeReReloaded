@@ -240,8 +240,10 @@ public class GuiCaptchaHandler implements Listener {
         if (!authmeApi.isRegistered(name)) {
             if(AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)){
                 Bukkit.getScheduler().runTaskLater(this.plugin,() -> {
-                    deletePlayerData(playerUUID);
-                    deletePlayerStats(playerUUID);
+                    if(!player.isOnline()) {
+                        deletePlayerData(playerUUID);
+                        deletePlayerStats(playerUUID);
+                    }
                 },100L);
                 return;
             }

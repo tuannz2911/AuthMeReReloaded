@@ -24,6 +24,7 @@ import fr.xephi.authme.listener.PlayerListener19;
 import fr.xephi.authme.listener.PlayerListener19Spigot;
 import fr.xephi.authme.listener.DoubleLoginFixListener;
 import fr.xephi.authme.listener.GuiCaptchaHandler;
+import fr.xephi.authme.listener.PlayerListenerHigherThan18;
 import fr.xephi.authme.listener.ServerListener;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
@@ -74,7 +75,7 @@ public class AuthMe extends JavaPlugin {
     // Version and build number values
     private static String pluginVersion = "5.6.0-Fork";
     private static final String pluginBuild = "b";
-    private static String pluginBuildNumber = "23";
+    private static String pluginBuildNumber = "24";
     protected final Boolean SHAEnabled = false;
     // Private instances
     private EmailService emailService;
@@ -320,6 +321,11 @@ public class AuthMe extends JavaPlugin {
         pluginManager.registerEvents(injector.getSingleton(BlockListener.class), this);
         pluginManager.registerEvents(injector.getSingleton(EntityListener.class), this);
         pluginManager.registerEvents(injector.getSingleton(ServerListener.class), this);
+
+        // Try to register 1.8+ player listeners
+        if (isClassLoaded("org.bukkit.event.entity.EntityPickupItemEvent") && isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")){
+            pluginManager.registerEvents(injector.getSingleton(PlayerListenerHigherThan18.class), this);
+        }
 
         // Try to register 1.9 player listeners
         if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {

@@ -32,7 +32,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
+//import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -54,7 +54,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+//import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryView;
 
 import static org.bukkit.Bukkit.getServer;
@@ -480,12 +480,12 @@ public class PlayerListener implements Listener{
      * Inventory interactions
      */
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
-    public void onPlayerPickupItem(EntityPickupItemEvent event) {
-        if (listenerService.shouldCancelEvent(event)) {
-            event.setCancelled(true);
-        }
-    }
+//    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
+//    public void onPlayerPickupItem(EntityPickupItemEvent event) {
+//        if (listenerService.shouldCancelEvent(event)) {
+//            event.setCancelled(true);
+//        }
+//    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerDropItem(PlayerDropItemEvent event) {
@@ -540,12 +540,12 @@ public class PlayerListener implements Listener{
             event.setCancelled(true);
         }
     }
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onSwitchHand(PlayerSwapHandItemsEvent event) {
-        Player player = event.getPlayer();
-        if (!player.isSneaking() || !player.hasPermission("keybindings.use"))
-            return;
-        event.setCancelled(true);
-        Bukkit.dispatchCommand(event.getPlayer(), "help");
-    }
+//    @EventHandler(priority = EventPriority.LOWEST)
+//    public void onSwitchHand(PlayerSwapHandItemsEvent event) {
+//        Player player = event.getPlayer();
+//        if (!player.isSneaking() || !player.hasPermission("keybindings.use"))
+//            return;
+//        event.setCancelled(true);
+//        Bukkit.dispatchCommand(event.getPlayer(), "help");
+//    }
 }
