@@ -16,4 +16,5 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
  10. Player login logic improvement to reduce lag
  11. Automatically purge bot data
  12. Folia compatibility [Here](https://github.com/HaHaWTH/AuthMeReReloaded/releases/download/b20/AuthMe-5.6.0-FORK-Folia.jar)
- 13. More...... 
+ 13. Offhand Menu compatibility(Thats amazing)
+ 14. More......
