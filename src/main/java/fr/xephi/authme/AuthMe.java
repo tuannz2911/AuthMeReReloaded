@@ -205,21 +205,20 @@ public class AuthMe extends JavaPlugin {
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
         purgeService.runAutoPurge();
         // 注册玩家加入事件监听
-        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
-            if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
-                getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
-            }
-            if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-                getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
-                logger.info("(Alpha3)GUICaptcha Feature is enabled successfully!");
-                logger.info("These features are still in development, if you encountered any problem, please report.");
-
-            } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && !getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-                logger.warning("ProtocolLib is not loaded, we can't enable GUI Captcha.");
-            }
-            //logger.info("以上功能尚在测试中,如有问题请反馈,如需关闭请前往config.yml修改");
-            logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
+//        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
+        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
+            getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
         }
+        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
+            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
+            logger.info("(Alpha3)GUICaptcha Feature is enabled successfully!");
+            logger.info("These features are still in development, if you encountered any problem, please report.");
+        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && !getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
+            logger.warning("ProtocolLib is not loaded, we can't enable GUI Captcha.");
+        }
+        //logger.info("以上功能尚在测试中,如有问题请反馈,如需关闭请前往config.yml修改");
+        logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
+
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
             checkForUpdates();
         }
