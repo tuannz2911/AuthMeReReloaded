@@ -204,7 +204,7 @@ public class AuthMe extends JavaPlugin {
         // Purge on start if enabled
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
         purgeService.runAutoPurge();
-        // 注册玩家退出事件监听
+        // 注册玩家加入事件监听
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
             if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
                 getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
