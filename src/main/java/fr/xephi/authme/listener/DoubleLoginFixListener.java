@@ -1,7 +1,6 @@
 package fr.xephi.authme.listener;
 //Prevent Ghost Players
 
-import fr.xephi.authme.AuthMe;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,17 +33,3 @@ public class DoubleLoginFixListener implements Listener {
         }
     }
 }
-//    @EventHandler
-//    public void onPlayerQuit(PlayerQuitEvent event) {
-//        Player player = event.getPlayer();
-//        String LastAddr = Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress();
-//        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-//            @Override
-//            public void run() {
-//                if (player.isOnline()) {
-//                    player.kickPlayer("You have been disconnected.");
-//                }
-//            }
-//        }, 20L); // 20 ticks = 1 second
-//    }
-//}
