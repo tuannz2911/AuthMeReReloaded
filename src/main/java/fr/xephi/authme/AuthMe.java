@@ -22,7 +22,7 @@ import fr.xephi.authme.listener.PlayerListener;
 import fr.xephi.authme.listener.PlayerListener111;
 import fr.xephi.authme.listener.PlayerListener19;
 import fr.xephi.authme.listener.PlayerListener19Spigot;
-import fr.xephi.authme.listener.PlayerQuitListener;
+import fr.xephi.authme.listener.DoubleLoginFixListener;
 import fr.xephi.authme.listener.GuiCaptchaHandler;
 import fr.xephi.authme.listener.ServerListener;
 import fr.xephi.authme.mail.EmailService;
@@ -85,7 +85,7 @@ public class AuthMe extends JavaPlugin {
     private BukkitService bukkitService;
     private Injector injector;
     private BackupService backupService;
-    private ConsoleLogger logger;
+    public static ConsoleLogger logger;
     /**
      * Constructor.
      */
@@ -207,7 +207,7 @@ public class AuthMe extends JavaPlugin {
         // 注册玩家退出事件监听
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
             if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
-                getServer().getPluginManager().registerEvents(new PlayerQuitListener((Plugin) this), this);
+                getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
             }
             if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
                 getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
