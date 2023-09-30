@@ -14,4 +14,5 @@
  8. Integrated GUI Captcha feature(Bedrock compatibility & ProtocolLib needed)(70% Asynchronous)
  9. Improved listeners
  10. Player login logic improvement to reduce lag
- 11. More...... 
+ 11. Automatically purge bot data
+ 12. More...... 
