@@ -308,7 +308,7 @@ public class Whirlpool extends UnsaltedMethod {
         if (bufferRem + sourceBits < 8) {
             // all remaining data fits on buffer[bufferPos], and there still
             // remains some space.
-            bufferBits += sourceBits;
+            bufferBits += (int) sourceBits;
         } else {
             // buffer[bufferPos] is full:
             bufferPos++;
