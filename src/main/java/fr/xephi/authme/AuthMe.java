@@ -325,12 +325,14 @@ public class AuthMe extends JavaPlugin {
         // Try to register 1.8+ player listeners
         if (isClassLoaded("org.bukkit.event.entity.EntityPickupItemEvent") && isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")){
             pluginManager.registerEvents(injector.getSingleton(PlayerListenerHigherThan18.class), this);
-        }
-
-        // Try to register 1.9 player listeners
-        if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
+        } else if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
         }
+
+        // Try to register 1.9 player listeners(Moved to else-if)
+//        if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
+//            pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
+//        }
 
         // Try to register 1.9 spigot player listeners
         if (isClassLoaded("org.spigotmc.event.player.PlayerSpawnLocationEvent")) {
