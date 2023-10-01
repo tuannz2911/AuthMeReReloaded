@@ -21,9 +21,10 @@ hs_err_pid*
 
 # Ignore IDEA directory
 .idea/*
+.idea/
+
 
 # Include the project's code style settings file
-!.idea/codeStyleSettings.xml
 
 # File-based project format:
 *.ipr
