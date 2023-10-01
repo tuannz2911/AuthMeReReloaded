@@ -61,7 +61,7 @@ public class GuiCaptchaHandler implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
-            // 获取点击事件的容器
+            ItemStack currentItem = event.getCurrentItem();
             if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
                 if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
                     if (!closeReasonMap.containsKey(player)) {
@@ -70,8 +70,7 @@ public class GuiCaptchaHandler implements Listener {
                     }
                     return;
                 }
-                /* Line 74 may throw NullPointerException, we can't solve it for now.*/
-                if (Objects.requireNonNull(event.getCurrentItem()).getType().equals(Material.REDSTONE_BLOCK)) {
+                if (currentItem!=null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
