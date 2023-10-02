@@ -70,7 +70,7 @@ public class GuiCaptchaHandler implements Listener {
                     }
                     return;
                 }
-                if (currentItem!=null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
+                if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
@@ -206,10 +206,10 @@ public class GuiCaptchaHandler implements Listener {
         File serverFolder = Bukkit.getServer().getWorldContainer();
         String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建playerdata文件夹路径
-        File playerDataFolder = new File(serverFolder, File.separator+worldFolderName+File.separator+"playerdata");
+        File playerDataFolder = new File(serverFolder, File.separator + worldFolderName + File.separator + "playerdata");
 
         // 构建玩家数据文件路径
-        File playerDataFile = new File(playerDataFolder, File.separator+playerUUID + ".dat");
+        File playerDataFile = new File(playerDataFolder, File.separator + playerUUID + ".dat");
 
         // 删除玩家数据文件
         if (playerDataFile.exists()) {
@@ -221,9 +221,9 @@ public class GuiCaptchaHandler implements Listener {
         File serverFolder = Bukkit.getServer().getWorldContainer();
         String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建stats文件夹路径
-        File statsFolder = new File(serverFolder, File.separator+worldFolderName+File.separator+"stats");
+        File statsFolder = new File(serverFolder, File.separator + worldFolderName + File.separator + "stats");
         // 构建玩家统计数据文件路径
-        File statsFile = new File(statsFolder, File.separator+playerUUID + ".json");
+        File statsFile = new File(statsFolder, File.separator + playerUUID + ".json");
         // 删除玩家统计数据文件
 
         if (statsFile.exists()) {
@@ -238,7 +238,7 @@ public class GuiCaptchaHandler implements Listener {
         UUID playerUUID = event.getPlayer().getUniqueId();
         if (!authmeApi.isRegistered(name)) {
             if(AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)){
-                Bukkit.getScheduler().runTaskLater(this.plugin,() -> {
+                Bukkit.getScheduler().runTaskLater(this.plugin , () -> {
                     if(!player.isOnline()) {
                         deletePlayerData(playerUUID);
                         deletePlayerStats(playerUUID);
