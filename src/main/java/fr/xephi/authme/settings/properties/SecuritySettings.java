@@ -49,7 +49,7 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment("Should we fix the location when players logged in the portal?")
     public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixPortalStuck", false);
 
-    @Comment("Should we fix the location when players logged in the portal?")
+    @Comment("Should we fix the location when players logged underground?")
     public static final Property<Boolean> LOGIN_LOC_FIX_SUB_UNDERGROUND = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixGroundStuck", false);
 
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
