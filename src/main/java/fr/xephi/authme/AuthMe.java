@@ -18,6 +18,7 @@ import fr.xephi.authme.initialization.SettingsProvider;
 import fr.xephi.authme.initialization.TaskCloser;
 import fr.xephi.authme.listener.BlockListener;
 import fr.xephi.authme.listener.EntityListener;
+import fr.xephi.authme.listener.LoginLocationFixListener;
 import fr.xephi.authme.listener.PlayerListener;
 import fr.xephi.authme.listener.PlayerListener111;
 import fr.xephi.authme.listener.PlayerListener19;
@@ -209,6 +210,9 @@ public class AuthMe extends JavaPlugin {
 //        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
             getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
+        }
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX)) {
+            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
         }
         if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
             getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);

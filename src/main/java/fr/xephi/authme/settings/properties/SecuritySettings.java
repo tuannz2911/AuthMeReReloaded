@@ -43,6 +43,15 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
     public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.purgeWorldFolderName","world");
 
+    @Comment("Should we enable the new LoginLocationFix feature?")
+    public static final Property<Boolean> LOGIN_LOC_FIX = newProperty("3rdPartyFeature.fixes.loginLocationFix.enabled", false);
+
+    @Comment("Should we fix the location when players logged in the portal?")
+    public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixPortalStuck", false);
+
+    @Comment("Should we fix the location when players logged in the portal?")
+    public static final Property<Boolean> LOGIN_LOC_FIX_SUB_UNDERGROUND = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixGroundStuck", false);
+
 //    @Comment({"Should we kick the players when they failed captcha too many times?",
 //    "(Minimum value is 1)(Default: 3)"})
 //    public static final Property<Integer> GUI_CAPTCHA_MAX_TRY = newProperty("3rdPartyFeature.captcha.maxTryTimes",3);
