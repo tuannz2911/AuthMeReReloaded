@@ -24,9 +24,10 @@ public class LoginLocationFixListener implements Listener{
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (!authmeApi.isRegistered(player.getName()) || !authmeApi.isAuthenticated(player)) {
+            Material material = Material.getMaterial("PORTAL") != null || Material.getMaterial("PORTAL_BLOCK") != null ? Material.LEGACY_PORTAL : Material.getMaterial("NETHER_PORTAL") != null ? Material.NETHER_PORTAL : null;
             Location JoinLocation = player.getLocation().getBlock().getLocation().add(0.5, 0.1, 0.5);
             if (AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
-                if (!JoinLocation.getBlock().getType().equals(Material.NETHER_PORTAL) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(Material.NETHER_PORTAL)) {
+                if (!JoinLocation.getBlock().getType().equals(material) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(material)) {
                     return;
                 }
                 Block JoinBlock = JoinLocation.getBlock();
