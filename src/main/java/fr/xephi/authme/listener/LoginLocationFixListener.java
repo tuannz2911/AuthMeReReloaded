@@ -1,7 +1,6 @@
 package fr.xephi.authme.listener;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.settings.properties.SecuritySettings;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
