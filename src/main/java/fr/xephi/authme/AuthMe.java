@@ -393,37 +393,84 @@ public class AuthMe extends JavaPlugin {
     private static final String owner = "HaHaWTH";
     private static final String owner_gitee = "Shixuehan114514";
     private static final String repo = "AuthMeReReloaded";
-    private void checkForUpdates() {
-        logger.info("Checking for updates...");
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            try {
-                // 从南通集线器获取最新版本号
+//    private void checkForUpdates() {
+//        logger.info("Checking for updates...");
+//        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+//            try {
+//                // 从南通集线器获取最新版本号
+//
+//                URL url = new URL("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
+//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                conn.setConnectTimeout(10000); // 设置连接超时为10秒
+//                conn.setReadTimeout(10000); // 设置读取超时为10秒
+//                Scanner scanner = new Scanner(conn.getInputStream());
+//                String response = scanner.useDelimiter("\\Z").next();
+//                scanner.close();
+//
+//                // 处理JSON响应
+//                String latestVersion = response.substring(response.indexOf("tag_name") + 11);
+//                latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
+//                if ((pluginBuild + pluginBuildNumber).equals(latestVersion)) {
+//                    getLogger().log(Level.INFO,"You are running the latest version.");
+//                }
+//                if (!(pluginBuild + pluginBuildNumber).equals(latestVersion)) {
+//                    // Display update message
+//                    String message = "New version available! Latest:" + latestVersion + " Current:" + pluginBuild + pluginBuildNumber;
+//                    getLogger().log(Level.INFO, message);
+//                    getLogger().log(Level.INFO,"Download from here:github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
+//                }
+//            }catch (IOException e) {
+//                getLogger().log(Level.WARNING,"Error occurred while checking updates from GitHub. Reason: " + e.getMessage());
+//                }
+//        });
+//        }
+private void checkForUpdates() {
+    logger.info("Checking for updates...");
+    Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+        try {
+            // 从南通集线器获取最新版本号
+            URL url = new URL("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(10000); // 设置连接超时为10秒
+            conn.setReadTimeout(10000); // 设置读取超时为10秒
+            Scanner scanner = new Scanner(conn.getInputStream());
+            String response = scanner.useDelimiter("\\Z").next();
+            scanner.close();
 
-                URL url = new URL("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setConnectTimeout(10000); // 设置连接超时为10秒
-                conn.setReadTimeout(10000); // 设置读取超时为10秒
-                Scanner scanner = new Scanner(conn.getInputStream());
-                String response = scanner.useDelimiter("\\Z").next();
-                scanner.close();
-
-                // 处理JSON响应
-                String latestVersion = response.substring(response.indexOf("tag_name") + 11);
-                latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
-                if ((pluginBuild + pluginBuildNumber).equals(latestVersion)) {
-                    getLogger().log(Level.INFO,"You are running the latest version.");
-                }
-                if (!(pluginBuild + pluginBuildNumber).equals(latestVersion)) {
-                    // Display update message
-                    String message = "New version available! Latest:" + latestVersion + " Current:" + pluginBuild + pluginBuildNumber;
-                    getLogger().log(Level.INFO, message);
-                    getLogger().log(Level.INFO,"Download from here:github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
-                }
-            }catch (IOException e) {
-                getLogger().log(Level.WARNING,"Error occurred while checking updates from GitHub. Reason: " + e.getMessage());
-                }
-        });
+            // 处理JSON响应
+            String latestVersion = response.substring(response.indexOf("tag_name") + 11);
+            latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
+            if (isUpdateAvailable(latestVersion)) {
+                String message = "New version available! Latest:" + latestVersion + " Current:" + pluginBuild + pluginBuildNumber;
+                getLogger().log(Level.INFO, message);
+                getLogger().log(Level.INFO, "Download from here: github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
+            } else {
+                getLogger().log(Level.INFO, "You are running the latest version.");
+            }
+        } catch (IOException e) {
+            getLogger().log(Level.WARNING, "Error occurred while checking updates from GitHub. Reason: " + e.getMessage());
         }
+    });
+}
+    private boolean isUpdateAvailable(String latestVersion) {
+        // Extract the first character and the remaining digits from the version string
+        char latestChar = latestVersion.charAt(0);
+        int latestNumber = Integer.parseInt(latestVersion.substring(1));
+
+        char currentChar = pluginBuild.charAt(0);
+        int currentNumber = Integer.parseInt(pluginBuildNumber);
+
+        // Compare the characters first
+        if (latestChar > currentChar) {
+            return true;
+        } else if (latestChar < currentChar) {
+            return false;
+        } else {
+            // If the characters are the same, compare the numbers
+            return latestNumber > currentNumber;
+        }
+    }
+
 
     private void checkServerType() {
         if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
