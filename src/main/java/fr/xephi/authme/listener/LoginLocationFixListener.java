@@ -22,13 +22,14 @@ public class LoginLocationFixListener implements Listener{
     }
     BlockFace[] faces = {BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST};
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         Material material = Material.matchMaterial("PORTAL");
         if (material == null) {
             material = Material.matchMaterial("PORTAL_BLOCK");
-        } else {
-            material = Material.matchMaterial("NETHER_PORTAL");
+            if(material == null){
+                material = Material.matchMaterial("NETHER_PORTAL");
+            }
         }
         Location JoinLocation = player.getLocation().getBlock().getLocation().add(0.5, 0.1, 0.5);
         if (AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
