@@ -1,10 +1,7 @@
 package fr.xephi.authme.listener;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
-import fr.xephi.authme.events.GUICaptchaEvent;
-import fr.xephi.authme.events.LoginEvent;
 import fr.xephi.authme.settings.properties.SecuritySettings;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;

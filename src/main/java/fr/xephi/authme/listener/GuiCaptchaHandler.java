@@ -6,7 +6,6 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
-import fr.xephi.authme.events.GUICaptchaEvent;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -24,7 +23,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import java.io.File;
-import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -65,7 +63,6 @@ public class GuiCaptchaHandler implements Listener{
                 if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
                     if (!closeReasonMap.containsKey(player)) {
                         closeReasonMap.put(player,"verified");
-                        Bukkit.getPluginManager().callEvent(new GUICaptchaEvent(player));
                         return;
                     }
                     return;
@@ -73,7 +70,6 @@ public class GuiCaptchaHandler implements Listener{
                 if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
-                    Bukkit.getPluginManager().callEvent(new GUICaptchaEvent(player));
                     player.closeInventory();
                     player.sendMessage("§a验证完成");
                 } else {
@@ -94,7 +90,6 @@ public class GuiCaptchaHandler implements Listener{
         if (!authmeApi.isRegistered(name)) {
             if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
                 closeReasonMap.put(playerunreg, "verified");
-                Bukkit.getPluginManager().callEvent(new GUICaptchaEvent(playerunreg));
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
             }
