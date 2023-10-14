@@ -4,9 +4,9 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.earth2me.essentials.libs.checkerframework.checker.nullness.qual.NonNull;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.events.GUICaptchaEvent;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -32,17 +32,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
-public class GuiCaptchaHandler implements Listener {
+public class GuiCaptchaHandler implements Listener{
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
-
 
     //define timesLeft
     public int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
     /* We used many async tasks so there is concurrent**/
-    protected static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
     //define randomStringSet
     String randomSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!@#%&*()_+";
     String randomString = "";
@@ -66,6 +65,7 @@ public class GuiCaptchaHandler implements Listener {
                 if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
                     if (!closeReasonMap.containsKey(player)) {
                         closeReasonMap.put(player,"verified");
+                        Bukkit.getPluginManager().callEvent(new GUICaptchaEvent(player));
                         return;
                     }
                     return;
@@ -73,6 +73,7 @@ public class GuiCaptchaHandler implements Listener {
                 if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
+                    Bukkit.getPluginManager().callEvent(new GUICaptchaEvent(player));
                     player.closeInventory();
                     player.sendMessage("§a验证完成");
                 } else {
@@ -93,6 +94,7 @@ public class GuiCaptchaHandler implements Listener {
         if (!authmeApi.isRegistered(name)) {
             if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
                 closeReasonMap.put(playerunreg, "verified");
+                Bukkit.getPluginManager().callEvent(new GUICaptchaEvent(playerunreg));
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
             }
