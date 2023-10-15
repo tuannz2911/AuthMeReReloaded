@@ -66,10 +66,6 @@ public class GuiCaptchaHandler implements Listener{
             ItemStack currentItem = event.getCurrentItem();
             if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
                 if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
-                    if (!closeReasonMap.containsKey(player)) {
-                        closeReasonMap.put(player,"verified");
-                        return;
-                    }
                     return;
                 }
                 if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
@@ -77,9 +73,6 @@ public class GuiCaptchaHandler implements Listener{
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
                     player.sendMessage("§a验证完成");
-                } else {
-                    player.sendMessage("§c验证失败,你还有" + timesLeft + "§c次机会");
-                    timesLeft--;
                 }
                 //force to string
             }
@@ -165,7 +158,7 @@ public class GuiCaptchaHandler implements Listener{
                                         });
                                         timesLeft = 3;
                                     } else {
-                                        timesLeft--;
+                                        --timesLeft;
                                         if (timesLeft <= 0) {
                                             Bukkit.getScheduler().runTask(this.plugin, () -> {
                                                 playerunreg.kickPlayer("§c请先完成人机验证!");
@@ -174,23 +167,18 @@ public class GuiCaptchaHandler implements Listener{
                                             return;
                                         }
                                         playerunreg.sendMessage("§c请先完成验证!,你还有" + timesLeft + "次机会");
-
-                                    }
-                                    event.setCancelled(true);
-                                    random_num.set(random_blockpos.nextInt(26));
-                                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+//                                        event.setCancelled(true);
+                                        random_num.set(random_blockpos.nextInt(26));
                                         Bukkit.getScheduler().runTask(plugin, () -> {
                                             menu.clear();
                                             menu.setItem(random_num.get(), item);
-                                        });
-
-                                        Bukkit.getScheduler().runTask(plugin, () -> {
                                             playerunreg.openInventory(menu);
                                         });
-                                    });
+                                    }
                                 }
                             }
                         };
+                        ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
                     });
                     Bukkit.getScheduler().runTask(this.plugin, () -> {
                         chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
@@ -202,6 +190,7 @@ public class GuiCaptchaHandler implements Listener{
                                 }
                             }
                         };
+                        ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
                     });
                 });
             });
@@ -254,8 +243,8 @@ public class GuiCaptchaHandler implements Listener{
                 }, 100L);
                 return;
             }
-            ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
             ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
+            ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
             closeReasonMap.remove(player);
         }
     }
