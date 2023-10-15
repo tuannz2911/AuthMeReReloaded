@@ -109,7 +109,7 @@ public class GuiCaptchaHandler implements Listener{
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
                     AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
-                    Inventory menu = Bukkit.createInventory(null, 27, randomString + "请验证你是真人");
+                    Inventory menu = Bukkit.createInventory(playerunreg, 27, randomString + "请验证你是真人");
                     ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
                     ItemMeta meta = item.getItemMeta();
                     try {
@@ -167,7 +167,7 @@ public class GuiCaptchaHandler implements Listener{
                                             return;
                                         }
                                         playerunreg.sendMessage("§c请先完成验证!,你还有" + timesLeft + "次机会");
-//                                        event.setCancelled(true);
+                                        event.setCancelled(true);
                                         random_num.set(random_blockpos.nextInt(26));
                                         Bukkit.getScheduler().runTask(plugin, () -> {
                                             menu.clear();
