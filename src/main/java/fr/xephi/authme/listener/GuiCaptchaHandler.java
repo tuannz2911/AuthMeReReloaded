@@ -239,6 +239,7 @@ public class GuiCaptchaHandler implements Listener{
         UUID playerUUID = event.getPlayer().getUniqueId();
         if (!authmeApi.isRegistered(name)) {
             if (AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
+                closeReasonMap.remove(player);
                 Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
                     if (!player.isOnline()) {
                         deletePlayerData(playerUUID);
