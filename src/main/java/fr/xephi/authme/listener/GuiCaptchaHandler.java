@@ -1,4 +1,5 @@
 package fr.xephi.authme.listener;
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.ListenerPriority;
@@ -22,19 +23,23 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+
 import java.io.File;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
+
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 public class GuiCaptchaHandler implements Listener{
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
+    private PacketAdapter chatPacketListener;
 
+    private PacketAdapter windowPacketListener;
     //define timesLeft
     public int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
@@ -150,7 +155,7 @@ public class GuiCaptchaHandler implements Listener{
                     }
 
                     Bukkit.getScheduler().runTask(this.plugin, () -> {
-                        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
+                        windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
                             @Override
                             public void onPacketReceiving(PacketEvent event) {
                                 if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
@@ -179,11 +184,10 @@ public class GuiCaptchaHandler implements Listener{
                                     });
                                 }
                             }
-                        });
+                        };
                     });
                     Bukkit.getScheduler().runTask(this.plugin, () -> {
-
-                        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
+                        chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
                             @Override
                             public void onPacketReceiving(PacketEvent event) {
                                 if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
@@ -191,7 +195,7 @@ public class GuiCaptchaHandler implements Listener{
                                     event.setCancelled(true);
                                 }
                             }
-                        });
+                        };
                     });
                 });
             });
@@ -234,15 +238,17 @@ public class GuiCaptchaHandler implements Listener{
         String name = player.getName();
         UUID playerUUID = event.getPlayer().getUniqueId();
         if (!authmeApi.isRegistered(name)) {
-            if(AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)){
-                Bukkit.getScheduler().runTaskLater(this.plugin , () -> {
-                    if(!player.isOnline()) {
+            if (AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
+                Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+                    if (!player.isOnline()) {
                         deletePlayerData(playerUUID);
                         deletePlayerStats(playerUUID);
                     }
-                },100L);
+                }, 100L);
                 return;
             }
+            ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
+            ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
             closeReasonMap.remove(player);
         }
     }
