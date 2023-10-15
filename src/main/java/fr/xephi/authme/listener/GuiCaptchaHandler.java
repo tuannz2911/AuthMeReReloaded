@@ -164,9 +164,15 @@ public class GuiCaptchaHandler implements Listener{
                                             playerunreg.kickPlayer("§c请先完成人机验证!");
                                         });
                                         timesLeft = 3;
-                                        return;
                                     } else {
                                         timesLeft--;
+                                        if (timesLeft <= 0) {
+                                            Bukkit.getScheduler().runTask(this.plugin, () -> {
+                                                playerunreg.kickPlayer("§c请先完成人机验证!");
+                                            });
+                                            timesLeft = 3;
+                                            return;
+                                        }
                                         playerunreg.sendMessage("§c请先完成验证!,你还有" + timesLeft + "次机会");
 
                                     }
