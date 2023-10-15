@@ -9,22 +9,17 @@ import fr.xephi.authme.initialization.DataFolder;
 import fr.xephi.authme.initialization.DataSourceProvider;
 import fr.xephi.authme.initialization.OnShutdownPlayerSaver;
 import fr.xephi.authme.initialization.OnStartupTasks;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-
 import fr.xephi.authme.initialization.SettingsProvider;
 import fr.xephi.authme.initialization.TaskCloser;
 import fr.xephi.authme.listener.BlockListener;
+import fr.xephi.authme.listener.DoubleLoginFixListener;
 import fr.xephi.authme.listener.EntityListener;
+import fr.xephi.authme.listener.GuiCaptchaHandler;
 import fr.xephi.authme.listener.LoginLocationFixListener;
 import fr.xephi.authme.listener.PlayerListener;
 import fr.xephi.authme.listener.PlayerListener111;
 import fr.xephi.authme.listener.PlayerListener19;
 import fr.xephi.authme.listener.PlayerListener19Spigot;
-import fr.xephi.authme.listener.DoubleLoginFixListener;
-import fr.xephi.authme.listener.GuiCaptchaHandler;
 import fr.xephi.authme.listener.PlayerListenerHigherThan18;
 import fr.xephi.authme.listener.ServerListener;
 import fr.xephi.authme.mail.EmailService;
@@ -53,6 +48,9 @@ import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
+import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,7 +74,7 @@ public class AuthMe extends JavaPlugin {
     // Version and build number values
     private static String pluginVersion = "5.6.0-Fork";
     private static final String pluginBuild = "b";
-    private static String pluginBuildNumber = "27";
+    private static String pluginBuildNumber = "28";
     protected final Boolean SHAEnabled = false;
     // Private instances
     private EmailService emailService;
