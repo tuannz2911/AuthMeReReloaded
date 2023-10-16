@@ -71,7 +71,7 @@
 
         <!-- Versioning properties -->
         <project.outputName>AuthMe</project.outputName>
-        <project.buildNumber>CUSTOM</project.buildNumber>
+        <project.buildNumber>28</project.buildNumber>
         <project.versionCode>${project.version}-b${project.buildNumber}</project.versionCode>
         <project.finalNameBase>${project.outputName}-${project.version}</project.finalNameBase>
 

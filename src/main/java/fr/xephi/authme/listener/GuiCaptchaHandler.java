@@ -221,7 +221,6 @@ public class GuiCaptchaHandler implements Listener{
         // 构建玩家统计数据文件路径
         File statsFile = new File(statsFolder, File.separator + playerUUID + ".json");
         // 删除玩家统计数据文件
-
         if (statsFile.exists()) {
             statsFile.delete();
         }
