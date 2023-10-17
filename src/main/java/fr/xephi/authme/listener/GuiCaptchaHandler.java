@@ -65,10 +65,10 @@ public class GuiCaptchaHandler implements Listener{
             Player player = (Player) event.getWhoClicked();
             ItemStack currentItem = event.getCurrentItem();
             if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
-                if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
+                if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && getServer().getPluginManager().getPlugin("floodgate") != null) {
                     return;
                 }
-                if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)){
+                if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)) {
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
@@ -86,7 +86,7 @@ public class GuiCaptchaHandler implements Listener{
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
         if (!authmeApi.isRegistered(name)) {
-            if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && (getServer().getPluginManager().isPluginEnabled("floodgate") || getServer().getPluginManager().getPlugin("floodgate") != null)) {
+            if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && getServer().getPluginManager().getPlugin("floodgate") != null) {
                 closeReasonMap.put(playerunreg, "verified");
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
