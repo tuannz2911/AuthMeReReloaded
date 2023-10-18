@@ -14,23 +14,31 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
 
-public class LoginLocationFixListener implements Listener{
+public class LoginLocationFixListener implements Listener {
     private final Plugin plugin;
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
+
     public LoginLocationFixListener(Plugin plugin) {
         this.plugin = plugin;
     }
+
+    private static Material material = Material.matchMaterial("PORTAL");
+
     BlockFace[] faces = {BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST};
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        Material material = Material.matchMaterial("PORTAL");
+
+    static {
         if (material == null) {
             material = Material.matchMaterial("PORTAL_BLOCK");
-            if(material == null){
+            if (material == null) {
                 material = Material.matchMaterial("NETHER_PORTAL");
             }
         }
+
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
         Location JoinLocation = player.getLocation().getBlock().getLocation().add(0.5, 0.1, 0.5);
         if (AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             if (!JoinLocation.getBlock().getType().equals(material) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(material)) {
