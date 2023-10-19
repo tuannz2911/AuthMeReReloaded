@@ -9,7 +9,7 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
  3. Old bug fixes
  4. Anti Ghost Player(Doubled login bug)
  5. Use the best performance method by server brand
- 6. Bedrock Compatibility(Floodgate needed)
+ 6. Bedrock Compatibility(Floodgate needed)(based on UUID)
  7. Update checker
  8. Integrated GUI Captcha feature(Bedrock compatibility & ProtocolLib needed)(70% Asynchronous)
  9. Improved listeners
