@@ -209,7 +209,7 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
             getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
         }
-        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX)) {
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
         }
         if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {

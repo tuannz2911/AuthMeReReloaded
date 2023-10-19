@@ -2,10 +2,10 @@ package fr.xephi.authme.settings.properties;
 
 import ch.jalu.configme.Comment;
 import ch.jalu.configme.SettingsHolder;
-
 import ch.jalu.configme.properties.Property;
 import fr.xephi.authme.security.HashAlgorithm;
 import fr.xephi.authme.settings.EnumSetProperty;
+
 import java.util.Set;
 
 import static ch.jalu.configme.properties.PropertyInitializer.newLowercaseStringSetProperty;
@@ -42,9 +42,6 @@ public final class SecuritySettings implements SettingsHolder {
 
     @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
     public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.purgeWorldFolderName","world");
-
-    @Comment("Should we enable the new LoginLocationFix feature?")
-    public static final Property<Boolean> LOGIN_LOC_FIX = newProperty("3rdPartyFeature.fixes.loginLocationFix.enabled", false);
 
     @Comment("Should we fix the location when players logged in the portal?")
     public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixPortalStuck", false);

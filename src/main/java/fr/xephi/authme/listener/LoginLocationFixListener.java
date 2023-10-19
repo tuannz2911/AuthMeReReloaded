@@ -24,6 +24,8 @@ public class LoginLocationFixListener implements Listener {
 
     private static Material material = Material.matchMaterial("PORTAL");
 
+    private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
+    private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
     BlockFace[] faces = {BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST};
 
     static {
@@ -40,7 +42,7 @@ public class LoginLocationFixListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         Location JoinLocation = player.getLocation().getBlock().getLocation().add(0.5, 0.1, 0.5);
-        if (AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
+        if (isFixPortalStuck) {
             if (!JoinLocation.getBlock().getType().equals(material) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(material)) {
                 return;
             }
@@ -58,7 +60,7 @@ public class LoginLocationFixListener implements Listener {
                 JoinBlock.breakNaturally();
             }
             player.sendMessage("§a你在登录时卡在了地狱门, 现已修正");
-        } else if (AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND)) {
+        } else if (isFixGroundStuck) {
             Material UpType = JoinLocation.getBlock().getRelative(BlockFace.UP).getType();
             World world = player.getWorld();
             int MaxHeight = world.getMaxHeight();
