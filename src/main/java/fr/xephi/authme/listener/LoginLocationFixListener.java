@@ -24,6 +24,7 @@ public class LoginLocationFixListener implements Listener {
     }
 
     private static Material material = Material.matchMaterial("PORTAL");
+    private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
 
     private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
     private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
@@ -51,7 +52,11 @@ public class LoginLocationFixListener implements Listener {
             boolean solved = false;
             for (BlockFace face : faces) {
                 if (JoinBlock.getRelative(face).getType().equals(Material.AIR) && JoinBlock.getRelative(face).getRelative(BlockFace.UP).getType().equals(Material.AIR)) {
-                    TeleportUtils.teleport(player, JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
+                    if (isSmartAsyncTeleport) {
+                        TeleportUtils.teleport(player, JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
+                    } else {
+                        player.teleport(JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
+                    }
                     solved = true;
                     break;
                 }
@@ -78,12 +83,20 @@ public class LoginLocationFixListener implements Listener {
                     if (JoinBlock.getRelative(BlockFace.DOWN).getType().equals(Material.LAVA)) {
                         JoinBlock.getRelative(BlockFace.DOWN).setType(Material.DIRT);
                     }
-                    TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 0.1, 0.5));
+                    if (isSmartAsyncTeleport) {
+                        TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 0.1, 0.5));
+                    } else {
+                        player.teleport(JoinBlock.getLocation().add(0.5, 0.1, 0.5));
+                    }
                     player.sendMessage("§a你被埋住了, 坐标已修正, 下次下线之前请小心!");
                     break;
                 }
                 if (i == MaxHeight) {
-                    TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 1.1, 0.5));
+                    if (isSmartAsyncTeleport) {
+                        TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 1.1, 0.5));
+                    } else {
+                        player.teleport(JoinBlock.getLocation().add(0.5, 1.1, 0.5));
+                    }
                     player.sendMessage("§a你被埋住了, 坐标无法修正, 只好送你去了最高点, 自求多福吧少年~");
                 }
             }
