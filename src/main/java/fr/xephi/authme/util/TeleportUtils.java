@@ -28,6 +28,7 @@ public class TeleportUtils {
         try {//Detect Paper class
             Class<?> paperClass = Class.forName("com.destroystokyo.paper.PaperConfig");
             teleportAsyncMethod = Player.class.getMethod("teleportAsync", Location.class);
+            teleportAsyncMethod.setAccessible(true);
             // if detected,use teleportAsync()
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             teleportAsyncMethod = null;
@@ -38,7 +39,6 @@ public class TeleportUtils {
     public static void teleport(Player player, Location location) {
         if (teleportAsyncMethod != null) {
             try {
-                teleportAsyncMethod.setAccessible(true);
                 teleportAsyncMethod.invoke(player, location);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 player.teleport(location);
