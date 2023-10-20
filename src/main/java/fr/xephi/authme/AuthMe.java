@@ -214,8 +214,8 @@ public class AuthMe extends JavaPlugin {
         }
         if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
             getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
-            logger.info("(Beta)GUICaptcha Feature is enabled successfully!");
-            logger.info("These features are still in development, if you encountered any problem, please report.");
+            logger.info("(Beta)GUICaptcha is enabled successfully!");
+            logger.info("These features are still in early development, if you encountered any problem, please report.");
         } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && !getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
             logger.warning("ProtocolLib is not loaded, we can't enable GUI Captcha.");
         }
