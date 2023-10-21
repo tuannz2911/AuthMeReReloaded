@@ -242,6 +242,8 @@ public class GuiCaptchaHandler implements Listener{
                         deletePlayerStats(playerUUID);
                     }
                 }, 100L);
+                ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
+                ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
                 return;
             }
             ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
