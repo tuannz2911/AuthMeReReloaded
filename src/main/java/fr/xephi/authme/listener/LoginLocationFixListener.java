@@ -23,7 +23,7 @@ public class LoginLocationFixListener implements Listener {
         this.plugin = plugin;
     }
 
-    private static Material material = Material.matchMaterial("PORTAL");
+    private static Material materialPortal = Material.matchMaterial("PORTAL");
     private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
 
     private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
@@ -31,10 +31,10 @@ public class LoginLocationFixListener implements Listener {
     BlockFace[] faces = {BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST};
 
     static {
-        if (material == null) {
-            material = Material.matchMaterial("PORTAL_BLOCK");
-            if (material == null) {
-                material = Material.matchMaterial("NETHER_PORTAL");
+        if (materialPortal == null) {
+            materialPortal = Material.matchMaterial("PORTAL_BLOCK");
+            if (materialPortal == null) {
+                materialPortal = Material.matchMaterial("NETHER_PORTAL");
             }
         }
 
@@ -45,7 +45,7 @@ public class LoginLocationFixListener implements Listener {
         Player player = event.getPlayer();
         Location JoinLocation = player.getLocation().getBlock().getLocation().add(0.5, 0.1, 0.5);
         if (isFixPortalStuck) {
-            if (!JoinLocation.getBlock().getType().equals(material) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(material)) {
+            if (!JoinLocation.getBlock().getType().equals(materialPortal) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(materialPortal)) {
                 return;
             }
             Block JoinBlock = JoinLocation.getBlock();
