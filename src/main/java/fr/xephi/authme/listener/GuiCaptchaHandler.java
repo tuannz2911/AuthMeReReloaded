@@ -58,6 +58,9 @@ public class GuiCaptchaHandler implements Listener{
         this.plugin = plugin;
     }
 
+    private boolean isBedrockPlayer(UUID uuid) {
+        return AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
+    }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
@@ -65,7 +68,7 @@ public class GuiCaptchaHandler implements Listener{
             Player player = (Player) event.getWhoClicked();
             ItemStack currentItem = event.getCurrentItem();
             if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
-                if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getWhoClicked().getUniqueId()) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+                if (isBedrockPlayer(player.getUniqueId())) {
                     return;
                 }
                 if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)) {
@@ -86,7 +89,7 @@ public class GuiCaptchaHandler implements Listener{
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
         if (!authmeApi.isRegistered(name)) {
-            if (AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getPlayer().getUniqueId()) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+            if (isBedrockPlayer(playerunreg.getUniqueId())) {
                 closeReasonMap.put(playerunreg, "verified");
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
