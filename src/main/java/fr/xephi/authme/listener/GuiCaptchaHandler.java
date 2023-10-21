@@ -82,7 +82,6 @@ public class GuiCaptchaHandler implements Listener{
         }
     }
 
-
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         randomString = "";
@@ -117,7 +116,7 @@ public class GuiCaptchaHandler implements Listener{
                     ItemMeta meta = item.getItemMeta();
                     try {
                         if (meta != null) {
-                            meta.setDisplayName("§a我是真人");
+                            meta.setDisplayName("§a" + randomString + "§a我是真人");
                             item.setItemMeta(meta);
                         }
                     } catch (NullPointerException e) {
