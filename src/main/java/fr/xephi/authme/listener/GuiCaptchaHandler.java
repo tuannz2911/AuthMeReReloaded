@@ -41,7 +41,7 @@ public class GuiCaptchaHandler implements Listener{
 
     private PacketAdapter windowPacketListener;
     //define timesLeft
-    public int timesLeft = 3;
+    private int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
     /* We used many async tasks so there is concurrent**/
     public static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
@@ -93,6 +93,8 @@ public class GuiCaptchaHandler implements Listener{
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
             }
+            ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
+            ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
             Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
                 StringBuilder sb = new StringBuilder();
                 howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
@@ -180,7 +182,6 @@ public class GuiCaptchaHandler implements Listener{
                                 }
                             }
                         };
-                        ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
                     });
                     Bukkit.getScheduler().runTask(this.plugin, () -> {
                         chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
@@ -192,7 +193,6 @@ public class GuiCaptchaHandler implements Listener{
                                 }
                             }
                         };
-                        ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
                     });
                 });
             });
