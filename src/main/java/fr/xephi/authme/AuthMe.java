@@ -11,6 +11,7 @@ import fr.xephi.authme.initialization.OnShutdownPlayerSaver;
 import fr.xephi.authme.initialization.OnStartupTasks;
 import fr.xephi.authme.initialization.SettingsProvider;
 import fr.xephi.authme.initialization.TaskCloser;
+import fr.xephi.authme.listener.BedrockAutoLoginListener;
 import fr.xephi.authme.listener.BlockListener;
 import fr.xephi.authme.listener.DoubleLoginFixListener;
 import fr.xephi.authme.listener.EntityListener;
@@ -33,6 +34,7 @@ import fr.xephi.authme.service.yaml.YamlParseException;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SettingsWarner;
 import fr.xephi.authme.settings.properties.EmailSettings;
+import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.task.CleanupTask;
 import fr.xephi.authme.task.purge.PurgeService;
@@ -211,6 +213,9 @@ public class AuthMe extends JavaPlugin {
         }
         if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
+        }
+        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER)) {
+            getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
         }
         if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
             getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);

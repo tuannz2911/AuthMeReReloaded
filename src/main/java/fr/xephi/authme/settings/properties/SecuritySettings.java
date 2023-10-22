@@ -19,15 +19,19 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> STOP_SERVER_ON_PROBLEM =
         newProperty("Security.SQLProblem.stopServer", false);
 
+    @Comment({"Should we let Bedrock players login automatically?",
+        "(Requires hookFloodgate to be true)"})
+    public static final Property<Boolean> FORCE_LOGIN_BEDROCK = newProperty("3rdPartyFeature.features.bedrockAutoLogin", false);
+
     @Comment("Enable the new feature to prevent ghost players?")
     public static final Property<Boolean> ANTI_GHOST_PLAYERS = newProperty("3rdPartyFeature.fixes.antiGhostPlayer", false);
 
     @Comment({"Choose the best teleport method by server brand?",
         "(Enable this if you are using Paper)"})
-    public static final Property<Boolean> SMART_ASYNC_TELEPORT = newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport",false);
+    public static final Property<Boolean> SMART_ASYNC_TELEPORT = newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", false);
 
     @Comment("Send a GUI captcha to unregistered players?(Requires ProtocolLib)")
-    public static final Property<Boolean> GUI_CAPTCHA = newProperty("3rdPartyFeature.captcha.guiCaptcha",false);
+    public static final Property<Boolean> GUI_CAPTCHA = newProperty("3rdPartyFeature.captcha.guiCaptcha", false);
 
     @Comment({"Should we kick the players when they don't finish the GUI captcha in seconds?",
         "(less than or equals 0 is disabled)"})
