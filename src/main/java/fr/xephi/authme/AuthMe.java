@@ -208,33 +208,38 @@ public class AuthMe extends JavaPlugin {
         purgeService.runAutoPurge();
         // 注册玩家加入事件监听
 //        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
-        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
-            getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
-        }
-        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
-            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
-        }
-        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().isPluginEnabled("floodgate")) {
-            getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
-        }
-        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
-            logger.info("(Beta)GUICaptcha is enabled successfully!");
-            logger.info("These features are still in early development, if you encountered any problem, please report.");
-        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && !getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-            logger.warning("ProtocolLib is not loaded, we can't enable GUI Captcha.");
-        }
+        register3rdPartyListeners();
         logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
 
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
             checkForUpdates();
         }
 
-        if (SHAEnabled){
+        if (SHAEnabled) {
             //shaChecker();
         }
     }
+
     public File pluginfile = getFile();
+
+    private void register3rdPartyListeners() {
+        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
+            getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
+        }
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
+            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
+        }
+        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+            getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
+        }
+        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
+            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
+            logger.info("(Beta)GUICaptcha is enabled successfully!");
+            logger.info("These features are still in early development, if you encountered any problem, please report.");
+        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
+            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
+        }
+    }
     /**
      * Load the version and build number of the plugin from the description file.
      *

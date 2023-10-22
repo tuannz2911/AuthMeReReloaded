@@ -38,7 +38,6 @@ public class GuiCaptchaHandler implements Listener{
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final Plugin plugin;
     private PacketAdapter chatPacketListener;
-
     private PacketAdapter windowPacketListener;
     //define timesLeft
     private int timesLeft = 3;

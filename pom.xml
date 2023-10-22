@@ -784,7 +784,13 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Bukkit Libraries  -->
+        <!-- FastUtil -->
+        <!--        <dependency>-->
+        <!--            <groupId>it.unimi.dsi</groupId>-->
+        <!--            <artifactId>fastutil-core</artifactId>-->
+        <!--            <version>8.5.12</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
 
         <!-- ConfigMe -->
         <dependency>
