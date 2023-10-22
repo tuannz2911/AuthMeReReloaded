@@ -1,5 +1,5 @@
 package fr.xephi.authme.listener;
-
+/* Inspired by DongShaoNB/BedrockPlayerSupport **/
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.settings.properties.HooksSettings;
