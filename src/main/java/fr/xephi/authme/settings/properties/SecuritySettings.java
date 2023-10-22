@@ -20,7 +20,7 @@ public final class SecuritySettings implements SettingsHolder {
         newProperty("Security.SQLProblem.stopServer", false);
 
     @Comment({"Should we let Bedrock players login automatically?",
-        "(Requires hookFloodgate to be true)"})
+        "(Requires hookFloodgate to be true & floodgate loaded)"})
     public static final Property<Boolean> FORCE_LOGIN_BEDROCK = newProperty("3rdPartyFeature.features.bedrockAutoLogin", false);
 
     @Comment("Enable the new feature to prevent ghost players?")

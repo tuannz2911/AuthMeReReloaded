@@ -214,7 +214,7 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
         }
-        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER)) {
+        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().isPluginEnabled("floodgate")) {
             getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
         }
         if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
