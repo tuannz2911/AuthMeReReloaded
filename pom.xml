@@ -784,14 +784,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- FastUtil -->
-        <!--        <dependency>-->
-        <!--            <groupId>it.unimi.dsi</groupId>-->
-        <!--            <artifactId>fastutil-core</artifactId>-->
-        <!--            <version>8.5.12</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
         <!-- ConfigMe -->
         <dependency>
             <groupId>ch.jalu</groupId>
@@ -806,7 +798,7 @@
             </exclusions>
         </dependency>
 
-        <!-- bStats metrics -->
+        <!-- bStats metrics  -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>

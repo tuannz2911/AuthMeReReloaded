@@ -36,7 +36,6 @@ public class LoginLocationFixListener implements Listener {
                 materialPortal = Material.matchMaterial("NETHER_PORTAL");
             }
         }
-
     }
 
     @EventHandler
