@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
+import static fr.xephi.authme.util.PlayerUtils.isNpc;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 public class GuiCaptchaHandler implements Listener{
@@ -86,7 +87,7 @@ public class GuiCaptchaHandler implements Listener{
         randomString = "";
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
-        if (!authmeApi.isRegistered(name)) {
+        if (!authmeApi.isRegistered(name) && !isNpc(playerunreg)) {
             if (isBedrockPlayer(playerunreg.getUniqueId())) {
                 closeReasonMap.put(playerunreg, "verified");
                 playerunreg.sendMessage("§a基岩版自动验证完成");
