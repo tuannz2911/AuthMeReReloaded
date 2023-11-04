@@ -127,13 +127,8 @@ public class GuiCaptchaHandler implements Listener{
                     } catch (NullPointerException e) {
                         getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
                     }
-                    Bukkit.getScheduler().runTask(this.plugin, () -> {
-                        menu.setItem(random_num.get(), item);
-                    });
                     menu.setItem(random_num.get(), item);
-                    Bukkit.getScheduler().runTask(this.plugin, () -> {
-                        playerunreg.openInventory(menu);
-                    });
+                    playerunreg.openInventory(menu);
                     if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
                         long timeOut = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
                         if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT)) {
