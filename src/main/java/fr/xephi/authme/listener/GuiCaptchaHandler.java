@@ -37,6 +37,7 @@ import static org.bukkit.Bukkit.getServer;
 public class GuiCaptchaHandler implements Listener{
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
+
     private final Plugin plugin;
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
