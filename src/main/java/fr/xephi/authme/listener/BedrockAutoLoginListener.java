@@ -1,8 +1,8 @@
 package fr.xephi.authme.listener;
 /* Inspired by DongShaoNB/BedrockPlayerSupport **/
+
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
-import fr.xephi.authme.events.RestoreSessionEvent;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import org.bukkit.entity.Player;
@@ -40,13 +40,13 @@ public class BedrockAutoLoginListener implements Listener {
     }
 
     /* prevent sending duplicate messages */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerRestoreSession(RestoreSessionEvent event) {
-        Player player = event.getPlayer();
-        String name = event.getPlayer().getName();
-        UUID uuid = event.getPlayer().getUniqueId();
-        if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
-            event.setCancelled(true);
-        }
-    }
+//    @EventHandler(priority = EventPriority.HIGHEST)
+//    public void onPlayerRestoreSession(RestoreSessionEvent event) {
+//        Player player = event.getPlayer();
+//        String name = event.getPlayer().getName();
+//        UUID uuid = event.getPlayer().getUniqueId();
+//        if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
+//            event.setCancelled(true);
+//        }
+//    }
 }
