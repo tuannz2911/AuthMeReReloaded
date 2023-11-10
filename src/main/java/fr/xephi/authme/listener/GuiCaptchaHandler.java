@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -22,8 +23,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.util.Random;
 import java.util.UUID;
@@ -34,11 +35,15 @@ import java.util.logging.Level;
 import static fr.xephi.authme.util.PlayerUtils.isNpc;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
-public class GuiCaptchaHandler implements Listener{
+
+public class GuiCaptchaHandler implements Listener {
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
+    @Inject
+    private BukkitService bukkitService;
+    @Inject
+    private AuthMe plugin;
 
-    private final Plugin plugin;
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
     //define timesLeft
@@ -55,8 +60,7 @@ public class GuiCaptchaHandler implements Listener{
 
     int howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
 
-    public GuiCaptchaHandler(Plugin plugin) {
-        this.plugin = plugin;
+    public GuiCaptchaHandler() {
     }
 
     private boolean isBedrockPlayer(UUID uuid) {
@@ -83,7 +87,6 @@ public class GuiCaptchaHandler implements Listener{
                     player.closeInventory();
                     player.sendMessage("§a验证完成");
                 }
-                //force to string
             }
         }
     }
@@ -99,7 +102,7 @@ public class GuiCaptchaHandler implements Listener{
                 playerunreg.sendMessage("§a基岩版自动验证完成");
                 return;
             }
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+            bukkitService.runTaskAsynchronously(() -> {
                 StringBuilder sb = new StringBuilder();
                 howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
                 for (int i = 0; i < howLongIsRandomString; i++) {
@@ -113,7 +116,7 @@ public class GuiCaptchaHandler implements Listener{
                     sb.append(randomChar);
                 }
 
-                Bukkit.getScheduler().runTask(this.plugin, () -> {
+                bukkitService.runTask(() -> {
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
                     AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
@@ -133,15 +136,15 @@ public class GuiCaptchaHandler implements Listener{
                     if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
                         long timeOut = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
                         if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT)) {
-                            Bukkit.getScheduler().runTask(this.plugin, () -> {
+                            bukkitService.runTask(() -> {
                                 getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
                                     AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
                             });
                             timeOut = AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT);
                         }
                         long finalTimeOut = timeOut;
-                        Bukkit.getScheduler().runTask(this.plugin, () -> {
-                            Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+                        bukkitService.runTask(() -> {
+                            bukkitService.runTaskLater(() -> {
                                 if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
                                     playerunreg.kickPlayer("§c验证超时");
                                     timesLeft = 3; // Reset the attempt counter
@@ -150,20 +153,20 @@ public class GuiCaptchaHandler implements Listener{
                         });
                     }
 
-                    Bukkit.getScheduler().runTask(this.plugin, () -> {
+                    bukkitService.runTask(() -> {
                         windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
                             @Override
                             public void onPacketReceiving(PacketEvent event) {
                                 if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
                                     if (timesLeft <= 0) {
-                                        Bukkit.getScheduler().runTask(this.plugin, () -> {
+                                        bukkitService.runTask(() -> {
                                             playerunreg.kickPlayer("§c请先完成人机验证!");
                                         });
                                         timesLeft = 3;
                                     } else {
                                         --timesLeft;
                                         if (timesLeft <= 0) {
-                                            Bukkit.getScheduler().runTask(this.plugin, () -> {
+                                            bukkitService.runTask(() -> {
                                                 playerunreg.kickPlayer("§c请先完成人机验证!");
                                             });
                                             timesLeft = 3;
@@ -172,7 +175,7 @@ public class GuiCaptchaHandler implements Listener{
                                         playerunreg.sendMessage("§c请先完成验证!,你还有" + timesLeft + "次机会");
                                         event.setCancelled(true);
                                         random_num.set(random_blockpos.nextInt(26));
-                                        Bukkit.getScheduler().runTask(plugin, () -> {
+                                        bukkitService.runTask(() -> {
                                             menu.clear();
                                             menu.setItem(random_num.get(), item);
                                             playerunreg.openInventory(menu);
@@ -183,7 +186,7 @@ public class GuiCaptchaHandler implements Listener{
                         };
                         ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
                     });
-                    Bukkit.getScheduler().runTask(this.plugin, () -> {
+                    bukkitService.runTask(() -> {
                         chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
                             @Override
                             public void onPacketReceiving(PacketEvent event) {
@@ -237,7 +240,7 @@ public class GuiCaptchaHandler implements Listener{
         if (!authmeApi.isRegistered(name)) {
             if (AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
                 closeReasonMap.remove(player);
-                Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+                bukkitService.runTaskLater(() -> {
                     if (!player.isOnline()) {
                         deletePlayerData(playerUUID);
                         deletePlayerStats(playerUUID);

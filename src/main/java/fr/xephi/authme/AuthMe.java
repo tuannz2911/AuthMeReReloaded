@@ -124,6 +124,7 @@ public class AuthMe extends JavaPlugin {
     }
 
 
+
     /**
      * Method called when the server enables the plugin.
      */
@@ -233,13 +234,13 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
             getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
         }
-        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
-            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
-            logger.info("(Beta)GUICaptcha is enabled successfully!");
-            logger.info("These features are still in early development, if you encountered any problem, please report.");
-        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
-            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
-        }
+//        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
+//            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
+//            logger.info("(Beta)GUICaptcha is enabled successfully!");
+//            logger.info("These features are still in early development, if you encountered any problem, please report.");
+//        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
+//            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
+//        }
     }
     /**
      * Load the version and build number of the plugin from the description file.
@@ -335,8 +336,18 @@ public class AuthMe extends JavaPlugin {
         pluginManager.registerEvents(injector.getSingleton(EntityListener.class), this);
         pluginManager.registerEvents(injector.getSingleton(ServerListener.class), this);
 
+        //Register 3rd party listeners
+        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
+            pluginManager.registerEvents(injector.getSingleton(GuiCaptchaHandler.class), this);
+            logger.info("(Beta)GUICaptcha is enabled successfully!");
+            logger.info("These features are still in early development, if you encountered any problem, please report.");
+        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
+            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
+        }
+
+
         // Try to register 1.8+ player listeners
-        if (isClassLoaded("org.bukkit.event.entity.EntityPickupItemEvent") && isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")){
+        if (isClassLoaded("org.bukkit.event.entity.EntityPickupItemEvent") && isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListenerHigherThan18.class), this);
         } else if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
