@@ -1,4 +1,5 @@
 package fr.xephi.authme.listener;
+
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -12,15 +13,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
+
+import javax.inject.Inject;
 
 
 public class LoginLocationFixListener implements Listener {
-    private final Plugin plugin;
+    @Inject
+    private AuthMe plugin;
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
 
-    public LoginLocationFixListener(Plugin plugin) {
-        this.plugin = plugin;
+    public LoginLocationFixListener() {
     }
 
     private static Material materialPortal = Material.matchMaterial("PORTAL");

@@ -224,9 +224,9 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
             getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
         }
-        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
-            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
-        }
+//        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
+//            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
+//        }
     }
     /**
      * Load the version and build number of the plugin from the description file.
@@ -322,18 +322,6 @@ public class AuthMe extends JavaPlugin {
         pluginManager.registerEvents(injector.getSingleton(EntityListener.class), this);
         pluginManager.registerEvents(injector.getSingleton(ServerListener.class), this);
 
-        //Register 3rd party listeners
-        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
-            pluginManager.registerEvents(injector.getSingleton(GuiCaptchaHandler.class), this);
-            logger.info("(Beta)GUICaptcha is enabled successfully!");
-            logger.info("These features are still in early development, if you encountered any problem, please report.");
-        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
-            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
-        }
-        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
-            pluginManager.registerEvents(injector.getSingleton(BedrockAutoLoginListener.class), this);
-        }
-
 
         // Try to register 1.8+ player listeners
         if (isClassLoaded("org.bukkit.event.entity.EntityPickupItemEvent") && isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
@@ -341,8 +329,7 @@ public class AuthMe extends JavaPlugin {
         } else if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
         }
-
-        // Try to register 1.9 player listeners(Moved to else-if)
+// Try to register 1.9 player listeners(Moved to else-if)
 //        if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
 //            pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
 //        }
@@ -355,6 +342,21 @@ public class AuthMe extends JavaPlugin {
         // Register listener for 1.11 events if available
         if (isClassLoaded("org.bukkit.event.entity.EntityAirChangeEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListener111.class), this);
+        }
+
+        //Register 3rd party listeners
+        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
+            pluginManager.registerEvents(injector.getSingleton(GuiCaptchaHandler.class), this);
+            logger.info("(Beta)GUICaptcha is enabled successfully!");
+            logger.info("These features are still in early development, if you encountered any problem, please report.");
+        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
+            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
+        }
+        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+            pluginManager.registerEvents(injector.getSingleton(BedrockAutoLoginListener.class), this);
+        }
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
+            pluginManager.registerEvents(injector.getSingleton(LoginLocationFixListener.class), this);
         }
     }
 
