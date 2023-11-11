@@ -345,7 +345,7 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
             pluginManager.registerEvents(injector.getSingleton(BedrockAutoLoginListener.class), this);
         } else if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && (!settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) || getServer().getPluginManager().getPlugin("floodgate") == null)) {
-            logger.warning("Failed to enable BedrockAutoLogin, make sure hookFloodgate is true and floodgate is loaded.");
+            logger.warning("Failed to enable BedrockAutoLogin, ensure hookFloodgate: true and floodgate is loaded.");
         }
         if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             pluginManager.registerEvents(injector.getSingleton(LoginLocationFixListener.class), this);
