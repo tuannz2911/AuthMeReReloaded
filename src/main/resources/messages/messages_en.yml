@@ -155,3 +155,14 @@ time:
   hours: 'hours'
   day: 'day'
   days: 'days'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aVerification success!'
+  bedrock_auto_verify_success: '&aBedrock verification success!'
+  captcha_window_name: '%random Verification'
+  captcha_clickable_name: '%random I am human'
+  message_on_retry: '&cVerification failed, you have %times retries left'
+  denied_message_sending: '&cPlease be verified before chatting!'
+  kick_on_failed: '&cPlease complete the verification!'
+  kick_on_timeout: '&cVerification timed out!'

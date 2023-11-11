@@ -149,6 +149,7 @@ public class MessageUpdater {
             .put("verification", "Verification code")
             .put("time", "Time units")
             .put("two_factor", "Two-factor authentication")
+            .put("gui_captcha", "3rd party features: GUI Captcha")
             .build();
 
         Set<String> addedKeys = new HashSet<>();

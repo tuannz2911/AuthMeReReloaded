@@ -7,7 +7,10 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.service.BukkitService;
+import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -43,6 +46,10 @@ public class GuiCaptchaHandler implements Listener {
     private BukkitService bukkitService;
     @Inject
     private AuthMe plugin;
+    @Inject
+    private Messages messages;
+    @Inject
+    private CommonService service;
 
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
@@ -85,7 +92,7 @@ public class GuiCaptchaHandler implements Listener {
                     event.setCancelled(true);
                     closeReasonMap.put(player, "verified");
                     player.closeInventory();
-                    player.sendMessage("§a验证完成");
+                    messages.send(player, MessageKey.GUI_CAPTCHA_VERIFIED);
                 }
             }
         }
@@ -99,7 +106,7 @@ public class GuiCaptchaHandler implements Listener {
         if (!authmeApi.isRegistered(name) && !isNpc(playerunreg)) {
             if (isBedrockPlayer(playerunreg.getUniqueId())) {
                 closeReasonMap.put(playerunreg, "verified");
-                playerunreg.sendMessage("§a基岩版自动验证完成");
+                messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
                 return;
             }
             bukkitService.runTaskAsynchronously(() -> {
@@ -120,12 +127,12 @@ public class GuiCaptchaHandler implements Listener {
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
                     AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
-                    Inventory menu = Bukkit.createInventory(playerunreg, 27, randomString + "请验证你是真人");
+                    Inventory menu = Bukkit.createInventory(playerunreg, 27, messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_WINDOW_NAME, randomString));
                     ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
                     ItemMeta meta = item.getItemMeta();
                     try {
                         if (meta != null) {
-                            meta.setDisplayName("§a" + randomString + "§a我是真人");
+                            meta.setDisplayName(messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_CLICKABLE_NAME, randomString));
                             item.setItemMeta(meta);
                         }
                     } catch (NullPointerException e) {
@@ -146,7 +153,7 @@ public class GuiCaptchaHandler implements Listener {
                         bukkitService.runTask(() -> {
                             bukkitService.runTaskLater(() -> {
                                 if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    playerunreg.kickPlayer("§c验证超时");
+                                    playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
                                     timesLeft = 3; // Reset the attempt counter
                                 }
                             }, finalTimeOut * 20L);
@@ -160,19 +167,19 @@ public class GuiCaptchaHandler implements Listener {
                                 if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
                                     if (timesLeft <= 0) {
                                         bukkitService.runTask(() -> {
-                                            playerunreg.kickPlayer("§c请先完成人机验证!");
+                                            playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
                                         });
                                         timesLeft = 3;
                                     } else {
                                         --timesLeft;
                                         if (timesLeft <= 0) {
                                             bukkitService.runTask(() -> {
-                                                playerunreg.kickPlayer("§c请先完成人机验证!");
+                                                playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
                                             });
                                             timesLeft = 3;
                                             return;
                                         }
-                                        playerunreg.sendMessage("§c请先完成验证!,你还有" + timesLeft + "次机会");
+                                        messages.send(playerunreg, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
                                         event.setCancelled(true);
                                         random_num.set(random_blockpos.nextInt(26));
                                         bukkitService.runTask(() -> {
@@ -191,7 +198,7 @@ public class GuiCaptchaHandler implements Listener {
                             @Override
                             public void onPacketReceiving(PacketEvent event) {
                                 if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    playerunreg.sendMessage("§c请先完成验证!");
+                                    messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
                                     event.setCancelled(true);
                                 }
                             }

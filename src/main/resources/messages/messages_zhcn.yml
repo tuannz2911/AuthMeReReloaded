@@ -154,13 +154,24 @@ time:
 
 # Two-factor authentication
 two_factor:
-    code_created: '&7您正在激活双重验证, 请打开 &a%url &7扫描二维码'
-    confirmation_required: '&7请输入“/totp confirm <验证码>”来确认激活双重验证'
-    code_required: '&c请输入“/totp code <验证码>”来提交验证码'
-    already_enabled: '&a双重验证已启用'
-    enable_error_no_code: '&c验证码丢失'
-    enable_success: '&a已成功启用双重验证'
-    enable_error_wrong_code: '&c验证码错误或者已经过期,请重新执行“/totp add”'
-    not_enabled_error: '&c双重验证未在您的账号上启用,请使用“/totp add”来启用'
-    removed_success: '&c双重验证已从您的账号上禁用'
-    invalid_code: '&c无效的验证码'
+  code_created: '&7您正在激活双重验证, 请打开 &a%url &7扫描二维码'
+  confirmation_required: '&7请输入“/totp confirm <验证码>”来确认激活双重验证'
+  code_required: '&c请输入“/totp code <验证码>”来提交验证码'
+  already_enabled: '&a双重验证已启用'
+  enable_error_no_code: '&c验证码丢失'
+  enable_success: '&a已成功启用双重验证'
+  enable_error_wrong_code: '&c验证码错误或者已经过期,请重新执行“/totp add”'
+  not_enabled_error: '&c双重验证未在您的账号上启用,请使用“/totp add”来启用'
+  removed_success: '&c双重验证已从您的账号上禁用'
+  invalid_code: '&c无效的验证码'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&a*** 验证完成 ***'
+  bedrock_auto_verify_success: '&a*** 基岩版自动验证完成 ***'
+  captcha_window_name: '&k%random&r&n请验证你是真人'
+  captcha_clickable_name: '&k%random&r&n我是真人'
+  message_on_retry: '&c验证失败,你还有 %times 次机会'
+  denied_message_sending: '&c请先完成验证再聊天!'
+  kick_on_failed: '&c请先完成验证!'
+  kick_on_timeout: '&c验证超时'
