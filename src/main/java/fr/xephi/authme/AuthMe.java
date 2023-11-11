@@ -44,7 +44,6 @@ import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -221,9 +220,9 @@ public class AuthMe extends JavaPlugin {
 
     //Will be migrated to Injector register
     private void register3rdPartyListeners() {
-        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
-            getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
-        }
+//        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
+//            getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
+//        }
 //        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
 //            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
 //        }
@@ -359,6 +358,9 @@ public class AuthMe extends JavaPlugin {
         }
         if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             pluginManager.registerEvents(injector.getSingleton(LoginLocationFixListener.class), this);
+        }
+        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
+            pluginManager.registerEvents(injector.getSingleton(DoubleLoginFixListener.class), this);
         }
     }
 
