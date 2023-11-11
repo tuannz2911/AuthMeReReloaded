@@ -77,7 +77,6 @@ public class AuthMe extends JavaPlugin {
     private static String pluginVersion = "5.6.0-Fork";
     private static final String pluginBuild = "b";
     private static String pluginBuildNumber = "31";
-    protected final Boolean SHAEnabled = false;
     // Private instances
     private EmailService emailService;
     private CommandHandler commandHandler;
@@ -208,7 +207,7 @@ public class AuthMe extends JavaPlugin {
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
         purgeService.runAutoPurge();
         // 注册玩家加入事件监听
-        register3rdPartyListeners();
+//        register3rdPartyListeners();
         logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
 
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
@@ -216,17 +215,9 @@ public class AuthMe extends JavaPlugin {
         }
     }
 
-    public File pluginfile = getFile();
 
-    //Will be migrated to Injector register
-    private void register3rdPartyListeners() {
-//        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
-//            getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
-//        }
-//        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
-//            getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
-//        }
-    }
+    //Migrated
+
     /**
      * Load the version and build number of the plugin from the description file.
      *
