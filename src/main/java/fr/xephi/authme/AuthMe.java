@@ -43,7 +43,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -393,7 +392,6 @@ public class AuthMe extends JavaPlugin {
 
         // Disabled correctly
         Consumer<String> infoLogMethod = logger == null ? getLogger()::info : logger::info;
-        HandlerList.unregisterAll(this);
         infoLogMethod.accept("AuthMe " + this.getDescription().getVersion() + " is unloaded successfully!");
         ConsoleLogger.closeFileWriter();
     }
