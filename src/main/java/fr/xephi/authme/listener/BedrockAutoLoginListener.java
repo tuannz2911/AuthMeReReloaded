@@ -3,6 +3,7 @@ package fr.xephi.authme.listener;
 
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import org.bukkit.entity.Player;
@@ -10,18 +11,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 
+import javax.inject.Inject;
 import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
 public class BedrockAutoLoginListener implements Listener {
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
-    private final Plugin plugin;
+    @Inject
+    private BukkitService bukkitService;
+    @Inject
+    private AuthMe plugin;
 
-    public BedrockAutoLoginListener(Plugin plugin) {
-        this.plugin = plugin;
+
+    public BedrockAutoLoginListener() {
     }
 
     private boolean isBedrockPlayer(UUID uuid) {

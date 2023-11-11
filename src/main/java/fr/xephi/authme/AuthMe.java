@@ -231,9 +231,9 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
         }
-        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
-            getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
-        }
+//        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+//            getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
+//        }
 //        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
 //            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
 //            logger.info("(Beta)GUICaptcha is enabled successfully!");
@@ -343,6 +343,9 @@ public class AuthMe extends JavaPlugin {
             logger.info("These features are still in early development, if you encountered any problem, please report.");
         } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
             logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
+        }
+        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+            pluginManager.registerEvents(injector.getSingleton(BedrockAutoLoginListener.class), this);
         }
 
 
