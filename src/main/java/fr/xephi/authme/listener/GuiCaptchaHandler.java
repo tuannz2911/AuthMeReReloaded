@@ -239,6 +239,16 @@ public class GuiCaptchaHandler implements Listener {
         }
     }
 
+    private void deleteAuthMePlayerData(UUID playerUUID) {
+        File pluginFolder = plugin.getDataFolder();
+        File path = new File(pluginFolder, File.separator + "playerdata" + File.separator + playerUUID);
+        File dataFile = new File(path, File.separator + "data.json");
+        if (dataFile.exists()) {
+            dataFile.delete();
+            path.delete();
+        }
+    }
+
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
@@ -251,6 +261,7 @@ public class GuiCaptchaHandler implements Listener {
                     if (!player.isOnline()) {
                         deletePlayerData(playerUUID);
                         deletePlayerStats(playerUUID);
+                        deleteAuthMePlayerData(playerUUID);
                     }
                 }, 100L);
                 removePacketListeners();
