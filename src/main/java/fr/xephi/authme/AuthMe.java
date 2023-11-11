@@ -209,21 +209,17 @@ public class AuthMe extends JavaPlugin {
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
         purgeService.runAutoPurge();
         // 注册玩家加入事件监听
-//        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS) || settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)/* || settings.getProperty(SecuritySettings.GUI_CAPTCHA)*/) {
         register3rdPartyListeners();
         logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
 
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
             checkForUpdates();
         }
-
-        if (SHAEnabled) {
-            //shaChecker();
-        }
     }
 
     public File pluginfile = getFile();
 
+    //Will be migrated to Injector register
     private void register3rdPartyListeners() {
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
             getServer().getPluginManager().registerEvents(new DoubleLoginFixListener((Plugin) this), this);
@@ -231,16 +227,6 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             getServer().getPluginManager().registerEvents(new LoginLocationFixListener((Plugin) this), this);
         }
-//        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
-//            getServer().getPluginManager().registerEvents(new BedrockAutoLoginListener((Plugin) this), this);
-//        }
-//        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
-//            getServer().getPluginManager().registerEvents(new GuiCaptchaHandler((Plugin) this), this);
-//            logger.info("(Beta)GUICaptcha is enabled successfully!");
-//            logger.info("These features are still in early development, if you encountered any problem, please report.");
-//        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
-//            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
-//        }
     }
     /**
      * Load the version and build number of the plugin from the description file.
@@ -481,72 +467,6 @@ public class AuthMe extends JavaPlugin {
             logger.info("AuthMeReReloaded is running on Unknown*");
         }
     }
-    // 其他方法和事件处理
-
-
-    // 其他方法和事件处理
-    private static final String SHA_URL = "https://raw.githubusercontent.com/"+ owner +"/"+ repo + "/master/"+pluginBuild +pluginBuildNumber+ ".sha";
-    private static final String ALGORITHM = "SHA-256";
-    private static final String PROXY_URL = "https://ghproxy.com/";
-    private static final String SHA_URL_GITEE = "https://gitee.com/"+ owner_gitee +"/"+ repo + "/raw/master/"+pluginBuild+pluginBuildNumber+ ".sha";
-
-//    public void shaChecker() {
-//        // 请求SHA文件
-//
-//        String actualSha;
-//        try {
-//            URL url;
-//            if(settings.getProperty(SecuritySettings.SHA_CHECK_METHOD).equals("github")) {
-//                url = new URL(SHA_URL);
-//                logger.info("正在检查文件完整性...(GitHub)");
-//            } else if(settings.getProperty(SecuritySettings.SHA_CHECK_METHOD).equals("ghproxy")) {
-//                url = new URL(PROXY_URL + SHA_URL);
-//                logger.info("正在检查文件完整性...(GhProxy)");
-//            } else if (settings.getProperty(SecuritySettings.SHA_CHECK_METHOD).equals("gitee")) {
-//                url = new URL(SHA_URL_GITEE);
-//                logger.info("正在检查文件完整性...(Gitee)");
-//            }else {
-//                logger.warning("未知的SHA检查方法,将从GitHub获取SHA文件");
-//                url = new URL(SHA_URL);
-//            }
-//
-//
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setConnectTimeout(10000);
-//            conn.setReadTimeout(9000);
-//            conn.setRequestMethod("GET");
-//            InputStream stream = conn.getInputStream();
-//            ByteArrayOutputStream result = new ByteArrayOutputStream();
-//            byte[] buffer = new byte[1024];
-//            int length;
-//            while ((length = stream.read(buffer)) != -1) {
-//                result.write(buffer, 0, length);
-//            }
-//            String expectedSha = result.toString().trim();
-//            // 计算插件文件的SHA值
-//            MessageDigest md = MessageDigest.getInstance(ALGORITHM);
-//            byte[] fileBytes = Files.readAllBytes(pluginfile.toPath());
-//            byte[] hashBytes = md.digest(fileBytes);
-//            StringBuilder sb = new StringBuilder();
-//            for (byte b : hashBytes) {
-//                sb.append(String.format("%02x", b));
-//            }
-//            actualSha = sb.toString();
-//
-//            // 比较SHA值并加载插件
-//            if (expectedSha.equals(actualSha)) {
-//                logger.info("SHA联网安全校验完毕");
-//            } else {
-//                // SHA值不匹配，插件可能被篡改
-//                logger.warning("SHA值不匹配,插件被篡改");
-//                stopOrUnload();
-//            }
-//        }catch (NoSuchAlgorithmException | IOException e){
-//            logger.warning("SHA校验失败,请尝试切换校验API");
-//            logger.warning("您当前请求的API为:" + settings.getProperty(SecuritySettings.SHA_CHECK_METHOD));
-//            stopOrUnload();
-//        }
-//    }
 
 
     /**
