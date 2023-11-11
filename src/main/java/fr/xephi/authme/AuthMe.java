@@ -39,7 +39,6 @@ import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.task.CleanupTask;
 import fr.xephi.authme.task.purge.PurgeService;
 import fr.xephi.authme.util.ExceptionUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -402,7 +401,7 @@ public class AuthMe extends JavaPlugin {
 
     private void checkForUpdates() {
         logger.info("Checking for updates...");
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+        bukkitService.runTaskAsynchronously(() -> {
             try {
                 // 从南通集线器获取最新版本号
                 URL url = new URL("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
