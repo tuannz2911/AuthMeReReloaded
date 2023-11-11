@@ -418,8 +418,8 @@ public class AuthMe extends JavaPlugin {
                 latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
                 if (isUpdateAvailable(latestVersion)) {
                     String message = "New version available! Latest:" + latestVersion + " Current:" + pluginBuild + pluginBuildNumber;
-                    getLogger().log(Level.INFO, message);
-                    getLogger().log(Level.INFO, "Download from here: github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
+                    getLogger().log(Level.WARNING, message);
+                    getLogger().log(Level.WARNING, "Download from here: github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
                 } else {
                     getLogger().log(Level.INFO, "You are running the latest version.");
                 }
