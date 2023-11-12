@@ -2,7 +2,10 @@
 **"A fork of the best authentication plugin for the Bukkit modding API!"**
 MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471495)
 ![Graph](https://bstats.org/signatures/bukkit/AuthMeReloaded-Fork.svg)
-
+<p align="center">
+  <img src="https://img.shields.io/github/languages/code-size/HaHaWTH/AuthMeReReloaded.svg" alt="Code size"/>
+  <img src="https://img.shields.io/github/repo-size/HaHaWTH/AuthMeReReloaded.svg" alt="GitHub repo size"/>
+</p>
 **Detailed Changes:**
  1. Improved mail sending logic & support more emails
  2. Shutdown mail sending(When server is closed, email you)
