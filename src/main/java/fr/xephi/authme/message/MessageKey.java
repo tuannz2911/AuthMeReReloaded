@@ -4,6 +4,22 @@ package fr.xephi.authme.message;
  * Keys for translatable messages managed by {@link Messages}.
  */
 public enum MessageKey {
+
+    /**
+     * You are stuck in portal during Login.
+     */
+    LOCATION_FIX_PORTAL("login_location_fix.fix_portal"),
+
+    /**
+     * You are stuck underground during Login.
+     */
+    LOCATION_FIX_UNDERGROUND("login_location_fix.fix_underground"),
+
+    /**
+     * You are stuck underground during Login, but we cant fix it.
+     */
+    LOCATION_FIX_UNDERGROUND_CANT_FIX("login_location_fix.cannot_fix_underground"),
+
     /**
      * Bedrock auto login success!
      */

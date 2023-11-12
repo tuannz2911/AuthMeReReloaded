@@ -2,6 +2,8 @@ package fr.xephi.authme.listener;
 
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.TeleportUtils;
 import org.bukkit.Location;
@@ -20,6 +22,8 @@ import javax.inject.Inject;
 public class LoginLocationFixListener implements Listener {
     @Inject
     private AuthMe plugin;
+    @Inject
+    private Messages messages;
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
 
     public LoginLocationFixListener() {
@@ -65,7 +69,7 @@ public class LoginLocationFixListener implements Listener {
                 JoinBlock.getRelative(BlockFace.UP).breakNaturally();
                 JoinBlock.breakNaturally();
             }
-            player.sendMessage("§a你在登录时卡在了地狱门, 现已修正");
+            messages.send(player, MessageKey.LOCATION_FIX_PORTAL);
         } else if (isFixGroundStuck) {
             Material UpType = JoinLocation.getBlock().getRelative(BlockFace.UP).getType();
             World world = player.getWorld();
@@ -88,7 +92,7 @@ public class LoginLocationFixListener implements Listener {
                     } else {
                         player.teleport(JoinBlock.getLocation().add(0.5, 0.1, 0.5));
                     }
-                    player.sendMessage("§a你被埋住了, 坐标已修正, 下次下线之前请小心!");
+                    messages.send(player, MessageKey.LOCATION_FIX_UNDERGROUND);
                     break;
                 }
                 if (i == MaxHeight) {
@@ -97,7 +101,7 @@ public class LoginLocationFixListener implements Listener {
                     } else {
                         player.teleport(JoinBlock.getLocation().add(0.5, 1.1, 0.5));
                     }
-                    player.sendMessage("§a你被埋住了, 坐标无法修正, 只好送你去了最高点, 自求多福吧少年~");
+                    messages.send(player, MessageKey.LOCATION_FIX_UNDERGROUND_CANT_FIX);
                 }
             }
         }

@@ -151,6 +151,7 @@ public class MessageUpdater {
             .put("two_factor", "Two-factor authentication")
             .put("gui_captcha", "3rd party features: GUI Captcha")
             .put("bedrock_auto_login", "3rd party features: Bedrock Auto Login")
+            .put("login_location_fix", "3rd party features: Login Location Fix")
             .build();
 
         Set<String> addedKeys = new HashSet<>();
