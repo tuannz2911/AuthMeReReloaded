@@ -5,6 +5,11 @@ package fr.xephi.authme.message;
  */
 public enum MessageKey {
     /**
+     * Bedrock auto login success!
+     */
+    BEDROCK_AUTO_LOGGED_IN("bedrock_auto_login.success"),
+
+    /**
      * %random Verification
      */
     GUI_CAPTCHA_WINDOW_NAME("gui_captcha.captcha_window_name", "%random"),

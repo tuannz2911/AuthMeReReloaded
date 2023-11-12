@@ -14,7 +14,6 @@ public class DoubleLoginFixListener implements Listener {
 
     public DoubleLoginFixListener() {
     }
-
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Collection<? extends Player> PlayerList = Bukkit.getServer().getOnlinePlayers();

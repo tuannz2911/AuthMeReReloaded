@@ -3,6 +3,8 @@ package fr.xephi.authme.listener;
 
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -23,6 +25,8 @@ public class BedrockAutoLoginListener implements Listener {
     private BukkitService bukkitService;
     @Inject
     private AuthMe plugin;
+    @Inject
+    private Messages messages;
 
 
     public BedrockAutoLoginListener() {
@@ -39,7 +43,7 @@ public class BedrockAutoLoginListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
             authmeApi.forceLogin(player);
-            player.sendMessage("§a基岩版自动登录完成!");
+            messages.send(player, MessageKey.BEDROCK_AUTO_LOGGED_IN);
         }
     }
 

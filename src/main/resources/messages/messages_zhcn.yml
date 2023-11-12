@@ -175,3 +175,7 @@ gui_captcha:
   denied_message_sending: '&c请先完成验证再聊天!'
   kick_on_failed: '&c请先完成验证!'
   kick_on_timeout: '&c验证超时'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: "&a基岩版自动登录完成"

@@ -150,6 +150,7 @@ public class MessageUpdater {
             .put("time", "Time units")
             .put("two_factor", "Two-factor authentication")
             .put("gui_captcha", "3rd party features: GUI Captcha")
+            .put("bedrock_auto_login", "3rd party features: Bedrock Auto Login")
             .build();
 
         Set<String> addedKeys = new HashSet<>();

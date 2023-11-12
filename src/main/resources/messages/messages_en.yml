@@ -166,3 +166,7 @@ gui_captcha:
   denied_message_sending: '&cPlease be verified before chatting!'
   kick_on_failed: '&cPlease complete the verification!'
   kick_on_timeout: '&cVerification timed out!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock auto login success!'
