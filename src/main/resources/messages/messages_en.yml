@@ -176,3 +176,7 @@ login_location_fix:
   fix_portal: '&aYou are stuck in portal during Login.'
   fix_underground: '&aYou are stuck underground during Login.'
   cannot_fix_underground: '&aYou are stuck underground during Login, but we cant fix it.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cYou have been disconnected due to doubled login.'

@@ -4,6 +4,10 @@ package fr.xephi.authme.message;
  * Keys for translatable messages managed by {@link Messages}.
  */
 public enum MessageKey {
+    /**
+     * You have been disconnected due to doubled login.
+     */
+    DOUBLE_LOGIN_FIX("double_login_fix.fix_message"),
 
     /**
      * You are stuck in portal during Login.
