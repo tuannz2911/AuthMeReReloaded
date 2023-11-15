@@ -8,6 +8,13 @@ import fr.xephi.authme.output.LogLevel;
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
 public final class PluginSettings implements SettingsHolder {
+    @Comment({
+        "Should we execute /help command when unregistered players press Shift+F?",
+        "This keeps compatibility with some menu plugins",
+        "If you are using TrMenu, don't enable this because TrMenu already implemented this."
+    })
+    public static final Property<Boolean> MENU_UNREGISTER_COMPATIBILITY =
+        newProperty("3rdPartyFeatures.compatibility.menu_plugins", true);
 
     @Comment({
         "Do you want to enable the session feature?",
