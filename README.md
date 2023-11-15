@@ -19,8 +19,13 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
  9. Improved listeners
  10. Player login logic improvement to reduce lag
  11. Automatically purge bot data
- 12. Folia compatibility [Here](https://github.com/HaHaWTH/AuthMeReReloaded/releases/download/b20/AuthMe-5.6.0-FORK-Folia.jar)
+ 12. Folia
+     compatibility [Here](https://github.com/HaHaWTH/AuthMeReReloaded/releases/download/b20/AuthMe-5.6.0-FORK-Folia.jar)
  13. Offhand Menu compatibility(Thats amazing)
  14. Automatically fix portal stuck issue
  15. More......
+
+**Download links:**
+[Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
+[Actions(Dev builds, use at your own risk!)](https://github.com/HaHaWTH/AuthMeReReloaded/actions/workflows/maven.yml)
 **Pull Requests and suggestions are welcome!**
