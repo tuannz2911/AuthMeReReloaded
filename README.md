@@ -27,7 +27,6 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
 
 **Download links:**
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
-
 [Actions(Dev builds, use at your own risk!)](https://github.com/HaHaWTH/AuthMeReReloaded/actions/workflows/maven.yml)
 
 **Pull Requests and suggestions are welcome!**
