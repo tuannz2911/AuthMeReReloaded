@@ -70,10 +70,6 @@ public class GuiCaptchaHandler implements Listener {
     public GuiCaptchaHandler() {
     }
 
-    public static boolean isInVerification(Player player, String player_name) {
-        return !AuthMeApi.getInstance().isRegistered(player_name) && !closeReasonMap.containsKey(player);
-    }
-
     private boolean isBedrockPlayer(UUID uuid) {
         return AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
