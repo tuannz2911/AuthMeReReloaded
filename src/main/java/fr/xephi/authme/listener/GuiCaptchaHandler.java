@@ -11,6 +11,7 @@ import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.service.CommonService;
+import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -51,6 +52,9 @@ public class GuiCaptchaHandler implements Listener {
     @Inject
     private CommonService service;
 
+    @Inject
+    private Settings settings;
+
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
     //define timesLeft
@@ -71,7 +75,7 @@ public class GuiCaptchaHandler implements Listener {
     }
 
     private boolean isBedrockPlayer(UUID uuid) {
-        return AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
+        return settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
 
     private void removePacketListeners() {
@@ -140,14 +144,14 @@ public class GuiCaptchaHandler implements Listener {
                     }
                     menu.setItem(random_num.get(), item);
                     playerunreg.openInventory(menu);
-                    if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
-                        long timeOut = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
-                        if (AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT)) {
+                    if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
+                        long timeOut = settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
+                        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > settings.getProperty(RestrictionSettings.TIMEOUT)) {
                             bukkitService.runTask(() -> {
-                                getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
-                                    AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
+                                getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
+                                    settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
                             });
-                            timeOut = AuthMe.settings.getProperty(RestrictionSettings.TIMEOUT);
+                            timeOut = settings.getProperty(RestrictionSettings.TIMEOUT);
                         }
                         long finalTimeOut = timeOut;
                         bukkitService.runTask(() -> {
@@ -213,7 +217,7 @@ public class GuiCaptchaHandler implements Listener {
     private void deletePlayerData(UUID playerUUID) {
         // 获取服务器的存储文件夹路径
         File serverFolder = Bukkit.getServer().getWorldContainer();
-        String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
+        String worldFolderName = settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建playerdata文件夹路径
         File playerDataFolder = new File(serverFolder, File.separator + worldFolderName + File.separator + "playerdata");
 
@@ -228,7 +232,7 @@ public class GuiCaptchaHandler implements Listener {
     private void deletePlayerStats(UUID playerUUID) {
         // 获取服务器的存储文件夹路径
         File serverFolder = Bukkit.getServer().getWorldContainer();
-        String worldFolderName = AuthMe.settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
+        String worldFolderName = settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
         // 构建stats文件夹路径
         File statsFolder = new File(serverFolder, File.separator + worldFolderName + File.separator + "stats");
         // 构建玩家统计数据文件路径
@@ -255,7 +259,7 @@ public class GuiCaptchaHandler implements Listener {
         String name = player.getName();
         UUID playerUUID = event.getPlayer().getUniqueId();
         if (!authmeApi.isRegistered(name)) {
-            if (AuthMe.settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
+            if (settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
                 closeReasonMap.remove(player);
                 bukkitService.runTaskLater(() -> {
                     if (!player.isOnline()) {
