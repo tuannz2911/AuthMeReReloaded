@@ -6,6 +6,7 @@ import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.service.BukkitService;
+import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import org.bukkit.entity.Player;
@@ -28,12 +29,14 @@ public class BedrockAutoLoginListener implements Listener {
     @Inject
     private Messages messages;
 
+    @Inject
+    private Settings settings;
 
     public BedrockAutoLoginListener() {
     }
 
     private boolean isBedrockPlayer(UUID uuid) {
-        return AuthMe.settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && AuthMe.settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
+        return settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
