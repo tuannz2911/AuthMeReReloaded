@@ -10,7 +10,7 @@ jobs:
   Build:
     strategy:
       matrix:
-        jdkversion: [ 11 , 21 ]
+        jdkversion: [ 11 ]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
