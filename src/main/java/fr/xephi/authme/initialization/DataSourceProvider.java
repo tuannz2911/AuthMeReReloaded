@@ -5,7 +5,6 @@ import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.datasource.CacheDataSource;
 import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.datasource.DataSourceType;
-import fr.xephi.authme.datasource.H2;
 import fr.xephi.authme.datasource.MariaDB;
 import fr.xephi.authme.datasource.MySQL;
 import fr.xephi.authme.datasource.PostgreSqlDataSource;
@@ -77,9 +76,9 @@ public class DataSourceProvider implements Provider<DataSource> {
             case SQLITE:
                 dataSource = new SQLite(settings, dataFolder);
                 break;
-            case H2:
-                dataSource = new H2(settings, dataFolder);
-                break;
+//            case H2:
+//                dataSource = new H2(settings, dataFolder);
+//                break;
             default:
                 throw new UnsupportedOperationException("Unknown data source type '" + dataSourceType + "'");
         }
