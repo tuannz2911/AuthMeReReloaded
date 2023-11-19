@@ -395,7 +395,7 @@ public class AuthMe extends JavaPlugin {
     }
 
     private static final String owner = "HaHaWTH";
-    private static final String owner_gitee = "Shixuehan114514";
+//    private static final String owner_gitee = "Shixuehan114514";
     private static final String repo = "AuthMeReReloaded";
 
     private void checkForUpdates() {

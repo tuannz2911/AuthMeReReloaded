@@ -346,10 +346,6 @@
                                     <pattern>com.google.gson</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.gson</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>com.tcoded.folialib</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.tcoded.folialib</shadedPattern>
-                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -1029,14 +1025,6 @@
             <artifactId>datasourcecolumns</artifactId>
             <version>0.1.1-SNAPSHOT</version>
             <optional>true</optional>
-        </dependency>
-
-        <!-- FoliaLib -->
-        <dependency>
-            <groupId>com.tcoded</groupId>
-            <artifactId>FoliaLib</artifactId>
-            <version>0.3.1</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
