@@ -30,12 +30,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
+import static fr.xephi.authme.util.PlayerUtils.getPlayerIp;
 import static fr.xephi.authme.util.PlayerUtils.isNpc;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
@@ -108,109 +110,113 @@ public class GuiCaptchaHandler implements Listener {
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
         if (!authmeApi.isRegistered(name) && !isNpc(playerunreg)) {
-            if (isBedrockPlayer(playerunreg.getUniqueId())) {
-                closeReasonMap.put(playerunreg, "verified");
-                messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
-                return;
-            }
-            bukkitService.runTaskAsynchronously(() -> {
-                StringBuilder sb = new StringBuilder();
-                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
-                for (int i = 0; i < howLongIsRandomString; i++) {
-                    //生成随机索引号
-                    int index = randomItemSet.nextInt(randomSet.length());
-
-                    // 从字符串中获取由索引 index 指定的字符
-                    char randomChar = randomSet.charAt(index);
-
-                    // 将字符追加到字符串生成器
-                    sb.append(randomChar);
+            String ip = getPlayerIp(playerunreg);
+            List<String> whiteList = settings.getProperty(SecuritySettings.GUI_CAPTCHA_COUNTRY_WHITELIST);
+            if (whiteList.isEmpty() || !whiteList.contains(authmeApi.getCountryCode(ip))) {
+                if (isBedrockPlayer(playerunreg.getUniqueId())) {
+                    closeReasonMap.put(playerunreg, "verified");
+                    messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
+                    return;
                 }
+                bukkitService.runTaskAsynchronously(() -> {
+                    StringBuilder sb = new StringBuilder();
+                    howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+                    for (int i = 0; i < howLongIsRandomString; i++) {
+                        //生成随机索引号
+                        int index = randomItemSet.nextInt(randomSet.length());
 
-                bukkitService.runTask(() -> {
-                    randomString = sb.toString();
-                    Random random_blockpos = new Random();
-                    AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
-                    Inventory menu = Bukkit.createInventory(playerunreg, 27, messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_WINDOW_NAME, randomString));
-                    ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
-                    ItemMeta meta = item.getItemMeta();
-                    try {
-                        if (meta != null) {
-                            meta.setDisplayName(messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_CLICKABLE_NAME, randomString));
-                            item.setItemMeta(meta);
-                        }
-                    } catch (NullPointerException e) {
-                        getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
-                    }
-                    menu.setItem(random_num.get(), item);
-                    playerunreg.openInventory(menu);
-                    if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
-                        long timeOut = settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
-                        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > settings.getProperty(RestrictionSettings.TIMEOUT)) {
-                            bukkitService.runTask(() -> {
-                                getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
-                                    settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
-                            });
-                            timeOut = settings.getProperty(RestrictionSettings.TIMEOUT);
-                        }
-                        long finalTimeOut = timeOut;
-                        bukkitService.runTask(() -> {
-                            bukkitService.runTaskLater(() -> {
-                                if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
-                                    timesLeft = 3; // Reset the attempt counter
-                                }
-                            }, finalTimeOut * 20L);
-                        });
+                        // 从字符串中获取由索引 index 指定的字符
+                        char randomChar = randomSet.charAt(index);
+
+                        // 将字符追加到字符串生成器
+                        sb.append(randomChar);
                     }
 
                     bukkitService.runTask(() -> {
-                        windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
-                            @Override
-                            public void onPacketReceiving(PacketEvent event) {
-                                if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    if (timesLeft <= 0) {
-                                        bukkitService.runTask(() -> {
-                                            playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
-                                        });
-                                        timesLeft = 3;
-                                    } else {
-                                        --timesLeft;
+                        randomString = sb.toString();
+                        Random random_blockpos = new Random();
+                        AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
+                        Inventory menu = Bukkit.createInventory(playerunreg, 27, messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_WINDOW_NAME, randomString));
+                        ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
+                        ItemMeta meta = item.getItemMeta();
+                        try {
+                            if (meta != null) {
+                                meta.setDisplayName(messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_CLICKABLE_NAME, randomString));
+                                item.setItemMeta(meta);
+                            }
+                        } catch (NullPointerException e) {
+                            getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
+                        }
+                        menu.setItem(random_num.get(), item);
+                        playerunreg.openInventory(menu);
+                        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
+                            long timeOut = settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
+                            if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > settings.getProperty(RestrictionSettings.TIMEOUT)) {
+                                bukkitService.runTask(() -> {
+                                    getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
+                                        settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
+                                });
+                                timeOut = settings.getProperty(RestrictionSettings.TIMEOUT);
+                            }
+                            long finalTimeOut = timeOut;
+                            bukkitService.runTask(() -> {
+                                bukkitService.runTaskLater(() -> {
+                                    if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                                        playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
+                                        timesLeft = 3; // Reset the attempt counter
+                                    }
+                                }, finalTimeOut * 20L);
+                            });
+                        }
+
+                        bukkitService.runTask(() -> {
+                            windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
+                                @Override
+                                public void onPacketReceiving(PacketEvent event) {
+                                    if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
                                         if (timesLeft <= 0) {
                                             bukkitService.runTask(() -> {
                                                 playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
                                             });
                                             timesLeft = 3;
-                                            return;
+                                        } else {
+                                            --timesLeft;
+                                            if (timesLeft <= 0) {
+                                                bukkitService.runTask(() -> {
+                                                    playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
+                                                });
+                                                timesLeft = 3;
+                                                return;
+                                            }
+                                            messages.send(playerunreg, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
+                                            event.setCancelled(true);
+                                            random_num.set(random_blockpos.nextInt(26));
+                                            bukkitService.runTask(() -> {
+                                                menu.clear();
+                                                menu.setItem(random_num.get(), item);
+                                                playerunreg.openInventory(menu);
+                                            });
                                         }
-                                        messages.send(playerunreg, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
-                                        event.setCancelled(true);
-                                        random_num.set(random_blockpos.nextInt(26));
-                                        bukkitService.runTask(() -> {
-                                            menu.clear();
-                                            menu.setItem(random_num.get(), item);
-                                            playerunreg.openInventory(menu);
-                                        });
                                     }
                                 }
-                            }
-                        };
-                        ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
-                    });
-                    bukkitService.runTask(() -> {
-                        chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
-                            @Override
-                            public void onPacketReceiving(PacketEvent event) {
-                                if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
-                                    event.setCancelled(true);
+                            };
+                            ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
+                        });
+                        bukkitService.runTask(() -> {
+                            chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
+                                @Override
+                                public void onPacketReceiving(PacketEvent event) {
+                                    if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                                        messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
+                                        event.setCancelled(true);
+                                    }
                                 }
-                            }
-                        };
-                        ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
+                            };
+                            ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
+                        });
                     });
                 });
-            });
+            }
         }
     }
 

@@ -6,8 +6,10 @@ import ch.jalu.configme.properties.Property;
 import fr.xephi.authme.security.HashAlgorithm;
 import fr.xephi.authme.settings.EnumSetProperty;
 
+import java.util.List;
 import java.util.Set;
 
+import static ch.jalu.configme.properties.PropertyInitializer.newListProperty;
 import static ch.jalu.configme.properties.PropertyInitializer.newLowercaseStringSetProperty;
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
@@ -18,6 +20,11 @@ public final class SecuritySettings implements SettingsHolder {
         "AuthMe will automatically disable and the server won't be protected!"})
     public static final Property<Boolean> STOP_SERVER_ON_PROBLEM =
         newProperty("Security.SQLProblem.stopServer", false);
+
+    @Comment({"Should send GUI captcha by country code whitelist?",
+        "If the country of the player is in this list, the captcha won't be sent."})
+    public static final Property<List<String>> GUI_CAPTCHA_COUNTRY_WHITELIST =
+        newListProperty("3rdPartyFeature.captcha.whitelist");
 
     @Comment({"Should we let Bedrock players login automatically?",
         "(Requires hookFloodgate to be true & floodgate loaded)"})
