@@ -176,7 +176,6 @@ public class AuthMe extends JavaPlugin {
         cleanupTask.runTaskTimerAsynchronously(this, CLEANUP_INTERVAL, CLEANUP_INTERVAL);
         // Do a backup on start
         backupService.doBackup(BackupService.BackupCause.START);
-
         // Set up Metrics
         OnStartupTasks.sendMetrics(this, settings);
         if(settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
