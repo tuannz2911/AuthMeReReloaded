@@ -24,7 +24,7 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment({"Should send GUI captcha by country code whitelist?",
         "If the country of the player is in this list, the captcha won't be sent."})
     public static final Property<List<String>> GUI_CAPTCHA_COUNTRY_WHITELIST =
-        newListProperty("3rdPartyFeature.captcha.whitelist");
+        newListProperty("3rdPartyFeature.captcha.whiteList");
 
     @Comment({"Should we let Bedrock players login automatically?",
         "(Requires hookFloodgate to be true & floodgate loaded)"})

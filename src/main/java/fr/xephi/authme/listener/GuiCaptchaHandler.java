@@ -59,6 +59,7 @@ public class GuiCaptchaHandler implements Listener {
 
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
+
     //define timesLeft
     private int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
@@ -76,9 +77,11 @@ public class GuiCaptchaHandler implements Listener {
     public GuiCaptchaHandler() {
     }
 
+    protected List<String> whiteList = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_COUNTRY_WHITELIST);
     private boolean isBedrockPlayer(UUID uuid) {
         return settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
+
 
     private void removePacketListeners() {
         ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
@@ -111,7 +114,6 @@ public class GuiCaptchaHandler implements Listener {
         String name = playerunreg.getName();
         if (!authmeApi.isRegistered(name) && !isNpc(playerunreg)) {
             String ip = getPlayerIp(playerunreg);
-            List<String> whiteList = settings.getProperty(SecuritySettings.GUI_CAPTCHA_COUNTRY_WHITELIST);
             if (whiteList.isEmpty() || !whiteList.contains(authmeApi.getCountryCode(ip))) {
                 if (isBedrockPlayer(playerunreg.getUniqueId())) {
                     closeReasonMap.put(playerunreg, "verified");
