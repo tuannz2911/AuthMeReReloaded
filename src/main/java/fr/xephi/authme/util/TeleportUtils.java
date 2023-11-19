@@ -5,22 +5,6 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-//
-//public class TeleportUtils {
-//    public static void teleport(Player player, Location location) {
-//        try {
-//            Class<?> paperClass = Class.forName("com.destroystokyo.paper.PaperConfig");
-//            // Paper API is loaded, use teleportAsync
-//            Method teleportAsyncMethod = player.getClass().getMethod("teleportAsync", Location.class);
-//            teleportAsyncMethod.setAccessible(true);
-//            teleportAsyncMethod.invoke(player, location);
-//        } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-//            // Paper API is not loaded, use normal teleport
-//            player.teleport(location);
-//        }
-//    }
-//}
 public class TeleportUtils {
     private static Method teleportAsyncMethod;
 
