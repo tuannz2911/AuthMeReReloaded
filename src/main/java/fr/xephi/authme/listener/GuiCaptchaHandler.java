@@ -30,10 +30,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
@@ -64,7 +64,7 @@ public class GuiCaptchaHandler implements Listener {
     private int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
     /* We used many async tasks so there is concurrent**/
-    public static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
+    public static HashMap<Player, String> closeReasonMap = new HashMap<>();
     //define randomStringSet
     String randomSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!@#%&*()_+";
     String randomString = "";
