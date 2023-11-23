@@ -23,6 +23,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -45,6 +46,7 @@ import static org.bukkit.Bukkit.getServer;
 public class GuiCaptchaHandler implements Listener {
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
+    StringBuilder sb = new StringBuilder();
     @Inject
     private BukkitService bukkitService;
     @Inject
@@ -72,12 +74,13 @@ public class GuiCaptchaHandler implements Listener {
     Random howManyRandom = new Random();
 
 
-    int howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+    int howLongIsRandomString;
 
     public GuiCaptchaHandler() {
     }
 
     protected List<String> whiteList = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_COUNTRY_WHITELIST);
+
     private boolean isBedrockPlayer(UUID uuid) {
         return settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
@@ -86,6 +89,27 @@ public class GuiCaptchaHandler implements Listener {
     private void removePacketListeners() {
         ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
         ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerLogin(PlayerLoginEvent event) {
+        bukkitService.runTaskAsynchronously(() -> {
+            randomString = "";
+            howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+            sb = new StringBuilder();
+
+            for (int i = 0; i < howLongIsRandomString; i++) {
+                //生成随机索引号
+                int index = randomItemSet.nextInt(randomSet.length());
+
+                // 从字符串中获取由索引 index 指定的字符
+                char randomChar = randomSet.charAt(index);
+
+                // 将字符追加到字符串生成器
+                sb.append(randomChar);
+            }
+
+        });
     }
 
     @EventHandler
@@ -121,18 +145,18 @@ public class GuiCaptchaHandler implements Listener {
                     return;
                 }
                 bukkitService.runTaskAsynchronously(() -> {
-                    StringBuilder sb = new StringBuilder();
-                    howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
-                    for (int i = 0; i < howLongIsRandomString; i++) {
-                        //生成随机索引号
-                        int index = randomItemSet.nextInt(randomSet.length());
-
-                        // 从字符串中获取由索引 index 指定的字符
-                        char randomChar = randomSet.charAt(index);
-
-                        // 将字符追加到字符串生成器
-                        sb.append(randomChar);
-                    }
+//                    StringBuilder sb = new StringBuilder();
+//                    howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+//                    for (int i = 0; i < howLongIsRandomString; i++) {
+//                        //生成随机索引号
+//                        int index = randomItemSet.nextInt(randomSet.length());
+//
+//                        // 从字符串中获取由索引 index 指定的字符
+//                        char randomChar = randomSet.charAt(index);
+//
+//                        // 将字符追加到字符串生成器
+//                        sb.append(randomChar);
+//                    }
 
                     bukkitService.runTask(() -> {
                         randomString = sb.toString();
