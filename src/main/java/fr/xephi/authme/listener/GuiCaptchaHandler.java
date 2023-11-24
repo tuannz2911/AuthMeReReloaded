@@ -85,12 +85,6 @@ public class GuiCaptchaHandler implements Listener {
         return settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(SecuritySettings.GUI_CAPTCHA_BE_COMPATIBILITY) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
 
-
-    private void removePacketListeners() {
-        ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
-        ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerLoginEvent event) {
         bukkitService.runTaskAsynchronously(() -> {
@@ -300,10 +294,8 @@ public class GuiCaptchaHandler implements Listener {
                         deleteAuthMePlayerData(playerUUID);
                     }
                 }, 100L);
-                removePacketListeners();
                 return;
             }
-            removePacketListeners();
             closeReasonMap.remove(player);
         }
     }
