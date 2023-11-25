@@ -23,7 +23,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -58,7 +57,6 @@ public class GuiCaptchaHandler implements Listener {
     @Inject
     private Settings settings;
 
-    private StringBuilder sb;
 
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
@@ -73,7 +71,7 @@ public class GuiCaptchaHandler implements Listener {
     String randomString = "";
     Random randomItemSet = new Random();
     Random howManyRandom = new Random();
-
+    private boolean isPacketListenersActive = false;
 
     int howLongIsRandomString;
 
@@ -87,26 +85,14 @@ public class GuiCaptchaHandler implements Listener {
     }
 
 
-    private void removePacketListeners() {
-        ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
-        ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
-    }
-
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    public void onPlayerLogin(PlayerLoginEvent event) {
-        sb = new StringBuilder();
-        howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
-        for (int i = 0; i < howLongIsRandomString; i++) {
-            //生成随机索引号
-            int index = randomItemSet.nextInt(randomSet.length());
-
-            // 从字符串中获取由索引 index 指定的字符
-            char randomChar = randomSet.charAt(index);
-
-            // 将字符追加到字符串生成器
-            sb.append(randomChar);
+    private void addPacketListeners() {
+        if (!isPacketListenersActive) {
+            ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
+            ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
+            isPacketListenersActive = true;
         }
     }
+
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
@@ -145,18 +131,18 @@ public class GuiCaptchaHandler implements Listener {
                 return;
             }
             bukkitService.runTaskAsynchronously(() -> {
-//                StringBuilder sb = new StringBuilder();
-//                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
-//                for (int i = 0; i < howLongIsRandomString; i++) {
-//                    //生成随机索引号
-//                    int index = randomItemSet.nextInt(randomSet.length());
-//
-//                    // 从字符串中获取由索引 index 指定的字符
-//                    char randomChar = randomSet.charAt(index);
-//
-//                    // 将字符追加到字符串生成器
-//                    sb.append(randomChar);
-//                }
+                StringBuilder sb = new StringBuilder();
+                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+                for (int i = 0; i < howLongIsRandomString; i++) {
+                    //生成随机索引号
+                    int index = randomItemSet.nextInt(randomSet.length());
+
+                    // 从字符串中获取由索引 index 指定的字符
+                    char randomChar = randomSet.charAt(index);
+
+                    // 将字符追加到字符串生成器
+                    sb.append(randomChar);
+                }
                 bukkitService.runTask(() -> {
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
@@ -211,8 +197,7 @@ public class GuiCaptchaHandler implements Listener {
                             }
                         }
                     };
-                    ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
-                    ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
+                    addPacketListeners();
                     //Open captcha inventory
                     menu.setItem(random_num.get(), item);
                     playerunreg.openInventory(menu);
@@ -239,6 +224,7 @@ public class GuiCaptchaHandler implements Listener {
             });
         }
     }
+
 
     private void deletePlayerData(UUID playerUUID) {
         // 获取服务器的存储文件夹路径
@@ -294,10 +280,8 @@ public class GuiCaptchaHandler implements Listener {
                         deleteAuthMePlayerData(playerUUID);
                     }
                 }, 100L);
-                removePacketListeners();
                 return;
             }
-            removePacketListeners();
             closeReasonMap.remove(player);
         }
     }
