@@ -23,6 +23,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -57,6 +58,8 @@ public class GuiCaptchaHandler implements Listener {
     @Inject
     private Settings settings;
 
+    private StringBuilder sb;
+
     private PacketAdapter chatPacketListener;
     private PacketAdapter windowPacketListener;
 
@@ -72,7 +75,7 @@ public class GuiCaptchaHandler implements Listener {
     Random howManyRandom = new Random();
 
 
-    int howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+    int howLongIsRandomString;
 
     public GuiCaptchaHandler() {
     }
@@ -87,6 +90,22 @@ public class GuiCaptchaHandler implements Listener {
     private void removePacketListeners() {
         ProtocolLibrary.getProtocolManager().removePacketListener(windowPacketListener);
         ProtocolLibrary.getProtocolManager().removePacketListener(chatPacketListener);
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPlayerLogin(PlayerLoginEvent event) {
+        sb = new StringBuilder();
+        howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+        for (int i = 0; i < howLongIsRandomString; i++) {
+            //生成随机索引号
+            int index = randomItemSet.nextInt(randomSet.length());
+
+            // 从字符串中获取由索引 index 指定的字符
+            char randomChar = randomSet.charAt(index);
+
+            // 将字符追加到字符串生成器
+            sb.append(randomChar);
+        }
     }
 
     @EventHandler
@@ -114,9 +133,9 @@ public class GuiCaptchaHandler implements Listener {
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
         if (!authmeApi.isRegistered(name) && !isNpc(playerunreg)) {
-            String ip = getPlayerIp(playerunreg);
             if (!whiteList.isEmpty()) {
-                if (whiteList.contains(authmeApi.getCountryCode(ip))) {
+                String ip = getPlayerIp(playerunreg);
+                if (whiteList.contains(authmeApi.getCountryCode(ip)) && ip != null) {
                     return;
                 }
             }
@@ -126,19 +145,18 @@ public class GuiCaptchaHandler implements Listener {
                 return;
             }
             bukkitService.runTaskAsynchronously(() -> {
-                StringBuilder sb = new StringBuilder();
-                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
-                for (int i = 0; i < howLongIsRandomString; i++) {
-                    //生成随机索引号
-                    int index = randomItemSet.nextInt(randomSet.length());
-
-                    // 从字符串中获取由索引 index 指定的字符
-                    char randomChar = randomSet.charAt(index);
-
-                    // 将字符追加到字符串生成器
-                    sb.append(randomChar);
-                }
-
+//                StringBuilder sb = new StringBuilder();
+//                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+//                for (int i = 0; i < howLongIsRandomString; i++) {
+//                    //生成随机索引号
+//                    int index = randomItemSet.nextInt(randomSet.length());
+//
+//                    // 从字符串中获取由索引 index 指定的字符
+//                    char randomChar = randomSet.charAt(index);
+//
+//                    // 将字符追加到字符串生成器
+//                    sb.append(randomChar);
+//                }
                 bukkitService.runTask(() -> {
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
@@ -154,6 +172,48 @@ public class GuiCaptchaHandler implements Listener {
                     } catch (NullPointerException e) {
                         getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
                     }
+                    windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
+                        @Override
+                        public void onPacketReceiving(PacketEvent event) {
+                            if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                                if (timesLeft <= 0) {
+                                    bukkitService.runTask(() -> {
+                                        playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
+                                    });
+                                    timesLeft = 3;
+                                } else {
+                                    --timesLeft;
+                                    if (timesLeft <= 0) {
+                                        bukkitService.runTask(() -> {
+                                            playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
+                                        });
+                                        timesLeft = 3;
+                                        return;
+                                    }
+                                    messages.send(playerunreg, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
+                                    event.setCancelled(true);
+                                    random_num.set(random_blockpos.nextInt(26));
+                                    bukkitService.runTask(() -> {
+                                        menu.clear();
+                                        menu.setItem(random_num.get(), item);
+                                        playerunreg.openInventory(menu);
+                                    });
+                                }
+                            }
+                        }
+                    };
+                    chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
+                        @Override
+                        public void onPacketReceiving(PacketEvent event) {
+                            if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                                messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
+                                event.setCancelled(true);
+                            }
+                        }
+                    };
+                    ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
+                    ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
+                    //Open captcha inventory
                     menu.setItem(random_num.get(), item);
                     playerunreg.openInventory(menu);
                     if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
@@ -175,52 +235,6 @@ public class GuiCaptchaHandler implements Listener {
                             }, finalTimeOut * 20L);
                         });
                     }
-
-                    bukkitService.runTask(() -> {
-                        windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
-                            @Override
-                            public void onPacketReceiving(PacketEvent event) {
-                                if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    if (timesLeft <= 0) {
-                                        bukkitService.runTask(() -> {
-                                            playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
-                                        });
-                                        timesLeft = 3;
-                                    } else {
-                                        --timesLeft;
-                                        if (timesLeft <= 0) {
-                                            bukkitService.runTask(() -> {
-                                                playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
-                                            });
-                                            timesLeft = 3;
-                                            return;
-                                        }
-                                        messages.send(playerunreg, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
-                                        event.setCancelled(true);
-                                        random_num.set(random_blockpos.nextInt(26));
-                                        bukkitService.runTask(() -> {
-                                            menu.clear();
-                                            menu.setItem(random_num.get(), item);
-                                            playerunreg.openInventory(menu);
-                                        });
-                                    }
-                                }
-                            }
-                        };
-                        ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
-                    });
-                    bukkitService.runTask(() -> {
-                        chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
-                            @Override
-                            public void onPacketReceiving(PacketEvent event) {
-                                if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
-                                    event.setCancelled(true);
-                                }
-                            }
-                        };
-                        ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
-                    });
                 });
             });
         }
