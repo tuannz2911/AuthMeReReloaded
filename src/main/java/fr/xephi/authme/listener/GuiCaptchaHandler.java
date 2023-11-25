@@ -161,7 +161,7 @@ public class GuiCaptchaHandler implements Listener {
                     windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
-                            if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                            if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
                                 if (timesLeft <= 0) {
                                     bukkitService.runTask(() -> {
                                         playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
@@ -191,7 +191,7 @@ public class GuiCaptchaHandler implements Listener {
                     chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
-                            if (event.getPlayer() == playerunreg && !closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                            if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
                                 messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
                                 event.setCancelled(true);
                             }
@@ -272,7 +272,6 @@ public class GuiCaptchaHandler implements Listener {
         UUID playerUUID = event.getPlayer().getUniqueId();
         if (!authmeApi.isRegistered(name)) {
             if (settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
-                closeReasonMap.remove(player);
                 bukkitService.runTaskLater(() -> {
                     if (!player.isOnline()) {
                         deletePlayerData(playerUUID);
