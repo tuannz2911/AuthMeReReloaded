@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.events.LoginEvent;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.service.BukkitService;
@@ -264,6 +265,16 @@ public class GuiCaptchaHandler implements Listener {
             path.delete();
         }
     }
+
+    //This prevents players from unregistering by Admins
+    @EventHandler
+    public void onPlayerAuthMeLogin(LoginEvent event) {
+        Player player = event.getPlayer();
+        if (!closeReasonMap.containsKey(player)) {
+            closeReasonMap.put(player, "verified");
+        }
+    }
+
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
