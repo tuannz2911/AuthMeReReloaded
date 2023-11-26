@@ -162,28 +162,29 @@ public class GuiCaptchaHandler implements Listener {
                     windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
-                            if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                            Player packetPlayer = event.getPlayer();
+                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
                                 if (timesLeft <= 0) {
                                     bukkitService.runTask(() -> {
-                                        playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
+                                        packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
                                     });
                                     timesLeft = 3;
                                 } else {
                                     --timesLeft;
                                     if (timesLeft <= 0) {
                                         bukkitService.runTask(() -> {
-                                            playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_FAILED));
+                                            packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
                                         });
                                         timesLeft = 3;
                                         return;
                                     }
-                                    messages.send(playerunreg, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
+                                    messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
                                     event.setCancelled(true);
                                     random_num.set(random_blockpos.nextInt(26));
                                     bukkitService.runTask(() -> {
                                         menu.clear();
                                         menu.setItem(random_num.get(), item);
-                                        playerunreg.openInventory(menu);
+                                        packetPlayer.openInventory(menu);
                                     });
                                 }
                             }
@@ -192,8 +193,9 @@ public class GuiCaptchaHandler implements Listener {
                     chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
-                            if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                messages.send(playerunreg, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
+                            Player packetPlayer = event.getPlayer();
+                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+                                messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
                                 event.setCancelled(true);
                             }
                         }
