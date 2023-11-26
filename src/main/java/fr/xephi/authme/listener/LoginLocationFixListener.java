@@ -4,6 +4,7 @@ import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
+import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.TeleportUtils;
 import org.bukkit.Location;
@@ -24,15 +25,17 @@ public class LoginLocationFixListener implements Listener {
     private AuthMe plugin;
     @Inject
     private Messages messages;
+    @Inject
+    private Settings settings;
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
 
     public LoginLocationFixListener() {
     }
 
     private static Material materialPortal = Material.matchMaterial("PORTAL");
-    private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
-    private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
-    private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
+    private final boolean isSmartAsyncTeleport = settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
+    private final boolean isFixPortalStuck = settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
+    private final boolean isFixGroundStuck = settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
     BlockFace[] faces = {BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST};
 
     static {

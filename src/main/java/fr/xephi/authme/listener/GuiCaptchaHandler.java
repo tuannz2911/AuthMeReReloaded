@@ -74,7 +74,7 @@ public class GuiCaptchaHandler implements Listener {
     Random howManyRandom = new Random();
     private boolean isPacketListenersActive = false;
 
-    int howLongIsRandomString;
+    private int howLongIsRandomString;
 
     public GuiCaptchaHandler() {
     }
@@ -123,6 +123,7 @@ public class GuiCaptchaHandler implements Listener {
             if (!whiteList.isEmpty()) {
                 String ip = getPlayerIp(playerunreg);
                 if (whiteList.contains(authmeApi.getCountryCode(ip)) && ip != null) {
+                    closeReasonMap.put(playerunreg, "verified");
                     return;
                 }
             }
