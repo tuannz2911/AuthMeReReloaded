@@ -106,7 +106,9 @@ public class GuiCaptchaHandler implements Listener {
                 }
                 if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)) {
                     event.setCancelled(true);
-                    closeReasonMap.put(player, "verified");
+                    if (!closeReasonMap.containsKey(player)) {
+                        closeReasonMap.put(player, "verified");
+                    }
                     player.closeInventory();
                     messages.send(player, MessageKey.GUI_CAPTCHA_VERIFIED);
                 }
@@ -123,12 +125,12 @@ public class GuiCaptchaHandler implements Listener {
             if (!whiteList.isEmpty()) {
                 String ip = getPlayerIp(playerunreg);
                 if (whiteList.contains(authmeApi.getCountryCode(ip)) && ip != null) {
-                    closeReasonMap.put(playerunreg, "verified");
+                    closeReasonMap.put(playerunreg, "whiteListed");
                     return;
                 }
             }
             if (isBedrockPlayer(playerunreg.getUniqueId())) {
-                closeReasonMap.put(playerunreg, "verified");
+                closeReasonMap.put(playerunreg, "bedrock");
                 messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
                 return;
             }
@@ -229,6 +231,15 @@ public class GuiCaptchaHandler implements Listener {
         }
     }
 
+    //This prevents players from unregistering by Admins
+    @EventHandler
+    public void onPlayerAuthMeLogin(LoginEvent event) {
+        Player player = event.getPlayer();
+        if (!closeReasonMap.containsKey(player)) {
+            closeReasonMap.put(player, "loggedButUnregistered");
+        }
+    }
+
 
     private void deletePlayerData(UUID playerUUID) {
         // 获取服务器的存储文件夹路径
@@ -268,16 +279,6 @@ public class GuiCaptchaHandler implements Listener {
             path.delete();
         }
     }
-
-    //This prevents players from unregistering by Admins
-    @EventHandler
-    public void onPlayerAuthMeLogin(LoginEvent event) {
-        Player player = event.getPlayer();
-        if (!closeReasonMap.containsKey(player)) {
-            closeReasonMap.put(player, "verified");
-        }
-    }
-
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
