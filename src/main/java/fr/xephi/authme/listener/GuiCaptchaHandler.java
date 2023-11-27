@@ -125,12 +125,16 @@ public class GuiCaptchaHandler implements Listener {
             if (!whiteList.isEmpty()) {
                 String ip = getPlayerIp(playerunreg);
                 if (whiteList.contains(authmeApi.getCountryCode(ip)) && ip != null) {
-                    closeReasonMap.put(playerunreg, "whiteListed");
+                    if (!closeReasonMap.containsKey(playerunreg)) {
+                        closeReasonMap.put(playerunreg, "verified:whitelist");
+                    }
                     return;
                 }
             }
             if (isBedrockPlayer(playerunreg.getUniqueId())) {
-                closeReasonMap.put(playerunreg, "bedrock");
+                if (!closeReasonMap.containsKey(playerunreg)) {
+                    closeReasonMap.put(playerunreg, "verified:bedrock");
+                }
                 messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
                 return;
             }
@@ -236,7 +240,7 @@ public class GuiCaptchaHandler implements Listener {
     public void onPlayerAuthMeLogin(LoginEvent event) {
         Player player = event.getPlayer();
         if (!closeReasonMap.containsKey(player)) {
-            closeReasonMap.put(player, "loggedButUnregistered");
+            closeReasonMap.put(player, "verified:loggedIn");
         }
     }
 
