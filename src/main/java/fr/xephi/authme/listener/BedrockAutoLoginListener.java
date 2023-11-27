@@ -3,6 +3,7 @@ package fr.xephi.authme.listener;
 
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import fr.xephi.authme.events.RestoreSessionEvent;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.service.BukkitService;
@@ -47,6 +48,15 @@ public class BedrockAutoLoginListener implements Listener {
         if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
             authmeApi.forceLogin(player);
             messages.send(player, MessageKey.BEDROCK_AUTO_LOGGED_IN);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerAuthMeSessionRestore(RestoreSessionEvent event) {
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+        if (isBedrockPlayer(uuid)) {
+            event.setCancelled(true);
         }
     }
 }
