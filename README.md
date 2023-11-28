@@ -10,7 +10,7 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
 **Detailed Changes:**
  1. Improved mail sending logic & support more emails
  2. Shutdown mail sending(When server is closed, email you)
- 3. Old bug fixes
+ 3. Legacy bug fixes
  4. Anti Ghost Player(Doubled login bug)
  5. Use the best performance method by server brand
  6. Bedrock Compatibility(Floodgate needed)(based on UUID)
@@ -23,7 +23,8 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
      compatibility [Here](https://github.com/HaHaWTH/AuthMeReReloaded/releases/download/b20/AuthMe-5.6.0-FORK-Folia.jar)
  13. Offhand Menu compatibility(Thats amazing)
  14. Automatically fix portal stuck issue
- 15. More......
+ 15. Automatically login for Bedrock players(configurable)
+ 16. More......
 
 **Download links:**
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
