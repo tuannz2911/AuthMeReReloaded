@@ -14,6 +14,8 @@ import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SpawnLoader;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
+import fr.xephi.authme.settings.properties.SecuritySettings;
+import fr.xephi.authme.util.TeleportUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -140,7 +142,7 @@ public class TeleportationService implements Reloadable {
             logger.debug("Teleporting `{0}` to spawn because of 'force-spawn after login'", player.getName());
             teleportToSpawn(player, true);
         } else if (settings.getProperty(TELEPORT_UNAUTHED_TO_SPAWN)) {
-            if (settings.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION) && auth.getQuitLocY() != 0) {
+            if (settings.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION)) {
                 Location location = buildLocationFromAuth(player, auth);
                 logger.debug("Teleporting `{0}` after login, based on the player auth", player.getName());
                 teleportBackFromSpawn(player, location);
@@ -184,7 +186,9 @@ public class TeleportationService implements Reloadable {
     private void performTeleportation(final Player player, final AbstractTeleportEvent event) {
         bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(() -> {
             bukkitService.callEvent(event);
-            if (player.isOnline() && isEventValid(event)) {
+            if (player.isOnline() && isEventValid(event) && settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
+                TeleportUtils.teleport(player, event.getTo());
+            } else if (player.isOnline() && isEventValid(event) && !settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                 player.teleport(event.getTo());
             }
         });

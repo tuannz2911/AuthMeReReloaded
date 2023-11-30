@@ -206,7 +206,6 @@ public class AuthMe extends JavaPlugin {
         // 注册玩家加入事件监听
 //        register3rdPartyListeners();
         logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
-
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
             checkForUpdates();
         }
