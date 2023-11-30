@@ -188,7 +188,7 @@ public class TeleportationService implements Reloadable {
             bukkitService.callEvent(event);
             if (player.isOnline() && isEventValid(event) && settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                 TeleportUtils.teleport(player, event.getTo());
-            } else if (player.isOnline() && isEventValid(event) && !settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
+            } else if (player.isOnline() && isEventValid(event)) {
                 player.teleport(event.getTo());
             }
         });
