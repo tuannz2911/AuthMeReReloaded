@@ -24,6 +24,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -74,11 +75,10 @@ public class GuiCaptchaHandler implements Listener {
     Random howManyRandom = new Random();
     private boolean isPacketListenersActive = false;
 
-    private int howLongIsRandomString;
-
     public GuiCaptchaHandler() {
     }
 
+    private StringBuilder sb;
     private final List<String> whiteList = AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA_COUNTRY_WHITELIST);
 
     private boolean isBedrockPlayer(UUID uuid) {
@@ -116,6 +116,25 @@ public class GuiCaptchaHandler implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerLogin(PlayerLoginEvent event) {
+        bukkitService.runTaskAsynchronously(() -> {
+            sb = new StringBuilder();
+            int howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
+            for (int i = 0; i < howLongIsRandomString; i++) {
+                //生成随机索引号
+                int index = randomItemSet.nextInt(randomSet.length());
+
+                // 从字符串中获取由索引 index 指定的字符
+                char randomChar = randomSet.charAt(index);
+
+                // 将字符追加到字符串生成器
+                sb.append(randomChar);
+            }
+        });
+
+    }
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         randomString = "";
@@ -139,18 +158,6 @@ public class GuiCaptchaHandler implements Listener {
                 return;
             }
             bukkitService.runTaskAsynchronously(() -> {
-                StringBuilder sb = new StringBuilder();
-                howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
-                for (int i = 0; i < howLongIsRandomString; i++) {
-                    //生成随机索引号
-                    int index = randomItemSet.nextInt(randomSet.length());
-
-                    // 从字符串中获取由索引 index 指定的字符
-                    char randomChar = randomSet.charAt(index);
-
-                    // 将字符追加到字符串生成器
-                    sb.append(randomChar);
-                }
                 bukkitService.runTask(() -> {
                     randomString = sb.toString();
                     Random random_blockpos = new Random();
