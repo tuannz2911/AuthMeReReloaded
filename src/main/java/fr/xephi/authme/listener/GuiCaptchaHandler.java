@@ -86,7 +86,7 @@ public class GuiCaptchaHandler implements Listener {
     }
 
 
-    private void addPacketListeners() {
+    private void initializePacketListeners() {
         if (!isPacketListenersActive) {
             ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
             ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
@@ -214,7 +214,7 @@ public class GuiCaptchaHandler implements Listener {
                             }
                         }
                     };
-                    addPacketListeners();
+                    initializePacketListeners();
                     //Open captcha inventory
                     menu.setItem(random_num.get(), item);
                     playerunreg.openInventory(menu);
