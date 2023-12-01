@@ -24,7 +24,7 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment({"Should send GUI captcha by country code whitelist?",
         "If the country of the player is in this list, the captcha won't be sent."})
     public static final Property<List<String>> GUI_CAPTCHA_COUNTRY_WHITELIST =
-        newListProperty("3rdPartyFeature.captcha.whiteList");
+        newListProperty("3rdPartyFeature.features.captcha.whiteList");
 
     @Comment({"Should we let Bedrock players login automatically?",
         "(Requires hookFloodgate to be true & floodgate loaded)"})
@@ -38,21 +38,21 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> SMART_ASYNC_TELEPORT = newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", false);
 
     @Comment("Send a GUI captcha to unregistered players?(Requires ProtocolLib)")
-    public static final Property<Boolean> GUI_CAPTCHA = newProperty("3rdPartyFeature.captcha.guiCaptcha", false);
+    public static final Property<Boolean> GUI_CAPTCHA = newProperty("3rdPartyFeature.features.captcha.guiCaptcha", false);
 
     @Comment({"Should we kick the players when they don't finish the GUI captcha in seconds?",
         "(less than or equals 0 is disabled)"})
-    public static final Property<Integer> GUI_CAPTCHA_TIMEOUT = newProperty("3rdPartyFeature.captcha.timeOut",0);
+    public static final Property<Integer> GUI_CAPTCHA_TIMEOUT = newProperty("3rdPartyFeature.features.captcha.timeOut", 0);
 
     @Comment({"Should we ignore floodgate players when sending GUI captcha?",
         "(Requires floodgate and hookFloodgate: true)"})
-    public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY = newProperty("3rdPartyFeature.captcha.ignoreBedrock",false);
+    public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY = newProperty("3rdPartyFeature.features.captcha.ignoreBedrock", false);
 
     @Comment("Should we delete player data and stats when they didn't finish the captcha?")
-    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.captcha.purgePlayerData",false);
+    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.features.captcha.purgePlayerData", false);
 
     @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
-    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.captcha.purgeWorldFolderName","world");
+    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.features.captcha.purgeWorldFolderName", "world");
 
     @Comment("Should we fix the location when players logged in the portal?")
     public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixPortalStuck", false);

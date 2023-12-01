@@ -449,7 +449,7 @@ public class AuthMe extends JavaPlugin {
     private void checkServerType() {
         if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
             logger.info("AuthMeReReloaded is running on Paper");
-        }else if (isClassLoaded("catserver.server.CatServerConfig")) {
+        } else if (isClassLoaded("catserver.server.CatServerConfig")) {
             logger.info("AuthMeReReloaded is running on CatServer");
         } else if (isClassLoaded("org.spigotmc.SpigotConfig")) {
             logger.info("AuthMeReReloaded is running on Spigot");
