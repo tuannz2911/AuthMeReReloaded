@@ -118,6 +118,7 @@ public class GuiCaptchaHandler implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerLoginEvent event) {
+        Player player = event.getPlayer();
         bukkitService.runTaskAsynchronously(() -> {
             sb = new StringBuilder();
             int howLongIsRandomString = (howManyRandom.nextInt(3) + 1);
@@ -131,8 +132,15 @@ public class GuiCaptchaHandler implements Listener {
                 // 将字符追加到字符串生成器
                 sb.append(randomChar);
             }
+            if (!whiteList.isEmpty()) {
+                String ip = getPlayerIp(player);
+                if (whiteList.contains(authmeApi.getCountryCode(ip)) && ip != null) {
+                    if (!closeReasonMap.containsKey(player)) {
+                        closeReasonMap.put(player, "verified:whitelist");
+                    }
+                }
+            }
         });
-
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
@@ -140,16 +148,7 @@ public class GuiCaptchaHandler implements Listener {
         randomString = "";
         Player playerunreg = event.getPlayer();
         String name = playerunreg.getName();
-        if (!authmeApi.isRegistered(name) && !isNpc(playerunreg)) {
-            if (!whiteList.isEmpty()) {
-                String ip = getPlayerIp(playerunreg);
-                if (whiteList.contains(authmeApi.getCountryCode(ip)) && ip != null) {
-                    if (!closeReasonMap.containsKey(playerunreg)) {
-                        closeReasonMap.put(playerunreg, "verified:whitelist");
-                    }
-                    return;
-                }
-            }
+        if (!authmeApi.isRegistered(name) && !isNpc(playerunreg) && !closeReasonMap.containsKey(playerunreg)) {
             if (isBedrockPlayer(playerunreg.getUniqueId())) {
                 if (!closeReasonMap.containsKey(playerunreg)) {
                     closeReasonMap.put(playerunreg, "verified:bedrock");
