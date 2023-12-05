@@ -79,7 +79,7 @@
         <pluginDescription.name>${project.outputName}</pluginDescription.name>
         <pluginDescription.version>${project.versionCode}</pluginDescription.version>
         <pluginDescription.main>${project.groupId}.${project.artifactId}.${pluginDescription.name}</pluginDescription.main>
-        <pluginDescription.authors>sgdc3, ljacqu, games647, Hex3l, krusic22</pluginDescription.authors>
+        <pluginDescription.authors>sgdc3, games647, Hex3l, krusic22</pluginDescription.authors>
     </properties>
 
     <!-- Jenkins profile -->
@@ -294,7 +294,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <id>shaded-jar</id>
@@ -769,7 +769,7 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>3.1.2</version>
+            <version>3.1.4</version>
             <optional>true</optional>
         </dependency>
 
@@ -1072,7 +1072,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.5.4</version>
+            <version>42.6.0</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -1129,7 +1129,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>2.1.214</version>
+            <version>2.2.220</version>
             <scope>test</scope>
         </dependency>
 
