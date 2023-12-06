@@ -109,6 +109,6 @@ public class OnStartupTasks {
                     }
                 });
             }
-        }, 1, TICKS_PER_MINUTE * settings.getProperty(EmailSettings.DELAY_RECALL));
+        }, 1, (long) TICKS_PER_MINUTE * settings.getProperty(EmailSettings.DELAY_RECALL));
     }
 }
