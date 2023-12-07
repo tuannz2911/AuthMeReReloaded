@@ -40,7 +40,7 @@ jobs:
           - mcVersion: '1.20.2'
             javaVersion: '17'   
     steps:        
-      - uses: HaHaWTH/minecraft-plugin-runtime-test@V2
+      - uses: HaHaWTH/minecraft-plugin-runtime-test@paper
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
