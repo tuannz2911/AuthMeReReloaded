@@ -44,4 +44,4 @@ jobs:
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
-          artifact-name: artifact-${{ github.event.number }}
+          artifact-name: Download
