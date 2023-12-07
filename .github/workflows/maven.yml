@@ -45,3 +45,4 @@ jobs:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
           artifact-name: Download
+          floodgate: false
