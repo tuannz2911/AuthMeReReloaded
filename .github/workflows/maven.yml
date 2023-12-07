@@ -40,7 +40,7 @@ jobs:
           - mcVersion: '1.20.2'
             javaVersion: '17'   
     steps:        
-      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.4# specify action version, use latest as possible
+      - uses: buiawpkgew1/minecraft-plugin-runtime-test-Guizhan@v1.1.4
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
