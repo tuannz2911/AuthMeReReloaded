@@ -38,7 +38,7 @@ jobs:
           - mcVersion: '1.12.2'
             javaVersion: '8'
           - mcVersion: '1.20.2'
-            javaVersion: '17'   
+            javaVersion: '20'   
     steps:        
       - uses: HaHaWTH/minecraft-plugin-runtime-test@paper
         with:
