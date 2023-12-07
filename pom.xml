@@ -531,42 +531,6 @@
             </snapshots>
         </repository>
 
-        <!-- Aliyun maven central mirror repo -->
-        <repository>
-            <id>aliyun-repo</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-        <!-- Tencent cloud maven central mirror repo -->
-        <repository>
-            <id>tencent-repo</id>
-            <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-        <!-- Huawei cloud maven central mirror repo -->
-        <repository>
-            <id>huawei-repo</id>
-            <url>https://repo.huaweicloud.com/repository/maven/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
         <!-- CodeMC Repo (Contains many required libraries) -->
         <repository>
             <id>codemc-repo</id>
