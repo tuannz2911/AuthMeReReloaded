@@ -20,6 +20,10 @@ public class TeleportUtils {
         }
     }
 
+    /**
+     * @param player   The player to be teleported
+     * @param location Where should the player be teleported
+     */
     public static void teleport(Player player, Location location) {
         if (teleportAsyncMethod != null) {
             try {
