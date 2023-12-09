@@ -64,7 +64,6 @@ public class GuiCaptchaHandler implements Listener {
 
 
     private PacketAdapter chatPacketListener;
-    private PacketAdapter chunkPacketListener;
     private PacketAdapter windowPacketListener;
 
     //define timesLeft
@@ -94,7 +93,6 @@ public class GuiCaptchaHandler implements Listener {
         if (!isPacketListenersActive) {
             ProtocolLibrary.getProtocolManager().addPacketListener(windowPacketListener);
             ProtocolLibrary.getProtocolManager().addPacketListener(chatPacketListener);
-            ProtocolLibrary.getProtocolManager().addPacketListener(chunkPacketListener);
             isPacketListenersActive = true;
         }
     }
@@ -177,21 +175,11 @@ public class GuiCaptchaHandler implements Listener {
                     } catch (NullPointerException e) {
                         getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
                     }
-                    chunkPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Server.MAP_CHUNK) {
-                        @Override
-                        public void onPacketSending(PacketEvent event) {
-                            // 获取数据包的接收者（玩家）
-                            Player packetPlayer = event.getPlayer();
-                            if (!closeReasonMap.containsKey(packetPlayer)) {
-                                event.setCancelled(true);
-                            }
-                        }
-                    };
                     windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
                             Player packetPlayer = event.getPlayer();
-                            if (!closeReasonMap.containsKey(packetPlayer)) {
+                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
                                 if (timesLeft <= 0) {
                                     bukkitService.runTask(() -> {
                                         packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
@@ -222,7 +210,7 @@ public class GuiCaptchaHandler implements Listener {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
                             Player packetPlayer = event.getPlayer();
-                            if (!closeReasonMap.containsKey(packetPlayer)) {
+                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
                                 messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
                                 event.setCancelled(true);
                             }
