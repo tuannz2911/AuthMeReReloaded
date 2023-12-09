@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import static org.bukkit.Bukkit.getLogger;
+
 /**
  * This class is a utility class for handling async teleportation of players in game.
  */
@@ -34,11 +36,14 @@ public class TeleportUtils {
         if (teleportAsyncMethod != null) {
             try {
                 teleportAsyncMethod.invoke(player, location);
+                getLogger().info("Using async teleport method");
             } catch (IllegalAccessException | InvocationTargetException e) {
                 player.teleport(location);
+                getLogger().info("Using legacy teleport method");
             }
         } else {
             player.teleport(location);
+            getLogger().info("Using legacy teleport method");
         }
     }
 }
