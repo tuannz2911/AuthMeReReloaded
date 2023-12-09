@@ -182,7 +182,7 @@ public class GuiCaptchaHandler implements Listener {
                         public void onPacketSending(PacketEvent event) {
                             // 获取数据包的接收者（玩家）
                             Player packetPlayer = event.getPlayer();
-                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+                            if (!closeReasonMap.containsKey(packetPlayer)) {
                                 event.setCancelled(true);
                             }
                         }
@@ -191,7 +191,7 @@ public class GuiCaptchaHandler implements Listener {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
                             Player packetPlayer = event.getPlayer();
-                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+                            if (!closeReasonMap.containsKey(packetPlayer)) {
                                 if (timesLeft <= 0) {
                                     bukkitService.runTask(() -> {
                                         packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
@@ -222,7 +222,7 @@ public class GuiCaptchaHandler implements Listener {
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
                             Player packetPlayer = event.getPlayer();
-                            if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+                            if (!closeReasonMap.containsKey(packetPlayer)) {
                                 messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
                                 event.setCancelled(true);
                             }
