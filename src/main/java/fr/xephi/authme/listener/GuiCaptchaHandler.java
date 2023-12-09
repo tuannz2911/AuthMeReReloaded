@@ -246,7 +246,7 @@ public class GuiCaptchaHandler implements Listener {
     public void onPlayerAuthMeLogin(LoginEvent event) {
         Player player = event.getPlayer();
         if (!closeReasonMap.containsKey(player)) {
-            closeReasonMap.put(player, "verified:loggedIn");
+            closeReasonMap.put(player, "verified:login");
         }
     }
 
