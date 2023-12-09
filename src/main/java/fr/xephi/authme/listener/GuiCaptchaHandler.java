@@ -44,6 +44,9 @@ import static fr.xephi.authme.util.PlayerUtils.isNpc;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
+/**
+ * This class handles ALL the GUI captcha features in the plugin.
+ */
 public class GuiCaptchaHandler implements Listener {
     //define AuthMeApi
     private final AuthMeApi authmeApi = AuthMeApi.getInstance();
@@ -266,6 +269,7 @@ public class GuiCaptchaHandler implements Listener {
             playerDataFile.delete();
         }
     }
+
     private void deletePlayerStats(UUID playerUUID) {
         // 获取服务器的存储文件夹路径
         File serverFolder = Bukkit.getServer().getWorldContainer();

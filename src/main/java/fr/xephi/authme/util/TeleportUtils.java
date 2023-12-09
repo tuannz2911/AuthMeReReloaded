@@ -5,6 +5,10 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+/**
+ * This class is a utility class for handling async teleportation of players in game.
+ */
 public class TeleportUtils {
     private static Method teleportAsyncMethod;
 
@@ -21,6 +25,8 @@ public class TeleportUtils {
     }
 
     /**
+     * Teleport a player to a specified location.
+     *
      * @param player   The player to be teleported
      * @param location Where should the player be teleported
      */
