@@ -19,7 +19,9 @@ public final class HooksSettings implements SettingsHolder {
     public static final Property<Boolean> BUNGEECORD =
         newProperty("Hooks.bungeecord", false);
 
-    @Comment("Allow FloodGatePlayer Join Without checkIsValidName()")
+    @Comment({"Allow FloodGatePlayer Join Without checkIsValidName()",
+        "This must be true if you want to use other bedrock features."
+    })
     public static final Property<Boolean> HOOK_FLOODGATE_PLAYER =
         newProperty("Hooks.floodgate", false);
 
