@@ -144,8 +144,10 @@ public class TeleportationService implements Reloadable {
         } else if (settings.getProperty(TELEPORT_UNAUTHED_TO_SPAWN)) {
             if (settings.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION)) {
                 Location location = buildLocationFromAuth(player, auth);
-                logger.debug("Teleporting `{0}` after login, based on the player auth", player.getName());
-                teleportBackFromSpawn(player, location);
+                if (player.hasPlayedBefore()) {
+                    logger.debug("Teleporting `{0}` after login, based on the player auth", player.getName());
+                    teleportBackFromSpawn(player, location);
+                }
             } else if (limbo != null && limbo.getLocation() != null) {
                 logger.debug("Teleporting `{0}` after login, based on the limbo player", player.getName());
                 teleportBackFromSpawn(player, limbo.getLocation());
