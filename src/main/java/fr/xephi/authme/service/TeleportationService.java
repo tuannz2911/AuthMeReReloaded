@@ -1,7 +1,6 @@
 package fr.xephi.authme.service;
 
 import fr.xephi.authme.ConsoleLogger;
-import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.data.auth.PlayerAuth;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.data.limbo.LimboPlayer;
@@ -143,8 +142,7 @@ public class TeleportationService implements Reloadable {
             logger.debug("Teleporting `{0}` to spawn because of 'force-spawn after login'", player.getName());
             teleportToSpawn(player, true);
         } else if (settings.getProperty(TELEPORT_UNAUTHED_TO_SPAWN)) {
-            if (settings.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION) && player.hasPlayedBefore() &&
-                AuthMeApi.getInstance().getLastLocation(player) != null) {
+            if (settings.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION) && auth.getQuitLocY() != 0) {
                 Location location = buildLocationFromAuth(player, auth);
                 logger.debug("Teleporting `{0}` after login, based on the player auth", player.getName());
                 teleportBackFromSpawn(player, location);
