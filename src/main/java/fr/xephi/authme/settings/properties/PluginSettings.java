@@ -39,7 +39,7 @@ public final class PluginSettings implements SettingsHolder {
         "https://github.com/AuthMe/AuthMeReloaded/blob/master/docs/translations.md"
     })
     public static final Property<String> MESSAGES_LANGUAGE =
-        newProperty("settings.messagesLanguage", "zhcn");
+        newProperty("settings.messagesLanguage", "en");
 
     @Comment({
         "Enables switching a player to defined permission groups before they log in.",

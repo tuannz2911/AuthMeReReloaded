@@ -11,6 +11,7 @@ registration:
     command_usage: '&c正确用法:“/reg <密码> <重复密码>”'
     reg_only: '&c只允许注册过的玩家进服!'
     success: '&a*** 已成功注册 ***'
+    kicked_admin_registered: '&a*** 管理员刚刚注册了您; 请重新登录 ***'
 
 # Password errors on registration
 password:
