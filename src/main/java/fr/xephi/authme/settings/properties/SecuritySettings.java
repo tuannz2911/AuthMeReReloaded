@@ -28,52 +28,47 @@ public final class SecuritySettings implements SettingsHolder {
 
     @Comment({"Should we let Bedrock players login automatically?",
         "(Requires hookFloodgate to be true & floodgate loaded)"})
-    public static final Property<Boolean> FORCE_LOGIN_BEDROCK = newProperty("3rdPartyFeature.features.bedrockAutoLogin", false);
+    public static final Property<Boolean> FORCE_LOGIN_BEDROCK =
+        newProperty("3rdPartyFeature.features.bedrockAutoLogin", false);
 
     @Comment("Enable the new feature to prevent ghost players?")
-    public static final Property<Boolean> ANTI_GHOST_PLAYERS = newProperty("3rdPartyFeature.fixes.antiGhostPlayer", false);
+    public static final Property<Boolean> ANTI_GHOST_PLAYERS =
+        newProperty("3rdPartyFeature.fixes.antiGhostPlayer", false);
 
     @Comment({"Choose the best teleport method by server brand?",
         "(Enable this if you are using Paper)"})
-    public static final Property<Boolean> SMART_ASYNC_TELEPORT = newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", false);
+    public static final Property<Boolean> SMART_ASYNC_TELEPORT =
+        newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", false);
 
     @Comment("Send a GUI captcha to unregistered players?(Requires ProtocolLib)")
-    public static final Property<Boolean> GUI_CAPTCHA = newProperty("3rdPartyFeature.features.captcha.guiCaptcha", false);
+    public static final Property<Boolean> GUI_CAPTCHA =
+        newProperty("3rdPartyFeature.features.captcha.guiCaptcha", false);
 
     @Comment({"Should we kick the players when they don't finish the GUI captcha in seconds?",
         "(less than or equals 0 is disabled)"})
-    public static final Property<Integer> GUI_CAPTCHA_TIMEOUT = newProperty("3rdPartyFeature.features.captcha.timeOut", 0);
+    public static final Property<Integer> GUI_CAPTCHA_TIMEOUT =
+        newProperty("3rdPartyFeature.features.captcha.timeOut", 0);
 
     @Comment({"Should we ignore floodgate players when sending GUI captcha?",
         "(Requires floodgate and hookFloodgate: true)"})
-    public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY = newProperty("3rdPartyFeature.features.captcha.ignoreBedrock", false);
+    public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY =
+        newProperty("3rdPartyFeature.features.captcha.ignoreBedrock", false);
 
     @Comment("Should we delete player data and stats when they didn't finish the captcha?")
-    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA = newProperty("3rdPartyFeature.features.captcha.purgePlayerData", false);
+    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA =
+        newProperty("3rdPartyFeature.features.captcha.purgePlayerData", false);
 
     @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
-    public static final Property<String> DELETE_PLAYER_DATA_WORLD = newProperty("3rdPartyFeature.features.captcha.purgeWorldFolderName", "world");
+    public static final Property<String> DELETE_PLAYER_DATA_WORLD =
+        newProperty("3rdPartyFeature.features.captcha.purgeWorldFolderName", "world");
 
     @Comment("Should we fix the location when players logged in the portal?")
-    public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixPortalStuck", false);
+    public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL =
+        newProperty("3rdPartyFeature.fixes.loginLocationFix.fixPortalStuck", false);
 
     @Comment("Should we fix the location when players logged underground?")
-    public static final Property<Boolean> LOGIN_LOC_FIX_SUB_UNDERGROUND = newProperty("3rdPartyFeature.fixes.loginLocationFix.fixGroundStuck", false);
-
-//    @Comment({"Should we kick the players when they failed captcha too many times?",
-//    "(Minimum value is 1)(Default: 3)"})
-//    public static final Property<Integer> GUI_CAPTCHA_MAX_TRY = newProperty("3rdPartyFeature.captcha.maxTryTimes",3);
-
-
-    //@Comment({"Using which API to get hash data?",
-        //"Available options: github, gitee, ghproxy (if your server is in China, please use gitee or ghproxy.)"})
-    //public static final Property<String> SHA_CHECK_METHOD = newProperty("Plugin.hashing.hashApi","github");
-
-    //@Comment("Should we use the local cache sometimes instead of requesting API?")
-    //public static  final Property<Boolean> USE_LOCAL_CACHE = newProperty("Plugin.hashing.useLocalCache",false);
-
-    //@Comment("DON'T TOUCH!!!")
-    //public static final Property<String> SHA_CHECK_CACHE = newProperty("Plugin.hashing.hashCached","");
+    public static final Property<Boolean> LOGIN_LOC_FIX_SUB_UNDERGROUND =
+        newProperty("3rdPartyFeature.fixes.loginLocationFix.fixGroundStuck", false);
 
     @Comment("Copy AuthMe log output in a separate file as well?")
     public static final Property<Boolean> USE_LOGGING =
