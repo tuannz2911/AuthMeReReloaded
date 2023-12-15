@@ -14,11 +14,11 @@ public final class ProtectionSettings implements SettingsHolder {
 
     @Comment("Enable some servers protection (country based login, antibot)")
     public static final Property<Boolean> ENABLE_PROTECTION =
-        newProperty("Protection.enableProtection", true);
+        newProperty("Protection.enableProtection", false);
 
     @Comment("Apply the protection also to registered usernames")
     public static final Property<Boolean> ENABLE_PROTECTION_REGISTERED =
-        newProperty("Protection.enableProtectionRegistered", true);
+        newProperty("Protection.enableProtectionRegistered", false);
 
     @Comment({
         "Countries allowed to join the server and register. For country codes, see",
@@ -26,7 +26,7 @@ public final class ProtectionSettings implements SettingsHolder {
         "Use \"LOCALHOST\" for local addresses.",
         "PLEASE USE QUOTES!"})
     public static final Property<List<String>> COUNTRIES_WHITELIST =
-        newListProperty("Protection.countries", "CN", "LOCALHOST");
+        newListProperty("Protection.countries", "LOCALHOST");
 
     @Comment({
         "Countries not allowed to join the server and register",
