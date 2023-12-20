@@ -346,6 +346,10 @@
                                     <pattern>com.google.gson</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.gson</shadedPattern>
                                 </relocation>
+                                <!--                                <relocation>-->
+                                <!--                                    <pattern>com.cryptomorin.xseries</pattern>-->
+                                <!--                                    <shadedPattern>fr.xephi.authme.libs.com.cryptomorin.xseries</shadedPattern>-->
+                                <!--                                </relocation>-->
                             </relocations>
                         </configuration>
                     </execution>
@@ -864,6 +868,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!--        &lt;!&ndash; XSeries &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.cryptomorin</groupId>-->
+        <!--            <artifactId>XSeries</artifactId>-->
+        <!--            <version>9.8.0</version>-->
+        <!--            <scope>compile</scope>-->
+        <!--        </dependency>-->
 
         <!-- zPermissions plugin -->
         <dependency>

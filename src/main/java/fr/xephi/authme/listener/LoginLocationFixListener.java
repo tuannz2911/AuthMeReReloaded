@@ -50,7 +50,7 @@ public class LoginLocationFixListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Location JoinLocation = player.getLocation().getBlock().getLocation().add(0.5, 0.1, 0.5);
+        Location JoinLocation = player.getLocation();
         if (isFixPortalStuck) {
             if (!JoinLocation.getBlock().getType().equals(materialPortal) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(materialPortal)) {
                 return;
@@ -73,7 +73,8 @@ public class LoginLocationFixListener implements Listener {
                 JoinBlock.breakNaturally();
             }
             messages.send(player, MessageKey.LOCATION_FIX_PORTAL);
-        } else if (isFixGroundStuck) {
+        }
+        if (isFixGroundStuck) {
             Material UpType = JoinLocation.getBlock().getRelative(BlockFace.UP).getType();
             World world = player.getWorld();
             int MaxHeight = world.getMaxHeight();
@@ -108,5 +109,6 @@ public class LoginLocationFixListener implements Listener {
                 }
             }
         }
+
     }
 }
