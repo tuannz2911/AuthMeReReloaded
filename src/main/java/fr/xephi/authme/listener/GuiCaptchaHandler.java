@@ -32,10 +32,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
@@ -70,12 +70,14 @@ public class GuiCaptchaHandler implements Listener {
     private int timesLeft = 3;
     //Use ConcurrentHashMap to store player and their close reason
     /* We used many async tasks so there is concurrent**/
-    public static HashMap<Player, String> closeReasonMap = new HashMap<>();
+    public static ConcurrentHashMap<Player, String> closeReasonMap = new ConcurrentHashMap<>();
     //define randomStringSet
     String randomSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!@#%&*()_+";
     String randomString = "";
     Random randomItemSet = new Random();
     Random howManyRandom = new Random();
+
+
     private boolean isPacketListenersActive = false;
 
     public GuiCaptchaHandler() {
@@ -162,6 +164,7 @@ public class GuiCaptchaHandler implements Listener {
                 messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
                 return;
             }
+
             bukkitService.runTaskAsynchronously(() -> {
                 bukkitService.runTask(() -> {
                     randomString = sb.toString();
@@ -233,14 +236,12 @@ public class GuiCaptchaHandler implements Listener {
                             timeOut = settings.getProperty(RestrictionSettings.TIMEOUT);
                         }
                         long finalTimeOut = timeOut;
-                        bukkitService.runTask(() -> {
-                            bukkitService.runTaskLater(() -> {
-                                if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                                    playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
-                                    timesLeft = 3; // Reset the attempt counter
-                                }
-                            }, finalTimeOut * 20L);
-                        });
+                        bukkitService.runTaskLater(() -> {
+                            if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                                playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
+                                timesLeft = 3; // Reset the attempt counter
+                            }
+                        }, finalTimeOut * 20L);
                     }
                 });
             });

@@ -73,7 +73,7 @@ public class AuthMe extends JavaPlugin {
 
     // Version and build number values
     private static String pluginVersion = "5.6.0-Fork";
-    public static final String pluginBuild = "b";
+    private static final String pluginBuild = "b";
     private static String pluginBuildNumber = "38";
     // Private instances
     private EmailService emailService;
@@ -85,10 +85,20 @@ public class AuthMe extends JavaPlugin {
     private Injector injector;
     private BackupService backupService;
     public static ConsoleLogger logger;
+
     /**
      * Constructor.
      */
     public AuthMe() {
+    }
+
+    /**
+     * Get the plugin's build
+     *
+     * @return The plugin's build
+     */
+    public static String getPluginBuild() {
+        return pluginBuild;
     }
 
 
