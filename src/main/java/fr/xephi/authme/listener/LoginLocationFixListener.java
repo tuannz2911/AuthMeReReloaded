@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import javax.inject.Inject;
+import java.lang.reflect.Method;
 
 
 public class LoginLocationFixListener implements Listener {
@@ -33,6 +34,8 @@ public class LoginLocationFixListener implements Listener {
     }
 
     private static Material materialPortal = Material.matchMaterial("PORTAL");
+
+    private boolean isChecked = false;
     private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
     private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
     private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
@@ -45,12 +48,31 @@ public class LoginLocationFixListener implements Listener {
                 materialPortal = Material.matchMaterial("NETHER_PORTAL");
             }
         }
+
     }
+
+    private int getMinHeight(World world) {
+        //this keeps compatibility of 1.16.x and lower
+        if (!isChecked) {
+            try {
+                Method getMinHeightMethod = World.class.getMethod("getMinHeight");
+                getMinHeightMethod.setAccessible(true);
+                isChecked = true;
+                return world.getMinHeight();
+            } catch (NoSuchMethodException e) {
+                isChecked = true;
+                return 0;
+            }
+        }
+        return world.getMinHeight();
+    }
+
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         Location JoinLocation = player.getLocation();
+        System.out.println(getMinHeight(player.getWorld()));
         if (isFixPortalStuck) {
             if (!JoinLocation.getBlock().getType().equals(materialPortal) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(materialPortal)) {
                 return;
@@ -78,11 +100,10 @@ public class LoginLocationFixListener implements Listener {
             Material UpType = JoinLocation.getBlock().getRelative(BlockFace.UP).getType();
             World world = player.getWorld();
             int MaxHeight = world.getMaxHeight();
-            int MinHeight = world.getMinHeight();
             if (!UpType.isOccluding() && !UpType.equals(Material.LAVA)) {
                 return;
             }
-            for (int i = MinHeight; i <= MaxHeight; i++) {
+            for (int i = getMinHeight(world); i <= MaxHeight; i++) {
                 JoinLocation.setY(i);
                 Block JoinBlock = JoinLocation.getBlock();
                 if ((JoinBlock.getRelative(BlockFace.DOWN).getType().isBlock())
