@@ -76,7 +76,6 @@ public class LoginLocationFixListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         Location JoinLocation = player.getLocation();
-        System.out.println(getMinHeight(player.getWorld()));
         if (isFixPortalStuck) {
             if (!JoinLocation.getBlock().getType().equals(materialPortal) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(materialPortal)) {
                 return;
