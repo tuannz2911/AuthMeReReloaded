@@ -36,6 +36,7 @@ public class LoginLocationFixListener implements Listener {
     private static Material materialPortal = Material.matchMaterial("PORTAL");
 
     private boolean isChecked = false;
+    private boolean isGetMinHeight = false;
     private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
     private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
     private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
@@ -48,23 +49,26 @@ public class LoginLocationFixListener implements Listener {
                 materialPortal = Material.matchMaterial("NETHER_PORTAL");
             }
         }
-
     }
 
     private int getMinHeight(World world) {
-        //this keeps compatibility of 1.16.x and lower
-        if (!isChecked) {
-            try {
+        //This keeps compatibility of 1.16.x and lower
+        try {
+            if (!isChecked) {
                 Method getMinHeightMethod = World.class.getMethod("getMinHeight");
                 getMinHeightMethod.setAccessible(true);
                 isChecked = true;
+                isGetMinHeight = true;
                 return world.getMinHeight();
-            } catch (NoSuchMethodException e) {
-                isChecked = true;
+            } else if (isGetMinHeight) {
+                return world.getMinHeight();
+            } else {
                 return 0;
             }
+        } catch (NoSuchMethodException e) {
+            isChecked = true;
+            return 0;
         }
-        return world.getMinHeight();
     }
 
 
