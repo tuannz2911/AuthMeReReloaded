@@ -190,22 +190,12 @@ public class AuthMe extends JavaPlugin {
         // Set up Metrics
         OnStartupTasks.sendMetrics(this, settings);
         if (settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
-            String loadColorConfig = settings.getProperty(SecuritySettings.STARTUP_BANNER_COLOR);
-            if (loadColorConfig.startsWith("§") && !loadColorConfig.endsWith("§") && (loadColorConfig.length() % 2 == 0)) {
-                logger.info("\n" + loadColorConfig + "    ___         __  __    __  ___   \n" +
-                    loadColorConfig + "   /   | __  __/ /_/ /_  /  |/  /__ \n" +
-                    loadColorConfig + "  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
-                    loadColorConfig + " / ___ / /_/ / /_/ / / / /  / /  __/\n" +
-                    loadColorConfig + "/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
-                    loadColorConfig + "                                    ");
-            } else {
-                logger.info("\n" + "    ___         __  __    __  ___   \n" +
-                    "   /   | __  __/ /_/ /_  /  |/  /__ \n" +
-                    "  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
-                    " / ___ / /_/ / /_/ / / / /  / /  __/\n" +
-                    "/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
-                    "                                    ");
-            }
+            logger.info("\n" + "    ___         __  __    __  ___   \n" +
+                "   /   | __  __/ /_/ /_  /  |/  /__ \n" +
+                "  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
+                " / ___ / /_/ / /_/ / / / /  / /  __/\n" +
+                "/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
+                "                                    ");
         }
         // Successful message
         //detect server brand with classloader

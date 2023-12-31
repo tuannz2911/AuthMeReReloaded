@@ -100,10 +100,6 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> SHOW_STARTUP_BANNER =
         newProperty("Plugin.banners.showBanners", true);
 
-    @Comment("Change the banner colors here (Default: §r)")
-    public static final Property<String> STARTUP_BANNER_COLOR =
-        newProperty("Plugin.banners.bannerColor", "§r");
-
     @Comment("Max allowed tries before a captcha is required")
     public static final Property<Integer> MAX_LOGIN_TRIES_BEFORE_CAPTCHA =
         newProperty("Security.captcha.maxLoginTry", 8);
