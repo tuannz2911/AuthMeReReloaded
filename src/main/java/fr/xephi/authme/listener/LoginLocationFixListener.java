@@ -35,7 +35,7 @@ public class LoginLocationFixListener implements Listener {
 
     private static Material materialPortal = Material.matchMaterial("PORTAL");
 
-    private static int isChecked = 0; // 0: unchecked 1: method available 2: method not available
+    private static boolean isChecked = false; // false: unchecked/method not available   true: method is available
     private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
     private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
     private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
@@ -50,15 +50,15 @@ public class LoginLocationFixListener implements Listener {
         }
         try {
             Method getMinHeightMethod = World.class.getMethod("getMinHeight");
-            isChecked = 1;
+            isChecked = true;
         } catch (NoSuchMethodException e) {
-            isChecked = 2;
+            isChecked = false;
         }
     }
 
     private int getMinHeight(World world) {
         //This keeps compatibility of 1.16.x and lower
-        if (isChecked == 1) {
+        if (isChecked) {
             return world.getMinHeight();
         } else {
             return 0;
