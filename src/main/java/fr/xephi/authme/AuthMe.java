@@ -360,8 +360,10 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
             pluginManager.registerEvents(injector.getSingleton(DoubleLoginFixListener.class), this);
         }
-        if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX)) {
+        if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && !isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
             pluginManager.registerEvents(injector.getSingleton(AdvancedShulkerFixListener.class), this);
+        } else if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
+            logger.warning("You are running an 1.13+ minecraft server, advancedShulkerFix won't enable.");
         }
     }
 
