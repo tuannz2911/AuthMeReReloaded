@@ -24,7 +24,8 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
  13. Offhand Menu compatibility(Thats amazing)
  14. Automatically fix portal stuck issue
  15. Automatically login for Bedrock players(configurable)
- 16. More......
+ 16. Fix shulker box crash bug on legacy versions(MC 1.13-)
+ 17. More......
 
 **Download links:**
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)

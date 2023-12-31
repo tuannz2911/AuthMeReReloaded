@@ -35,6 +35,11 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> ANTI_GHOST_PLAYERS =
         newProperty("3rdPartyFeature.fixes.antiGhostPlayer", false);
 
+    @Comment({"(MC1.13- only)",
+        "Should we fix the shulker crash bug with advanced method?"})
+    public static final Property<Boolean> ADVANCED_SHULKER_FIX =
+        newProperty("3rdPartyFeature.fixes.advancedShulkerFix", true);
+
     @Comment({"Choose the best teleport method by server brand?",
         "(Enable this if you are using Paper)"})
     public static final Property<Boolean> SMART_ASYNC_TELEPORT =

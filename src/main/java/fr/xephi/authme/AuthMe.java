@@ -11,6 +11,7 @@ import fr.xephi.authme.initialization.OnShutdownPlayerSaver;
 import fr.xephi.authme.initialization.OnStartupTasks;
 import fr.xephi.authme.initialization.SettingsProvider;
 import fr.xephi.authme.initialization.TaskCloser;
+import fr.xephi.authme.listener.AdvancedShulkerFixListener;
 import fr.xephi.authme.listener.BedrockAutoLoginListener;
 import fr.xephi.authme.listener.BlockListener;
 import fr.xephi.authme.listener.DoubleLoginFixListener;
@@ -358,6 +359,9 @@ public class AuthMe extends JavaPlugin {
         }
         if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
             pluginManager.registerEvents(injector.getSingleton(DoubleLoginFixListener.class), this);
+        }
+        if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX)) {
+            pluginManager.registerEvents(injector.getSingleton(AdvancedShulkerFixListener.class), this);
         }
     }
 

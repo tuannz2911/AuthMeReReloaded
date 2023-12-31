@@ -444,6 +444,14 @@
                             <pattern>com.google.protobuf</pattern>
                             <shadedPattern>fr.xephi.authme.libs.com.google.protobuf</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>io.netty</pattern>
+                            <shadedPattern>fr.xephi.authme.libs.io.netty</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.apache.commons.validator</pattern>
+                            <shadedPattern>fr.xephi.authme.libs.org.apache.commons.validator</shadedPattern>
+                        </relocation>
                     </relocations>
 
                     <filters>
@@ -511,6 +519,15 @@
     </build>
 
     <repositories>
+        <repository>
+            <id>opencollab-snapshot-main</id>
+            <url>https://repo.opencollab.dev/main/</url>
+        </repository>
+        <repository>
+            <id>opencollab-maven-snapshots</id>
+            <url>https://repo.opencollab.dev/maven-snapshots/</url>
+        </repository>
+
         <!-- Apache snapshots repo -->
         <repository>
             <id>apache-snapshots</id>
@@ -628,10 +645,6 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>opencollab-snapshot-main</id>
-            <url>https://repo.opencollab.dev/main/</url>
         </repository>
     </repositories>
 
@@ -869,12 +882,18 @@
             </exclusions>
         </dependency>
 
-        <!--        &lt;!&ndash; XSeries &ndash;&gt;-->
+        <!-- dependencies used by HAProxy feature -->
         <!--        <dependency>-->
-        <!--            <groupId>com.github.cryptomorin</groupId>-->
-        <!--            <artifactId>XSeries</artifactId>-->
-        <!--            <version>9.8.0</version>-->
+        <!--            <groupId>io.netty</groupId>-->
+        <!--            <artifactId>netty-codec-haproxy</artifactId>-->
+        <!--            <version>4.1.104.Final</version>-->
         <!--            <scope>compile</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>commons-validator</groupId>-->
+        <!--            <artifactId>commons-validator</artifactId>-->
+        <!--            <version>1.8.0</version>-->
+        <!--            <scope>provided</scope>-->
         <!--        </dependency>-->
 
         <!-- zPermissions plugin -->

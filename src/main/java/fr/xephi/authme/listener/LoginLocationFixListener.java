@@ -35,7 +35,7 @@ public class LoginLocationFixListener implements Listener {
 
     private static Material materialPortal = Material.matchMaterial("PORTAL");
 
-    private static boolean isChecked = false; // false: unchecked/method not available   true: method is available
+    private static boolean isAvailable; // false: unchecked/method not available   true: method is available
     private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
     private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
     private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
@@ -50,15 +50,15 @@ public class LoginLocationFixListener implements Listener {
         }
         try {
             Method getMinHeightMethod = World.class.getMethod("getMinHeight");
-            isChecked = true;
+            isAvailable = true;
         } catch (NoSuchMethodException e) {
-            isChecked = false;
+            isAvailable = false;
         }
     }
 
     private int getMinHeight(World world) {
         //This keeps compatibility of 1.16.x and lower
-        if (isChecked) {
+        if (isAvailable) {
             return world.getMinHeight();
         } else {
             return 0;
@@ -97,10 +97,11 @@ public class LoginLocationFixListener implements Listener {
             Material UpType = JoinLocation.getBlock().getRelative(BlockFace.UP).getType();
             World world = player.getWorld();
             int MaxHeight = world.getMaxHeight();
+            int MinHeight = getMinHeight(world);
             if (!UpType.isOccluding() && !UpType.equals(Material.LAVA)) {
                 return;
             }
-            for (int i = getMinHeight(world); i <= MaxHeight; i++) {
+            for (int i = MinHeight; i <= MaxHeight; i++) {
                 JoinLocation.setY(i);
                 Block JoinBlock = JoinLocation.getBlock();
                 if ((JoinBlock.getRelative(BlockFace.DOWN).getType().isBlock())
