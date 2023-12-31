@@ -38,7 +38,7 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment({"(MC1.13- only)",
         "Should we fix the shulker crash bug with advanced method?"})
     public static final Property<Boolean> ADVANCED_SHULKER_FIX =
-        newProperty("3rdPartyFeature.fixes.advancedShulkerFix", true);
+        newProperty("3rdPartyFeature.fixes.advancedShulkerFix", false);
 
     @Comment({"Choose the best teleport method by server brand?",
         "(Enable this if you are using Paper)"})
