@@ -14,7 +14,7 @@ public final class PluginSettings implements SettingsHolder {
         "If you are using TrMenu, don't enable this because TrMenu already implemented this."
     })
     public static final Property<Boolean> MENU_UNREGISTER_COMPATIBILITY =
-        newProperty("3rdPartyFeature.compatibility.menuPlugins", true);
+        newProperty("3rdPartyFeature.compatibility.menuPlugins", false);
 
     @Comment({
         "Do you want to enable the session feature?",

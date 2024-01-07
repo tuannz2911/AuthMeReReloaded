@@ -29,12 +29,8 @@ public class PlayerListenerHigherThan18 implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSwitchHand(PlayerSwapHandItemsEvent event) {
         Player player = event.getPlayer();
-        if ((!player.isSneaking() || !player.hasPermission("keybindings.use")) &&
-            settings.getProperty(PluginSettings.MENU_UNREGISTER_COMPATIBILITY)) {
-            return;
-        }
-        event.setCancelled(true);
-        if (settings.getProperty(PluginSettings.MENU_UNREGISTER_COMPATIBILITY)) {
+        if (player.isSneaking() && player.hasPermission("keybindings.use") && settings.getProperty(PluginSettings.MENU_UNREGISTER_COMPATIBILITY)) {
+            event.setCancelled(true);
             Bukkit.dispatchCommand(event.getPlayer(), "help");
         }
     }
