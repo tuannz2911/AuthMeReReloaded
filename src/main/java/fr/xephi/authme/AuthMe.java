@@ -2,8 +2,6 @@ package fr.xephi.authme;
 
 import ch.jalu.injector.Injector;
 import ch.jalu.injector.InjectorBuilder;
-import com.github.Anon8281.universalScheduler.UniversalScheduler;
-import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.command.CommandHandler;
 import fr.xephi.authme.datasource.DataSource;
@@ -79,7 +77,6 @@ public class AuthMe extends JavaPlugin {
     private static final String pluginBuild = "b";
     private static String pluginBuildNumber = "40";
     // Private instances
-    private static TaskScheduler scheduler;
     private EmailService emailService;
     private CommandHandler commandHandler;
     @Inject
@@ -105,14 +102,6 @@ public class AuthMe extends JavaPlugin {
         return pluginBuild;
     }
 
-    /**
-     * Get the Universal Scheduler
-     *
-     * @return TaskScheduler
-     */
-    public static TaskScheduler getScheduler() {
-        return scheduler;
-    }
 
     /**
      * Get the plugin's name.
@@ -150,7 +139,7 @@ public class AuthMe extends JavaPlugin {
     public void onEnable() {
         // Load the plugin version data from the plugin description file
         loadPluginInfo(getDescription().getVersion());
-        scheduler = UniversalScheduler.getScheduler(this);
+
         // Set the Logger instance and log file path
         ConsoleLogger.initialize(getLogger(), new File(getDataFolder(), LOG_FILENAME));
         logger = ConsoleLoggerFactory.get(AuthMe.class);
@@ -195,12 +184,11 @@ public class AuthMe extends JavaPlugin {
 
         // Schedule clean up task
         CleanupTask cleanupTask = injector.getSingleton(CleanupTask.class);
-        getScheduler().runTaskTimerAsynchronously(cleanupTask, CLEANUP_INTERVAL, CLEANUP_INTERVAL);
+        cleanupTask.runTaskTimerAsynchronously(this, CLEANUP_INTERVAL, CLEANUP_INTERVAL);
         // Do a backup on start
         backupService.doBackup(BackupService.BackupCause.START);
         // Set up Metrics
         OnStartupTasks.sendMetrics(this, settings);
-
         if (settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
             logger.info("\n" + "    ___         __  __    __  ___   \n" +
                 "   /   | __  __/ /_/ /_  /  |/  /__ \n" +
@@ -465,9 +453,7 @@ public class AuthMe extends JavaPlugin {
 
 
     private void checkServerType() {
-        if (isClassLoaded("io.papermc.paper.threadedregions.RegionizedServerInitEvent")) {
-            logger.info("AuthMeReReloaded is running on Folia");
-        } else if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
+        if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
             logger.info("AuthMeReReloaded is running on Paper");
         } else if (isClassLoaded("catserver.server.CatServerConfig")) {
             logger.info("AuthMeReReloaded is running on CatServer");

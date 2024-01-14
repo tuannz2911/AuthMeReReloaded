@@ -1,8 +1,8 @@
 package fr.xephi.authme.data.limbo;
 
-import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import fr.xephi.authme.task.MessageTask;
 import org.bukkit.Location;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class LimboPlayer {
     private final Location loc;
     private final float walkSpeed;
     private final float flySpeed;
-    private MyScheduledTask timeoutTask = null;
+    private BukkitTask timeoutTask = null;
     private MessageTask messageTask = null;
     private LimboPlayerState state = LimboPlayerState.PASSWORD_REQUIRED;
 
@@ -81,7 +81,7 @@ public class LimboPlayer {
      *
      * @return The timeout task associated to the player
      */
-    public MyScheduledTask getTimeoutTask() {
+    public BukkitTask getTimeoutTask() {
         return timeoutTask;
     }
 
@@ -91,7 +91,7 @@ public class LimboPlayer {
      *
      * @param timeoutTask The task to set
      */
-    public void setTimeoutTask(MyScheduledTask timeoutTask) {
+    public void setTimeoutTask(BukkitTask timeoutTask) {
         if (this.timeoutTask != null) {
             this.timeoutTask.cancel();
         }

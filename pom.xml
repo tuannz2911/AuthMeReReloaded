@@ -324,18 +324,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <!--                            <artifactSet>-->
-                            <!--                                <includes>-->
-                            <!--                                    <include>com.github.Anon8281:UniversalScheduler</include>-->
-                            <!--                                </includes>-->
-                            <!--                            </artifactSet>-->
                             <finalName>${project.finalNameBase}-Spigot-Universal</finalName>
                             <relocations>
-                                <relocation>
-                                    <pattern>com.github.Anon8281.universalScheduler</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.github.Anon8281.universalScheduler
-                                    </shadedPattern>
-                                </relocation>
                                 <relocation>
                                     <pattern>com.google.common</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.common</shadedPattern>
@@ -1057,15 +1047,6 @@
             <artifactId>bcrypt</artifactId>
             <version>0.10.2</version>
             <optional>true</optional>
-        </dependency>
-
-        <!-- Universal Scheduler used by Folia -->
-
-        <dependency>
-            <groupId>com.github.Anon8281</groupId>
-            <artifactId>UniversalScheduler</artifactId>
-            <version>0.1.6</version>
-            <scope>compile</scope>
         </dependency>
 
         <!-- XAuth, another authentication plugin, required by the database converter -->

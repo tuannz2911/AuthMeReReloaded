@@ -1,6 +1,5 @@
 package fr.xephi.authme.service;
 
-import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
@@ -15,6 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -48,10 +48,10 @@ public class BukkitService implements SettingsDependent {
      * This task will be executed by the main server thread.
      *
      * @param task Task to be executed
-     *             Task id number (-1 if scheduling failed)
+     * @return Task id number (-1 if scheduling failed)
      */
-    public void scheduleSyncDelayedTask(Runnable task) {
-        MyScheduledTask tsk = AuthMe.getScheduler().runTask(task);
+    public int scheduleSyncDelayedTask(Runnable task) {
+        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task);
     }
 
     /**
@@ -61,10 +61,10 @@ public class BukkitService implements SettingsDependent {
      *
      * @param task  Task to be executed
      * @param delay Delay in server ticks before executing task
-     *              Task id number (-1 if scheduling failed)
+     * @return Task id number (-1 if scheduling failed)
      */
-    public void scheduleSyncDelayedTask(Runnable task, long delay) {
-        MyScheduledTask tsk = AuthMe.getScheduler().runTaskLater(task, delay);
+    public int scheduleSyncDelayedTask(Runnable task, long delay) {
+        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task, delay);
     }
 
     /**
@@ -76,7 +76,7 @@ public class BukkitService implements SettingsDependent {
      */
     public void scheduleSyncTaskFromOptionallyAsyncTask(Runnable task) {
         if (Bukkit.isPrimaryThread()) {
-            AuthMe.getScheduler().runTask(task);
+            task.run();
         } else {
             scheduleSyncDelayedTask(task);
         }
@@ -86,26 +86,26 @@ public class BukkitService implements SettingsDependent {
      * Returns a task that will run on the next server tick.
      *
      * @param task the task to be run
-     *             a BukkitTask that contains the id number
+     * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public void runTask(Runnable task) {
-        AuthMe.getScheduler().runTask(task);
+    public BukkitTask runTask(Runnable task) {
+        return Bukkit.getScheduler().runTask(authMe, task);
     }
 
     /**
      * Returns a task that will run after the specified number of server
      * ticks.
      *
-     * @param task the task to be run
+     * @param task  the task to be run
      * @param delay the ticks to wait before running the task
      * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public MyScheduledTask runTaskLater(Runnable task, long delay) {
-        return AuthMe.getScheduler().runTaskLater(task, delay);
+    public BukkitTask runTaskLater(Runnable task, long delay) {
+        return Bukkit.getScheduler().runTaskLater(authMe, task, delay);
     }
 
     /**
@@ -116,9 +116,9 @@ public class BukkitService implements SettingsDependent {
      */
     public void runTaskOptionallyAsync(Runnable task) {
         if (useAsyncTasks) {
-            AuthMe.getScheduler().runTaskAsynchronously(task);
+            runTaskAsynchronously(task);
         } else {
-            AuthMe.getScheduler().runTask(task);
+            task.run();
         }
     }
 
@@ -129,12 +129,12 @@ public class BukkitService implements SettingsDependent {
      * Returns a task that will run asynchronously.
      *
      * @param task the task to be run
-     *             a BukkitTask that contains the id number
+     * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public void runTaskAsynchronously(Runnable task) {
-        AuthMe.getScheduler().runTaskAsynchronously(task);
+    public BukkitTask runTaskAsynchronously(Runnable task) {
+        return Bukkit.getScheduler().runTaskAsynchronously(authMe, task);
     }
 
     /**
@@ -148,12 +148,12 @@ public class BukkitService implements SettingsDependent {
      * @param delay the ticks to wait before running the task for the first
      *     time
      * @param period the ticks to wait between runs
-     * a BukkitTask that contains the id number
+     * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if task is null
      * @throws IllegalStateException if this was already scheduled
      */
-    public void runTaskTimerAsynchronously(BukkitRunnable task, long delay, long period) {
-        AuthMe.getScheduler().runTaskTimerAsynchronously(task, delay, period);
+    public BukkitTask runTaskTimerAsynchronously(BukkitRunnable task, long delay, long period) {
+        return task.runTaskTimerAsynchronously(authMe, delay, period);
     }
 
     /**
@@ -163,12 +163,12 @@ public class BukkitService implements SettingsDependent {
      * @param task   the task to schedule
      * @param delay  the ticks to wait before running the task
      * @param period the ticks to wait between runs
-     *               a BukkitTask that contains the id number
+     * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    public void runTaskTimer(BukkitRunnable task, long delay, long period) {
-        AuthMe.getScheduler().runTaskTimer(task, delay, period);
+    public BukkitTask runTaskTimer(BukkitRunnable task, long delay, long period) {
+        return task.runTaskTimer(authMe, delay, period);
     }
 
     /**
