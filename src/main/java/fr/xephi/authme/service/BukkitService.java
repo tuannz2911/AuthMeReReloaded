@@ -15,7 +15,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -105,8 +104,8 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public BukkitTask runTaskLater(Runnable task, long delay) {
-        return (BukkitTask) AuthMe.getScheduler().runTaskLater(task, delay);
+    public MyScheduledTask runTaskLater(Runnable task, long delay) {
+        return AuthMe.getScheduler().runTaskLater(task, delay);
     }
 
     /**
