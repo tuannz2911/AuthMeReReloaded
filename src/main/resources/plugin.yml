@@ -16,6 +16,7 @@ softdepend:
     - EssentialsSpawn
     - ProtocolLib
     - floodgate
+folia-supported: true
 commands:
   authme:
     description: AuthMe op commands
