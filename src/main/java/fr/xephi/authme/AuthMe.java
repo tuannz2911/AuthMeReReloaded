@@ -195,7 +195,7 @@ public class AuthMe extends JavaPlugin {
 
         // Schedule clean up task
         CleanupTask cleanupTask = injector.getSingleton(CleanupTask.class);
-        cleanupTask.runTaskTimerAsynchronously(this, CLEANUP_INTERVAL, CLEANUP_INTERVAL);
+        getScheduler().runTaskTimerAsynchronously(cleanupTask, CLEANUP_INTERVAL, CLEANUP_INTERVAL);
         // Do a backup on start
         backupService.doBackup(BackupService.BackupCause.START);
         // Set up Metrics

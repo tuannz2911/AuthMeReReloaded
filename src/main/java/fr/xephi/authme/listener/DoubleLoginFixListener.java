@@ -23,7 +23,7 @@ public class DoubleLoginFixListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Collection<? extends Player> PlayerList = Bukkit.getServer().getOnlinePlayers();
-        HashSet<String> PlayerSet = new HashSet<String>();
+        HashSet<String> PlayerSet = new HashSet<>();
         for (Player ep : PlayerList) {
             if (PlayerSet.contains(ep.getName().toLowerCase())) {
                 ep.kickPlayer(service.retrieveSingleMessage(ep.getPlayer(), MessageKey.DOUBLE_LOGIN_FIX));

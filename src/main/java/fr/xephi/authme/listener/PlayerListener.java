@@ -1,6 +1,5 @@
 package fr.xephi.authme.listener;
 
-import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.data.QuickCommandsProtectionManager;
 import fr.xephi.authme.data.auth.PlayerAuth;
@@ -22,7 +21,6 @@ import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.TeleportUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
@@ -32,7 +30,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-//import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -54,10 +51,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
-//import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryView;
-
-import static org.bukkit.Bukkit.getServer;
 
 import javax.inject.Inject;
 import java.util.Locale;
@@ -65,6 +59,7 @@ import java.util.Set;
 
 import static fr.xephi.authme.settings.properties.RestrictionSettings.ALLOWED_MOVEMENT_RADIUS;
 import static fr.xephi.authme.settings.properties.RestrictionSettings.ALLOW_UNAUTHED_MOVEMENT;
+import static org.bukkit.Bukkit.getServer;
 
 /**
  * Listener class for player events.

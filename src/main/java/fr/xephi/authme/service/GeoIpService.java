@@ -1,9 +1,6 @@
 package fr.xephi.authme.service;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.hash.HashCode;
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
 import com.maxmind.db.GeoIp2Provider;
 import com.maxmind.db.Reader;
 import com.maxmind.db.Reader.FileMode;
@@ -13,32 +10,16 @@ import com.maxmind.db.model.CountryResponse;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.initialization.DataFolder;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
-import fr.xephi.authme.settings.Settings;
-import fr.xephi.authme.settings.properties.ProtectionSettings;
-import fr.xephi.authme.util.FileUtils;
 import fr.xephi.authme.util.InternetProtocolUtils;
 
 import javax.inject.Inject;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.FileTime;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.zip.GZIPInputStream;
 
 public class GeoIpService {
 

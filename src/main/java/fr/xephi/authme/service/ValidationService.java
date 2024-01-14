@@ -22,19 +22,16 @@ import fr.xephi.authme.util.Utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.DataInputStream;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.DataInputStream;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
 import static fr.xephi.authme.util.StringUtils.isInsideString;
