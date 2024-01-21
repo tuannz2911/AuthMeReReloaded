@@ -43,4 +43,5 @@ TODO: Implement HAProxy ip forward(Useful for Frp)
       https://api.star-history.com/svg?repos=HaHaWTH/AuthMeReReloaded&type=Date&theme=dark
     "
   />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=HaHaWTH/AuthMeReReloaded&type=Date" />
 </picture>
