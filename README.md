@@ -35,3 +35,12 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
 TODO: Implement HAProxy ip forward(Useful for Frp)
 
 **Pull Requests and suggestions are welcome!**
+
+<picture>
+  <source
+    media="(prefers-color-scheme: dark)"
+    srcset="
+      https://api.star-history.com/svg?repos=HaHaWTH/AuthMeReReloaded&type=Date&theme=dark
+    "
+  />
+</picture>
