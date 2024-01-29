@@ -36,9 +36,6 @@ public class LoginLocationFixListener implements Listener {
     private static Material materialPortal = Material.matchMaterial("PORTAL");
 
     private static boolean isAvailable; // false: unchecked/method not available   true: method is available
-    private final boolean isSmartAsyncTeleport = AuthMe.settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT);
-    private final boolean isFixPortalStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL);
-    private final boolean isFixGroundStuck = AuthMe.settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND);
     BlockFace[] faces = {BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST};
 
     static {
@@ -70,7 +67,7 @@ public class LoginLocationFixListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         Location JoinLocation = player.getLocation();
-        if (isFixPortalStuck) {
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
             if (!JoinLocation.getBlock().getType().equals(materialPortal) && !JoinLocation.getBlock().getRelative(BlockFace.UP).getType().equals(materialPortal)) {
                 return;
             }
@@ -78,7 +75,7 @@ public class LoginLocationFixListener implements Listener {
             boolean solved = false;
             for (BlockFace face : faces) {
                 if (JoinBlock.getRelative(face).getType().equals(Material.AIR) && JoinBlock.getRelative(face).getRelative(BlockFace.UP).getType().equals(Material.AIR)) {
-                    if (isSmartAsyncTeleport) {
+                    if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                         TeleportUtils.teleport(player, JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
                     } else {
                         player.teleport(JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
@@ -93,7 +90,7 @@ public class LoginLocationFixListener implements Listener {
             }
             messages.send(player, MessageKey.LOCATION_FIX_PORTAL);
         }
-        if (isFixGroundStuck) {
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND)) {
             Material UpType = JoinLocation.getBlock().getRelative(BlockFace.UP).getType();
             World world = player.getWorld();
             int MaxHeight = world.getMaxHeight();
@@ -110,7 +107,7 @@ public class LoginLocationFixListener implements Listener {
                     if (JoinBlock.getRelative(BlockFace.DOWN).getType().equals(Material.LAVA)) {
                         JoinBlock.getRelative(BlockFace.DOWN).setType(Material.DIRT);
                     }
-                    if (isSmartAsyncTeleport) {
+                    if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                         TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 0.1, 0.5));
                     } else {
                         player.teleport(JoinBlock.getLocation().add(0.5, 0.1, 0.5));
@@ -119,7 +116,7 @@ public class LoginLocationFixListener implements Listener {
                     break;
                 }
                 if (i == MaxHeight) {
-                    if (isSmartAsyncTeleport) {
+                    if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                         TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 1.1, 0.5));
                     } else {
                         player.teleport(JoinBlock.getLocation().add(0.5, 1.1, 0.5));
