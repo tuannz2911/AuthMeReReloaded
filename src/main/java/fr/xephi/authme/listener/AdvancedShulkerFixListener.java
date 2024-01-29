@@ -1,8 +1,6 @@
 package fr.xephi.authme.listener;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,11 +13,7 @@ public class AdvancedShulkerFixListener implements Listener {
     public void onDispenserActivate(BlockDispenseEvent event) {
         Block block = event.getBlock();
 
-        if (block.getRelative(BlockFace.DOWN).getType().equals(Material.AIR) && block.getY() == 0) {
-            event.setCancelled(true);
-            return;
-        }
-        if (block.getRelative(BlockFace.UP).getType().equals(Material.AIR) && block.getY() == block.getWorld().getMaxHeight() - 1) {
+        if (block.getY() <= 0 || block.getY() >= block.getWorld().getMaxHeight() - 1) {
             event.setCancelled(true);
         }
     }
