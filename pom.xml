@@ -346,6 +346,11 @@
                                     <pattern>com.google.gson</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.gson</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.h2</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.org.h2</shadedPattern>
+                                </relocation>
+
                                 <!--                                <relocation>-->
                                 <!--                                    <pattern>com.cryptomorin.xseries</pattern>-->
                                 <!--                                    <shadedPattern>fr.xephi.authme.libs.com.cryptomorin.xseries</shadedPattern>-->
@@ -519,6 +524,10 @@
     </build>
 
     <repositories>
+        <repository>
+            <id>lss233-repo</id>
+            <url>https://crystal.app.lss233.com/repositories/minecraft/</url>
+        </repository>
         <repository>
             <id>opencollab-snapshot-main</id>
             <url>https://repo.opencollab.dev/main/</url>
@@ -1125,7 +1134,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.214</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
