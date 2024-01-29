@@ -200,7 +200,7 @@ public class H2 extends AbstractSqlDataSource {
      */
     @Deprecated
     private boolean isColumnMissing(DatabaseMetaData metaData, String columnName) throws SQLException {
-        try (ResultSet rs = metaData.getColumns(null, null, tableName, columnName)) {
+        try (ResultSet rs = metaData.getColumns(null, null, tableName, columnName.toUpperCase())) {
             return !rs.next();
         }
     }
@@ -384,20 +384,22 @@ public class H2 extends AbstractSqlDataSource {
      * @param st Statement object to the database
      */
     private void addRegistrationDateColumn(Statement st) throws SQLException {
-        st.executeUpdate("ALTER TABLE " + tableName
+        int affectedRows = st.executeUpdate("ALTER TABLE " + tableName
             + " ADD COLUMN IF NOT EXISTS " + col.REGISTRATION_DATE + " BIGINT NOT NULL DEFAULT '0';");
 
         // Use the timestamp from Java to avoid timezone issues in case JVM and database are out of sync
-        long currentTimestamp = System.currentTimeMillis();
-        int updatedRows = st.executeUpdate(String.format("UPDATE %s SET %s = %d;",
-            tableName, col.REGISTRATION_DATE, currentTimestamp));
-        logger.info("Created column '" + col.REGISTRATION_DATE + "' and set the current timestamp, "
-            + currentTimestamp + ", to all " + updatedRows + " rows");
+        if (affectedRows != 0) {
+            long currentTimestamp = System.currentTimeMillis();
+            int updatedRows = st.executeUpdate(String.format("UPDATE %s SET %s = %d;",
+                tableName, col.REGISTRATION_DATE, currentTimestamp));
+            logger.info("Created column '" + col.REGISTRATION_DATE + "' and set the current timestamp, "
+                + currentTimestamp + ", to all " + updatedRows + " rows");
+        }
     }
 
     @Override
     String getJdbcUrl(String dataPath, String ignored, String database) {
-        return "jdbc:h2:" + dataPath + File.separator + database + ".db";
+        return "jdbc:h2:" + dataPath + File.separator + database;
     }
 
     private static void close(Connection con) {

@@ -9,7 +9,7 @@ the generated config.yml file.
 ```yml
 DataSource:
     # What type of database do you want to use?
-    # Valid values: SQLITE, MARIADB, MYSQL, POSTGRESQL
+    # Valid values: H2, SQLITE, MARIADB, MYSQL, POSTGRESQL
     backend: SQLITE
     # Enable the database caching system, should be disabled on bungeecord environments
     # or when a website integration is being used.
