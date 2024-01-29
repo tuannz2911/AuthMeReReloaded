@@ -81,7 +81,7 @@ public class H2 extends AbstractSqlDataSource {
      */
     protected void connect() throws SQLException {
         try {
-            Class.forName("fr.xephi.authme.libs.org.h2.Driver");
+            Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("Failed to load H2 JDBC class", e);
         }
@@ -109,32 +109,32 @@ public class H2 extends AbstractSqlDataSource {
             DatabaseMetaData md = con.getMetaData();
 
             if (isColumnMissing(md, col.REAL_NAME)) {
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN "
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS "
                     + col.REAL_NAME + " VARCHAR(255) NOT NULL DEFAULT 'Player';");
             }
 
             if (isColumnMissing(md, col.PASSWORD)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.PASSWORD + " VARCHAR(255) NOT NULL DEFAULT '';");
+                    + " ADD COLUMN IF NOT EXISTS " + col.PASSWORD + " VARCHAR(255) NOT NULL DEFAULT '';");
             }
 
             if (!col.SALT.isEmpty() && isColumnMissing(md, col.SALT)) {
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN " + col.SALT + " VARCHAR(255);");
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS " + col.SALT + " VARCHAR(255);");
             }
 
             if (isColumnMissing(md, col.LAST_IP)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.LAST_IP + " VARCHAR(40);");
+                    + " ADD COLUMN IF NOT EXISTS " + col.LAST_IP + " VARCHAR(40);");
             }
 
             if (isColumnMissing(md, col.LAST_LOGIN)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.LAST_LOGIN + " BIGINT;");
+                    + " ADD COLUMN IF NOT EXISTS " + col.LAST_LOGIN + " BIGINT;");
             }
 
             if (isColumnMissing(md, col.REGISTRATION_IP)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.REGISTRATION_IP + " VARCHAR(40);");
+                    + " ADD COLUMN IF NOT EXISTS " + col.REGISTRATION_IP + " VARCHAR(40);");
             }
 
             if (isColumnMissing(md, col.REGISTRATION_DATE)) {
@@ -142,58 +142,63 @@ public class H2 extends AbstractSqlDataSource {
             }
 
             if (isColumnMissing(md, col.LASTLOC_X)) {
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN " + col.LASTLOC_X
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS " + col.LASTLOC_X
                     + " DOUBLE NOT NULL DEFAULT '0.0';");
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN " + col.LASTLOC_Y
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS " + col.LASTLOC_Y
                     + " DOUBLE NOT NULL DEFAULT '0.0';");
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN " + col.LASTLOC_Z
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS " + col.LASTLOC_Z
                     + " DOUBLE NOT NULL DEFAULT '0.0';");
             }
 
             if (isColumnMissing(md, col.LASTLOC_WORLD)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.LASTLOC_WORLD + " VARCHAR(255) NOT NULL DEFAULT 'world';");
+                    + " ADD COLUMN IF NOT EXISTS " + col.LASTLOC_WORLD + " VARCHAR(255) NOT NULL DEFAULT 'world';");
             }
 
             if (isColumnMissing(md, col.LASTLOC_YAW)) {
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN "
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS "
                     + col.LASTLOC_YAW + " FLOAT;");
             }
 
             if (isColumnMissing(md, col.LASTLOC_PITCH)) {
-                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN "
+                st.executeUpdate("ALTER TABLE " + tableName + " ADD COLUMN IF NOT EXISTS "
                     + col.LASTLOC_PITCH + " FLOAT;");
             }
 
             if (isColumnMissing(md, col.EMAIL)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.EMAIL + " VARCHAR(255);");
+                    + " ADD COLUMN IF NOT EXISTS " + col.EMAIL + " VARCHAR(255);");
             }
 
             if (isColumnMissing(md, col.IS_LOGGED)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.IS_LOGGED + " INT NOT NULL DEFAULT '0';");
+                    + " ADD COLUMN IF NOT EXISTS " + col.IS_LOGGED + " INT NOT NULL DEFAULT '0';");
             }
 
             if (isColumnMissing(md, col.HAS_SESSION)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.HAS_SESSION + " INT NOT NULL DEFAULT '0';");
+                    + " ADD COLUMN IF NOT EXISTS " + col.HAS_SESSION + " INT NOT NULL DEFAULT '0';");
             }
 
             if (isColumnMissing(md, col.TOTP_KEY)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.TOTP_KEY + " VARCHAR(32);");
+                    + " ADD COLUMN IF NOT EXISTS " + col.TOTP_KEY + " VARCHAR(32);");
             }
 
             if (!col.PLAYER_UUID.isEmpty() && isColumnMissing(md, col.PLAYER_UUID)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN " + col.PLAYER_UUID + " VARCHAR(36)");
+                    + " ADD COLUMN IF NOT EXISTS " + col.PLAYER_UUID + " VARCHAR(36)");
             }
         }
         logger.info("H2 Setup finished");
     }
 
-
+    /**
+     * Checks if a column is missing.
+     * @deprecated Not working in H2 database(always true), replaced by statement "IF NOT EXISTS"
+     * @return true/false
+     */
+    @Deprecated
     private boolean isColumnMissing(DatabaseMetaData metaData, String columnName) throws SQLException {
         try (ResultSet rs = metaData.getColumns(null, null, tableName, columnName)) {
             return !rs.next();
@@ -380,7 +385,7 @@ public class H2 extends AbstractSqlDataSource {
      */
     private void addRegistrationDateColumn(Statement st) throws SQLException {
         st.executeUpdate("ALTER TABLE " + tableName
-            + " ADD COLUMN " + col.REGISTRATION_DATE + " BIGINT NOT NULL DEFAULT '0';");
+            + " ADD COLUMN IF NOT EXISTS " + col.REGISTRATION_DATE + " BIGINT NOT NULL DEFAULT '0';");
 
         // Use the timestamp from Java to avoid timezone issues in case JVM and database are out of sync
         long currentTimestamp = System.currentTimeMillis();
