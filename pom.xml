@@ -346,6 +346,11 @@
                                     <pattern>com.google.gson</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.gson</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.h2</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.org.h2</shadedPattern>
+                                </relocation>
+
                                 <!--                                <relocation>-->
                                 <!--                                    <pattern>com.cryptomorin.xseries</pattern>-->
                                 <!--                                    <shadedPattern>fr.xephi.authme.libs.com.cryptomorin.xseries</shadedPattern>-->
