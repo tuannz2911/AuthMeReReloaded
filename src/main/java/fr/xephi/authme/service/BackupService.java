@@ -92,9 +92,11 @@ public class BackupService {
             case MYSQL:
                 return performMySqlBackup();
             case SQLITE:
-            case H2:
                 String dbName = settings.getProperty(DatabaseSettings.MYSQL_DATABASE);
                 return performFileBackup(dbName + ".db");
+            case H2:
+                String h2dbName = settings.getProperty(DatabaseSettings.MYSQL_DATABASE);
+                return performFileBackup(h2dbName + ".mv.db");
             default:
                 logger.warning("Unknown data source type '" + dataSourceType + "' for backup");
         }
