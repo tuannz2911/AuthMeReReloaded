@@ -27,7 +27,8 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
  15. Automatically login for Bedrock players(configurable)
  16. Fix shulker box crash bug on legacy versions(MC 1.13-)
  17. **H2 database support**
- 18. More......
+ 18. **100% compatibility with original authme and extensions**
+ 19. More......
 
 **Download links:**
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
