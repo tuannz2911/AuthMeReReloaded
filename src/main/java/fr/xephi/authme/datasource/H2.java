@@ -194,16 +194,25 @@ public class H2 extends AbstractSqlDataSource {
     }
 
     /**
-     * Checks if a column is missing.
-     * @deprecated Not working in H2 database(always true), replaced by statement "IF NOT EXISTS"
-     * @return true/false
+     * Checks if a column is missing in the specified table.
+     * @param columnName the name of the column to look for
+     * @return true if the column is missing, false if it exists
+     * @throws SQLException if an error occurs while executing SQL or accessing the result set
+     * @deprecated Not work in H2, it always returns true
      */
     @Deprecated
     private boolean isColumnMissing(DatabaseMetaData metaData, String columnName) throws SQLException {
-        try (ResultSet rs = metaData.getColumns(null, null, tableName, columnName.toUpperCase())) {
-            return !rs.next();
-        }
+        String query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ? AND COLUMN_NAME = ?";
+//        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+//            preparedStatement.setString(1, tableName);
+//            preparedStatement.setString(2, columnName.toUpperCase());
+//            try (ResultSet rs = preparedStatement.executeQuery()) {
+//                return !rs.next();
+//            }
+//        }
+        return true;
     }
+
 
     @Override
     public void reload() {
@@ -384,11 +393,9 @@ public class H2 extends AbstractSqlDataSource {
      * @param st Statement object to the database
      */
     private void addRegistrationDateColumn(Statement st) throws SQLException {
-        int affectedRows = st.executeUpdate("ALTER TABLE " + tableName
+        int affect = st.executeUpdate("ALTER TABLE " + tableName
             + " ADD COLUMN IF NOT EXISTS " + col.REGISTRATION_DATE + " BIGINT NOT NULL DEFAULT '0';");
-
-        // Use the timestamp from Java to avoid timezone issues in case JVM and database are out of sync
-        if (affectedRows != 0) {
+        if (affect > 0) {
             long currentTimestamp = System.currentTimeMillis();
             int updatedRows = st.executeUpdate(String.format("UPDATE %s SET %s = %d;",
                 tableName, col.REGISTRATION_DATE, currentTimestamp));
