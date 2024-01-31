@@ -76,6 +76,7 @@ public class GuiCaptchaHandler implements Listener {
     String randomString = "";
     Random randomItemSet = new Random();
     Random howManyRandom = new Random();
+    private Material captchaMaterial = getRandomMaterial();
 
 
     private boolean isPacketListenersActive = false;
@@ -108,11 +109,11 @@ public class GuiCaptchaHandler implements Listener {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
             ItemStack currentItem = event.getCurrentItem();
-            if (!authmeApi.isRegistered(player.getName()) && !closeReasonMap.containsKey(player)) {
+            if (!authmeApi.isRegistered(player.getName())) {
                 if (isBedrockPlayer(player.getUniqueId())) {
                     return;
                 }
-                if (currentItem != null && currentItem.getType().equals(Material.REDSTONE_BLOCK)) {
+                if (currentItem != null && currentItem.getType().equals(captchaMaterial)) {
                     event.setCancelled(true);
                     if (!closeReasonMap.containsKey(player)) {
                         closeReasonMap.put(player, "verified");
@@ -169,7 +170,7 @@ public class GuiCaptchaHandler implements Listener {
                 Random random_blockpos = new Random();
                 AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
                 Inventory menu = Bukkit.createInventory(playerunreg, 27, messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_WINDOW_NAME, randomString));
-                ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
+                ItemStack item = new ItemStack(captchaMaterial);
                 ItemMeta meta = item.getItemMeta();
                 try {
                     if (meta != null) {
@@ -313,6 +314,12 @@ public class GuiCaptchaHandler implements Listener {
             }
             closeReasonMap.remove(player);
         }
+    }
+
+    private Material getRandomMaterial() {
+        Material[] allMaterials = Material.values();
+        Random random = new Random();
+        return allMaterials[random.nextInt(allMaterials.length)];
     }
 }
 
