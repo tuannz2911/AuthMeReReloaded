@@ -426,9 +426,7 @@ public class AuthMe extends JavaPlugin {
                 } else {
                     getLogger().log(Level.INFO, "You are running the latest version.");
                 }
-            } catch (IOException e) {
-                String formattedException = ExceptionUtils.formatException(e);
-                getLogger().log(Level.WARNING, "Error occurred while checking updates from GitHub. Reason: " + formattedException);
+            } catch (IOException ignored) {
             }
         });
     }
