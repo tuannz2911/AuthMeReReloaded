@@ -71,7 +71,7 @@ public class H2 extends AbstractSqlDataSource {
         this.tableName = settings.getProperty(DatabaseSettings.MYSQL_TABLE);
         this.col = new Columns(settings);
         this.con = connection;
-        this.columnsHandler = AuthMeColumnsHandler.createForSqlite(con, settings);
+        this.columnsHandler = AuthMeColumnsHandler.createForH2(con, settings);
     }
 
     /**
