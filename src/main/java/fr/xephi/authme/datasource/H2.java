@@ -167,7 +167,7 @@ public class H2 extends AbstractSqlDataSource {
 
             if (isColumnMissing(md, col.EMAIL)) {
                 st.executeUpdate("ALTER TABLE " + tableName
-                    + " ADD COLUMN IF NOT EXISTS " + col.EMAIL + " VARCHAR(255);");
+                    + " ADD COLUMN IF NOT EXISTS " + col.EMAIL + " VARCHAR_IGNORECASE(255);");
             }
 
             if (isColumnMissing(md, col.IS_LOGGED)) {
