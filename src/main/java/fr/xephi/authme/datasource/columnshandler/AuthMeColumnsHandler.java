@@ -51,6 +51,13 @@ public final class AuthMeColumnsHandler {
         return new AuthMeColumnsHandler(sqlColHandler);
     }
 
+    /**
+     * Creates a column handler for H2.
+     *
+     * @param connection the connection to the database
+     * @param settings plugin settings
+     * @return created column handler
+     */
     public static AuthMeColumnsHandler createForH2(Connection connection, Settings settings) {
         ColumnContext columnContext = new ColumnContext(settings, false);
         String tableName = settings.getProperty(DatabaseSettings.MYSQL_TABLE);
