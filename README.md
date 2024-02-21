@@ -1,6 +1,6 @@
 # AuthMeReReloaded
 **"A fork of the best authentication plugin for the Bukkit modding API!⭐"**
-MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471495)
+
 ![Graph](https://bstats.org/signatures/bukkit/AuthMeReloaded-Fork.svg)
 <p align="center">
   <img src="https://img.shields.io/github/languages/code-size/HaHaWTH/AuthMeReReloaded.svg" alt="Code size"/>
