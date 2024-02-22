@@ -3,10 +3,10 @@ package fr.xephi.authme.initialization;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.datasource.DataSource;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.output.ConsoleFilter;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.output.Log4JFilter;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.settings.Settings;
@@ -53,7 +53,7 @@ public class OnStartupTasks {
      * @param settings the settings
      */
     public static void sendMetrics(AuthMe plugin, Settings settings) {
-        final Metrics metrics = new Metrics(plugin, 164);
+        final Metrics metrics = new Metrics(plugin, 18479);
 
         metrics.addCustomChart(new SimplePie("messages_language",
             () -> settings.getProperty(PluginSettings.MESSAGES_LANGUAGE)));
@@ -109,6 +109,6 @@ public class OnStartupTasks {
                     }
                 });
             }
-        }, 1, TICKS_PER_MINUTE * settings.getProperty(EmailSettings.DELAY_RECALL));
+        }, 1, (long) TICKS_PER_MINUTE * settings.getProperty(EmailSettings.DELAY_RECALL));
     }
 }

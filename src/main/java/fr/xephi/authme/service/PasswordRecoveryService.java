@@ -4,10 +4,10 @@ import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.initialization.HasCleanup;
 import fr.xephi.authme.initialization.Reloadable;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.message.MessageKey;
 import fr.xephi.authme.message.Messages;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.security.PasswordSecurity;
 import fr.xephi.authme.security.crypts.HashedPassword;
 import fr.xephi.authme.settings.properties.SecuritySettings;
@@ -20,6 +20,8 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -72,9 +74,10 @@ public class PasswordRecoveryService implements Reloadable, HasCleanup {
         if (!checkEmailCooldown(player)) {
             return;
         }
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'年'MM'月'dd'日' HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
         String recoveryCode = recoveryCodeService.generateCode(player.getName());
-        boolean couldSendMail = emailService.sendRecoveryCode(player.getName(), email, recoveryCode);
+        boolean couldSendMail = emailService.sendRecoveryCode(player.getName(), email, recoveryCode, dateFormat.format(date));
         if (couldSendMail) {
             commonService.send(player, MessageKey.RECOVERY_CODE_SENT);
             emailCooldown.add(player.getName().toLowerCase(Locale.ROOT));
@@ -94,6 +97,8 @@ public class PasswordRecoveryService implements Reloadable, HasCleanup {
         if (!checkEmailCooldown(player)) {
             return;
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'年'MM'月'dd'日' HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
 
         String name = player.getName();
         String thePass = RandomStringUtils.generate(commonService.getProperty(RECOVERY_PASSWORD_LENGTH));
@@ -102,7 +107,7 @@ public class PasswordRecoveryService implements Reloadable, HasCleanup {
         logger.info("Generating new password for '" + name + "'");
 
         dataSource.updatePassword(name, hashNew);
-        boolean couldSendMail = emailService.sendPasswordMail(name, email, thePass);
+        boolean couldSendMail = emailService.sendPasswordMail(name, email, thePass, dateFormat.format(date));
         if (couldSendMail) {
             commonService.send(player, MessageKey.RECOVERY_EMAIL_SENT_MESSAGE);
             emailCooldown.add(player.getName().toLowerCase(Locale.ROOT));

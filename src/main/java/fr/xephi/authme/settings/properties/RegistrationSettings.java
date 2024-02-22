@@ -36,7 +36,8 @@ public final class RegistrationSettings implements SettingsHolder {
         newProperty(RegistrationType.class, "settings.registration.type", RegistrationType.PASSWORD);
 
     @Comment({
-        "Second argument the /register command should take: NONE = no 2nd argument",
+        "Second argument the /register command should take: ",
+        "NONE = no 2nd argument",
         "CONFIRMATION = must repeat first argument (pass or email)",
         "EMAIL_OPTIONAL = for password register: 2nd argument can be empty or have email address",
         "EMAIL_MANDATORY = for password register: 2nd argument MUST be an email address"
@@ -54,26 +55,9 @@ public final class RegistrationSettings implements SettingsHolder {
     @Comment("Does AuthMe need to enforce a /login after a successful registration?")
     public static final Property<Boolean> FORCE_LOGIN_AFTER_REGISTER =
         newProperty("settings.registration.forceLoginAfterRegister", false);
-
-    @Comment({
-        "Enable to display the welcome message (welcome.txt) after a login",
-        "You can use colors in this welcome.txt + some replaced strings:",
-        "{PLAYER}: player name, {ONLINE}: display number of online players,",
-        "{MAXPLAYERS}: display server slots, {IP}: player ip, {LOGINS}: number of players logged,",
-        "{WORLD}: player current world, {SERVER}: server name",
-        "{VERSION}: get current bukkit version, {COUNTRY}: player country"})
-    public static final Property<Boolean> USE_WELCOME_MESSAGE =
-        newProperty("settings.useWelcomeMessage", true);
-
-    @Comment({
-        "Broadcast the welcome message to the server or only to the player?",
-        "set true for server or false for player"})
-    public static final Property<Boolean> BROADCAST_WELCOME_MESSAGE =
-        newProperty("settings.broadcastWelcomeMessage", false);
-
     @Comment("Should we delay the join message and display it once the player has logged in?")
     public static final Property<Boolean> DELAY_JOIN_MESSAGE =
-        newProperty("settings.delayJoinMessage", false);
+        newProperty("settings.delayJoinMessage", true);
 
     @Comment({
         "The custom join message that will be sent after a successful login,",
@@ -87,15 +71,15 @@ public final class RegistrationSettings implements SettingsHolder {
 
     @Comment("Should we remove the leave messages of unlogged users?")
     public static final Property<Boolean> REMOVE_UNLOGGED_LEAVE_MESSAGE =
-        newProperty("settings.removeUnloggedLeaveMessage", false);
+        newProperty("settings.removeUnloggedLeaveMessage", true);
 
     @Comment("Should we remove join messages altogether?")
     public static final Property<Boolean> REMOVE_JOIN_MESSAGE =
-        newProperty("settings.removeJoinMessage", false);
+        newProperty("settings.removeJoinMessage", true);
 
     @Comment("Should we remove leave messages altogether?")
     public static final Property<Boolean> REMOVE_LEAVE_MESSAGE =
-        newProperty("settings.removeLeaveMessage", false);
+        newProperty("settings.removeLeaveMessage", true);
 
     @Comment("Do we need to add potion effect Blinding before login/register?")
     public static final Property<Boolean> APPLY_BLIND_EFFECT =

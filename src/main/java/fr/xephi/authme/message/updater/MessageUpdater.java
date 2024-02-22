@@ -10,8 +10,8 @@ import ch.jalu.configme.resource.PropertyResource;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import fr.xephi.authme.ConsoleLogger;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.util.FileUtils;
 
 import java.io.File;
@@ -149,6 +149,10 @@ public class MessageUpdater {
             .put("verification", "Verification code")
             .put("time", "Time units")
             .put("two_factor", "Two-factor authentication")
+            .put("gui_captcha", "3rd party features: GUI Captcha")
+            .put("bedrock_auto_login", "3rd party features: Bedrock Auto Login")
+            .put("login_location_fix", "3rd party features: Login Location Fix")
+            .put("double_login_fix", "3rd party features: Double Login Fix")
             .build();
 
         Set<String> addedKeys = new HashSet<>();

@@ -15,6 +15,8 @@ import fr.xephi.authme.util.expiring.ExpiringMap;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -132,12 +134,14 @@ public class VerificationCodeManager implements SettingsDependent, HasCleanup {
      */
     private void generateCode(String name) {
         DataSourceValue<String> emailResult = dataSource.getEmail(name);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'年'MM'月'dd'日' HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
         if (emailResult.rowExists()) {
             final String email = emailResult.getValue();
             if (!Utils.isEmailEmpty(email)) {
                 String code = RandomStringUtils.generateNum(6); // 6 digits code
                 verificationCodes.put(name.toLowerCase(Locale.ROOT), code);
-                emailService.sendVerificationMail(name, email, code);
+                emailService.sendVerificationMail(name, email, code, dateFormat.format(date));
             }
         }
     }

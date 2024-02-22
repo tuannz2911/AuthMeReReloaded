@@ -142,7 +142,7 @@ public final class ConsoleLogger {
     public void fine(String message) {
         if (logLevel.includes(LogLevel.FINE)) {
             logger.info(message);
-            writeLog("[FINE] " + message);
+            writeLog("[INFO:FINE] " + message);
         }
     }
 
@@ -215,7 +215,7 @@ public final class ConsoleLogger {
     }
 
     private void logAndWriteWithDebugPrefix(String message) {
-        String debugMessage = "[DEBUG] " + message;
+        String debugMessage = "[INFO:DEBUG] " + message;
         logger.info(debugMessage);
         writeLog(debugMessage);
     }

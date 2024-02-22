@@ -3,9 +3,10 @@ package fr.xephi.authme.command.executable.register;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.command.PlayerCommand;
 import fr.xephi.authme.data.captcha.RegistrationCaptchaManager;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
+import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.process.Management;
 import fr.xephi.authme.process.register.RegisterSecondaryArgument;
 import fr.xephi.authme.process.register.RegistrationType;
@@ -23,6 +24,8 @@ import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static fr.xephi.authme.process.register.RegisterSecondaryArgument.CONFIRMATION;
 import static fr.xephi.authme.process.register.RegisterSecondaryArgument.EMAIL_MANDATORY;
@@ -42,6 +45,9 @@ public class RegisterCommand extends PlayerCommand {
 
     @Inject
     private CommonService commonService;
+
+    @Inject
+    private DataSource dataSource;
 
     @Inject
     private EmailService emailService;
@@ -169,6 +175,20 @@ public class RegisterCommand extends PlayerCommand {
         } else if (isSecondArgValidForEmailRegistration(player, arguments)) {
             management.performRegister(RegistrationMethod.EMAIL_REGISTRATION,
                 EmailRegisterParams.of(player, email));
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (dataSource.getAuth(player.getName()) != null) {
+                        if (dataSource.getAuth(player.getName()).getLastLogin() == null) {
+                            management.performUnregisterByAdmin(null, player.getName(), player);
+                            timer.cancel();
+                        }
+                    } else {
+                        timer.cancel();
+                    }
+                }
+            }, 600000);
         }
     }
 

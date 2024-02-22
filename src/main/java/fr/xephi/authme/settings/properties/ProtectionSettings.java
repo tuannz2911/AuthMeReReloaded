@@ -18,22 +18,7 @@ public final class ProtectionSettings implements SettingsHolder {
 
     @Comment("Apply the protection also to registered usernames")
     public static final Property<Boolean> ENABLE_PROTECTION_REGISTERED =
-        newProperty("Protection.enableProtectionRegistered", true);
-
-    @Comment("Enable GeoIp database")
-    public static final Property<Boolean> ENABLE_GEOIP =
-        newProperty("Protection.geoIpDatabase.enabled", true);
-
-    @Comment({"The MaxMind clientId used to download the GeoIp database,",
-        "get one at https://www.maxmind.com/en/accounts/current/license-key",
-        "The EssentialsX project has a very useful tutorial on how to generate",
-        "the license key: https://github.com/EssentialsX/Wiki/blob/master/GeoIP.md"})
-    public static final Property<String> MAXMIND_API_CLIENT_ID =
-        newProperty("Protection.geoIpDatabase.clientId", "");
-
-    @Comment("The MaxMind licenseKey used to download the GeoIp database.")
-    public static final Property<String> MAXMIND_API_LICENSE_KEY =
-        newProperty("Protection.geoIpDatabase.licenseKey", "");
+        newProperty("Protection.enableProtectionRegistered", false);
 
     @Comment({
         "Countries allowed to join the server and register. For country codes, see",
@@ -41,7 +26,7 @@ public final class ProtectionSettings implements SettingsHolder {
         "Use \"LOCALHOST\" for local addresses.",
         "PLEASE USE QUOTES!"})
     public static final Property<List<String>> COUNTRIES_WHITELIST =
-        newListProperty("Protection.countries", "US", "GB", "LOCALHOST");
+        newListProperty("Protection.countries", "LOCALHOST");
 
     @Comment({
         "Countries not allowed to join the server and register",
@@ -73,7 +58,7 @@ public final class ProtectionSettings implements SettingsHolder {
 
     @Comment("Kicks the player that issued a command before the defined time after the join process")
     public static final Property<Integer> QUICK_COMMANDS_DENIED_BEFORE_MILLISECONDS =
-        newProperty("Protection.quickCommands.denyCommandsBeforeMilliseconds", 1000);
+        newProperty("Protection.quickCommands.denyCommandsBeforeMilliseconds", 3000);
 
     private ProtectionSettings() {
     }

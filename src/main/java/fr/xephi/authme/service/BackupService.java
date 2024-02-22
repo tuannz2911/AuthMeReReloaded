@@ -3,8 +3,8 @@ package fr.xephi.authme.service;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.datasource.DataSourceType;
 import fr.xephi.authme.initialization.DataFolder;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.mail.EmailService;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.BackupSettings;
 import fr.xephi.authme.settings.properties.DatabaseSettings;
@@ -94,6 +94,9 @@ public class BackupService {
             case SQLITE:
                 String dbName = settings.getProperty(DatabaseSettings.MYSQL_DATABASE);
                 return performFileBackup(dbName + ".db");
+            case H2:
+                String h2dbName = settings.getProperty(DatabaseSettings.MYSQL_DATABASE);
+                return performFileBackup(h2dbName + ".mv.db");
             default:
                 logger.warning("Unknown data source type '" + dataSourceType + "' for backup");
         }

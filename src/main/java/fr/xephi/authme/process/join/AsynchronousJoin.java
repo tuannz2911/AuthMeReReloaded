@@ -5,8 +5,8 @@ import fr.xephi.authme.data.ProxySessionManager;
 import fr.xephi.authme.data.limbo.LimboService;
 import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.events.ProtectInventoryEvent;
-import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.message.MessageKey;
+import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.permission.PlayerStatePermission;
 import fr.xephi.authme.process.AsynchronousProcess;
 import fr.xephi.authme.process.login.AsynchronousLogin;
@@ -17,7 +17,6 @@ import fr.xephi.authme.service.SessionService;
 import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
-import fr.xephi.authme.settings.WelcomeMessageConfiguration;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
@@ -31,7 +30,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.inject.Inject;
-
 import java.util.Locale;
 
 import static fr.xephi.authme.service.BukkitService.TICKS_PER_SECOND;
@@ -70,9 +68,6 @@ public class AsynchronousJoin implements AsynchronousProcess {
 
     @Inject
     private ValidationService validationService;
-
-    @Inject
-    private WelcomeMessageConfiguration welcomeMessageConfiguration;
 
     @Inject
     private SessionService sessionService;
@@ -150,9 +145,6 @@ public class AsynchronousJoin implements AsynchronousProcess {
                 return;
             }
         } else if (!service.getProperty(RegistrationSettings.FORCE)) {
-            bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(() -> {
-                welcomeMessageConfiguration.sendWelcomeMessage(player);
-            });
 
             // Skip if registration is optional
 

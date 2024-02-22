@@ -42,7 +42,6 @@ public class ChangePasswordCommand extends PlayerCommand {
             commonService.send(player, MessageKey.NOT_LOGGED_IN);
             return;
         }
-
         // Check if the user has been verified or not
         if (codeManager.isVerificationRequired(player)) {
             codeManager.codeExistOrGenerateNew(name);

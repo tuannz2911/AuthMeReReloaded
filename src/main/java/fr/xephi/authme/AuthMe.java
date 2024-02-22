@@ -2,7 +2,6 @@ package fr.xephi.authme;
 
 import ch.jalu.injector.Injector;
 import ch.jalu.injector.InjectorBuilder;
-import com.google.common.annotations.VisibleForTesting;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.command.CommandHandler;
 import fr.xephi.authme.datasource.DataSource;
@@ -12,13 +11,20 @@ import fr.xephi.authme.initialization.OnShutdownPlayerSaver;
 import fr.xephi.authme.initialization.OnStartupTasks;
 import fr.xephi.authme.initialization.SettingsProvider;
 import fr.xephi.authme.initialization.TaskCloser;
+import fr.xephi.authme.listener.AdvancedShulkerFixListener;
+import fr.xephi.authme.listener.BedrockAutoLoginListener;
 import fr.xephi.authme.listener.BlockListener;
+import fr.xephi.authme.listener.DoubleLoginFixListener;
 import fr.xephi.authme.listener.EntityListener;
+import fr.xephi.authme.listener.GuiCaptchaHandler;
+import fr.xephi.authme.listener.LoginLocationFixListener;
 import fr.xephi.authme.listener.PlayerListener;
 import fr.xephi.authme.listener.PlayerListener111;
 import fr.xephi.authme.listener.PlayerListener19;
 import fr.xephi.authme.listener.PlayerListener19Spigot;
+import fr.xephi.authme.listener.PlayerListenerHigherThan18;
 import fr.xephi.authme.listener.ServerListener;
+import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.security.crypts.Sha256;
 import fr.xephi.authme.service.BackupService;
@@ -28,6 +34,8 @@ import fr.xephi.authme.service.bungeecord.BungeeReceiver;
 import fr.xephi.authme.service.yaml.YamlParseException;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SettingsWarner;
+import fr.xephi.authme.settings.properties.EmailSettings;
+import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.task.CleanupTask;
 import fr.xephi.authme.task.purge.PurgeService;
@@ -35,14 +43,21 @@ import fr.xephi.authme.util.ExceptionUtils;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.JavaPluginLoader;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 
 import static fr.xephi.authme.service.BukkitService.TICKS_PER_MINUTE;
 import static fr.xephi.authme.util.Utils.isClassLoaded;
@@ -58,17 +73,19 @@ public class AuthMe extends JavaPlugin {
     private static final int CLEANUP_INTERVAL = 5 * TICKS_PER_MINUTE;
 
     // Version and build number values
-    private static String pluginVersion = "N/D";
-    private static String pluginBuildNumber = "Unknown";
-
+    private static String pluginVersion = "5.6.0-Fork";
+    private static final String pluginBuild = "b";
+    private static String pluginBuildNumber = "42";
     // Private instances
+    private EmailService emailService;
     private CommandHandler commandHandler;
-    private Settings settings;
+    @Inject
+    public static Settings settings;
     private DataSource database;
     private BukkitService bukkitService;
     private Injector injector;
     private BackupService backupService;
-    private ConsoleLogger logger;
+    public static ConsoleLogger logger;
 
     /**
      * Constructor.
@@ -76,13 +93,15 @@ public class AuthMe extends JavaPlugin {
     public AuthMe() {
     }
 
-    /*
-     * Constructor for unit testing.
+    /**
+     * Get the plugin's build
+     *
+     * @return The plugin's build
      */
-    @VisibleForTesting
-    AuthMe(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
-        super(loader, description, dataFolder, file);
+    public static String getPluginBuild() {
+        return pluginBuild;
     }
+
 
     /**
      * Get the plugin's name.
@@ -111,6 +130,8 @@ public class AuthMe extends JavaPlugin {
         return pluginBuildNumber;
     }
 
+
+
     /**
      * Method called when the server enables the plugin.
      */
@@ -122,6 +143,8 @@ public class AuthMe extends JavaPlugin {
         // Set the Logger instance and log file path
         ConsoleLogger.initialize(getLogger(), new File(getDataFolder(), LOG_FILENAME));
         logger = ConsoleLoggerFactory.get(AuthMe.class);
+        logger.info("You are running an unofficial fork version of AuthMe!");
+
 
         // Check server version
         if (!isClassLoaded("org.spigotmc.event.player.PlayerSpawnLocationEvent")
@@ -162,26 +185,42 @@ public class AuthMe extends JavaPlugin {
         // Schedule clean up task
         CleanupTask cleanupTask = injector.getSingleton(CleanupTask.class);
         cleanupTask.runTaskTimerAsynchronously(this, CLEANUP_INTERVAL, CLEANUP_INTERVAL);
-
         // Do a backup on start
         backupService.doBackup(BackupService.BackupCause.START);
-
         // Set up Metrics
         OnStartupTasks.sendMetrics(this, settings);
-
+        if (settings.getProperty(SecuritySettings.SHOW_STARTUP_BANNER)) {
+            logger.info("\n" + "    ___         __  __    __  ___   \n" +
+                "   /   | __  __/ /_/ /_  /  |/  /__ \n" +
+                "  / /| |/ / / / __/ __ \\/ /|_/ / _ \\\n" +
+                " / ___ / /_/ / /_/ / / / /  / /  __/\n" +
+                "/_/  |_\\__,_/\\__/_/ /_/_/  /_/\\___/ \n" +
+                "                                    ");
+        }
         // Successful message
-        logger.info("AuthMe " + getPluginVersion() + " build n." + getPluginBuildNumber() + " successfully enabled!");
-
+        //detect server brand with classloader
+        checkServerType();
+        logger.info("AuthMeReReloaded is enabled successfully!");
         // Purge on start if enabled
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
         purgeService.runAutoPurge();
+        // 注册玩家加入事件监听
+//        register3rdPartyListeners();
+        logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
+        if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
+            checkForUpdates();
+        }
     }
+
+
+    //Migrated
 
     /**
      * Load the version and build number of the plugin from the description file.
      *
      * @param versionRaw the version as given by the plugin description file
      */
+
     private static void loadPluginInfo(String versionRaw) {
         int index = versionRaw.lastIndexOf("-");
         if (index != -1) {
@@ -245,6 +284,7 @@ public class AuthMe extends JavaPlugin {
         database = injector.getSingleton(DataSource.class);
         bukkitService = injector.getSingleton(BukkitService.class);
         commandHandler = injector.getSingleton(CommandHandler.class);
+        emailService = injector.getSingleton(EmailService.class);
         backupService = injector.getSingleton(BackupService.class);
 
         // Trigger instantiation (class not used elsewhere)
@@ -269,10 +309,17 @@ public class AuthMe extends JavaPlugin {
         pluginManager.registerEvents(injector.getSingleton(EntityListener.class), this);
         pluginManager.registerEvents(injector.getSingleton(ServerListener.class), this);
 
-        // Try to register 1.9 player listeners
-        if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
+
+        // Try to register 1.8+ player listeners
+        if (isClassLoaded("org.bukkit.event.entity.EntityPickupItemEvent") && isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
+            pluginManager.registerEvents(injector.getSingleton(PlayerListenerHigherThan18.class), this);
+        } else if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
         }
+// Try to register 1.9 player listeners(Moved to else-if)
+//        if (isClassLoaded("org.bukkit.event.player.PlayerSwapHandItemsEvent")) {
+//            pluginManager.registerEvents(injector.getSingleton(PlayerListener19.class), this);
+//        }
 
         // Try to register 1.9 spigot player listeners
         if (isClassLoaded("org.spigotmc.event.player.PlayerSpawnLocationEvent")) {
@@ -282,6 +329,31 @@ public class AuthMe extends JavaPlugin {
         // Register listener for 1.11 events if available
         if (isClassLoaded("org.bukkit.event.entity.EntityAirChangeEvent")) {
             pluginManager.registerEvents(injector.getSingleton(PlayerListener111.class), this);
+        }
+
+        //Register 3rd party listeners
+        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
+            pluginManager.registerEvents(injector.getSingleton(GuiCaptchaHandler.class), this);
+            logger.info("(Beta)GUICaptcha is enabled successfully!");
+            logger.info("These features are still in early development, if you encountered any problem, please report.");
+        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
+            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
+        }
+        if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
+            pluginManager.registerEvents(injector.getSingleton(BedrockAutoLoginListener.class), this);
+        } else if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && (!settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) || getServer().getPluginManager().getPlugin("floodgate") == null)) {
+            logger.warning("Failed to enable BedrockAutoLogin, ensure hookFloodgate: true and floodgate is loaded.");
+        }
+        if (settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_UNDERGROUND) || settings.getProperty(SecuritySettings.LOGIN_LOC_FIX_SUB_PORTAL)) {
+            pluginManager.registerEvents(injector.getSingleton(LoginLocationFixListener.class), this);
+        }
+        if (settings.getProperty(SecuritySettings.ANTI_GHOST_PLAYERS)) {
+            pluginManager.registerEvents(injector.getSingleton(DoubleLoginFixListener.class), this);
+        }
+        if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && !isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
+            pluginManager.registerEvents(injector.getSingleton(AdvancedShulkerFixListener.class), this);
+        } else if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
+            logger.warning("You are running an 1.13+ minecraft server, advancedShulkerFix won't enable.");
         }
     }
 
@@ -307,6 +379,11 @@ public class AuthMe extends JavaPlugin {
         if (onShutdownPlayerSaver != null) {
             onShutdownPlayerSaver.saveAllPlayers();
         }
+        if (settings.getProperty(EmailSettings.SHUTDOWN_MAIL)){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'.'MM'.'dd'.' HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            emailService.sendShutDown(settings.getProperty(EmailSettings.SHUTDOWN_MAIL_ADDRESS),dateFormat.format(date));
+        }
 
         // Do backup on stop if enabled
         if (backupService != null) {
@@ -318,9 +395,75 @@ public class AuthMe extends JavaPlugin {
 
         // Disabled correctly
         Consumer<String> infoLogMethod = logger == null ? getLogger()::info : logger::info;
-        infoLogMethod.accept("AuthMe " + this.getDescription().getVersion() + " disabled!");
+        infoLogMethod.accept("AuthMe " + this.getDescription().getVersion() + " is unloaded successfully!");
         ConsoleLogger.closeFileWriter();
     }
+
+    private static final String owner = "HaHaWTH";
+//    private static final String owner_gitee = "Shixuehan114514";
+    private static final String repo = "AuthMeReReloaded";
+
+    private void checkForUpdates() {
+        logger.info("Checking for updates...");
+        bukkitService.runTaskAsynchronously(() -> {
+            try {
+                // 从南通集线器获取最新版本号
+                URL url = new URL("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(10000); // 设置连接超时为10秒
+                conn.setReadTimeout(10000); // 设置读取超时为10秒
+                Scanner scanner = new Scanner(conn.getInputStream());
+                String response = scanner.useDelimiter("\\Z").next();
+                scanner.close();
+
+                // 处理JSON响应
+                String latestVersion = response.substring(response.indexOf("tag_name") + 11);
+                latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
+                if (isUpdateAvailable(latestVersion)) {
+                    String message = "New version available! Latest:" + latestVersion + " Current:" + pluginBuild + pluginBuildNumber;
+                    getLogger().log(Level.WARNING, message);
+                    getLogger().log(Level.WARNING, "Download from here: https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
+                } else {
+                    getLogger().log(Level.INFO, "You are running the latest version.");
+                }
+            } catch (IOException ignored) {
+            }
+        });
+    }
+    private boolean isUpdateAvailable(String latestVersion) {
+        // Extract the first character and the remaining digits from the version string
+        char latestChar = latestVersion.charAt(0);
+        int latestNumber = Integer.parseInt(latestVersion.substring(1));
+
+        char currentChar = pluginBuild.charAt(0);
+        int currentNumber = Integer.parseInt(pluginBuildNumber);
+
+        // Compare the characters first
+        if (latestChar > currentChar) {
+            return true;
+        } else if (latestChar < currentChar) {
+            return false;
+        } else {
+            // If the characters are the same, compare the numbers
+            return latestNumber > currentNumber;
+        }
+    }
+
+
+    private void checkServerType() {
+        if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
+            logger.info("AuthMeReReloaded is running on Paper");
+        } else if (isClassLoaded("catserver.server.CatServerConfig")) {
+            logger.info("AuthMeReReloaded is running on CatServer");
+        } else if (isClassLoaded("org.spigotmc.SpigotConfig")) {
+            logger.info("AuthMeReReloaded is running on Spigot");
+        } else if (isClassLoaded("org.bukkit.craftbukkit.CraftServer")) {
+            logger.info("AuthMeReReloaded is running on Bukkit");
+        } else {
+            logger.info("AuthMeReReloaded is running on Unknown*");
+        }
+    }
+
 
     /**
      * Handle Bukkit commands.
@@ -332,8 +475,8 @@ public class AuthMe extends JavaPlugin {
      * @return True if the command was executed, false otherwise.
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd,
-                             String commandLabel, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd,
+                             @NotNull String commandLabel, String[] args) {
         // Make sure the command handler has been initialized
         if (commandHandler == null) {
             getLogger().severe("AuthMe command handler is not available");

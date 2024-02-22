@@ -24,6 +24,9 @@ public class Settings extends SettingsManagerImpl {
     private String passwordEmailMessage;
     private String verificationEmailMessage;
     private String recoveryCodeEmailMessage;
+    private String shutdownEmailMessage;
+    private String newPasswordEmailMessage;
+
 
     /**
      * Constructor.
@@ -67,10 +70,19 @@ public class Settings extends SettingsManagerImpl {
         return recoveryCodeEmailMessage;
     }
 
+    public String getShutdownEmailMessage() {return shutdownEmailMessage;}
+
+    public String getNewPasswordEmailMessage() {
+        return newPasswordEmailMessage;
+    }
+
     private void loadSettingsFromFiles() {
+        newPasswordEmailMessage = readFile("new_email.html");
         passwordEmailMessage = readFile("email.html");
         verificationEmailMessage = readFile("verification_code_email.html");
         recoveryCodeEmailMessage = readFile("recovery_code_email.html");
+        shutdownEmailMessage = readFile("shutdown.html");
+        String country = readFile("GeoLite2-Country.mmdb");
     }
 
     @Override

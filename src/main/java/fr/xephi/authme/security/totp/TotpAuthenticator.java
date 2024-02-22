@@ -14,7 +14,6 @@ import fr.xephi.authme.settings.properties.PluginSettings;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
-
 import java.util.Locale;
 
 import static fr.xephi.authme.util.Utils.MILLIS_PER_MINUTE;

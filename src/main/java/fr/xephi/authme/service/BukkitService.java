@@ -59,7 +59,7 @@ public class BukkitService implements SettingsDependent {
      * <p>
      * This task will be executed by the main server thread.
      *
-     * @param task Task to be executed
+     * @param task  Task to be executed
      * @param delay Delay in server ticks before executing task
      * @return Task id number (-1 if scheduling failed)
      */
@@ -98,7 +98,7 @@ public class BukkitService implements SettingsDependent {
      * Returns a task that will run after the specified number of server
      * ticks.
      *
-     * @param task the task to be run
+     * @param task  the task to be run
      * @param delay the ticks to wait before running the task
      * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
@@ -160,12 +160,12 @@ public class BukkitService implements SettingsDependent {
      * Schedules the given task to repeatedly run until cancelled, starting after the
      * specified number of server ticks.
      *
-     * @param task the task to schedule
-     * @param delay the ticks to wait before running the task
+     * @param task   the task to schedule
+     * @param delay  the ticks to wait before running the task
      * @param period the ticks to wait between runs
      * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
-     * @throws IllegalStateException if this was already scheduled
+     * @throws IllegalStateException    if this was already scheduled
      */
     public BukkitTask runTaskTimer(BukkitRunnable task, long delay, long period) {
         return task.runTaskTimer(authMe, delay, period);

@@ -1,9 +1,9 @@
 name: ${pluginDescription.name}
 authors: [${pluginDescription.authors}]
-website: ${project.url}
-description: ${project.description}
+website: http://github.com/HaHaWTH/AuthMeReReloaded/
+description: A fork of AuthMeReloaded that contains bug fixes
 main: ${pluginDescription.main}
-version: ${pluginDescription.version}
+version: 5.6.0-FORK-b42
 api-version: 1.13
 softdepend:
     - Vault
@@ -15,6 +15,7 @@ softdepend:
     - Essentials
     - EssentialsSpawn
     - ProtocolLib
+    - floodgate
 commands:
   authme:
     description: AuthMe op commands
@@ -27,7 +28,6 @@ commands:
     usage: /login <password>
     aliases:
     - l
-    - log
   logout:
     description: Logout command
     usage: /logout
@@ -246,7 +246,6 @@ permissions:
       authme.player.captcha: true
       authme.player.changepassword: true
       authme.player.email.add: true
-      authme.player.email.change: true
       authme.player.email.recover: true
       authme.player.email.see: true
       authme.player.login: true
@@ -254,10 +253,8 @@ permissions:
       authme.player.protection.quickcommandsprotection: true
       authme.player.register: true
       authme.player.security.verificationcode: true
-      authme.player.seeownaccounts: true
       authme.player.totpadd: true
       authme.player.totpremove: true
-      authme.player.unregister: true
   authme.player.canbeforced:
     description: Permission for users a login can be forced to.
     default: true
@@ -271,7 +268,6 @@ permissions:
     description: Gives access to all email commands
     children:
       authme.player.email.add: true
-      authme.player.email.change: true
       authme.player.email.recover: true
       authme.player.email.see: true
   authme.player.email.add:
@@ -279,7 +275,7 @@ permissions:
     default: true
   authme.player.email.change:
     description: Command permission to change the email address.
-    default: true
+    default: op
   authme.player.email.recover:
     description: Command permission to recover an account using its email address.
     default: true
@@ -312,7 +308,7 @@ permissions:
     default: true
   authme.player.unregister:
     description: Command permission to unregister.
-    default: true
+    default: op
   authme.vip:
     description: When the server is full and someone with this permission joins the
       server, someone will be kicked.

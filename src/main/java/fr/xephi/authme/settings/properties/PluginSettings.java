@@ -8,6 +8,13 @@ import fr.xephi.authme.output.LogLevel;
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
 public final class PluginSettings implements SettingsHolder {
+    @Comment({
+        "Should we execute /help command when unregistered players press Shift+F?",
+        "This keeps compatibility with some menu plugins",
+        "If you are using TrMenu, don't enable this because TrMenu already implemented this."
+    })
+    public static final Property<Boolean> MENU_UNREGISTER_COMPATIBILITY =
+        newProperty("3rdPartyFeature.compatibility.menuPlugins", false);
 
     @Comment({
         "Do you want to enable the session feature?",
@@ -18,14 +25,14 @@ public final class PluginSettings implements SettingsHolder {
         "expired, he will not need to authenticate."
     })
     public static final Property<Boolean> SESSIONS_ENABLED =
-        newProperty("settings.sessions.enabled", false);
+        newProperty("settings.sessions.enabled", true);
 
     @Comment({
         "After how many minutes should a session expire?",
         "A player's session ends after the timeout or if his IP has changed"
     })
     public static final Property<Integer> SESSIONS_TIMEOUT =
-        newProperty("settings.sessions.timeout", 10);
+        newProperty("settings.sessions.timeout", 43200);
 
     @Comment({
         "Message language, available languages:",

@@ -3,6 +3,8 @@ package fr.xephi.authme.command.executable.authme;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.command.ExecutableCommand;
 import fr.xephi.authme.service.BukkitService;
+import fr.xephi.authme.settings.Settings;
+import fr.xephi.authme.settings.properties.DatabaseSettings;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,6 +19,8 @@ public class VersionCommand implements ExecutableCommand {
 
     @Inject
     private BukkitService bukkitService;
+    @Inject
+    private Settings settings;
 
     @Override
     public void executeCommand(CommandSender sender, List<String> arguments) {
@@ -24,6 +28,7 @@ public class VersionCommand implements ExecutableCommand {
         sender.sendMessage(ChatColor.GOLD + "==========[ " + AuthMe.getPluginName() + " ABOUT ]==========");
         sender.sendMessage(ChatColor.GOLD + "Version: " + ChatColor.WHITE + AuthMe.getPluginName()
             + " v" + AuthMe.getPluginVersion() + ChatColor.GRAY + " (build: " + AuthMe.getPluginBuildNumber() + ")");
+        sender.sendMessage(ChatColor.GOLD + "Database Implementation: " + ChatColor.WHITE + settings.getProperty(DatabaseSettings.BACKEND).toString());
         sender.sendMessage(ChatColor.GOLD + "Authors:");
         Collection<Player> onlinePlayers = bukkitService.getOnlinePlayers();
         printDeveloper(sender, "Gabriele C.", "sgdc3", "Project manager, Contributor", onlinePlayers);

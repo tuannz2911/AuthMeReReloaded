@@ -4,14 +4,84 @@ package fr.xephi.authme.message;
  * Keys for translatable messages managed by {@link Messages}.
  */
 public enum MessageKey {
+    /**
+     * You have been disconnected due to doubled login.
+     */
+    DOUBLE_LOGIN_FIX("double_login_fix.fix_message"),
 
-    /** In order to use this command you must be authenticated! */
+    /**
+     * You are stuck in portal during Login.
+     */
+    LOCATION_FIX_PORTAL("login_location_fix.fix_portal"),
+
+    /**
+     * You are stuck underground during Login.
+     */
+    LOCATION_FIX_UNDERGROUND("login_location_fix.fix_underground"),
+
+    /**
+     * You are stuck underground during Login, but we cant fix it.
+     */
+    LOCATION_FIX_UNDERGROUND_CANT_FIX("login_location_fix.cannot_fix_underground"),
+
+    /**
+     * Bedrock auto login success!
+     */
+    BEDROCK_AUTO_LOGGED_IN("bedrock_auto_login.success"),
+
+    /**
+     * %random Verification
+     */
+    GUI_CAPTCHA_WINDOW_NAME("gui_captcha.captcha_window_name", "%random"),
+
+    /**
+     * %random I am human
+     */
+    GUI_CAPTCHA_CLICKABLE_NAME("gui_captcha.captcha_clickable_name", "%random"),
+
+    /**
+     * Verification failed, you have %times retries left
+     */
+    GUI_CAPTCHA_RETRY_MESSAGE("gui_captcha.message_on_retry", "%times"),
+
+    /**
+     * Bedrock verification success!
+     */
+    GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK("gui_captcha.bedrock_auto_verify_success"),
+
+    /**
+     * Please be verified before chatting!
+     */
+    GUI_CAPTCHA_DENIED_MESSAGE("gui_captcha.denied_message_sending"),
+
+    /**
+     * Verification timed out!
+     */
+    GUI_CAPTCHA_KICK_TIMEOUT("gui_captcha.kick_on_timeout"),
+
+    /**
+     * Please complete the verification!
+     */
+    GUI_CAPTCHA_KICK_FAILED("gui_captcha.kick_on_failed"),
+
+    /**
+     * Verification success!
+     */
+    GUI_CAPTCHA_VERIFIED("gui_captcha.success"),
+
+    /**
+     * In order to use this command you must be authenticated!
+     */
     DENIED_COMMAND("error.denied_command"),
 
-    /** A player with the same IP is already in game! */
+    /**
+     * A player with the same IP is already in game!
+     */
     SAME_IP_ONLINE("on_join_validation.same_ip_online"),
 
-    /** In order to chat you must be authenticated! */
+    /**
+     * In order to chat you must be authenticated!
+     */
     DENIED_CHAT("error.denied_chat"),
 
     /** AntiBot protection mode is enabled! You have to wait some minutes before joining the server. */
@@ -79,6 +149,9 @@ public enum MessageKey {
 
     /** The chosen password isn't safe, please choose another one... */
     PASSWORD_UNSAFE_ERROR("password.unsafe_password"),
+
+    /** Your chosen password is not secure. It was used %pwned_count times already! Please use a stronger password... */
+    PASSWORD_PWNED_ERROR("password.pwned_password", "%pwned_count"),
 
     /** Your password contains illegal characters. Allowed chars: %valid_chars */
     PASSWORD_CHARACTERS_ERROR("password.forbidden_characters", "%valid_chars"),
