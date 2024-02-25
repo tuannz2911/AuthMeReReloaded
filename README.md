@@ -1,6 +1,6 @@
 # AuthMeReReloaded
 **"A fork of the best authentication plugin for the Bukkit modding API!⭐"**
-MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471495)
+
 ![Graph](https://bstats.org/signatures/bukkit/AuthMeReloaded-Fork.svg)
 <p align="center">
   <img src="https://img.shields.io/github/languages/code-size/HaHaWTH/AuthMeReReloaded.svg" alt="Code size"/>
@@ -34,7 +34,7 @@ MCBBS Link: [Click Here](https://www.mcbbs.net/forum.php?mod=viewthread&tid=1471
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
 [Actions(Dev builds, use at your own risk!)](https://github.com/HaHaWTH/AuthMeReReloaded/actions/workflows/maven.yml)
 
-TODO: Implement HAProxy ip forward(Useful for Frp)
+If you are using FRP(内网穿透) for your server, this plugin may help [HAProxy-Detector](https://github.com/HaHaWTH/HAProxy-Detector)
 
 **Pull Requests and suggestions are welcome!**
 

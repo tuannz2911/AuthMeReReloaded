@@ -12,3 +12,5 @@ updates:
   - dependency-name: com.zaxxer:HikariCP
   - dependency-name: "org.mockito:mockito-core" # Mockito 5 requires Java 11
     versions: ">= 5"
+  - dependency-name: "org.slf4j:slf4j-simple"
+    versions: ">= 1.7.36"
