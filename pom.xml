@@ -660,6 +660,7 @@
             <version>2.2.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Jalu Injector -->
         <dependency>
             <groupId>ch.jalu</groupId>
