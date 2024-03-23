@@ -158,6 +158,7 @@
                     <configuration>
                         <failOnError>false</failOnError>
                         <failOnWarnings>false</failOnWarnings>
+                        <skip>true</skip>
                     </configuration>
                 </plugin>
             </plugins>
