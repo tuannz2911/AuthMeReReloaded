@@ -43,7 +43,7 @@ public final class SecuritySettings implements SettingsHolder {
     @Comment({"Choose the best teleport method by server brand?",
         "(Enable this if you are using Paper)"})
     public static final Property<Boolean> SMART_ASYNC_TELEPORT =
-        newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", false);
+        newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", true);
 
     @Comment("Send a GUI captcha to unregistered players?(Requires ProtocolLib)")
     public static final Property<Boolean> GUI_CAPTCHA =
