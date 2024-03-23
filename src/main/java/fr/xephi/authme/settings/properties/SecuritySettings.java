@@ -27,7 +27,8 @@ public final class SecuritySettings implements SettingsHolder {
         newListProperty("3rdPartyFeature.features.captcha.whiteList");
 
     @Comment({"Should we let Bedrock players login automatically?",
-        "(Requires hookFloodgate to be true & floodgate loaded)"})
+        "(Requires hookFloodgate to be true & floodgate loaded)",
+        "(**THIS IS SAFE DO NOT WORRY**)"})
     public static final Property<Boolean> FORCE_LOGIN_BEDROCK =
         newProperty("3rdPartyFeature.features.bedrockAutoLogin", false);
 
