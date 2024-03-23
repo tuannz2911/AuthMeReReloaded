@@ -25,6 +25,7 @@ import fr.xephi.authme.listener.PlayerListener111;
 import fr.xephi.authme.listener.PlayerListener19;
 import fr.xephi.authme.listener.PlayerListener19Spigot;
 import fr.xephi.authme.listener.PlayerListenerHigherThan18;
+import fr.xephi.authme.listener.PurgeListener;
 import fr.xephi.authme.listener.ServerListener;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
@@ -361,6 +362,9 @@ public class AuthMe extends JavaPlugin {
             pluginManager.registerEvents(injector.getSingleton(AdvancedShulkerFixListener.class), this);
         } else if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
             logger.warning("You are running an 1.13+ minecraft server, advancedShulkerFix won't enable.");
+        }
+        if (settings.getProperty(SecuritySettings.PURGE_DATA_ON_QUIT)) {
+            pluginManager.registerEvents(injector.getSingleton(PurgeListener.class), this);
         }
     }
 

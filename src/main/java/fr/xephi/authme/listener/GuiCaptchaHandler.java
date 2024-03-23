@@ -25,13 +25,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -252,67 +250,6 @@ public class GuiCaptchaHandler implements Listener {
         Player player = event.getPlayer();
         if (!closeReasonMap.containsKey(player)) {
             closeReasonMap.put(player, "verified:login");
-        }
-    }
-
-
-    private void deletePlayerData(UUID playerUUID) {
-        // 获取服务器的存储文件夹路径
-        File serverFolder = Bukkit.getServer().getWorldContainer();
-        String worldFolderName = settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
-        // 构建playerdata文件夹路径
-        File playerDataFolder = new File(serverFolder, File.separator + worldFolderName + File.separator + "playerdata");
-
-        // 构建玩家数据文件路径
-        File playerDataFile = new File(playerDataFolder, File.separator + playerUUID + ".dat");
-
-        // 删除玩家数据文件
-        if (playerDataFile.exists()) {
-            playerDataFile.delete();
-        }
-    }
-
-    private void deletePlayerStats(UUID playerUUID) {
-        // 获取服务器的存储文件夹路径
-        File serverFolder = Bukkit.getServer().getWorldContainer();
-        String worldFolderName = settings.getProperty(SecuritySettings.DELETE_PLAYER_DATA_WORLD);
-        // 构建stats文件夹路径
-        File statsFolder = new File(serverFolder, File.separator + worldFolderName + File.separator + "stats");
-        // 构建玩家统计数据文件路径
-        File statsFile = new File(statsFolder, File.separator + playerUUID + ".json");
-        // 删除玩家统计数据文件
-        if (statsFile.exists()) {
-            statsFile.delete();
-        }
-    }
-
-    private void deleteAuthMePlayerData(UUID playerUUID) {
-        File pluginFolder = plugin.getDataFolder();
-        File path = new File(pluginFolder, File.separator + "playerdata" + File.separator + playerUUID);
-        File dataFile = new File(path, File.separator + "data.json");
-        if (dataFile.exists()) {
-            dataFile.delete();
-            path.delete();
-        }
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        String name = player.getName();
-        UUID playerUUID = event.getPlayer().getUniqueId();
-        if (!authmeApi.isRegistered(name)) {
-            if (settings.getProperty(SecuritySettings.DELETE_UNVERIFIED_PLAYER_DATA) && !closeReasonMap.containsKey(player)) {
-                bukkitService.runTaskLater(() -> {
-                    if (!player.isOnline()) {
-                        deletePlayerData(playerUUID);
-                        deletePlayerStats(playerUUID);
-                        deleteAuthMePlayerData(playerUUID);
-                    }
-                }, 100L);
-                return;
-            }
-            closeReasonMap.remove(player);
         }
     }
 

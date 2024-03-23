@@ -32,6 +32,13 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> FORCE_LOGIN_BEDROCK =
         newProperty("3rdPartyFeature.features.bedrockAutoLogin", false);
 
+    @Comment("Should we purge data on non-registered players quit?")
+    public static final Property<Boolean> PURGE_DATA_ON_QUIT =
+        newProperty("3rdPartyFeature.features.purgeData.purgeOnQuit", false);
+
+    @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
+    public static final Property<String> DELETE_PLAYER_DATA_WORLD =
+        newProperty("3rdPartyFeature.features.purgeData.purgeWorldFolderName", "world");
     @Comment("Enable the new feature to prevent ghost players?")
     public static final Property<Boolean> ANTI_GHOST_PLAYERS =
         newProperty("3rdPartyFeature.fixes.antiGhostPlayer", false);
@@ -59,14 +66,6 @@ public final class SecuritySettings implements SettingsHolder {
         "(Requires floodgate and hookFloodgate: true)"})
     public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY =
         newProperty("3rdPartyFeature.features.captcha.ignoreBedrock", false);
-
-    @Comment("Should we delete player data and stats when they didn't finish the captcha?")
-    public static final Property<Boolean> DELETE_UNVERIFIED_PLAYER_DATA =
-        newProperty("3rdPartyFeature.features.captcha.purgePlayerData", false);
-
-    @Comment("Which world's player data should be deleted?(Enter the world *FOLDER* name where your players first logged in)")
-    public static final Property<String> DELETE_PLAYER_DATA_WORLD =
-        newProperty("3rdPartyFeature.features.captcha.purgeWorldFolderName", "world");
 
     @Comment("Should we fix the location when players logged in the portal?")
     public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL =
