@@ -2,6 +2,8 @@ package fr.xephi.authme;
 
 import ch.jalu.injector.Injector;
 import ch.jalu.injector.InjectorBuilder;
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.command.CommandHandler;
 import fr.xephi.authme.datasource.DataSource;
@@ -45,7 +47,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
@@ -79,6 +80,7 @@ public class AuthMe extends JavaPlugin {
     // Private instances
     private EmailService emailService;
     private CommandHandler commandHandler;
+    private static TaskScheduler scheduler;
     @Inject
     public static Settings settings;
     private DataSource database;
@@ -130,7 +132,12 @@ public class AuthMe extends JavaPlugin {
         return pluginBuildNumber;
     }
 
-
+    /**
+     * Get the scheduler
+     */
+    public static TaskScheduler getScheduler() {
+        return scheduler;
+    }
 
     /**
      * Method called when the server enables the plugin.
@@ -139,6 +146,7 @@ public class AuthMe extends JavaPlugin {
     public void onEnable() {
         // Load the plugin version data from the plugin description file
         loadPluginInfo(getDescription().getVersion());
+        scheduler = UniversalScheduler.getScheduler(this);
 
         // Set the Logger instance and log file path
         ConsoleLogger.initialize(getLogger(), new File(getDataFolder(), LOG_FILENAME));
@@ -246,7 +254,6 @@ public class AuthMe extends JavaPlugin {
         injector.register(AuthMe.class, this);
         injector.register(Server.class, getServer());
         injector.register(PluginManager.class, getServer().getPluginManager());
-        injector.register(BukkitScheduler.class, getServer().getScheduler());
         injector.provide(DataFolder.class, getDataFolder());
         injector.registerProvider(Settings.class, SettingsProvider.class);
         injector.registerProvider(DataSource.class, DataSourceProvider.class);

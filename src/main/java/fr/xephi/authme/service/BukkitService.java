@@ -1,5 +1,7 @@
 package fr.xephi.authme.service;
 
+import com.github.Anon8281.universalScheduler.UniversalRunnable;
+import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
@@ -13,8 +15,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+
+import static fr.xephi.authme.AuthMe.getScheduler;
 
 /**
  * Service for operations requiring the Bukkit API, such as for scheduling.
@@ -50,8 +52,8 @@ public class BukkitService implements SettingsDependent {
      * @param task Task to be executed
      * @return Task id number (-1 if scheduling failed)
      */
-    public int scheduleSyncDelayedTask(Runnable task) {
-        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task);
+    public void scheduleSyncDelayedTask(Runnable task) {
+        getScheduler().runTask(task);
     }
 
     /**
@@ -63,8 +65,8 @@ public class BukkitService implements SettingsDependent {
      * @param delay Delay in server ticks before executing task
      * @return Task id number (-1 if scheduling failed)
      */
-    public int scheduleSyncDelayedTask(Runnable task, long delay) {
-        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task, delay);
+    public void scheduleSyncDelayedTask(Runnable task, long delay) {
+        getScheduler().runTaskLater(task, delay);
     }
 
     /**
@@ -76,7 +78,7 @@ public class BukkitService implements SettingsDependent {
      */
     public void scheduleSyncTaskFromOptionallyAsyncTask(Runnable task) {
         if (Bukkit.isPrimaryThread()) {
-            task.run();
+            runTask(task);
         } else {
             scheduleSyncDelayedTask(task);
         }
@@ -90,8 +92,8 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public BukkitTask runTask(Runnable task) {
-        return Bukkit.getScheduler().runTask(authMe, task);
+    public void runTask(Runnable task) {
+        getScheduler().runTask(task);
     }
 
     /**
@@ -104,8 +106,8 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public BukkitTask runTaskLater(Runnable task, long delay) {
-        return Bukkit.getScheduler().runTaskLater(authMe, task, delay);
+    public MyScheduledTask runTaskLater(Runnable task, long delay) {
+        return getScheduler().runTaskLater(task, delay);
     }
 
     /**
@@ -118,7 +120,7 @@ public class BukkitService implements SettingsDependent {
         if (useAsyncTasks) {
             runTaskAsynchronously(task);
         } else {
-            task.run();
+            runTask(task);
         }
     }
 
@@ -133,8 +135,8 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public BukkitTask runTaskAsynchronously(Runnable task) {
-        return Bukkit.getScheduler().runTaskAsynchronously(authMe, task);
+    public void runTaskAsynchronously(Runnable task) {
+        getScheduler().runTaskAsynchronously(task);
     }
 
     /**
@@ -152,7 +154,7 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if task is null
      * @throws IllegalStateException if this was already scheduled
      */
-    public BukkitTask runTaskTimerAsynchronously(BukkitRunnable task, long delay, long period) {
+    public MyScheduledTask runTaskTimerAsynchronously(UniversalRunnable task, long delay, long period) {
         return task.runTaskTimerAsynchronously(authMe, delay, period);
     }
 
@@ -167,7 +169,7 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    public BukkitTask runTaskTimer(BukkitRunnable task, long delay, long period) {
+    public MyScheduledTask runTaskTimer(UniversalRunnable task, long delay, long period) {
         return task.runTaskTimer(authMe, delay, period);
     }
 

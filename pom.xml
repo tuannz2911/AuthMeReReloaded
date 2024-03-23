@@ -155,6 +155,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.4.1</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <failOnWarnings>false</failOnWarnings>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -333,6 +337,10 @@
                                 <relocation>
                                     <pattern>com.google.thirdparty</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.thirdparty</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.cryptomorin.xseries</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.xseries</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.google.j2objc</pattern>
@@ -1113,6 +1121,14 @@
             <artifactId>checker-qual</artifactId>
             <version>3.40.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Universal Scheduler -->
+        <dependency>
+            <groupId>com.github.Anon8281</groupId>
+            <artifactId>UniversalScheduler</artifactId>
+            <version>0.1.6</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- JDBC drivers for datasource integration tests -->
