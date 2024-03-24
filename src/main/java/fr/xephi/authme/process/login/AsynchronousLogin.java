@@ -274,6 +274,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
             auth.setRealName(player.getName());
             auth.setLastLogin(System.currentTimeMillis());
             auth.setLastIp(ip);
+            auth.setQuitLocation(player.getLocation());
             dataSource.updateSession(auth);
 
             // TODO: send an update when a messaging service will be implemented (SESSION)
