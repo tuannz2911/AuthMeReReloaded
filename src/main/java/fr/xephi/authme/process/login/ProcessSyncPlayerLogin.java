@@ -86,6 +86,9 @@ public class ProcessSyncPlayerLogin implements SynchronousProcess {
         }
 
         final PlayerAuth auth = playerCache.getAuth(name);
+        if (isFirstLogin) {
+            auth.setQuitLocation(player.getLocation());
+        }
         teleportationService.teleportOnLogin(player, auth, limbo);
 
         // We can now display the join message (if delayed)
