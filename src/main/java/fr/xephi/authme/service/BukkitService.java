@@ -10,10 +10,12 @@ import fr.xephi.authme.util.Utils;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -97,6 +99,15 @@ public class BukkitService implements SettingsDependent {
     public void runTask(Runnable task) {
         getScheduler().runTask(task);
     }
+
+    public void runTask(Entity entity, Runnable task) {
+        getScheduler().runTask(entity, task);
+    }
+
+    public void runTask(Location location, Runnable task) {
+        getScheduler().runTask(location, task);
+    }
+
 
     /**
      * Returns a task that will run after the specified number of server
