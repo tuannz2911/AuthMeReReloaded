@@ -191,7 +191,7 @@ public class AsynchronousJoin implements AsynchronousProcess {
                 int blindTimeOut = (registrationTimeout <= 0) ? 99999 : registrationTimeout;
 
                 // AuthMeReReloaded start - Fix async potion apply on Folia
-                bukkitService.runTaskSyncIfFolia(() -> player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTimeOut, 2)));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTimeOut, 2));
                 // AuthMeReReloaded end
 
             }

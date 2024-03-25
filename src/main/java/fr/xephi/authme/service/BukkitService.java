@@ -142,18 +142,6 @@ public class BukkitService implements SettingsDependent {
     }
 
     /**
-     * Runs the task synchronously if we are on a Folia server, else runs normally.
-     * @param task the task to run
-     */
-    public void runTaskSyncIfFolia(Runnable task) {
-        if (IS_FOLIA) {
-            runTask(task);
-        } else {
-            task.run();
-        }
-    }
-
-    /**
      * <b>Asynchronous tasks should never access any API in Bukkit. Great care
      * should be taken to assure the thread-safety of asynchronous tasks.</b>
      * <p>
