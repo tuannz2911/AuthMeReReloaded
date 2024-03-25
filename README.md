@@ -20,8 +20,7 @@
  9. Improved listeners
  10. Player login logic improvement to reduce lag
  11. Automatically purge bot data
- 12. Folia
-     compatibility [Here](https://github.com/HaHaWTH/AuthMeReReloaded/releases/download/b20/AuthMe-5.6.0-FORK-Folia.jar)
+ 12. Folia compatibility (Still WIP)
  13. Offhand Menu compatibility(Thats amazing)
  14. Automatically fix portal stuck issue
  15. Automatically login for Bedrock players(configurable)
