@@ -78,7 +78,8 @@ public class RegisterAdminCommand implements ExecutableCommand {
             final Player player = bukkitService.getPlayerExact(playerName);
             if (player != null) {
                 bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(() ->
-                    player.kickPlayer(commonService.retrieveSingleMessage(player, MessageKey.KICK_FOR_ADMIN_REGISTER)));
+                    // AuthMeReReloaded - Folia compatibility
+                    bukkitService.runTaskIfFolia(player, () -> player.kickPlayer(commonService.retrieveSingleMessage(player, MessageKey.KICK_FOR_ADMIN_REGISTER))));
             }
         });
     }

@@ -139,7 +139,8 @@ public class OnJoinVerifier implements Reloadable {
         }
         Player nonVipPlayer = generateKickPlayer(onlinePlayers);
         if (nonVipPlayer != null) {
-            nonVipPlayer.kickPlayer(messages.retrieveSingle(player, MessageKey.KICK_FOR_VIP));
+            // AuthMeReReloaded - Folia compatibility
+            bukkitService.runTaskIfFolia(nonVipPlayer, () -> nonVipPlayer.kickPlayer(messages.retrieveSingle(player, MessageKey.KICK_FOR_VIP)));
             event.allow();
             return false;
         } else {

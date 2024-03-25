@@ -320,7 +320,8 @@ public class PlayerListener implements Listener{
         final Player player = event.getPlayer();
         if (!quickCommandsProtectionManager.isAllowed(player.getName())) {
             event.setCancelled(true);
-            player.kickPlayer(messages.retrieveSingle(player, MessageKey.QUICK_COMMAND_PROTECTION_KICK));
+            bukkitService.runTaskIfFolia(player, () -> player.kickPlayer(messages.retrieveSingle(player, MessageKey.QUICK_COMMAND_PROTECTION_KICK)));
+            // AuthMeReReloaded - Folia compatibility
             return;
         }
         if (listenerService.shouldCancelEvent(player)) {
