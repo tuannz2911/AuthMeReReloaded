@@ -6,6 +6,7 @@ import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
+import fr.xephi.authme.util.Utils;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -34,6 +35,7 @@ public class BukkitService implements SettingsDependent {
     public static final int TICKS_PER_SECOND = 20;
     /** Number of ticks per minute. */
     public static final int TICKS_PER_MINUTE = 60 * TICKS_PER_SECOND;
+    private static final boolean IS_FOLIA = Utils.isClassLoaded("io.papermc.paper.threadedregions.RegionizedServer");
 
     private final AuthMe authMe;
     private boolean useAsyncTasks;
@@ -137,6 +139,18 @@ public class BukkitService implements SettingsDependent {
      */
     public void runTaskAsynchronously(Runnable task) {
         getScheduler().runTaskAsynchronously(task);
+    }
+
+    /**
+     * Runs the task synchronously if we are on a Folia server, else runs normally.
+     * @param task the task to run
+     */
+    public void runTaskSyncIfFolia(Runnable task) {
+        if (IS_FOLIA) {
+            runTask(task);
+        } else {
+            task.run();
+        }
     }
 
     /**
