@@ -117,6 +117,10 @@ public class BukkitService implements SettingsDependent {
         }
     }
 
+    /**
+     * Runs the task synchronously if we are running Folia, else do nothing but run it.
+     * @param task the task to be run
+     */
     public void runTaskIfFolia(Entity entity, Runnable task) {
         if (IS_FOLIA) {
             runTask(entity, task);
@@ -125,6 +129,10 @@ public class BukkitService implements SettingsDependent {
         }
     }
 
+    /**
+     * Runs the task synchronously if we are running Folia, else do nothing but run it.
+     * @param task the task to be run
+     */
     public void runTaskIfFolia(Location location, Runnable task) {
         if (IS_FOLIA) {
             runTask(location, task);
