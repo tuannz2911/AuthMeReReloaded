@@ -163,84 +163,82 @@ public class GuiCaptchaHandler implements Listener {
                 messages.send(playerunreg, MessageKey.GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK);
                 return;
             }
-            bukkitService.runTask(() -> {
-                randomString = sb.toString();
-                Random random_blockpos = new Random();
-                AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(26));
-                Inventory menu = Bukkit.createInventory(playerunreg, 27, messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_WINDOW_NAME, randomString));
-                ItemStack item = new ItemStack(captchaMaterial);
-                ItemMeta meta = item.getItemMeta();
-                try {
-                    if (meta != null) {
-                        meta.setDisplayName(messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_CLICKABLE_NAME, randomString));
-                        item.setItemMeta(meta);
-                    }
-                } catch (NullPointerException e) {
-                    getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
+            randomString = sb.toString();
+            Random random_blockpos = new Random();
+            AtomicInteger random_num = new AtomicInteger(random_blockpos.nextInt(27));
+            Inventory menu = Bukkit.createInventory(playerunreg, 27, messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_WINDOW_NAME, randomString));
+            ItemStack item = new ItemStack(captchaMaterial);
+            ItemMeta meta = item.getItemMeta();
+            try {
+                if (meta != null) {
+                    meta.setDisplayName(messages.retrieveSingle(playerunreg, MessageKey.GUI_CAPTCHA_CLICKABLE_NAME, randomString));
+                    item.setItemMeta(meta);
                 }
-                windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
-                    @Override
-                    public void onPacketReceiving(PacketEvent event) {
-                        Player packetPlayer = event.getPlayer();
-                        if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+            } catch (NullPointerException e) {
+                getLogger().log(Level.WARNING, "Unexpected error occurred while setting item meta.");
+            }
+            windowPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CLOSE_WINDOW) {
+                @Override
+                public void onPacketReceiving(PacketEvent event) {
+                    Player packetPlayer = event.getPlayer();
+                    if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+                        if (timesLeft <= 0) {
+                            bukkitService.runTask(() -> {
+                                packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
+                            });
+                            timesLeft = 3;
+                        } else {
+                            --timesLeft;
                             if (timesLeft <= 0) {
                                 bukkitService.runTask(() -> {
                                     packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
                                 });
                                 timesLeft = 3;
-                            } else {
-                                --timesLeft;
-                                if (timesLeft <= 0) {
-                                    bukkitService.runTask(() -> {
-                                        packetPlayer.kickPlayer(service.retrieveSingleMessage(packetPlayer, MessageKey.GUI_CAPTCHA_KICK_FAILED));
-                                    });
-                                    timesLeft = 3;
-                                    return;
-                                }
-                                messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
-                                event.setCancelled(true);
-                                random_num.set(random_blockpos.nextInt(26));
-                                bukkitService.runTask(() -> {
-                                    menu.clear();
-                                    menu.setItem(random_num.get(), item);
-                                    packetPlayer.openInventory(menu);
-                                });
+                                return;
                             }
-                        }
-                    }
-                };
-                chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
-                    @Override
-                    public void onPacketReceiving(PacketEvent event) {
-                        Player packetPlayer = event.getPlayer();
-                        if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
-                            messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
+                            messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_RETRY_MESSAGE, String.valueOf(timesLeft));
                             event.setCancelled(true);
+                            random_num.set(random_blockpos.nextInt(26));
+                            bukkitService.runTask(() -> {
+                                menu.clear();
+                                menu.setItem(random_num.get(), item);
+                                packetPlayer.openInventory(menu);
+                            });
                         }
                     }
-                };
-                initializePacketListeners();
-                //Open captcha inventory
-                menu.setItem(random_num.get(), item);
-                playerunreg.openInventory(menu);
-                if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
-                    long timeOut = settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
-                    if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > settings.getProperty(RestrictionSettings.TIMEOUT)) {
-                        bukkitService.runTask(() -> {
-                            getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
-                                settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
-                        });
-                        timeOut = settings.getProperty(RestrictionSettings.TIMEOUT);
-                    }
-                    long finalTimeOut = timeOut;
-                    bukkitService.runTaskLater(() -> {
-                        if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
-                            playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
-                            timesLeft = 3; // Reset the attempt counter
-                        }
-                    }, finalTimeOut * 20L);
                 }
-            });
+            };
+            chatPacketListener = new PacketAdapter(this.plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
+                @Override
+                public void onPacketReceiving(PacketEvent event) {
+                    Player packetPlayer = event.getPlayer();
+                    if (!closeReasonMap.containsKey(packetPlayer) && !authmeApi.isRegistered(packetPlayer.getName())) {
+                        messages.send(packetPlayer, MessageKey.GUI_CAPTCHA_DENIED_MESSAGE);
+                        event.setCancelled(true);
+                    }
+                }
+            };
+            initializePacketListeners();
+            //Open captcha inventory
+            menu.setItem(random_num.get(), item);
+            playerunreg.openInventory(menu);
+            if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > 0) {
+                long timeOut = settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT);
+                if (settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) > settings.getProperty(RestrictionSettings.TIMEOUT)) {
+                    bukkitService.runTask(() -> {
+                        getLogger().warning("AuthMe detected that your GUI captcha timeout seconds(" + settings.getProperty(SecuritySettings.GUI_CAPTCHA_TIMEOUT) + ") is bigger than the Login timeout seconds(" +
+                            settings.getProperty(RestrictionSettings.TIMEOUT) + "). To prevent issues, we will let the GUI captcha follow the Login timeout seconds, please check and modify your config.");
+                    });
+                    timeOut = settings.getProperty(RestrictionSettings.TIMEOUT);
+                }
+                long finalTimeOut = timeOut;
+                bukkitService.runTaskLater(() -> {
+                    if (!closeReasonMap.containsKey(playerunreg) && !authmeApi.isRegistered(playerunreg.getName())) {
+                        playerunreg.kickPlayer(service.retrieveSingleMessage(playerunreg, MessageKey.GUI_CAPTCHA_KICK_TIMEOUT));
+                        timesLeft = 3; // Reset the attempt counter
+                    }
+                }, finalTimeOut * 20L);
+            }
         }
     }
 
