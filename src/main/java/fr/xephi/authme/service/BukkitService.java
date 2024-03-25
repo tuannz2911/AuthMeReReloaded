@@ -6,7 +6,6 @@ import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
-import fr.xephi.authme.util.Utils;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -37,8 +36,6 @@ public class BukkitService implements SettingsDependent {
     public static final int TICKS_PER_SECOND = 20;
     /** Number of ticks per minute. */
     public static final int TICKS_PER_MINUTE = 60 * TICKS_PER_SECOND;
-    private static final boolean IS_FOLIA = Utils.isClassLoaded("io.papermc.paper.threadedregions.RegionizedServer");
-
     private final AuthMe authMe;
     private boolean useAsyncTasks;
 
@@ -54,7 +51,6 @@ public class BukkitService implements SettingsDependent {
      * This task will be executed by the main server thread.
      *
      * @param task Task to be executed
-     * @return Task id number (-1 if scheduling failed)
      */
     public void scheduleSyncDelayedTask(Runnable task) {
         getScheduler().runTask(task);
@@ -67,7 +63,6 @@ public class BukkitService implements SettingsDependent {
      *
      * @param task  Task to be executed
      * @param delay Delay in server ticks before executing task
-     * @return Task id number (-1 if scheduling failed)
      */
     public void scheduleSyncDelayedTask(Runnable task, long delay) {
         getScheduler().runTaskLater(task, delay);
@@ -92,7 +87,6 @@ public class BukkitService implements SettingsDependent {
      * Returns a task that will run on the next server tick.
      *
      * @param task the task to be run
-     * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
@@ -144,7 +138,6 @@ public class BukkitService implements SettingsDependent {
      * Returns a task that will run asynchronously.
      *
      * @param task the task to be run
-     * @return a BukkitTask that contains the id number
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
