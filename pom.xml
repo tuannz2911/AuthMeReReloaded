@@ -323,7 +323,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>shaded-jar-legacy</id>
+                        <id>shaded-jar-relocate</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
@@ -358,6 +358,46 @@
                                 <relocation>
                                     <pattern>org.h2</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.org.h2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.http</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.org.apache.http</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.org.apache.commons</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.activation</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.javax.activation</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.annotation</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.javax.annotation</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.mail</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.javax.mail</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>waffle</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.waffle</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.mail</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.com.sun.mail</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.jna</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.com.sun.jna</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.activation</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.com.sun.activation</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.github.benmanes.caffeine</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.com.github.benmanes.caffeine</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
