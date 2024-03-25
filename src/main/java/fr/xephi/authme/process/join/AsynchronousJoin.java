@@ -189,7 +189,9 @@ public class AsynchronousJoin implements AsynchronousProcess {
             if (service.getProperty(RegistrationSettings.APPLY_BLIND_EFFECT)) {
                 // Allow infinite blindness effect
                 int blindTimeOut = (registrationTimeout <= 0) ? 99999 : registrationTimeout;
-                bukkitService.runTask(player,() -> player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTimeOut, 2)));
+
+                // AuthMeReReloaded - Fix potion apply on Folia
+                bukkitService.runTaskIfFolia(player,() -> player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindTimeOut, 2)));
             }
             commandManager.runCommandsOnJoin(player);
         });
