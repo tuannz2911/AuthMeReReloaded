@@ -55,8 +55,8 @@ public class BukkitService implements SettingsDependent {
      *
      * @param task Task to be executed
      */
-    public void scheduleSyncDelayedTask(Runnable task) {
-        getScheduler().runTask(task);
+    public int scheduleSyncDelayedTask(Runnable task) {
+        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task);
     }
 
     /**
@@ -67,8 +67,8 @@ public class BukkitService implements SettingsDependent {
      * @param task  Task to be executed
      * @param delay Delay in server ticks before executing task
      */
-    public void scheduleSyncDelayedTask(Runnable task, long delay) {
-        getScheduler().runTaskLater(task, delay);
+    public int scheduleSyncDelayedTask(Runnable task, long delay) {
+        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task, delay);
     }
 
     /**
@@ -181,8 +181,8 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public void runTaskAsynchronously(Runnable task) {
-        getScheduler().runTaskAsynchronously(task);
+    public BukkitTask runTaskAsynchronously(Runnable task) {
+        return Bukkit.getScheduler().runTaskAsynchronously(authMe, task);
     }
 
     /**
