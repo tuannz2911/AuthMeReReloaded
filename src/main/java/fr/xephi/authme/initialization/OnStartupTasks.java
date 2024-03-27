@@ -1,6 +1,5 @@
 package fr.xephi.authme.initialization;
 
-import com.github.Anon8281.universalScheduler.UniversalRunnable;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.datasource.DataSource;
@@ -19,6 +18,7 @@ import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -96,7 +96,7 @@ public class OnStartupTasks {
         if (!settings.getProperty(RECALL_PLAYERS)) {
             return;
         }
-        bukkitService.runTaskTimerAsynchronously(new UniversalRunnable() {
+        bukkitService.runTaskTimerAsynchronously(new BukkitRunnable() {
             @Override
             public void run() {
                 List<String> loggedPlayersWithEmptyMail = dataSource.getLoggedPlayersWithEmptyMail();

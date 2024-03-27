@@ -340,10 +340,6 @@
                                     <shadedPattern>fr.xephi.authme.libs.com.google.thirdparty</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>com.cryptomorin.xseries</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.xseries</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>com.google.j2objc</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.google.j2objc</shadedPattern>
                                 </relocation>

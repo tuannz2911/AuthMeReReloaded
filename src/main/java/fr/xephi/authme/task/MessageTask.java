@@ -1,12 +1,12 @@
 package fr.xephi.authme.task;
 
-import com.github.Anon8281.universalScheduler.UniversalRunnable;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Message shown to a player in a regular interval as long as he is not logged in.
  */
-public class MessageTask extends UniversalRunnable {
+public class MessageTask extends BukkitRunnable {
 
     private final Player player;
     private final String[] message;
