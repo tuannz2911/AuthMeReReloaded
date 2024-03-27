@@ -25,6 +25,7 @@ public class TaskCloser implements Runnable {
 
     @Override
     public void run() {
+        scheduler.cancelTasks();
         if (dataSource != null) {
             dataSource.closeConnection();
         }

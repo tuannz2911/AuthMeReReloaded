@@ -1,5 +1,7 @@
 package fr.xephi.authme.service;
 
+import com.github.Anon8281.universalScheduler.UniversalRunnable;
+import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
@@ -16,7 +18,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import javax.inject.Inject;
@@ -167,7 +168,7 @@ public class BukkitService implements SettingsDependent {
         if (useAsyncTasks) {
             runTaskAsynchronously(task);
         } else {
-            task.run();
+            runTask(task);
         }
     }
 
@@ -200,7 +201,7 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if task is null
      * @throws IllegalStateException if this was already scheduled
      */
-    public BukkitTask runTaskTimerAsynchronously(BukkitRunnable task, long delay, long period) {
+    public MyScheduledTask runTaskTimerAsynchronously(UniversalRunnable task, long delay, long period) {
         return task.runTaskTimerAsynchronously(authMe, delay, period);
     }
 
@@ -215,7 +216,7 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalStateException    if this was already scheduled
      */
-    public BukkitTask runTaskTimer(BukkitRunnable task, long delay, long period) {
+    public MyScheduledTask runTaskTimer(UniversalRunnable task, long delay, long period) {
         return task.runTaskTimer(authMe, delay, period);
     }
 
