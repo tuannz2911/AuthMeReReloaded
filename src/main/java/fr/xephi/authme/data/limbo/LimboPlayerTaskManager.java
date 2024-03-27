@@ -1,6 +1,5 @@
 package fr.xephi.authme.data.limbo;
 
-import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.data.captcha.RegistrationCaptchaManager;
 import fr.xephi.authme.message.MessageKey;
@@ -12,6 +11,7 @@ import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.task.MessageTask;
 import fr.xephi.authme.task.TimeoutTask;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import javax.inject.Inject;
 
@@ -68,7 +68,7 @@ class LimboPlayerTaskManager {
         final int timeout = settings.getProperty(RestrictionSettings.TIMEOUT) * TICKS_PER_SECOND;
         if (timeout > 0) {
             String message = messages.retrieveSingle(player, MessageKey.LOGIN_TIMEOUT_ERROR);
-            MyScheduledTask task = bukkitService.runTaskLater(new TimeoutTask(player, message, playerCache), timeout);
+            BukkitTask task = bukkitService.runTaskLater(new TimeoutTask(player, message, playerCache), timeout);
             limbo.setTimeoutTask(task);
         }
     }
