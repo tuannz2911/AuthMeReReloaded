@@ -4,8 +4,6 @@ import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskSchedule
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.datasource.DataSource;
 
-import java.util.logging.Logger;
-
 /**
  * Waits for asynchronous tasks to complete before closing the data source
  * so the plugin can shut down properly.
@@ -13,20 +11,15 @@ import java.util.logging.Logger;
 public class TaskCloser implements Runnable {
 
     private final TaskScheduler scheduler;
-    private final Logger logger;
-    private final AuthMe plugin;
     private final DataSource dataSource;
 
     /**
      * Constructor.
      *
-     * @param plugin the plugin instance
      * @param dataSource the data source (nullable)
      */
-    public TaskCloser(AuthMe plugin, DataSource dataSource) {
+    public TaskCloser(DataSource dataSource) {
         this.scheduler = AuthMe.getScheduler();
-        this.logger = plugin.getLogger();
-        this.plugin = plugin;
         this.dataSource = dataSource;
     }
 

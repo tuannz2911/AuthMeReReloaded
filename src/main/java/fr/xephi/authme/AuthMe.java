@@ -6,6 +6,7 @@ import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.command.CommandHandler;
+import fr.xephi.authme.command.TabCompleteHandler;
 import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.initialization.DataFolder;
 import fr.xephi.authme.initialization.DataSourceProvider;
@@ -57,6 +58,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -208,8 +210,8 @@ public class AuthMe extends JavaPlugin {
         }
         //detect server brand with classloader
         checkServerType();
-//        Objects.requireNonNull(getCommand("register")).setTabCompleter(new TabCompleteHandler());
-//        Objects.requireNonNull(getCommand("login")).setTabCompleter(new TabCompleteHandler());
+        Objects.requireNonNull(getCommand("register")).setTabCompleter(new TabCompleteHandler());
+        Objects.requireNonNull(getCommand("login")).setTabCompleter(new TabCompleteHandler());
         logger.info("AuthMeReReloaded is enabled successfully!");
         // Purge on start if enabled
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
@@ -403,7 +405,7 @@ public class AuthMe extends JavaPlugin {
         }
 
         // Wait for tasks and close data source
-        new TaskCloser(this, database).run();
+        new TaskCloser(database).run();
 
         // Disabled correctly
         Consumer<String> infoLogMethod = logger == null ? getLogger()::info : logger::info;
