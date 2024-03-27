@@ -68,7 +68,11 @@ public class BukkitService implements SettingsDependent {
      * @param delay Delay in server ticks before executing task
      */
     public void scheduleSyncDelayedTask(Runnable task, long delay) {
-        runTaskLater(task, delay);
+        if (IS_FOLIA) {
+            runTaskLater(task, delay);
+        } else {
+            Bukkit.getScheduler().runTaskLater(authMe, task, delay); // We must do this to keep compatibility
+        }
     }
 
     /**
