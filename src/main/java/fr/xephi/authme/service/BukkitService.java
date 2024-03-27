@@ -80,7 +80,7 @@ public class BukkitService implements SettingsDependent {
      */
     public void scheduleSyncTaskFromOptionallyAsyncTask(Runnable task) {
         if (Bukkit.isPrimaryThread()) {
-            runTask(task);
+            task.run();
         } else {
             scheduleSyncDelayedTask(task);
         }
@@ -93,8 +93,8 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public void runTask(Runnable task) {
-        getScheduler().runTask(task);
+    public BukkitTask runTask(Runnable task) {
+        return Bukkit.getScheduler().runTask(authMe, task);
     }
 
     public void runTask(Entity entity, Runnable task) {
