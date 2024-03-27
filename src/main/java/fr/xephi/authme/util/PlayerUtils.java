@@ -10,6 +10,7 @@ public final class PlayerUtils {
     // Utility class
     private PlayerUtils() {
     }
+    private static final boolean IS_LEAVES_SERVER = Utils.isClassLoaded("top.leavesmc.leaves.LeavesConfig");
 
     /**
      * Returns the IP of the given player.
@@ -28,7 +29,11 @@ public final class PlayerUtils {
      * @return True if the player is an NPC, false otherwise
      */
     public static boolean isNpc(Player player) {
-        return player.hasMetadata("NPC") || player.getAddress() == null;
+        if (IS_LEAVES_SERVER) {
+            return player.hasMetadata("NPC") || player.getAddress() == null;
+        } else {
+            return player.hasMetadata("NPC");
+        }
     }
 
 }
