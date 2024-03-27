@@ -24,6 +24,7 @@ public class LimboPlayer {
     private final float flySpeed;
     private MyScheduledTask timeoutTask = null;
     private MessageTask messageTask = null;
+    private MyScheduledTask inter;
 
     private LimboPlayerState state = LimboPlayerState.PASSWORD_REQUIRED;
 
@@ -113,18 +114,20 @@ public class LimboPlayer {
      *
      * @param messageTask The message task to set
      */
-    public void setMessageTask(MessageTask messageTask) {
-        if (this.messageTask != null) {
+    public void setMessageTask(MessageTask messageTask, MyScheduledTask inter) {
+        if (this.messageTask != null && this.inter != null) {
             this.messageTask.cancel();
+            this.inter.cancel();
         }
         this.messageTask = messageTask;
+        this.inter = inter;
     }
 
     /**
      * Clears all tasks associated to the player.
      */
     public void clearTasks() {
-        setMessageTask(null);
+        setMessageTask(null, null);
         setTimeoutTask(null);
     }
 
