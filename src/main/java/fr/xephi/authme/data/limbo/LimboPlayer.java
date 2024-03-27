@@ -115,8 +115,10 @@ public class LimboPlayer {
      * @param messageTask The message task to set
      */
     public void setMessageTask(MessageTask messageTask, MyScheduledTask inter) {
-        if (this.messageTask != null && this.inter != null) {
+        if (this.messageTask != null) {
             this.messageTask.cancel();
+        }
+        if (this.inter != null) {
             this.inter.cancel();
         }
         this.messageTask = messageTask;
