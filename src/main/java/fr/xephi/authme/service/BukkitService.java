@@ -55,8 +55,8 @@ public class BukkitService implements SettingsDependent {
      *
      * @param task Task to be executed
      */
-    public int scheduleSyncDelayedTask(Runnable task) {
-        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task);
+    public void scheduleSyncDelayedTask(Runnable task) {
+        runTask(task);
     }
 
     /**
@@ -67,8 +67,8 @@ public class BukkitService implements SettingsDependent {
      * @param task  Task to be executed
      * @param delay Delay in server ticks before executing task
      */
-    public int scheduleSyncDelayedTask(Runnable task, long delay) {
-        return Bukkit.getScheduler().scheduleSyncDelayedTask(authMe, task, delay);
+    public void scheduleSyncDelayedTask(Runnable task, long delay) {
+        runTaskLater(task, delay);
     }
 
     /**
@@ -141,8 +141,6 @@ public class BukkitService implements SettingsDependent {
         }
     }
 
-
-
     /**
      * Returns a task that will run after the specified number of server
      * ticks.
@@ -181,8 +179,12 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if plugin is null
      * @throws IllegalArgumentException if task is null
      */
-    public BukkitTask runTaskAsynchronously(Runnable task) {
-        return Bukkit.getScheduler().runTaskAsynchronously(authMe, task);
+    public void runTaskAsynchronously(Runnable task) {
+        if (IS_FOLIA) {
+            getScheduler().runTaskAsynchronously(task);
+        } else {
+            Bukkit.getScheduler().runTaskAsynchronously(authMe, task);
+        }
     }
 
     /**
