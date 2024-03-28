@@ -60,7 +60,7 @@ public class CacheDataSource implements DataSource {
                         .setNameFormat("AuthMe-CacheLoader")
                         .build())
                 );
-                logger.info("Cannot enable virtual threads, fallback to CachedThread");
+                logger.info("Cannot enable virtual threads, fallback to CachedThreadPool");
             }
         } else {
             executorService = MoreExecutors.listeningDecorator(
