@@ -465,7 +465,9 @@ public class AuthMe extends JavaPlugin {
 
 
     private void checkServerType() {
-        if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
+        if (isClassLoaded("io.papermc.paper.threadedregions.RegionizedServer")) {
+            logger.info("AuthMeReReloaded is running on Folia");
+        } else if (isClassLoaded("com.destroystokyo.paper.PaperConfig")) {
             logger.info("AuthMeReReloaded is running on Paper");
         } else if (isClassLoaded("catserver.server.CatServerConfig")) {
             logger.info("AuthMeReReloaded is running on CatServer");
