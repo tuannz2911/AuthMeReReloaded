@@ -98,11 +98,19 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if task is null
      */
     public void runTask(Runnable task) {
-        getScheduler().runTask(task);
+        if (IS_FOLIA) {
+            getScheduler().runTask(task);
+        } else {
+            Bukkit.getScheduler().runTask(authMe, task);
+        }
     }
 
     public void runTask(Entity entity, Runnable task) {
-        getScheduler().runTask(entity, task);
+        if (IS_FOLIA) {
+            getScheduler().runTask(entity, task);
+        } else {
+            Bukkit.getScheduler().runTask(authMe, task);
+        }
     }
 
     public void runTask(Location location, Runnable task) {

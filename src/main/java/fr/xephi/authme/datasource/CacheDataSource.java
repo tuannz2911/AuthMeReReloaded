@@ -9,18 +9,22 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.data.auth.PlayerAuth;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.security.crypts.HashedPassword;
+import fr.xephi.authme.settings.properties.DatabaseSettings;
 import fr.xephi.authme.util.Utils;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -28,11 +32,10 @@ import java.util.stream.Collectors;
 public class CacheDataSource implements DataSource {
 
     private final ConsoleLogger logger = ConsoleLoggerFactory.get(CacheDataSource.class);
-
     private final DataSource source;
     private final PlayerCache playerCache;
     private final LoadingCache<String, Optional<PlayerAuth>> cachedAuths;
-    private final ListeningExecutorService executorService;
+    private ListeningExecutorService executorService;
 
     /**
      * Constructor for CacheDataSource.
@@ -43,13 +46,30 @@ public class CacheDataSource implements DataSource {
     public CacheDataSource(DataSource source, PlayerCache playerCache) {
         this.source = source;
         this.playerCache = playerCache;
-
-        executorService = MoreExecutors.listeningDecorator(
-            Executors.newCachedThreadPool(new ThreadFactoryBuilder()
-                .setDaemon(true)
-                .setNameFormat("AuthMe-CacheLoader")
-                .build())
-        );
+        if (AuthMe.settings.getProperty(DatabaseSettings.USE_VIRTUAL_THREADS)) {
+            try {
+                Method method = Executors.class.getMethod("newVirtualThreadPerTaskExecutor");
+                method.setAccessible(true);
+                ExecutorService ex = (ExecutorService) method.invoke(null);
+                executorService = MoreExecutors.listeningDecorator(ex);
+                logger.info("Using virtual threads for cache loader");
+            } catch (Exception e) {
+                executorService = MoreExecutors.listeningDecorator(
+                    Executors.newCachedThreadPool(new ThreadFactoryBuilder()
+                        .setDaemon(true)
+                        .setNameFormat("AuthMe-CacheLoader")
+                        .build())
+                );
+                logger.info("Cannot enable virtual threads, fallback to CachedThread");
+            }
+        } else {
+            executorService = MoreExecutors.listeningDecorator(
+                Executors.newCachedThreadPool(new ThreadFactoryBuilder()
+                    .setDaemon(true)
+                    .setNameFormat("AuthMe-CacheLoader")
+                    .build())
+            );
+        }
         cachedAuths = CacheBuilder.newBuilder()
             .refreshAfterWrite(5, TimeUnit.MINUTES)
             .expireAfterAccess(15, TimeUnit.MINUTES)
