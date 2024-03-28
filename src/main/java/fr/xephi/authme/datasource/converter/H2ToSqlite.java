@@ -11,7 +11,7 @@ import java.io.File;
 import java.sql.SQLException;
 
 /**
- * Converts SQLite to H2
+ * Converts H2 to SQLite.
  *
  */
 public class H2ToSqlite extends AbstractDataSourceConverter<H2>{
