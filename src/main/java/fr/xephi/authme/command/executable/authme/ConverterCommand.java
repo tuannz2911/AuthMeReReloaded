@@ -9,7 +9,6 @@ import fr.xephi.authme.datasource.converter.Converter;
 import fr.xephi.authme.datasource.converter.CrazyLoginConverter;
 import fr.xephi.authme.datasource.converter.LoginSecurityConverter;
 import fr.xephi.authme.datasource.converter.MySqlToSqlite;
-import fr.xephi.authme.datasource.converter.RakamakConverter;
 import fr.xephi.authme.datasource.converter.RoyalAuthConverter;
 import fr.xephi.authme.datasource.converter.SqliteToH2;
 import fr.xephi.authme.datasource.converter.SqliteToSql;
@@ -85,7 +84,6 @@ public class ConverterCommand implements ExecutableCommand {
         return ImmutableSortedMap.<String, Class<? extends Converter>>naturalOrder()
             .put("xauth", XAuthConverter.class)
             .put("crazylogin", CrazyLoginConverter.class)
-            .put("rakamak", RakamakConverter.class)
             .put("royalauth", RoyalAuthConverter.class)
             .put("vauth", VAuthConverter.class)
             .put("sqlitetosql", SqliteToSql.class)
