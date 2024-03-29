@@ -1,5 +1,6 @@
 package fr.xephi.authme.listener;
 
+import com.github.puregero.multilib.MultiLib;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.data.auth.PlayerCache;
@@ -81,7 +82,11 @@ class ListenerService implements SettingsDependent {
      */
 
     public boolean shouldCancelEvent(Player player) {
-
+        if (MultiLib.isMultiPaper()) {
+            if (MultiLib.isExternalPlayer(player)) {
+                return false;
+            }
+        }
         return player != null && !checkAuth(player.getName()) && !PlayerUtils.isNpc(player);
     }
     public boolean shouldCancelInvEvent(Player player) {

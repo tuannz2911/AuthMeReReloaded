@@ -395,6 +395,10 @@
                                     <pattern>com.github.benmanes.caffeine</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.github.benmanes.caffeine</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>com.github.puregero.multilib</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.com.github.puregero.multilib</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -623,6 +627,12 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+
+        <!-- MultiLib -->
+        <repository>
+            <id>clojars</id>
+            <url>https://repo.clojars.org</url>
         </repository>
 
         <!-- ProtocolLib Repo -->
@@ -1169,6 +1179,14 @@
             <groupId>com.github.Anon8281</groupId>
             <artifactId>UniversalScheduler</artifactId>
             <version>0.1.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- MultiLib -->
+        <dependency>
+            <groupId>com.github.puregero</groupId>
+            <artifactId>multilib</artifactId>
+            <version>1.1.13</version>
             <scope>compile</scope>
         </dependency>
 
