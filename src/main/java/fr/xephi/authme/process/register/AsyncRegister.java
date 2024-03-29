@@ -50,7 +50,7 @@ public class AsyncRegister implements AsynchronousProcess {
      * @param parameters the parameters
      * @param <P>        parameters type
      */
-    public <P extends RegistrationParameters> void register(RegistrationMethod<P> variant, P parameters) {
+    public synchronized <P extends RegistrationParameters> void register(RegistrationMethod<P> variant, P parameters) {
         if (preRegisterCheck(variant, parameters.getPlayer())) {
             RegistrationExecutor<P> executor = registrationExecutorFactory.getSingleton(variant.getExecutorClass());
             if (executor.isRegistrationAdmitted(parameters)) {
