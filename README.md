@@ -20,7 +20,7 @@
  9. Improved listeners
  10. Player login logic improvement to reduce lag
  11. Automatically purge bot data
- 12. Folia compatibility (Still WIP)
+ 12. **Folia support (in active testing)**
  13. Offhand Menu compatibility(Thats amazing)
  14. Automatically fix portal stuck issue
  15. Automatically login for Bedrock players(configurable)
