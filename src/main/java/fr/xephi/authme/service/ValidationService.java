@@ -272,10 +272,9 @@ public class ValidationService implements Reloadable {
             }
             return new HaveIBeenPwnedResults(false, 0);
         } catch (java.io.IOException e) {
-            logger.warning("验证密码时出现错误,这可能是由于网络问题,如果无法解决,请关闭HaveIBeenPwned检查");
+            logger.warning("Error occurred while checking password online, check your connection.\nWhen this error shows, the player's password won't be check");
+            return null;
         }
-
-        return null;
     }
 
 

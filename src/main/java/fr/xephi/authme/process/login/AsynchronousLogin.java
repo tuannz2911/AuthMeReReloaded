@@ -112,7 +112,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
      *
      * @param player the player to log in
      */
-    public void forceLogin(Player player) {
+    public synchronized void forceLogin(Player player) {
         PlayerAuth auth = getPlayerAuth(player);
         if (auth != null) {
             performLogin(player, auth);

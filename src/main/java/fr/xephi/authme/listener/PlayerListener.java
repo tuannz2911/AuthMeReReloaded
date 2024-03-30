@@ -119,7 +119,7 @@ public class PlayerListener implements Listener{
         if (validationService.isUnrestricted(name)) {
             return;
         }
-        if (settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER)) {
+        if (settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(HooksSettings.IGNORE_BEDROCK_NAME_CHECK)) {
             if (getServer().getPluginManager().getPlugin("floodgate") != null) {
                 if (org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(event.getUniqueId())) return;
             }

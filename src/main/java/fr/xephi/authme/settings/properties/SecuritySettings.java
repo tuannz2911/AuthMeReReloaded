@@ -49,7 +49,7 @@ public final class SecuritySettings implements SettingsHolder {
         newProperty("3rdPartyFeature.fixes.advancedShulkerFix", false);
 
     @Comment({"Choose the best teleport method by server brand?",
-        "(Enable this if you are using Paper)"})
+        "(Enable this if you are using Paper/Folia)"})
     public static final Property<Boolean> SMART_ASYNC_TELEPORT =
         newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", true);
 
