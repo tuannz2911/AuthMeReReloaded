@@ -11,6 +11,8 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.SessionService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
+import fr.xephi.authme.service.velocity.VMessageType;
+import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import org.bukkit.entity.Player;
 
@@ -42,6 +44,8 @@ public class AsynchronousLogout implements AsynchronousProcess {
 
     @Inject
     private BungeeSender bungeeSender;
+    @Inject
+    private VelocitySender velocitySender;
 
     AsynchronousLogout() {
     }
@@ -72,6 +76,7 @@ public class AsynchronousLogout implements AsynchronousProcess {
         database.setUnlogged(name);
         sessionService.revokeSession(name);
         bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGOUT);
+        velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGOUT);
         syncProcessManager.processSyncPlayerLogout(player);
     }
 }

@@ -9,6 +9,8 @@ import fr.xephi.authme.process.SynchronousProcess;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
+import fr.xephi.authme.service.velocity.VMessageType;
+import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.EmailSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
@@ -26,6 +28,9 @@ public class ProcessSyncPasswordRegister implements SynchronousProcess {
 
     @Inject
     private BungeeSender bungeeSender;
+
+    @Inject
+    private VelocitySender velocitySender;
 
     @Inject
     private CommonService service;
@@ -66,7 +71,7 @@ public class ProcessSyncPasswordRegister implements SynchronousProcess {
         if (!service.getProperty(EmailSettings.MAIL_ACCOUNT).isEmpty()) {
             service.send(player, MessageKey.ADD_EMAIL_MESSAGE);
         }
-
+        velocitySender.sendAuthMeVelocityMessage(player, VMessageType.REGISTER);
         bukkitService.callEvent(new RegisterEvent(player));
         logger.fine(player.getName() + " registered " + PlayerUtils.getPlayerIp(player));
 

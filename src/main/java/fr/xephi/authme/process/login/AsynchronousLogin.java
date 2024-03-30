@@ -26,6 +26,8 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.SessionService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
+import fr.xephi.authme.service.velocity.VMessageType;
+import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.settings.properties.DatabaseSettings;
 import fr.xephi.authme.settings.properties.EmailSettings;
 import fr.xephi.authme.settings.properties.HooksSettings;
@@ -84,6 +86,8 @@ public class AsynchronousLogin implements AsynchronousProcess {
 
     @Inject
     private BungeeSender bungeeSender;
+    @Inject
+    private VelocitySender velocitySender;
 
     AsynchronousLogin() {
     }
@@ -307,6 +311,10 @@ public class AsynchronousLogin implements AsynchronousProcess {
                 // "Keep in mind that you can't send plugin messages directly after a player joins."
                 bukkitService.scheduleSyncDelayedTask(() ->
                     bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGIN), 5L);
+            }
+            if (velocitySender.isEnabled()) {
+                bukkitService.scheduleSyncDelayedTask(() ->
+                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), 5L);
             }
 
             // As the scheduling executes the Task most likely after the current

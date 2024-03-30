@@ -370,6 +370,17 @@ public class BukkitService implements SettingsDependent {
     }
 
     /**
+     * Send the specified bytes to bungeecord using the specified player connection.
+     *
+     * @param player the player
+     * @param bytes the message
+     */
+    public void sendVelocityMessage(Player player, byte[] bytes) {
+        player.sendPluginMessage(authMe, "authmevelocity:main", bytes);
+    }
+
+
+    /**
      * Adds a ban to the list. If a previous ban exists, this will
      * update the previous entry.
      *

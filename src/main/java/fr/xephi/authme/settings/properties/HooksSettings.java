@@ -18,6 +18,9 @@ public final class HooksSettings implements SettingsHolder {
     @Comment("Do we need to hook with BungeeCord?")
     public static final Property<Boolean> BUNGEECORD =
         newProperty("Hooks.bungeecord", false);
+    @Comment("Do we need to hook with Velocity?")
+    public static final Property<Boolean> VELOCITY =
+        newProperty("Hooks.velocity", false);
 
     @Comment({"Hook into floodgate.",
         "This must be true if you want to use other bedrock features."
