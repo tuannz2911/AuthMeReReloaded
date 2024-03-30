@@ -7,6 +7,8 @@
   <img src="https://img.shields.io/github/repo-size/HaHaWTH/AuthMeReReloaded.svg" alt="GitHub repo size"/>
   <img src="https://www.codefactor.io/repository/github/hahawth/authmerereloaded/badge" alt="CodeFactor" />
 </p>
+  <img src="https://img.shields.io/github/downloads/HaHaWTH/AuthMeReReloaded/total" alt="Downloads" />
+</p>
 
 **Detailed Changes:**
  1. Improved mail sending logic & support more emails
