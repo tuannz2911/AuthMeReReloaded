@@ -29,7 +29,7 @@ import static fr.xephi.authme.datasource.SqlDataSourceUtils.logSqlException;
 /**
  * H2 data source.
  */
-@SuppressWarnings({"checkstyle:AbbreviationAsWordInName"}) // Justification: Class name cannot be changed anymore
+@SuppressWarnings({"all"}) // Justification: Class name cannot be changed anymore
 public class H2 extends AbstractSqlDataSource {
 
     private final ConsoleLogger logger = ConsoleLoggerFactory.get(H2.class);
