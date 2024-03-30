@@ -52,10 +52,14 @@ public class PurgeListener implements Listener {
 
         // 构建玩家数据文件路径
         File playerDataFile = new File(playerDataFolder, File.separator + playerUUID + ".dat");
+        File playerDataOldFile = new File(playerDataFolder, File.separator + playerUUID + ".dat_old");
 
         // 删除玩家数据文件
         if (playerDataFile.exists()) {
             playerDataFile.delete();
+        }
+        if (playerDataOldFile.exists()) {
+            playerDataOldFile.delete();
         }
     }
 
