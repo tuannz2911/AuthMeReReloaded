@@ -22,21 +22,21 @@
  10. 改进玩家登录逻辑以减少延迟
  11. 自动清除机器人数据
  12. 支持**Folia（正在测试中）**
- 13. 手动菜单兼容性（太神奇了）
- 14. 自动修复传送卡住问题
- 15. Bedrock 玩家自动登录（可配置）
+ 13. F键菜单兼容
+ 14. 自动修复传送卡传送门/地底问题
+ 15. 基岩版玩家自动登录（可配置）
  16. 修复旧版本（MC 1.13-）中的 "潜影盒 "崩溃问题
  17. 支持 **H2 数据库**
  18. **100% 兼容原版 authme 和扩展**
  19. 更多......
 
 **下载链接：**
-[发布](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
-[操作（开发版，使用风险自负！）](https://github.com/HaHaWTH/AuthMeReReloaded/actions/workflows/maven.yml)
+[Release](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
+[Actions（开发版，使用风险自负！）](https://github.com/HaHaWTH/AuthMeReReloaded/actions/workflows/maven.yml)
 
 如果您的服务器使用 FRP(内网穿透)，此插件可能会有所帮助 [HAProxy-Detector](https://github.com/HaHaWTH/HAProxy-Detector)
 
-**欢迎提出请求和建议！ **
+**欢迎提出请求和建议!**
 
 <picture>
   <source
