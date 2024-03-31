@@ -1,6 +1,8 @@
 # AuthMeReReloaded
 **"A fork of the best authentication plugin for the Bukkit modding API!⭐"**
 
+[English](https://github.com/HaHaWTH/AuthMeReReloaded) | [简体中文](https://github.com/HaHaWTH/AuthMeReReloaded/blob/master/README-zh.md)
+
 ![Graph](https://bstats.org/signatures/bukkit/AuthMeReloaded-Fork.svg)
 <p align="center">
   <img src="https://img.shields.io/github/languages/code-size/HaHaWTH/AuthMeReReloaded.svg" alt="Code size"/>
