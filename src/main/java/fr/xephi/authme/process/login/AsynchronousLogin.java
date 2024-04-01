@@ -314,7 +314,7 @@ public class AsynchronousLogin implements AsynchronousProcess {
             }
             if (velocitySender.isEnabled()) {
                 bukkitService.scheduleSyncDelayedTask(() ->
-                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), 5L);
+                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), 10L);
             }
 
             // As the scheduling executes the Task most likely after the current
