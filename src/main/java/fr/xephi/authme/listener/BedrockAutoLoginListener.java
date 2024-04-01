@@ -39,14 +39,16 @@ public class BedrockAutoLoginListener implements Listener {
         return settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && org.geysermc.floodgate.api.FloodgateApi.getInstance().isFloodgateId(uuid) && getServer().getPluginManager().getPlugin("floodgate") != null;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         String name = event.getPlayer().getName();
         UUID uuid = event.getPlayer().getUniqueId();
-        if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
-            authmeApi.forceLogin(player);
-            messages.send(player, MessageKey.BEDROCK_AUTO_LOGGED_IN);
-        }
+        bukkitService.runTaskLater(player, () -> {
+            if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
+                authmeApi.forceLogin(player);
+                messages.send(player, MessageKey.BEDROCK_AUTO_LOGGED_IN);
+            }
+        },20L);
     }
 }

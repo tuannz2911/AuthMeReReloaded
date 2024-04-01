@@ -167,6 +167,10 @@ public class BukkitService implements SettingsDependent {
         return getScheduler().runTaskLater(task, delay);
     }
 
+    public MyScheduledTask runTaskLater(Entity entity, Runnable task, long delay) {
+        return getScheduler().runTaskLater(entity, task, delay);
+    }
+
     /**
      * Schedules this task to run asynchronously or immediately executes it based on
      * AuthMe's configuration.
