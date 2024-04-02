@@ -47,8 +47,10 @@ body:
       description: Which server implementation are you using?
       multiple: false
       options:
-        - Standalone server (no proxy)
+        - Standalone(Spigot)
+        - Standalone(Folia)
         - BungeeCord
+        - Velocity
     validations:
       required: true
 
@@ -60,6 +62,9 @@ body:
       options:
         - SQLite
         - MySQL
+        - H2
+        - MariaDB
+        - PostgreSQL
     validations:
       required: true
 
