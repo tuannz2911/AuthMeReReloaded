@@ -8,7 +8,10 @@
   <img src="https://img.shields.io/github/languages/code-size/HaHaWTH/AuthMeReReloaded.svg" alt="Code size"/>
   <img src="https://img.shields.io/github/repo-size/HaHaWTH/AuthMeReReloaded.svg" alt="GitHub repo size"/>
   <img src="https://www.codefactor.io/repository/github/hahawth/authmerereloaded/badge" alt="CodeFactor" />
-  <img src="https://img.shields.io/github/downloads/HaHaWTH/AuthMeReReloaded/total" alt="Downloads" />
+  <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/HaHaWTH/AuthMeReReloaded/total?logo=github&label=GitHub%20Downloads&color=black">
+  <img alt="Spiget Downloads" src="https://img.shields.io/spiget/downloads/114010?logo=spigotmc&label=SpigotMC%20Downloads&color=orange">
+  <img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/3IEZ9vol?logo=modrinth&label=Modrinth%20Downloads&color=light-green">
+  <img alt="Hangar Downloads" src="https://img.shields.io/hangar/dt/AuthMeReReloaded?logo=hangar&label=Hangar%20Downloads&color=white">
 </p>
 
 **Detailed Changes:**
