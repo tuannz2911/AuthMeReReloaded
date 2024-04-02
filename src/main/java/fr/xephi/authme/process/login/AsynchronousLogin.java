@@ -28,6 +28,7 @@ import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
 import fr.xephi.authme.service.velocity.VMessageType;
 import fr.xephi.authme.service.velocity.VelocitySender;
+import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.DatabaseSettings;
 import fr.xephi.authme.settings.properties.EmailSettings;
 import fr.xephi.authme.settings.properties.HooksSettings;
@@ -83,7 +84,8 @@ public class AsynchronousLogin implements AsynchronousProcess {
 
     @Inject
     private SessionService sessionService;
-
+    @Inject
+    private Settings settings;
     @Inject
     private BungeeSender bungeeSender;
     @Inject
@@ -310,11 +312,11 @@ public class AsynchronousLogin implements AsynchronousProcess {
                 // As described at https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/
                 // "Keep in mind that you can't send plugin messages directly after a player joins."
                 bukkitService.scheduleSyncDelayedTask(() ->
-                    bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGIN), 5L);
+                    bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGIN), settings.getProperty(HooksSettings.PROXY_SEND_DELAY));
             }
             if (velocitySender.isEnabled()) {
                 bukkitService.scheduleSyncDelayedTask(() ->
-                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), 10L);
+                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), settings.getProperty(HooksSettings.PROXY_SEND_DELAY));
             }
 
             // As the scheduling executes the Task most likely after the current

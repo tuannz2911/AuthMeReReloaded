@@ -19,6 +19,7 @@ import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
 import fr.xephi.authme.service.velocity.VMessageType;
 import fr.xephi.authme.service.velocity.VelocitySender;
+import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
@@ -46,6 +47,9 @@ public class AsynchronousJoin implements AsynchronousProcess {
 
     @Inject
     private Server server;
+
+    @Inject
+    private Settings settings;
 
     @Inject
     private DataSource database;
@@ -157,11 +161,11 @@ public class AsynchronousJoin implements AsynchronousProcess {
                 // As described at https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/
                 // "Keep in mind that you can't send plugin messages directly after a player joins."
                 bukkitService.scheduleSyncDelayedTask(() ->
-                    bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGIN), 5L);
+                    bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGIN), settings.getProperty(HooksSettings.PROXY_SEND_DELAY));
             }
             if (velocitySender.isEnabled()) {
                 bukkitService.scheduleSyncDelayedTask(() ->
-                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), 10L);
+                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), settings.getProperty(HooksSettings.PROXY_SEND_DELAY));
             }
             return;
         }
