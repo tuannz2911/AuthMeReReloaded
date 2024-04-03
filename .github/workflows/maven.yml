@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: Download
-          path: ./target/AuthMe-5.6.0-FORK-Spigot-Universal.jar
+          path: ./target/AuthMe-5.6.0-FORK-Universal.jar
   runtime-test:
     name: Plugin Runtime Test 
     needs: [Build]
