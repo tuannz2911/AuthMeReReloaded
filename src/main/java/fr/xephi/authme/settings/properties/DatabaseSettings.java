@@ -31,7 +31,17 @@ public final class DatabaseSettings implements SettingsHolder {
     public static final Property<String> MYSQL_PORT =
         newProperty("DataSource.mySQLPort", "3306");
 
-    @Comment("Connect to MySQL database over SSL")
+    @Comment({"Replacement of Mysql's useSsl (for MariaDB only).",
+        "- disable: No SSL",
+        "- trust: Trust blindly (no validation)",
+        "- verify_ca:  Encryption, certificates validation, BUT no hostname verification",
+        "- verify_full: Encryption, certificate validation and hostname validation",
+        "Read more: https://bit.ly/mariadb-sslmode"})
+    public static final Property<String> MARIADB_SSL_MODE =
+        newProperty("DataSource.MariaDbSslMode", "disabled");
+
+    @Comment({"Connect to MySQL database over SSL",
+        "If you're using MariaDB, use sslMode instead"})
     public static final Property<Boolean> MYSQL_USE_SSL =
         newProperty("DataSource.mySQLUseSSL", true);
 
@@ -39,12 +49,13 @@ public final class DatabaseSettings implements SettingsHolder {
         "We would not recommend to set this option to false.",
         "Set this option to false at your own risk if and only if you know what you're doing"})
     public static final Property<Boolean> MYSQL_CHECK_SERVER_CERTIFICATE =
-        newProperty( "DataSource.mySQLCheckServerCertificate", true );
+        newProperty( "DataSource.mySQLCheckServerCertificate", true);
 
     @Comment({"Authorize client to retrieve RSA server public key.",
-        "Advanced option, ignore if you don't know what it means."})
+        "Advanced option, ignore if you don't know what it means.",
+        "If you are using MariaDB, use MariaDbSslMode instead."})
     public static final Property<Boolean> MYSQL_ALLOW_PUBLIC_KEY_RETRIEVAL =
-        newProperty( "DataSource.mySQLAllowPublicKeyRetrieval", true );
+        newProperty( "DataSource.mySQLAllowPublicKeyRetrieval", true);
 
     @Comment("Username to connect to the MySQL database")
     public static final Property<String> MYSQL_USERNAME =
