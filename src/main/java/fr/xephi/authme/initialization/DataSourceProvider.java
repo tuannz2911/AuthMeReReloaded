@@ -79,6 +79,7 @@ public class DataSourceProvider implements Provider<DataSource> {
                 break;
             case H2:
                 dataSource = new H2(settings, dataFolder);
+                logger.warning("You are using H2 database, which is still in development!\nMake sure to backup and report any issues you encounter on GitHub!");
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown data source type '" + dataSourceType + "'");
