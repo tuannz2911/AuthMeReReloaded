@@ -4,7 +4,7 @@ website: http://github.com/HaHaWTH/AuthMeReReloaded/
 description: A fork of AuthMeReloaded that contains bug fixes
 main: ${pluginDescription.main}
 folia-supported: true
-version: 5.6.0-FORK-b46
+version: 5.6.0-FORK-b47
 api-version: 1.13
 softdepend:
     - Vault
