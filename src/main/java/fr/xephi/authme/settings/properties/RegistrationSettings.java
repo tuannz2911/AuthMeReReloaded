@@ -47,6 +47,16 @@ public final class RegistrationSettings implements SettingsHolder {
             RegisterSecondaryArgument.CONFIRMATION);
 
     @Comment({
+        "Should we unregister the player when he didn't verify the email?",
+        "This only works if you enabled email registration."})
+    public static final Property<Boolean> UNREGISTER_ON_EMAIL_VERIFICATION_FAILURE =
+        newProperty("settings.registration.email.unregisterOnEmailVerificationFailure", false);
+
+    @Comment({"How many minutes should we wait before unregister the player",
+        "when he didn't verify the email?"})
+    public static final Property<Long> UNREGISTER_AFTER_MINUTES =
+        newProperty("settings.registration.email.unregisterAfterMinutes", 10L);
+    @Comment({
         "Do we force kick a player after a successful registration?",
         "Do not use with login feature below"})
     public static final Property<Boolean> FORCE_KICK_AFTER_REGISTER =

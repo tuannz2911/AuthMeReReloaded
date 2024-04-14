@@ -18,6 +18,15 @@ public final class HooksSettings implements SettingsHolder {
     @Comment("Do we need to hook with BungeeCord?")
     public static final Property<Boolean> BUNGEECORD =
         newProperty("Hooks.bungeecord", false);
+    @Comment("Do we need to hook with Velocity?")
+    public static final Property<Boolean> VELOCITY =
+        newProperty("Hooks.velocity", false);
+
+    @Comment({"How many ticks should we wait before sending login info to proxy?",
+        "Change this to higher if your player has high ping.",
+        "See: https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/"})
+    public static final Property<Long> PROXY_SEND_DELAY =
+        newProperty("Hooks.proxySendDelay", 10L);
 
     @Comment({"Hook into floodgate.",
         "This must be true if you want to use other bedrock features."

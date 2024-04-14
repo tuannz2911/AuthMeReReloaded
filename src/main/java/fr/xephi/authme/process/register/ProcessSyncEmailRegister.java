@@ -8,6 +8,8 @@ import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.process.SynchronousProcess;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.service.CommonService;
+import fr.xephi.authme.service.velocity.VMessageType;
+import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.util.PlayerUtils;
 import org.bukkit.entity.Player;
 
@@ -28,6 +30,8 @@ public class ProcessSyncEmailRegister implements SynchronousProcess {
 
     @Inject
     private LimboService limboService;
+    @Inject
+    private VelocitySender velocitySender;
 
     ProcessSyncEmailRegister() {
     }
@@ -40,7 +44,7 @@ public class ProcessSyncEmailRegister implements SynchronousProcess {
     public void processEmailRegister(Player player) {
         service.send(player, MessageKey.ACCOUNT_NOT_ACTIVATED);
         limboService.replaceTasksAfterRegistration(player);
-
+        velocitySender.sendAuthMeVelocityMessage(player, VMessageType.REGISTER);
         bukkitService.callEvent(new RegisterEvent(player));
         logger.fine(player.getName() + " registered " + PlayerUtils.getPlayerIp(player));
     }

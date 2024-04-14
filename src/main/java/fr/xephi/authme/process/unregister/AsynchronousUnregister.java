@@ -16,6 +16,8 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.TeleportationService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
+import fr.xephi.authme.service.velocity.VMessageType;
+import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
@@ -57,6 +59,9 @@ public class AsynchronousUnregister implements AsynchronousProcess {
     private CommandManager commandManager;
 
     @Inject
+    private VelocitySender velocitySender;
+
+    @Inject
     private BungeeSender bungeeSender;
 
     AsynchronousUnregister() {
@@ -76,6 +81,7 @@ public class AsynchronousUnregister implements AsynchronousProcess {
             if (dataSource.removeAuth(name)) {
                 performPostUnregisterActions(name, player);
                 logger.info(name + " unregistered himself");
+                velocitySender.sendAuthMeVelocityMessage(player, VMessageType.UNREGISTER);
                 bukkitService.createAndCallEvent(isAsync -> new UnregisterByPlayerEvent(player, isAsync));
             } else {
                 service.send(player, MessageKey.ERROR);
@@ -97,8 +103,8 @@ public class AsynchronousUnregister implements AsynchronousProcess {
     public void adminUnregister(CommandSender initiator, String name, Player player) {
         if (dataSource.removeAuth(name)) {
             performPostUnregisterActions(name, player);
+            velocitySender.sendAuthMeVelocityMessage(player, VMessageType.FORCE_UNREGISTER);
             bukkitService.createAndCallEvent(isAsync -> new UnregisterByAdminEvent(player, name, isAsync, initiator));
-
             if (initiator == null) {
                 logger.info(name + " was unregistered");
             } else {

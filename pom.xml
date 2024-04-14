@@ -82,54 +82,11 @@
         <pluginDescription.authors>sgdc3, games647, Hex3l, krusic22</pluginDescription.authors>
     </properties>
 
-    <!-- Jenkins profile -->
-    <profiles>
-        <!-- Set the buildNumber using the jenkins env. variable -->
-        <profile>
-            <id>jenkins</id>
-            <activation>
-                <property>
-                    <name>env.BUILD_NUMBER</name>
-                </property>
-            </activation>
-            <properties>
-                <project.buildNumber>${env.BUILD_NUMBER}</project.buildNumber>
-            </properties>
-        </profile>
-        <!-- Skip long hash tests, reduce the test time of 20-30 seconds -->
-        <profile>
-            <id>skipLongHashTests</id>
-            <activation>
-                <property>
-                    <name>skipLongHashTests</name>
-                </property>
-            </activation>
-            <properties>
-                <project.skipExtendedHashTests>true</project.skipExtendedHashTests>
-            </properties>
-        </profile>
-        <!-- Skip javadoc generation for faster local build -->
-        <profile>
-            <id>skipJavadocGeneration</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
         <!-- Little hack to make the shade plugin output a file with the right name -->
         <finalName>${project.finalNameBase}-noshade</finalName>
-
         <resources>
             <resource>
                 <directory>.</directory>
@@ -222,7 +179,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.11</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -282,7 +239,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <finalName>${project.finalNameBase}</finalName>
                 </configuration>
@@ -308,6 +265,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <finalName>${project.finalNameBase}-Lite</finalName>
                             <artifactSet>
                                 <excludes>
                                     <!-- Guava -->
@@ -318,7 +276,7 @@
                                     <exclude>com.google.j2objc:j2objc-annotations</exclude>
                                     <!-- Gson -->
                                     <exclude>com.google.code.gson:gson</exclude>
-                                </excludes>
+                               </excludes>
                             </artifactSet>
                             <relocations>
                                 <relocation>
@@ -366,6 +324,16 @@
                                     <shadedPattern>fr.xephi.authme.libs.com.github.benmanes.caffeine</shadedPattern>
                                 </relocation>
                             </relocations>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                     <execution>
@@ -375,7 +343,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>${project.finalNameBase}-Spigot-Universal</finalName>
+                            <finalName>${project.finalNameBase}-Universal</finalName>
                             <relocations>
                                 <relocation>
                                     <pattern>com.google.common</pattern>

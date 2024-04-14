@@ -167,6 +167,10 @@ public class BukkitService implements SettingsDependent {
         return getScheduler().runTaskLater(task, delay);
     }
 
+    public MyScheduledTask runTaskLater(Entity entity, Runnable task, long delay) {
+        return getScheduler().runTaskLater(entity, task, delay);
+    }
+
     /**
      * Schedules this task to run asynchronously or immediately executes it based on
      * AuthMe's configuration.
@@ -368,6 +372,17 @@ public class BukkitService implements SettingsDependent {
     public void sendBungeeMessage(Player player, byte[] bytes) {
         player.sendPluginMessage(authMe, "BungeeCord", bytes);
     }
+
+    /**
+     * Send the specified bytes to bungeecord using the specified player connection.
+     *
+     * @param player the player
+     * @param bytes the message
+     */
+    public void sendVelocityMessage(Player player, byte[] bytes) {
+        player.sendPluginMessage(authMe, "authmevelocity:main", bytes);
+    }
+
 
     /**
      * Adds a ban to the list. If a previous ban exists, this will

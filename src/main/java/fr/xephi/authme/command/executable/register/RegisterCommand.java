@@ -15,6 +15,7 @@ import fr.xephi.authme.process.register.executors.PasswordRegisterParams;
 import fr.xephi.authme.process.register.executors.RegistrationMethod;
 import fr.xephi.authme.process.register.executors.TwoFactorRegisterParams;
 import fr.xephi.authme.security.HashAlgorithm;
+import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.settings.properties.EmailSettings;
@@ -24,8 +25,6 @@ import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static fr.xephi.authme.process.register.RegisterSecondaryArgument.CONFIRMATION;
 import static fr.xephi.authme.process.register.RegisterSecondaryArgument.EMAIL_MANDATORY;
@@ -45,6 +44,9 @@ public class RegisterCommand extends PlayerCommand {
 
     @Inject
     private CommonService commonService;
+
+    @Inject
+    private BukkitService bukkitService;
 
     @Inject
     private DataSource dataSource;
@@ -175,20 +177,15 @@ public class RegisterCommand extends PlayerCommand {
         } else if (isSecondArgValidForEmailRegistration(player, arguments)) {
             management.performRegister(RegistrationMethod.EMAIL_REGISTRATION,
                 EmailRegisterParams.of(player, email));
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
+            if (commonService.getProperty(RegistrationSettings.UNREGISTER_ON_EMAIL_VERIFICATION_FAILURE) && commonService.getProperty(RegistrationSettings.UNREGISTER_AFTER_MINUTES) > 0) {
+                bukkitService.runTaskLater(player, () -> {
                     if (dataSource.getAuth(player.getName()) != null) {
                         if (dataSource.getAuth(player.getName()).getLastLogin() == null) {
                             management.performUnregisterByAdmin(null, player.getName(), player);
-                            timer.cancel();
                         }
-                    } else {
-                        timer.cancel();
                     }
-                }
-            }, 600000);
+                }, 60 * 20 * commonService.getProperty(RegistrationSettings.UNREGISTER_AFTER_MINUTES));
+            }
         }
     }
 

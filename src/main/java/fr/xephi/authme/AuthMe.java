@@ -35,6 +35,7 @@ import fr.xephi.authme.service.BackupService;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.service.MigrationService;
 import fr.xephi.authme.service.bungeecord.BungeeReceiver;
+import fr.xephi.authme.service.velocity.VelocityReceiver;
 import fr.xephi.authme.service.yaml.YamlParseException;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SettingsWarner;
@@ -79,7 +80,7 @@ public class AuthMe extends JavaPlugin {
     // Version and build number values
     private static String pluginVersion = "5.6.0-Fork";
     private static final String pluginBuild = "b";
-    private static String pluginBuildNumber = "45";
+    private static String pluginBuildNumber = "47";
     // Private instances
     private EmailService emailService;
     private CommandHandler commandHandler;
@@ -300,6 +301,7 @@ public class AuthMe extends JavaPlugin {
 
         // Trigger instantiation (class not used elsewhere)
         injector.getSingleton(BungeeReceiver.class);
+        injector.getSingleton(VelocityReceiver.class);
 
         // Trigger construction of API classes; they will keep track of the singleton
         injector.getSingleton(AuthMeApi.class);

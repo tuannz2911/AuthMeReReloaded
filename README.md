@@ -1,1 +1,1 @@
-**This branch adds MultiPaper support, requires Java 17 or higher**
+**This branch adds Multipaper support, requires Java17 or higher**
