@@ -215,7 +215,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.0</version>
             </plugin>
             <!-- Generate a jar containing the source javadoc -->
             <plugin>
@@ -1190,7 +1190,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.45.2.0</version>
+            <version>3.45.3.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
