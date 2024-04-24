@@ -158,7 +158,7 @@ public class EmailService {
         try {
             htmlEmail = sendMailSsl.initializeMail(email);
         } catch (EmailException e) {
-            logger.logException("Failed to create email for recovery code:", e);
+            logger.logException("Failed to create email for shutdown:", e);
             return;
         }
 

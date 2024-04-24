@@ -308,18 +308,6 @@
                                     <shadedPattern>fr.xephi.authme.libs.waffle</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>com.sun.mail</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.sun.mail</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.sun.jna</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.sun.jna</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.sun.activation</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.sun.activation</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>com.github.benmanes.caffeine</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.com.github.benmanes.caffeine</shadedPattern>
                                 </relocation>
@@ -392,18 +380,6 @@
                                 <relocation>
                                     <pattern>waffle</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.waffle</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.sun.mail</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.sun.mail</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.sun.jna</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.sun.jna</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.sun.activation</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.com.sun.activation</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.github.benmanes.caffeine</pattern>
