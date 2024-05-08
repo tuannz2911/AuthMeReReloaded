@@ -103,7 +103,7 @@ public class AsynchronousUnregister implements AsynchronousProcess {
     public void adminUnregister(CommandSender initiator, String name, Player player) {
         if (dataSource.removeAuth(name)) {
             performPostUnregisterActions(name, player);
-            velocitySender.sendAuthMeVelocityMessage(player, VMessageType.FORCE_UNREGISTER);
+            if (player != null) velocitySender.sendAuthMeVelocityMessage(player, VMessageType.FORCE_UNREGISTER);
             bukkitService.createAndCallEvent(isAsync -> new UnregisterByAdminEvent(player, name, isAsync, initiator));
             if (initiator == null) {
                 logger.info(name + " was unregistered");
