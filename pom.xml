@@ -292,18 +292,6 @@
                                     <shadedPattern>fr.xephi.authme.libs.org.apache.commons</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>javax.activation</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.javax.activation</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javax.annotation</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.javax.annotation</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javax.mail</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.javax.mail</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>waffle</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.waffle</shadedPattern>
                                 </relocation>
@@ -364,18 +352,6 @@
                                 <relocation>
                                     <pattern>org.apache.commons</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.org.apache.commons</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javax.activation</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.javax.activation</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javax.annotation</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.javax.annotation</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javax.mail</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.javax.mail</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>waffle</pattern>
