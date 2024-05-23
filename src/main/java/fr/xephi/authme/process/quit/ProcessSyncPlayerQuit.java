@@ -1,5 +1,6 @@
 package fr.xephi.authme.process.quit;
 
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import fr.xephi.authme.data.limbo.LimboService;
 import fr.xephi.authme.process.SynchronousProcess;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
@@ -27,7 +28,9 @@ public class ProcessSyncPlayerQuit implements SynchronousProcess {
             commandManager.runCommandsOnLogout(player);
         } else {
             limboService.restoreData(player);
-            player.saveData(); // #1238: Speed is sometimes not restored properly
+            if (!UniversalScheduler.isFolia) { // AuthMeReReloaded - Fix #146 (Very stupid solution, but works)
+                player.saveData(); // #1238: Speed is sometimes not restored properly
+            }
         }
         player.leaveVehicle();
     }

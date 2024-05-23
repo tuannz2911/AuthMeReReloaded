@@ -1,12 +1,12 @@
 package fr.xephi.authme.service;
 
 import com.github.Anon8281.universalScheduler.UniversalRunnable;
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
-import fr.xephi.authme.util.Utils;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -38,7 +38,7 @@ public class BukkitService implements SettingsDependent {
     /** Number of ticks per minute. */
     public static final int TICKS_PER_MINUTE = 60 * TICKS_PER_SECOND;
     /** Whether the server is running Folia. */
-    private static final boolean IS_FOLIA = Utils.isClassLoaded("io.papermc.paper.threadedregions.RegionizedServer");
+    private static final boolean isFolia = UniversalScheduler.isFolia;
     private final AuthMe authMe;
     private boolean useAsyncTasks;
 
@@ -68,7 +68,7 @@ public class BukkitService implements SettingsDependent {
      * @param delay Delay in server ticks before executing task
      */
     public void scheduleSyncDelayedTask(Runnable task, long delay) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             runTaskLater(task, delay);
         } else {
             Bukkit.getScheduler().runTaskLater(authMe, task, delay); // We must do this to keep compatibility
@@ -98,7 +98,7 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if task is null
      */
     public void runTask(Runnable task) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             getScheduler().runTask(task);
         } else {
             Bukkit.getScheduler().runTask(authMe, task);
@@ -106,7 +106,7 @@ public class BukkitService implements SettingsDependent {
     }
 
     public void runTask(Entity entity, Runnable task) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             getScheduler().runTask(entity, task);
         } else {
             Bukkit.getScheduler().runTask(authMe, task);
@@ -122,7 +122,7 @@ public class BukkitService implements SettingsDependent {
      * @param task the task to be run
      */
     public void runTaskIfFolia(Runnable task) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             runTask(task);
         } else {
             task.run();
@@ -134,7 +134,7 @@ public class BukkitService implements SettingsDependent {
      * @param task the task to be run
      */
     public void runTaskIfFolia(Entity entity, Runnable task) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             runTask(entity, task);
         } else {
             task.run();
@@ -146,7 +146,7 @@ public class BukkitService implements SettingsDependent {
      * @param task the task to be run
      */
     public void runTaskIfFolia(Location location, Runnable task) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             runTask(location, task);
         } else {
             task.run();
@@ -196,7 +196,7 @@ public class BukkitService implements SettingsDependent {
      * @throws IllegalArgumentException if task is null
      */
     public void runTaskAsynchronously(Runnable task) {
-        if (IS_FOLIA) {
+        if (isFolia) {
             getScheduler().runTaskAsynchronously(task);
         } else {
             Bukkit.getScheduler().runTaskAsynchronously(authMe, task);
