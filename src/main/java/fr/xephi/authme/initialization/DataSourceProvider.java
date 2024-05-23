@@ -1,5 +1,6 @@
 package fr.xephi.authme.initialization;
 
+import com.alessiodp.libby.Library;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.datasource.CacheDataSource;
@@ -20,6 +21,8 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import java.io.File;
 import java.sql.SQLException;
+
+import static fr.xephi.authme.AuthMe.libraryManager;
 
 /**
  * Creates the AuthMe data source.
@@ -78,8 +81,14 @@ public class DataSourceProvider implements Provider<DataSource> {
                 dataSource = new SQLite(settings, dataFolder);
                 break;
             case H2:
+                Library h2 = Library.builder()
+                    .groupId("com.h2database")
+                    .artifactId("h2")
+                    .version("2.2.224")
+                    .build();
+                libraryManager.addMavenCentral();
+                libraryManager.loadLibrary(h2);
                 dataSource = new H2(settings, dataFolder);
-                logger.warning("You are using H2 database, which is still in development!\nMake sure to backup and report any issues you encounter on GitHub!");
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown data source type '" + dataSourceType + "'");

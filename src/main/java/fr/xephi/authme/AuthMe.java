@@ -2,6 +2,7 @@ package fr.xephi.authme;
 
 import ch.jalu.injector.Injector;
 import ch.jalu.injector.InjectorBuilder;
+import com.alessiodp.libby.BukkitLibraryManager;
 import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import fr.xephi.authme.api.v3.AuthMeApi;
@@ -144,6 +145,11 @@ public class AuthMe extends JavaPlugin {
     }
 
     /**
+     * The library manager
+     */
+    public static BukkitLibraryManager libraryManager;
+
+    /**
      * Method called when the server enables the plugin.
      */
     @Override
@@ -151,6 +157,7 @@ public class AuthMe extends JavaPlugin {
         // Load the plugin version data from the plugin description file
         loadPluginInfo(getDescription().getVersion());
         scheduler = UniversalScheduler.getScheduler(this);
+        libraryManager = new BukkitLibraryManager(this);
 
         // Set the Logger instance and log file path
         ConsoleLogger.initialize(getLogger(), new File(getDataFolder(), LOG_FILENAME));
