@@ -609,6 +609,12 @@
             </snapshots>
         </repository>
 
+        <!-- Maven Central Snapshots Repository -->
+        <repository>
+            <id>maven-snapshots</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+
         <!-- Multiverse Repo -->
         <repository>
             <id>onarandombox-repo-releases</id>
