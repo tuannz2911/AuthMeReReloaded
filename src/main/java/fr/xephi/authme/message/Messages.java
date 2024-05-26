@@ -5,6 +5,7 @@ import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.util.expiring.Duration;
+import fr.xephi.authme.util.message.MiniMessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -126,7 +127,7 @@ public class Messages {
             displayName = ((Player) sender).getDisplayName();
         }
         
-        return ChatColor.translateAlternateColorCodes('&', message)
+        return ChatColor.translateAlternateColorCodes('&', MiniMessageUtils.parseMiniMessageToLegacy(message))
                 .replace(NEWLINE_TAG, "\n")
                 .replace(USERNAME_TAG, sender.getName())
                 .replace(DISPLAYNAME_TAG, displayName);
@@ -142,7 +143,7 @@ public class Messages {
     private String retrieveMessage(MessageKey key, String name) {
         String message = messagesFileHandler.getMessage(key.getKey());
         
-        return ChatColor.translateAlternateColorCodes('&', message)
+        return ChatColor.translateAlternateColorCodes('&', MiniMessageUtils.parseMiniMessageToLegacy(message))
                 .replace(NEWLINE_TAG, "\n")
                 .replace(USERNAME_TAG, name)
                 .replace(DISPLAYNAME_TAG, name);
