@@ -137,6 +137,10 @@ public class AsynchronousJoin implements AsynchronousProcess {
 
             // Session logic
             if (sessionService.canResumeSession(player)) {
+                if (velocitySender.isEnabled()) {
+                    bukkitService.scheduleSyncDelayedTask(() ->
+                        velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), service.getProperty(HooksSettings.PROXY_SEND_DELAY));
+                }
                 service.send(player, MessageKey.SESSION_RECONNECTION);
                 // Run commands
                 bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(

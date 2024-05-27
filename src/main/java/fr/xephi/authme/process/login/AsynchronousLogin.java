@@ -26,7 +26,6 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.SessionService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
-import fr.xephi.authme.service.velocity.VMessageType;
 import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.DatabaseSettings;
@@ -313,10 +312,6 @@ public class AsynchronousLogin implements AsynchronousProcess {
                 // "Keep in mind that you can't send plugin messages directly after a player joins."
                 bukkitService.scheduleSyncDelayedTask(() ->
                     bungeeSender.sendAuthMeBungeecordMessage(player, MessageType.LOGIN), settings.getProperty(HooksSettings.PROXY_SEND_DELAY));
-            }
-            if (velocitySender.isEnabled()) {
-                bukkitService.scheduleSyncDelayedTask(() ->
-                    velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), settings.getProperty(HooksSettings.PROXY_SEND_DELAY));
             }
 
             // As the scheduling executes the Task most likely after the current

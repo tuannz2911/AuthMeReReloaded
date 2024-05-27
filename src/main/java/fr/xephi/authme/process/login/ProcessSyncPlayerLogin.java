@@ -14,7 +14,10 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.JoinMessageService;
 import fr.xephi.authme.service.TeleportationService;
 import fr.xephi.authme.service.bungeecord.BungeeSender;
+import fr.xephi.authme.service.velocity.VMessageType;
+import fr.xephi.authme.service.velocity.VelocitySender;
 import fr.xephi.authme.settings.commandconfig.CommandManager;
+import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -29,6 +32,9 @@ public class ProcessSyncPlayerLogin implements SynchronousProcess {
 
     @Inject
     private BungeeSender bungeeSender;
+
+    @Inject
+    private VelocitySender velocitySender;
 
     @Inject
     private LimboService limboService;
@@ -101,6 +107,13 @@ public class ProcessSyncPlayerLogin implements SynchronousProcess {
         if (commonService.getProperty(RegistrationSettings.APPLY_BLIND_EFFECT)) {
             player.removePotionEffect(PotionEffectType.BLINDNESS);
         }
+
+        // AuthMeVelocity start - send on player login
+        if (velocitySender.isEnabled()) {
+            bukkitService.scheduleSyncDelayedTask(() ->
+                velocitySender.sendAuthMeVelocityMessage(player, VMessageType.LOGIN), commonService.getProperty(HooksSettings.PROXY_SEND_DELAY));
+        }
+        // AuthMeVelocity end
 
         // The Login event now fires (as intended) after everything is processed
         bukkitService.callEvent(new LoginEvent(player));
