@@ -7,7 +7,6 @@ import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
-import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -246,24 +245,6 @@ public class BukkitService implements SettingsDependent {
      */
     public int broadcastMessage(String message) {
         return Bukkit.broadcastMessage(message);
-    }
-
-    /**
-     * Broadcast a message to all players using components.
-     *
-     * @param message the message
-     */
-    public void broadcastMessage(BaseComponent message) {
-        Bukkit.spigot().broadcast(message);
-    }
-
-    /**
-     * Broadcast messages to all players using components.
-     *
-     * @param messages the messages
-     */
-    public void broadcastMessage(BaseComponent... messages) {
-        Bukkit.spigot().broadcast(messages);
     }
 
     /**
