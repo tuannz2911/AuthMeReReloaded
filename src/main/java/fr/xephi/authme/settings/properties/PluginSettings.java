@@ -17,6 +17,13 @@ public final class PluginSettings implements SettingsHolder {
         newProperty("3rdPartyFeature.compatibility.menuPlugins", false);
 
     @Comment({
+        "Send i18n messages to player based on their client settings, this option will override `settings.messagesLanguage`",
+        "This will not affect language of authme help command."
+    })
+    public static final Property<Boolean> I18N_MESSAGES =
+        newProperty("3rdPartyFeature.features.i18nMessages.enabled", false);
+
+    @Comment({
         "Do you want to enable the session feature?",
         "If enabled, when a player authenticates successfully,",
         "his IP and his nickname is saved.",

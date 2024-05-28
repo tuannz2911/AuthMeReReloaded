@@ -2,6 +2,7 @@ package fr.xephi.authme.util;
 
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -107,4 +108,12 @@ public final class Utils {
     public static boolean isEmailEmpty(String email) {
         return StringUtils.isBlank(email) || "your@email.com".equalsIgnoreCase(email);
     }
+
+    private final static String[] serverVersion = Bukkit.getServer().getBukkitVersion()
+        .substring(0, Bukkit.getServer().getBukkitVersion().indexOf("-"))
+        .split("\\.");
+
+    private final static int mcFirstVersion = Integer.parseInt(serverVersion[0]);
+    public final static int majorVersion = Integer.parseInt(serverVersion[1]);
+    public final static int minorVersion = Integer.parseInt(serverVersion[2]);
 }

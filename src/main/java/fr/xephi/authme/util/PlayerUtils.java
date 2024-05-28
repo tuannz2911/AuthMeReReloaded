@@ -1,6 +1,9 @@
 package fr.xephi.authme.util;
 
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.lang.reflect.Method;
 
 /**
  * Player utilities.
@@ -36,4 +39,30 @@ public final class PlayerUtils {
         }
     }
 
+    /**
+     * Returns the locale that player uses.
+     *
+     * @param sender The player
+     */
+    public static String getLocale(CommandSender sender) {
+        String locale = null;
+
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            if (Utils.majorVersion >= 12) {
+                locale = player.getLocale();
+            } else {
+                try {
+                    Method spigotMethod = player.getClass().getMethod("spigot");
+                    Object spigot = spigotMethod.invoke(player);
+
+                    Method spigotGetLocaleMethod = spigot.getClass().getMethod("getLocale");
+                    locale = (String) spigotGetLocaleMethod.invoke(spigot);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+
+        return locale;
+    }
 }
