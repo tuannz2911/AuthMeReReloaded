@@ -6,6 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Player utilities.
@@ -16,6 +18,10 @@ public final class PlayerUtils {
     private PlayerUtils() {
     }
     private static final boolean IS_LEAVES_SERVER = Utils.isClassLoaded("top.leavesmc.leaves.LeavesConfig");
+    private static final List<String> LOCALE_LIST = Arrays.asList(
+        "en", "bg", "de", "eo", "es", "et", "eu", "fi", "fr", "gl", "hu", "id", "it", "ja", "ko", "lt", "nl", "pl",
+        "pt", "ro", "ru", "sk", "sr", "tr", "uk"
+    );
 
     /**
      * Returns the IP of the given player.
@@ -76,6 +82,7 @@ public final class PlayerUtils {
      * @param settings The AuthMe settings, for default/fallback language usage.
      */
     public static String LocaleToCode(String locale, Settings settings) {
+        // Certain locale code to AuthMe language code redirect
         if (!settings.getProperty(PluginSettings.I18N_CODE_REDIRECT).isEmpty()) {
             for (String raw : settings.getProperty(PluginSettings.I18N_CODE_REDIRECT)) {
                 String[] split = raw.split(":");
@@ -86,6 +93,7 @@ public final class PlayerUtils {
             }
         }
 
+        // Match certain locale code
         switch (locale) {
             case "pt_br":
                 return "br";
@@ -104,63 +112,21 @@ public final class PlayerUtils {
             locale = locale.substring(0, locale.indexOf("_"));
         }
 
+        // Match locale code with "_"
+        if (LOCALE_LIST.contains(locale)) {
+            return locale;
+        }
+
+        // Match rest of special locale code that stripped "_"
         switch (locale) {
-            case "en":
-                return "en";
-            case "bg":
-                return "bg";
-            case "de":
             case "nds":
             case "sxu":
             case "swg":
                 return "de";
-            case "eo":
-                return "eo";
-            case "es":
-                return "es";
-            case "et":
-                return "et";
-            case "eu":
-                return "eu";
-            case "fi":
-                return "fi";
-            case "fr":
-                return "fr";
-            case "gl":
-                return "gl";
-            case "hu":
-                return "hu";
-            case "id":
-                return "id";
-            case "it":
-                return "it";
-            case "ja":
-                return "ja";
-            case "ko":
-                return "ko";
-            case "lt":
-                return "lt";
-            case "nl":
-                return "nl";
-            case "pl":
-                return "pl";
-            case "pt":
-                return "pt";
-            case "ro":
-                return "ro";
-            case "ru":
             case "rpr":
                 return "ru";
             case "sl":
                 return "si";
-            case "sk":
-                return "sk";
-            case "sr":
-                return "sr";
-            case "tr":
-                return "tr";
-            case "uk":
-                return "uk";
             case "vi":
                 return "vn";
             case "lzh":
