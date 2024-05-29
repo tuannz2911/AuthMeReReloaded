@@ -8,7 +8,7 @@ import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.util.FileUtils;
-import fr.xephi.authme.util.PlayerUtils;
+import fr.xephi.authme.util.message.I18NUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -122,7 +122,7 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
             i18nConfiguration = new ConcurrentHashMap<>();
         }
 
-        locale = PlayerUtils.LocaleToCode(locale, settings);
+        locale = I18NUtils.localeToCode(locale, settings);
 
         if (i18nConfiguration.containsKey(locale)) {
             return i18nConfiguration.get(locale);

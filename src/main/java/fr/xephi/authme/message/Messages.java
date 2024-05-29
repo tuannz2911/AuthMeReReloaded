@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
-import fr.xephi.authme.util.PlayerUtils;
 import fr.xephi.authme.util.expiring.Duration;
+import fr.xephi.authme.util.message.I18NUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -121,7 +121,7 @@ public class Messages {
      * @return The message from the file
      */
     private String retrieveMessage(MessageKey key, CommandSender sender) {
-        String locale = PlayerUtils.getLocale(sender);
+        String locale = I18NUtils.getLocale(sender);
         String message = messagesFileHandler.getMessageByLocale(key.getKey(), locale);
         String displayName = sender.getName();
         if (sender instanceof Player) {
