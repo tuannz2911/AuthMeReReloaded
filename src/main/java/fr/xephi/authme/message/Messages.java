@@ -121,13 +121,15 @@ public class Messages {
      * @return The message from the file
      */
     private String retrieveMessage(MessageKey key, CommandSender sender) {
-        String locale = I18NUtils.getLocale(sender);
+        String locale = sender instanceof Player
+            ? I18NUtils.getLocale((Player) sender)
+            : null;
         String message = messagesFileHandler.getMessageByLocale(key.getKey(), locale);
         String displayName = sender.getName();
         if (sender instanceof Player) {
             displayName = ((Player) sender).getDisplayName();
         }
-        
+
         return ChatColor.translateAlternateColorCodes('&', message)
                 .replace(NEWLINE_TAG, "\n")
                 .replace(USERNAME_TAG, sender.getName())

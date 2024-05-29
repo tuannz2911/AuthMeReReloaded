@@ -3,7 +3,6 @@ package fr.xephi.authme.util.message;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.util.Utils;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Method;
@@ -29,27 +28,21 @@ public class I18NUtils {
     /**
      * Returns the locale that player uses.
      *
-     * @param sender The player
+     * @param player The player
      */
-    public static String getLocale(CommandSender sender) {
-        String locale = null;
+    public static String getLocale(Player player) {
+        if (Utils.majorVersion >= 12) {
+            return player.getLocale().toLowerCase();
+        } else {
+            try {
+                Object spigot = spigotMethod.invoke(player);
+                Method spigotGetLocaleMethod = spigot.getClass().getMethod("getLocale");
 
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            if (Utils.majorVersion >= 12) {
-                locale = player.getLocale().toLowerCase();
-            } else {
-                try {
-                    Object spigot = spigotMethod.invoke(player);
-
-                    Method spigotGetLocaleMethod = spigot.getClass().getMethod("getLocale");
-                    locale = ((String) spigotGetLocaleMethod.invoke(spigot)).toLowerCase();
-                } catch (Exception ignored) {
-                }
+                return ((String) spigotGetLocaleMethod.invoke(spigot)).toLowerCase();
+            } catch (Exception ignored) {
+                return null;
             }
         }
-
-        return locale;
     }
 
     /**
