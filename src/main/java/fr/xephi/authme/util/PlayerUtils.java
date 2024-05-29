@@ -17,6 +17,7 @@ public final class PlayerUtils {
     // Utility class
     private PlayerUtils() {
     }
+
     private static final boolean IS_LEAVES_SERVER = Utils.isClassLoaded("top.leavesmc.leaves.LeavesConfig");
     private static final List<String> LOCALE_LIST = Arrays.asList(
         "en", "bg", "de", "eo", "es", "et", "eu", "fi", "fr", "gl", "hu", "id", "it", "ja", "ko", "lt", "nl", "pl",
@@ -78,7 +79,7 @@ public final class PlayerUtils {
      * Returns the AuthMe messages file language code, by given locale and settings.
      * Dreeam - Hard mapping, based on mc1.20.6, 5/29/2024
      *
-     * @param locale The locale that player client setting uses.
+     * @param locale   The locale that player client setting uses.
      * @param settings The AuthMe settings, for default/fallback language usage.
      */
     public static String LocaleToCode(String locale, Settings settings) {
@@ -99,6 +100,16 @@ public final class PlayerUtils {
                 return "br";
             case "cs_cz":
                 return "cz";
+            case "nds_de":
+            case "sxu":
+            case "swg":
+                return "de";
+            case "rpr":
+                return "ru";
+            case "sl_si":
+                return "si";
+            case "vi_vn":
+                return "vn";
             case "lzh":
             case "zh_cn":
                 return "zhcn";
@@ -106,6 +117,8 @@ public final class PlayerUtils {
                 return "zhhk";
             case "zh_tw":
                 return "zhtw";
+            //case "zhmc":
+            //    return "zhmc";
         }
 
         if (locale.contains("_")) {
@@ -117,24 +130,6 @@ public final class PlayerUtils {
             return locale;
         }
 
-        // Match rest of special locale code that stripped "_"
-        switch (locale) {
-            case "nds":
-            case "sxu":
-            case "swg":
-                return "de";
-            case "rpr":
-                return "ru";
-            case "sl":
-                return "si";
-            case "vi":
-                return "vn";
-            case "lzh":
-                return "zhcn";
-            //case "zhmc":
-            //    return "zhmc";
-            default:
-                return settings.getProperty(PluginSettings.MESSAGES_LANGUAGE);
-        }
+        return settings.getProperty(PluginSettings.MESSAGES_LANGUAGE);
     }
 }
