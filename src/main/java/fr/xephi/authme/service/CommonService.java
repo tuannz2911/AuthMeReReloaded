@@ -6,6 +6,8 @@ import fr.xephi.authme.message.Messages;
 import fr.xephi.authme.permission.PermissionNode;
 import fr.xephi.authme.permission.PermissionsManager;
 import fr.xephi.authme.settings.Settings;
+import fr.xephi.authme.settings.properties.PluginSettings;
+import fr.xephi.authme.util.Utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,6 +23,9 @@ public class CommonService {
 
     @Inject
     private Messages messages;
+
+    @Inject
+    private BukkitService bukkitService;
 
     @Inject
     private PermissionsManager permissionsManager;
@@ -46,6 +51,11 @@ public class CommonService {
      * @param key the message key
      */
     public void send(CommandSender sender, MessageKey key) {
+        if (Utils.majorVersion < 12 && settings.getProperty(PluginSettings.I18N_MESSAGES)) {
+            bukkitService.runTaskLater(() -> messages.send(sender, key), 35L);
+            return;
+        }
+
         messages.send(sender, key);
     }
 
@@ -57,6 +67,11 @@ public class CommonService {
      * @param replacements the replacements to apply to the message
      */
     public void send(CommandSender sender, MessageKey key, String... replacements) {
+        if (Utils.majorVersion < 12 && settings.getProperty(PluginSettings.I18N_MESSAGES)) {
+            bukkitService.runTaskLater(() -> messages.send(sender, key, replacements), 35L);
+            return;
+        }
+
         messages.send(sender, key, replacements);
     }
 

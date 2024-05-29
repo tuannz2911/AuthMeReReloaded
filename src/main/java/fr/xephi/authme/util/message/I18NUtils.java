@@ -40,7 +40,8 @@ public class I18NUtils {
                 spigotGetLocaleMethod.setAccessible(true);
 
                 return ((String) spigotGetLocaleMethod.invoke(spigot)).toLowerCase();
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
         }
