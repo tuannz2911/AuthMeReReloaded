@@ -91,15 +91,11 @@ public class I18NUtils {
             //    return "zhmc";
         }
 
-        // Match locale code with "_"
-        return matchLocale(locale, settings);
-    }
-
-    private static String matchLocale(String locale, Settings settings) {
         if (locale.contains("_")) {
             locale = locale.substring(0, locale.indexOf("_"));
         }
 
+        // Match locale code with "_"
         if (LOCALE_LIST.contains(locale)) {
             return locale;
         }
