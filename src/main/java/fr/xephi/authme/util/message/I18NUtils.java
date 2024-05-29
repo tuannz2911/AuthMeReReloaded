@@ -37,6 +37,7 @@ public class I18NUtils {
             try {
                 Object spigot = spigotMethod.invoke(player);
                 Method spigotGetLocaleMethod = spigot.getClass().getMethod("getLocale");
+                spigotGetLocaleMethod.setAccessible(true);
 
                 return ((String) spigotGetLocaleMethod.invoke(spigot)).toLowerCase();
             } catch (Exception ignored) {
