@@ -11,7 +11,7 @@ import java.util.List;
 
 public class I18NUtils {
 
-    private static Method spigotMethod;
+    private static Method spigotGetLocale;
     private static final List<String> LOCALE_LIST = Arrays.asList(
         "en", "bg", "de", "eo", "es", "et", "eu", "fi", "fr", "gl", "hu", "id", "it", "ja", "ko", "lt", "nl", "pl",
         "pt", "ro", "ru", "sk", "sr", "tr", "uk"
@@ -19,9 +19,10 @@ public class I18NUtils {
 
     static {
         try {
-            spigotMethod = Player.class.getMethod("spigot");
+            spigotGetLocale = Player.Spigot.class.getMethod("getLocale");
+            spigotGetLocale.setAccessible(true);
         } catch (NoSuchMethodException e) {
-            spigotMethod = null;
+            spigotGetLocale = null;
         }
     }
 
@@ -35,11 +36,7 @@ public class I18NUtils {
             return player.getLocale().toLowerCase();
         } else {
             try {
-                Object spigot = spigotMethod.invoke(player);
-                Method spigotGetLocaleMethod = spigot.getClass().getMethod("getLocale");
-                spigotGetLocaleMethod.setAccessible(true);
-
-                return ((String) spigotGetLocaleMethod.invoke(spigot)).toLowerCase();
+                return ((String) spigotGetLocale.invoke(player.spigot())).toLowerCase();
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
