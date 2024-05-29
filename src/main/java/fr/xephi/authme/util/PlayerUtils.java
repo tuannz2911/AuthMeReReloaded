@@ -52,14 +52,14 @@ public final class PlayerUtils {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (Utils.majorVersion >= 12) {
-                locale = player.getLocale();
+                locale = player.getLocale().toLowerCase();
             } else {
                 try {
                     Method spigotMethod = player.getClass().getMethod("spigot");
                     Object spigot = spigotMethod.invoke(player);
 
                     Method spigotGetLocaleMethod = spigot.getClass().getMethod("getLocale");
-                    locale = (String) spigotGetLocaleMethod.invoke(spigot);
+                    locale = ((String) spigotGetLocaleMethod.invoke(spigot)).toLowerCase();
                 } catch (Exception ignored) {
                 }
             }
@@ -76,7 +76,15 @@ public final class PlayerUtils {
      * @param settings The AuthMe settings, for default/fallback language usage.
      */
     public static String LocaleToCode(String locale, Settings settings) {
-        locale = locale.toLowerCase();
+        if (!settings.getProperty(PluginSettings.I18N_CODE_REDIRECT).isEmpty()) {
+            for (String raw : settings.getProperty(PluginSettings.I18N_CODE_REDIRECT)) {
+                String[] split = raw.split(":");
+
+                if (locale.equalsIgnoreCase(split[0])) {
+                    return split[1];
+                }
+            }
+        }
 
         switch (locale) {
             case "pt_br":
