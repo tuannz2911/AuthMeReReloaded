@@ -266,6 +266,16 @@ public class AuthMeApi {
     }
 
     /**
+     * Force a player to login, i.e. the player is logged in without needing his password.
+     *
+     * @param player The player to log in
+     * @param quiet Whether to suppress the login message
+     */
+    public void forceLogin(Player player, boolean quiet) {
+        management.forceLogin(player, quiet);
+    }
+
+    /**
      * Force a player to logout.
      *
      * @param player The player to log out
