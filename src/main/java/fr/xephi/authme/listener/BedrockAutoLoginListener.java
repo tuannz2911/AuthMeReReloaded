@@ -46,7 +46,7 @@ public class BedrockAutoLoginListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         bukkitService.runTaskLater(player, () -> {
             if (isBedrockPlayer(uuid) && !authmeApi.isAuthenticated(player) && authmeApi.isRegistered(name)) {
-                authmeApi.forceLogin(player);
+                authmeApi.forceLogin(player, true);
                 messages.send(player, MessageKey.BEDROCK_AUTO_LOGGED_IN);
             }
         },20L);
