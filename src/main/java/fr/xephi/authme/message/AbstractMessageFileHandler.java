@@ -8,12 +8,14 @@ import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.util.FileUtils;
+import fr.xephi.authme.util.PlayerUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.File;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static fr.xephi.authme.message.MessagePathHelper.DEFAULT_LANGUAGE;
@@ -34,7 +36,7 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
 
     private String filename;
     private FileConfiguration configuration;
-    private ConcurrentHashMap<String, FileConfiguration> i18nConfiguration;
+    private Map<String, FileConfiguration> i18nConfiguration;
     private final String defaultFile;
 
     protected AbstractMessageFileHandler() {
@@ -119,6 +121,8 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
         if (i18nConfiguration == null) {
             i18nConfiguration = new ConcurrentHashMap<>();
         }
+
+        locale = PlayerUtils.LocaleToCode(locale, settings);
 
         if (i18nConfiguration.containsKey(locale)) {
             return i18nConfiguration.get(locale);
