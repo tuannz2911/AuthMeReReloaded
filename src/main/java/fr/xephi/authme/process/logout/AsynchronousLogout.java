@@ -13,7 +13,6 @@ import fr.xephi.authme.service.bungeecord.BungeeSender;
 import fr.xephi.authme.service.bungeecord.MessageType;
 import fr.xephi.authme.service.velocity.VMessageType;
 import fr.xephi.authme.service.velocity.VelocitySender;
-import fr.xephi.authme.settings.properties.RestrictionSettings;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
@@ -65,11 +64,11 @@ public class AsynchronousLogout implements AsynchronousProcess {
         PlayerAuth auth = playerCache.getAuth(name);
         database.updateSession(auth);
         // TODO: send an update when a messaging service will be implemented (SESSION)
-        if (service.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION)) {
-            auth.setQuitLocation(player.getLocation());
-            database.updateQuitLoc(auth);
+        //if (service.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION)) {
+        auth.setQuitLocation(player.getLocation());
+        database.updateQuitLoc(auth);
             // TODO: send an update when a messaging service will be implemented (QUITLOC)
-        }
+        //} AuthMeReReloaded - Always save quit location
 
         playerCache.removePlayer(name);
         codeManager.unverify(name);

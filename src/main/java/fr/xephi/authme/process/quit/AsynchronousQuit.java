@@ -12,7 +12,6 @@ import fr.xephi.authme.service.SessionService;
 import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.settings.SpawnLoader;
 import fr.xephi.authme.settings.properties.PluginSettings;
-import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.util.PlayerUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -68,13 +67,16 @@ public class AsynchronousQuit implements AsynchronousProcess {
         boolean wasLoggedIn = playerCache.isAuthenticated(name);
 
         if (wasLoggedIn) {
-            if (service.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION)) {
-                Location loc = spawnLoader.getPlayerLocationOrSpawn(player);
-                PlayerAuth auth = PlayerAuth.builder()
-                    .name(name).location(loc)
-                    .realName(player.getName()).build();
-                database.updateQuitLoc(auth);
-            }
+            //if (service.getProperty(RestrictionSettings.SAVE_QUIT_LOCATION)) {
+            // AuthMeReReloaded - Always save quit location on quit
+            Location loc = spawnLoader.getPlayerLocationOrSpawn(player);
+            PlayerAuth authLoc = PlayerAuth.builder()
+                .name(name).location(loc)
+                .realName(player.getName()).build();
+            database.updateQuitLoc(authLoc);
+            // AuthMeReReloaded - Fix AuthMe#2769 -1
+            //}
+
 
             String ip = PlayerUtils.getPlayerIp(player);
             PlayerAuth auth = PlayerAuth.builder()
