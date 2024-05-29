@@ -44,4 +44,4 @@ Code | Language | Translated | &nbsp;
 
 ---
 
-This page was automatically generated on the [AuthMe/AuthMeReloaded repository](https://github.com/AuthMe/AuthMeReloaded/tree/master/docs/) on Wed Jun 21 12:14:29 CEST 2023
+This page was automatically generated on the [HaHaWTH/AuthMeReReloaded repository](https://github.com/HaHaWTH/AuthMeReReloaded/tree/master/docs/) on Wed Jun 21 12:14:29 CEST 2023
