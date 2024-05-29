@@ -58,7 +58,7 @@ public class I18NUtils {
             for (String raw : settings.getProperty(PluginSettings.I18N_CODE_REDIRECT)) {
                 String[] split = raw.split(":");
 
-                if (locale.equalsIgnoreCase(split[0])) {
+                if (split.length == 2 && locale.equalsIgnoreCase(split[0])) {
                     return split[1];
                 }
             }
