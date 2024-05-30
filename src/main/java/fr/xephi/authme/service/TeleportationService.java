@@ -14,7 +14,6 @@ import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SpawnLoader;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
-import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.TeleportUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -189,10 +188,8 @@ public class TeleportationService implements Reloadable {
     private void performTeleportation(final Player player, final AbstractTeleportEvent event) {
         bukkitService.scheduleSyncTaskFromOptionallyAsyncTask(() -> {
             bukkitService.callEvent(event);
-            if (player.isOnline() && isEventValid(event) && settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
+            if (player.isOnline() && isEventValid(event)) {
                 TeleportUtils.teleport(player, event.getTo());
-            } else if (player.isOnline() && isEventValid(event)) {
-                player.teleport(event.getTo());
             }
         });
     }

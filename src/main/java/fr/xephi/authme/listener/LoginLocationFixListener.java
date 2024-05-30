@@ -75,11 +75,7 @@ public class LoginLocationFixListener implements Listener {
             boolean solved = false;
             for (BlockFace face : faces) {
                 if (JoinBlock.getRelative(face).getType().equals(Material.AIR) && JoinBlock.getRelative(face).getRelative(BlockFace.UP).getType().equals(Material.AIR)) {
-                    if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
-                        TeleportUtils.teleport(player, JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
-                    } else {
-                        player.teleport(JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
-                    }
+                    TeleportUtils.teleport(player, JoinBlock.getRelative(face).getLocation().add(0.5, 0.1, 0.5));
                     solved = true;
                     break;
                 }
@@ -107,20 +103,12 @@ public class LoginLocationFixListener implements Listener {
                     if (JoinBlock.getRelative(BlockFace.DOWN).getType().equals(Material.LAVA)) {
                         JoinBlock.getRelative(BlockFace.DOWN).setType(Material.DIRT);
                     }
-                    if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
-                        TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 0.1, 0.5));
-                    } else {
-                        player.teleport(JoinBlock.getLocation().add(0.5, 0.1, 0.5));
-                    }
+                    TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 0.1, 0.5));
                     messages.send(player, MessageKey.LOCATION_FIX_UNDERGROUND);
                     break;
                 }
                 if (i == MaxHeight) {
-                    if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
-                        TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 1.1, 0.5));
-                    } else {
-                        player.teleport(JoinBlock.getLocation().add(0.5, 1.1, 0.5));
-                    }
+                    TeleportUtils.teleport(player, JoinBlock.getLocation().add(0.5, 1.1, 0.5));
                     messages.send(player, MessageKey.LOCATION_FIX_UNDERGROUND_CANT_FIX);
                 }
             }

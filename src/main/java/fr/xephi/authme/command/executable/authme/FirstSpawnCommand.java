@@ -4,7 +4,6 @@ import fr.xephi.authme.command.PlayerCommand;
 import fr.xephi.authme.service.BukkitService;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SpawnLoader;
-import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.TeleportUtils;
 import org.bukkit.entity.Player;
 
@@ -28,11 +27,7 @@ public class FirstSpawnCommand extends PlayerCommand {
         } else {
             //String name= player.getName();
             bukkitService.runTaskIfFolia(player, () -> {
-                if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
-                    TeleportUtils.teleport(player, spawnLoader.getFirstSpawn());
-                } else {
-                    player.teleport(spawnLoader.getFirstSpawn());
-                }
+                TeleportUtils.teleport(player, spawnLoader.getFirstSpawn());
             });
             //player.teleport(spawnLoader.getFirstSpawn());
         }
