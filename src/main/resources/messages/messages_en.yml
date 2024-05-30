@@ -5,108 +5,108 @@
 
 # Registration
 registration:
-  register_request: '<dark_aqua>Please, register to the server with the command: /register <password> <ConfirmPassword>'
-  command_usage: '<red>Usage: /register <password> <ConfirmPassword>'
-  reg_only: '<dark_red>Only registered users can join the server! Please visit http://example.com to register yourself!'
+  register_request: '&3Please, register to the server with the command: /register <password> <ConfirmPassword>'
+  command_usage: '&cUsage: /register <password> <ConfirmPassword>'
+  reg_only: '&4Only registered users can join the server! Please visit http://example.com to register yourself!'
   kicked_admin_registered: 'An admin just registered you; please log in again.'
-  success: '<dark_green>Successfully registered!'
-  disabled: '<red>In-game registration is disabled!'
-  name_taken: '<red>You already have registered this username!'
+  success: '&2Successfully registered!'
+  disabled: '&cIn-game registration is disabled!'
+  name_taken: '&cYou already have registered this username!'
 
 # Password errors on registration
 password:
-  match_error: '<red>Passwords didn''t match, check them again!'
-  name_in_password: '<red>You can''t use your name as password, please choose another one...'
-  unsafe_password: '<red>The chosen password isn''t safe, please choose another one...'
-  forbidden_characters: '<dark_red>Your password contains illegal characters. Allowed chars: %valid_chars'
-  wrong_length: '<red>Your password is too short or too long! Please try with another one!'
-  pwned_password: '<red>Your chosen password is not secure. It was used %pwned_count times already! Please use a strong password...'
+  match_error: '&cPasswords didn''t match, check them again!'
+  name_in_password: '&cYou can''t use your name as password, please choose another one...'
+  unsafe_password: '&cThe chosen password isn''t safe, please choose another one...'
+  forbidden_characters: '&4Your password contains illegal characters. Allowed chars: %valid_chars'
+  wrong_length: '&cYour password is too short or too long! Please try with another one!'
+  pwned_password: '&cYour chosen password is not secure. It was used %pwned_count times already! Please use a strong password...'
 
 # Login
 login:
-  command_usage: '<red>Usage: /login <password>'
-  wrong_password: '<red>Wrong password!'
-  success: '<dark_green>Successful login!'
-  login_request: '<red>Please, login with the command: /login <password>'
-  timeout_error: '<dark_red>Login timeout exceeded, you have been kicked from the server, please try again!'
+  command_usage: '&cUsage: /login <password>'
+  wrong_password: '&cWrong password!'
+  success: '&2Successful login!'
+  login_request: '&cPlease, login with the command: /login <password>'
+  timeout_error: '&4Login timeout exceeded, you have been kicked from the server, please try again!'
 
 # Errors
 error:
-  unregistered_user: '<red>This user isn''t registered!'
-  denied_command: '<red>In order to use this command you must be authenticated!'
-  denied_chat: '<red>In order to chat you must be authenticated!'
-  not_logged_in: '<red>You''re not logged in!'
-  tempban_max_logins: '<red>You have been temporarily banned for failing to log in too many times.'
-  max_registration: '<red>You have exceeded the maximum number of registrations (%reg_count/%max_acc %reg_names) for your connection!'
-  no_permission: '<dark_red>You don''t have the permission to perform this action!'
-  unexpected_error: '<dark_red>An unexpected error occurred, please contact an administrator!'
-  kick_for_vip: '<dark_aqua>A VIP player has joined the server when it was full!'
-  logged_in: '<red>You''re already logged in!'
-  kick_unresolved_hostname: '<red>An error occurred: unresolved player hostname!'
+  unregistered_user: '&cThis user isn''t registered!'
+  denied_command: '&cIn order to use this command you must be authenticated!'
+  denied_chat: '&cIn order to chat you must be authenticated!'
+  not_logged_in: '&cYou''re not logged in!'
+  tempban_max_logins: '&cYou have been temporarily banned for failing to log in too many times.'
+  max_registration: '&cYou have exceeded the maximum number of registrations (%reg_count/%max_acc %reg_names) for your connection!'
+  no_permission: '&4You don''t have the permission to perform this action!'
+  unexpected_error: '&4An unexpected error occurred, please contact an administrator!'
+  kick_for_vip: '&3A VIP player has joined the server when it was full!'
+  logged_in: '&cYou''re already logged in!'
+  kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
 
 # AntiBot
 antibot:
   kick_antibot: 'AntiBot protection mode is enabled! You have to wait some minutes before joining the server.'
-  auto_enabled: '<dark_red>[AntiBotService] AntiBot enabled due to the huge number of connections!'
-  auto_disabled: '<dark_green>[AntiBotService] AntiBot disabled after %m minutes!'
+  auto_enabled: '&4[AntiBotService] AntiBot enabled due to the huge number of connections!'
+  auto_disabled: '&2[AntiBotService] AntiBot disabled after %m minutes!'
 
 unregister:
-  success: '<red>Successfully unregistered!'
-  command_usage: '<red>Usage: /unregister <password>'
+  success: '&cSuccessfully unregistered!'
+  command_usage: '&cUsage: /unregister <password>'
 
 # Other messages
 misc:
   accounts_owned_self: 'You own %count accounts:'
   accounts_owned_other: 'The player %name has %count accounts:'
-  account_not_activated: '<red>Your account isn''t activated yet, please check your emails!'
-  password_changed: '<dark_green>Password changed successfully!'
-  logout: '<dark_green>Logged out successfully!'
-  reload: '<dark_green>Configuration and database have been reloaded correctly!'
-  usage_change_password: '<red>Usage: /changepassword <oldPassword> <newPassword>'
+  account_not_activated: '&cYour account isn''t activated yet, please check your emails!'
+  password_changed: '&2Password changed successfully!'
+  logout: '&2Logged out successfully!'
+  reload: '&2Configuration and database have been reloaded correctly!'
+  usage_change_password: '&cUsage: /changepassword <oldPassword> <newPassword>'
 
 # Session messages
 session:
-  invalid_session: '<red>Your IP has been changed and your session data has expired!'
-  valid_session: '<dark_green>Logged-in due to Session Reconnection.'
+  invalid_session: '&cYour IP has been changed and your session data has expired!'
+  valid_session: '&2Logged-in due to Session Reconnection.'
 
 # Error messages when joining
 on_join_validation:
-  name_length: '<dark_red>Your username is either too short or too long!'
-  characters_in_name: '<dark_red>Your username contains illegal characters. Allowed chars: %valid_chars'
-  country_banned: '<dark_red>Your country is banned from this server!'
+  name_length: '&4Your username is either too short or too long!'
+  characters_in_name: '&4Your username contains illegal characters. Allowed chars: %valid_chars'
+  country_banned: '&4Your country is banned from this server!'
   not_owner_error: 'You are not the owner of this account. Please choose another name!'
-  kick_full_server: '<dark_red>The server is full, try again later!'
-  same_nick_online: '<dark_red>The same username is already playing on the server!'
+  kick_full_server: '&4The server is full, try again later!'
+  same_nick_online: '&4The same username is already playing on the server!'
   invalid_name_case: 'You should join using username %valid, not %invalid.'
   same_ip_online: 'A player with the same IP is already in game!'
   quick_command: 'You used a command too fast! Please, join the server again and wait more before using any command.'
 
 # Email
 email:
-  usage_email_add: '<red>Usage: /email add <email> <confirmEmail>'
-  usage_email_change: '<red>Usage: /email change <oldEmail> <newEmail>'
-  new_email_invalid: '<red>Invalid new email, try again!'
-  old_email_invalid: '<red>Invalid old email, try again!'
-  invalid: '<red>Invalid email address, try again!'
-  added: '<dark_green>Email address successfully added to your account!'
-  request_confirmation: '<red>Please confirm your email address!'
-  changed: '<dark_green>Email address changed correctly!'
-  email_show: '<dark_green>Your current email address is: <white>%email'
+  usage_email_add: '&cUsage: /email add <email> <confirmEmail>'
+  usage_email_change: '&cUsage: /email change <oldEmail> <newEmail>'
+  new_email_invalid: '&cInvalid new email, try again!'
+  old_email_invalid: '&cInvalid old email, try again!'
+  invalid: '&cInvalid email address, try again!'
+  added: '&2Email address successfully added to your account!'
+  request_confirmation: '&cPlease confirm your email address!'
+  changed: '&2Email address changed correctly!'
+  email_show: '&2Your current email address is: &f%email'
   incomplete_settings: 'Error: not all required settings are set for sending emails. Please contact an admin.'
-  already_used: '<dark_red>The email address is already being used'
+  already_used: '&4The email address is already being used'
   send_failure: 'The email could not be sent. Please contact an administrator.'
-  no_email_for_account: '<dark_green>You currently don''t have email address associated with this account.'
-  add_email_request: '<dark_aqua>Please add your email to your account with the command: /email add <yourEmail> <confirmEmail>'
+  no_email_for_account: '&2You currently don''t have email address associated with this account.'
+  add_email_request: '&3Please add your email to your account with the command: /email add <yourEmail> <confirmEmail>'
   change_password_expired: 'You cannot change your password using this command anymore.'
-  email_cooldown_error: '<red>An email was already sent recently. You must wait %time before you can send a new one.'
-  add_not_allowed: '<red>Adding email was not allowed.'
-  change_not_allowed: '<red>Changing email was not allowed.'
+  email_cooldown_error: '&cAn email was already sent recently. You must wait %time before you can send a new one.'
+  add_not_allowed: '&cAdding email was not allowed.'
+  change_not_allowed: '&cChanging email was not allowed.'
 
 # Password recovery by email
 recovery:
-  forgot_password_hint: '<dark_aqua>Forgot your password? Please use the command: /email recovery <yourEmail>'
-  command_usage: '<red>Usage: /email recovery <Email>'
-  email_sent: '<dark_green>Recovery email sent successfully! Please check your email inbox!'
+  forgot_password_hint: '&3Forgot your password? Please use the command: /email recovery <yourEmail>'
+  command_usage: '&cUsage: /email recovery <Email>'
+  email_sent: '&2Recovery email sent successfully! Please check your email inbox!'
   code:
     code_sent: 'A recovery code to reset your password has been sent to your email.'
     incorrect: 'The recovery code is not correct! You have %count tries remaining.'
@@ -116,25 +116,25 @@ recovery:
 
 # Captcha
 captcha:
-  usage_captcha: '<dark_aqua>To log in you have to solve a captcha code, please use the command: /captcha %captcha_code'
-  wrong_captcha: '<red>Wrong captcha, please type "/captcha %captcha_code" into the chat!'
-  valid_captcha: '<dark_green>Captcha code solved correctly!'
+  usage_captcha: '&3To log in you have to solve a captcha code, please use the command: /captcha %captcha_code'
+  wrong_captcha: '&cWrong captcha, please type "/captcha %captcha_code" into the chat!'
+  valid_captcha: '&2Captcha code solved correctly!'
   captcha_for_registration: 'To register you have to solve a captcha first, please use the command: /captcha %captcha_code'
-  register_captcha_valid: '<dark_green>Valid captcha! You may now register with /register'
+  register_captcha_valid: '&2Valid captcha! You may now register with /register'
 
 # Verification code
 verification:
-  code_required: '<dark_aqua>This command is sensitive and requires an email verification! Check your inbox and follow the email''s instructions.'
-  command_usage: '<red>Usage: /verification <code>'
-  incorrect_code: '<red>Incorrect code, please type "/verification <code>" into the chat, using the code you received by email'
-  success: '<dark_green>Your identity has been verified! You can now execute all commands within the current session!'
-  already_verified: '<dark_green>You can already execute every sensitive command within the current session!'
-  code_expired: '<dark_aqua>Your code has expired! Execute another sensitive command to get a new code!'
-  email_needed: '<dark_aqua>To verify your identity you need to link an email address with your account!!'
+  code_required: '&3This command is sensitive and requires an email verification! Check your inbox and follow the email''s instructions.'
+  command_usage: '&cUsage: /verification <code>'
+  incorrect_code: '&cIncorrect code, please type "/verification <code>" into the chat, using the code you received by email'
+  success: '&2Your identity has been verified! You can now execute all commands within the current session!'
+  already_verified: '&2You can already execute every sensitive command within the current session!'
+  code_expired: '&3Your code has expired! Execute another sensitive command to get a new code!'
+  email_needed: '&3To verify your identity you need to link an email address with your account!!'
 
 # Two-factor authentication
 two_factor:
-  code_created: '<dark_green>Your secret code is %code. You can scan it from here %url'
+  code_created: '&2Your secret code is %code. You can scan it from here %url'
   confirmation_required: 'Please confirm your code with /2fa confirm <code>'
   code_required: 'Please submit your two-factor authentication code with /2fa code <code>'
   already_enabled: 'Two-factor authentication is already enabled for your account!'
@@ -158,25 +158,25 @@ time:
 
 # 3rd party features: GUI Captcha
 gui_captcha:
-  success: '<green>Verification success!'
-  bedrock_auto_verify_success: '<green>Bedrock verification success!'
+  success: '&aVerification success!'
+  bedrock_auto_verify_success: '&aBedrock verification success!'
   captcha_window_name: '%random Verification'
   captcha_clickable_name: '%random I am human'
-  message_on_retry: '<red>Verification failed, you have %times retries left'
-  denied_message_sending: '<red>Please be verified before chatting!'
-  kick_on_failed: '<red>Please complete the verification!'
-  kick_on_timeout: '<red>Verification timed out!'
+  message_on_retry: '&cVerification failed, you have %times retries left'
+  denied_message_sending: '&cPlease be verified before chatting!'
+  kick_on_failed: '&cPlease complete the verification!'
+  kick_on_timeout: '&cVerification timed out!'
 
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
-  success: '<green>Bedrock auto login success!'
+  success: '&aBedrock auto login success!'
 
 # 3rd party features: Login Location Fix
 login_location_fix:
-  fix_portal: '<green>You are stuck in portal during Login.'
-  fix_underground: '<green>You are stuck underground during Login.'
-  cannot_fix_underground: '<green>You are stuck underground during Login, but we cant fix it.'
+  fix_portal: '&aYou are stuck in portal during Login.'
+  fix_underground: '&aYou are stuck underground during Login.'
+  cannot_fix_underground: '&aYou are stuck underground during Login, but we cant fix it.'
 
 # 3rd party features: Double Login Fix
 double_login_fix:
-  fix_message: '<red>You have been disconnected due to doubled login.'
+  fix_message: '&cYou have been disconnected due to doubled login.'
