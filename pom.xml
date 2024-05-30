@@ -463,6 +463,18 @@
                             <pattern>com.alessiodp.libby</pattern>
                             <shadedPattern>fr.xephi.authme.libs.com.alessiodp.libby</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>fr.xephi.authme.libs.net.kyori.adventure</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.examination</pattern>
+                            <shadedPattern>fr.xephi.authme.libs.net.kyori.examination</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.option</pattern>
+                            <shadedPattern>fr.xephi.authme.libs.net.kyori.option</shadedPattern>
+                        </relocation>
                     </relocations>
 
                     <filters>
@@ -537,6 +549,12 @@
         <repository>
             <id>opencollab-maven-snapshots</id>
             <url>https://repo.opencollab.dev/maven-snapshots/</url>
+        </repository>
+
+        <!-- Adventure API -->
+        <repository>
+            <id>sonatype-oss-snapshots1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
 
         <!-- Apache snapshots repo -->
@@ -808,12 +826,12 @@
                     <groupId>junit</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>bungeecord-chat</artifactId>
-                    <groupId>net.md-5</groupId>
-                </exclusion>
-                <exclusion>
                     <groupId>com.googlecode.json-simple</groupId>
                     <artifactId>json-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bungeecord-chat</artifactId>
+                    <groupId>net.md-5</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -880,6 +898,23 @@
                     <groupId>net.bytebuddy</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Adventure API -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>4.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-gson</artifactId>
+            <version>4.17.0</version>
         </dependency>
 
         <!-- LuckPerms plugin -->
