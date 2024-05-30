@@ -21,9 +21,7 @@ public class SpawnCommand extends PlayerCommand {
         if (spawnLoader.getSpawn() == null) {
             player.sendMessage("[AuthMe] Spawn has failed, please try to define the spawn");
         } else {
-            bukkitService.runTaskIfFolia(player, () -> {
-                TeleportUtils.teleport(player, spawnLoader.getSpawn());
-            });
+            bukkitService.runTaskIfFolia(player, () -> TeleportUtils.teleport(player, spawnLoader.getSpawn()));
         }
     }
 }

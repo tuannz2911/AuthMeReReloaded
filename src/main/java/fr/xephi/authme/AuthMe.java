@@ -44,6 +44,7 @@ import fr.xephi.authme.settings.properties.EmailSettings;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.task.CleanupTask;
+import fr.xephi.authme.task.Updater;
 import fr.xephi.authme.task.purge.PurgeService;
 import fr.xephi.authme.util.ExceptionUtils;
 import org.bukkit.Server;
@@ -55,15 +56,10 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
 import static fr.xephi.authme.service.BukkitService.TICKS_PER_MINUTE;
 import static fr.xephi.authme.util.Utils.isClassLoaded;
@@ -224,16 +220,12 @@ public class AuthMe extends JavaPlugin {
         // Purge on start if enabled
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
         purgeService.runAutoPurge();
-        // 注册玩家加入事件监听
-//        register3rdPartyListeners();
         logger.info("GitHub: https://github.com/HaHaWTH/AuthMeReReloaded/");
         if (settings.getProperty(SecuritySettings.CHECK_FOR_UPDATES)) {
             checkForUpdates();
         }
     }
 
-
-    //Migrated
 
     /**
      * Load the version and build number of the plugin from the description file.
@@ -422,54 +414,18 @@ public class AuthMe extends JavaPlugin {
         ConsoleLogger.closeFileWriter();
     }
 
-    private static final String owner = "HaHaWTH";
-//    private static final String owner_gitee = "Shixuehan114514";
-    private static final String repo = "AuthMeReReloaded";
-
     private void checkForUpdates() {
         logger.info("Checking for updates...");
+        Updater updater = new Updater(pluginBuild + pluginBuildNumber);
         bukkitService.runTaskAsynchronously(() -> {
-            try {
-                // 从南通集线器获取最新版本号
-                URL url = new URL("https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setConnectTimeout(10000); // 设置连接超时为10秒
-                conn.setReadTimeout(10000); // 设置读取超时为10秒
-                Scanner scanner = new Scanner(conn.getInputStream());
-                String response = scanner.useDelimiter("\\Z").next();
-                scanner.close();
-
-                // 处理JSON响应
-                String latestVersion = response.substring(response.indexOf("tag_name") + 11);
-                latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
-                if (isUpdateAvailable(latestVersion)) {
-                    String message = "New version available! Latest:" + latestVersion + " Current:" + pluginBuild + pluginBuildNumber;
-                    getLogger().log(Level.WARNING, message);
-                    getLogger().log(Level.WARNING, "Download from here: https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
-                } else {
-                    getLogger().log(Level.INFO, "You are running the latest version.");
-                }
-            } catch (IOException ignored) {
+            if (updater.isUpdateAvailable()) {
+                String message = "New version available! Latest:" + updater.getLatestVersion() + " Current:" + pluginBuild + pluginBuildNumber;
+                logger.warning(message);
+                logger.warning("Download from here: https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest");
+            } else {
+                logger.info("You are running the latest version.");
             }
         });
-    }
-    private boolean isUpdateAvailable(String latestVersion) {
-        // Extract the first character and the remaining digits from the version string
-        char latestChar = latestVersion.charAt(0);
-        int latestNumber = Integer.parseInt(latestVersion.substring(1));
-
-        char currentChar = pluginBuild.charAt(0);
-        int currentNumber = Integer.parseInt(pluginBuildNumber);
-
-        // Compare the characters first
-        if (latestChar > currentChar) {
-            return true;
-        } else if (latestChar < currentChar) {
-            return false;
-        } else {
-            // If the characters are the same, compare the numbers
-            return latestNumber > currentNumber;
-        }
     }
 
 
