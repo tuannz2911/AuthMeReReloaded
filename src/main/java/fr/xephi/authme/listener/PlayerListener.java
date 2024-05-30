@@ -375,13 +375,13 @@ public class PlayerListener implements Listener{
         Location spawn = spawnLoader.getSpawnLocation(player);
         if (spawn != null && spawn.getWorld() != null) {
             if (!player.getWorld().equals(spawn.getWorld())) {
-                if(settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
+                if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                     TeleportUtils.teleport(player,spawn);
                 } else {
                     player.teleport(spawn);
                 }
             } else if (spawn.distance(player.getLocation()) > settings.getProperty(ALLOWED_MOVEMENT_RADIUS)) {
-                if(settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
+                if (settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
                     TeleportUtils.teleport(player,spawn);
                 } else {
                     player.teleport(spawn);
