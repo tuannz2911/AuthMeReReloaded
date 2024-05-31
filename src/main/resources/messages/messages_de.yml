@@ -9,7 +9,7 @@ registration:
     name_taken: '&cDieser Benutzername ist schon vergeben'
     register_request: '&3Bitte registriere dich mit "/register <passwort> <passwortBestätigen>"'
     command_usage: '&cBenutze: /register <passwort> <passwortBestätigen>'
-    reg_only: '&4Nur für registrierte Spieler! Bitte besuche http://example.com um dich zu registrieren.'
+    reg_only: '&4Nur für registrierte Spieler! Bitte besuche https://example.com um dich zu registrieren.'
     success: '&2Erfolgreich registriert!'
     kicked_admin_registered: 'Ein Administrator hat dich bereits registriert; bitte logge dich erneut ein.'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cPasswort unsicher! Bitte wähle ein anderes.'
     forbidden_characters: '&4Dein Passwort enthält unerlaubte Zeichen. Zulässige Zeichen: %valid_chars'
     wrong_length: '&cDein Passwort ist zu kurz oder zu lang!'
+    pwned_password: '&cIhr gewähltes Passwort ist nicht sicher. Es wurde bereits %pwned_count Mal verwendet! Bitte verwenden Sie ein starkes Passwort...'
 
 # Login
 login:
@@ -40,7 +41,7 @@ error:
     max_registration: '&cDu hast die maximale Anzahl an Accounts erreicht (%reg_count/%max_acc %reg_names).'
     logged_in: '&cBereits eingeloggt!'
     kick_for_vip: '&3Ein VIP-Spieler hat den vollen Server betreten!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&cEin Fehler ist aufgetreten: nicht auflösbarer Spieler-Hostname!'
     tempban_max_logins: '&cDu bist wegen zu vielen fehlgeschlagenen Login-Versuchen temporär gebannt!'
 
 # AntiBot
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cDein Account wurde noch nicht aktiviert. Bitte prüfe deine E-Mails!'
+    not_activated: '&cKonto nicht aktiviert, bitte registrieren und aktivieren Sie es, bevor Sie es erneut versuchen.'
     password_changed: '&2Passwort geändert!'
     logout: '&2Erfolgreich ausgeloggt'
     reload: '&2Konfiguration und Datenbank wurden erfolgreich neu geladen.'
@@ -155,3 +157,28 @@ two_factor:
     not_enabled_error: 'Die Zwei-Faktor-Authentifizierung ist für dein Konto nicht aktiviert. Benutze /2fa add'
     removed_success: 'Die Zwei-Faktor-Authentifizierung wurde erfolgreich von deinem Konto entfernt'
     invalid_code: 'Ungültiger Code!'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aVerifizierung erfolgreich!'
+  bedrock_auto_verify_success: '&aBedrock-Verifizierung erfolgreich!'
+  captcha_window_name: '%random Verifizierung'
+  captcha_clickable_name: '%random Ich bin ein Mensch'
+  message_on_retry: '&cVerifizierung fehlgeschlagen, Sie haben noch %times Versuche'
+  denied_message_sending: '&cBitte verifizieren Sie sich, bevor Sie chatten!'
+  kick_on_failed: '&cBitte vervollständigen Sie die Verifizierung!'
+  kick_on_timeout: '&cVerifizierung abgelaufen!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock Auto-Login erfolgreich!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aSie stecken während des Logins im Portal fest.'
+  fix_underground: '&aSie stecken während des Logins unter der Erde fest.'
+  cannot_fix_underground: '&aSie stecken während des Logins unter der Erde fest, aber wir können es nicht beheben.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cSie wurden wegen doppeltem Login getrennt.'

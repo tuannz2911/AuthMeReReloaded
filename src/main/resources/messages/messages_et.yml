@@ -5,13 +5,13 @@
 
 # Registration
 registration:
-    register_request: '&3Palun registreeri käsklusega: /register <parool> <KinnitaParool>'
-    command_usage: '&cKasutus: /register <parool> <KinnitaParool>'
-    reg_only: '&4Vaid registreeritud mängijad saavad serveriga liituda! Enda kasutaja registreerimiseks külasta http://example.com!'
-    kicked_admin_registered: 'Administraator registreeris su kasutaja, palun logi uuesti sisse.'
-    success: '&2Edukalt registreeritud!'
     disabled: '&cMängusisene registreerimine on välja lülitatud!'
     name_taken: '&cSee kasutaja on juba registreeritud!'
+    register_request: '&3Palun registreeri käsklusega: /register <parool> <KinnitaParool>'
+    command_usage: '&cKasutus: /register <parool> <KinnitaParool>'
+    reg_only: '&4Vaid registreeritud mängijad saavad serveriga liituda! Enda kasutaja registreerimiseks külasta https://example.com!'
+    success: '&2Edukalt registreeritud!'
+    kicked_admin_registered: 'Administraator registreeris su kasutaja, palun logi uuesti sisse.'
 
 # Password errors on registration
 password:
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cSee parool ei ole turvaline, palun vali mõni teine parool.'
     forbidden_characters: '&4Sinu parool sisaldab keelatud tähemärke. Lubatud tähemärgid: %valid_chars'
     wrong_length: '&cSinu parool on liiga pikk või lühike, palun vali mõni teine parool.'
+    pwned_password: '&cTeie valitud parool ei ole turvaline. Seda on kasutatud juba %pwned_count korda! Palun kasutage tugevat parooli...'
 
 # Login
 login:
@@ -31,17 +32,17 @@ login:
 
 # Errors
 error:
-    unregistered_user: '&cSee kasutaja ei ole registreeritud!'
     denied_command: '&cSelle käskluse kasutamiseks pead olema sisselogitud!'
     denied_chat: '&cVestlemiseks pead olema sisselogitud!'
+    unregistered_user: '&cSee kasutaja ei ole registreeritud!'
     not_logged_in: '&cSa ei ole sisselogitud!'
-    tempban_max_logins: '&cSind on ajutiselt serverist blokeeritud, kuna sisestasid mitu korda vale parooli.'
-    max_registration: '&cSinu IP-aadressile on registreeritud liiga palju kasutajaid! (%reg_count/%max_acc %reg_names)'
     no_permission: '&4Sul puudub selle käskluse kasutamiseks luba.'
     unexpected_error: '&4Esines ootamatu tõrge, palun teavita administraatorit!'
-    kick_for_vip: '&3VIP-mängija liitus serveriga ajal, mil see oli täis!'
+    max_registration: '&cSinu IP-aadressile on registreeritud liiga palju kasutajaid! (%reg_count/%max_acc %reg_names)'
     logged_in: '&cSa oled juba sisselogitud!'
+    kick_for_vip: '&3VIP-mängija liitus serveriga ajal, mil see oli täis!'
     kick_unresolved_hostname: '&cEsines tõrge: mängija hostinimi on lahendamata!'
+    tempban_max_logins: '&cSind on ajutiselt serverist blokeeritud, kuna sisestasid mitu korda vale parooli.'
 
 # AntiBot
 antibot:
@@ -49,57 +50,59 @@ antibot:
     auto_enabled: '&4[AntiBotTeenus] AntiBot sisselülitatud!'
     auto_disabled: '&2[AntiBotTeenus] AntiBot välja lülitatud peale %m minutit!'
 
+# Unregister
 unregister:
     success: '&cKasutaja edukalt kustutatud!'
     command_usage: '&cKasutus: /unregister <parool>'
 
 # Other messages
 misc:
-    accounts_owned_self: 'Sa omad %count kontot:'
-    accounts_owned_other: 'Mängijal %name on %count kontot:'
     account_not_activated: '&cSinu konto ei ole veel aktiveeritud, kontrolli oma meili!'
+    not_activated: '&cKonto ei ole aktiveeritud, palun registreerige ja aktiveerige see enne uuesti proovimist.'
     password_changed: '&2Parool edukalt vahetatud!'
     logout: '&2Edukalt välja logitud!'
     reload: '&2Seadistused ning andmebaas on edukalt taaslaaditud!'
     usage_change_password: '&cKasutus: /changepassword <vanaParool> <uusParool>'
+    accounts_owned_self: 'Sa omad %count kontot:'
+    accounts_owned_other: 'Mängijal %name on %count kontot:'
 
 # Session messages
 session:
-    invalid_session: '&cSinu IP-aadress muutus, seega sinu sessioon aegus!'
     valid_session: '&2Sisse logitud sessiooni jätkumise tõttu.'
+    invalid_session: '&cSinu IP-aadress muutus, seega sinu sessioon aegus!'
 
 # Error messages when joining
 on_join_validation:
+    same_ip_online: 'Sama IP-aadressiga mängija juba mängib!'
+    same_nick_online: '&4Sama kasutaja on juba serveriga ühendatud!'
     name_length: '&4Sinu kasutajanimi on liiga pikk või liiga lühike!'
     characters_in_name: '&4Sinu kasutajanimi sisaldab keelatud tähemärke. Lubatud tähemärgid: %valid_chars'
     country_banned: '&4Sinu riigist ei ole võimalik sellesse serverisse ühenduda!'
     not_owner_error: 'Sa ei ole selle konto omanik. Vali teine nimi!'
     kick_full_server: '&4Server on täis, proovi hiljem uuesti!'
-    same_nick_online: '&4Sama kasutaja on juba serveriga ühendatud!'
     invalid_name_case: 'Sa peaksid liituma nimega %valid, mitte nimega %invalid.'
-    same_ip_online: 'Sama IP-aadressiga mängija juba mängib!'
     quick_command: 'Sa kasutasid käsklust liiga kiiresti! Palun liitu serveriga uuesti ning oota enne mõne käskluse kasutamist kauem.'
 
 # Email
 email:
+    add_email_request: '&3Palun seo oma kasutajaga meiliaadress kasutades käsklust: /email add <sinuEmail> <kinnitaEmail>'
     usage_email_add: '&cKasutus: /email add <email> <kinnitaEmail>'
     usage_email_change: '&cKasutus: /email change <vanaEmail> <uusEmail>'
     new_email_invalid: '&cUus meiliaadress on sobimatu, proovi uuesti!'
     old_email_invalid: '&cVana meiliaadress on sobimatu, proovi uuesti!'
     invalid: '&cSobimatu meiliaadress, proovi uuesti!'
     added: '&2Meiliaadress edukalt lisatud!'
+    add_not_allowed: '&cMeiliaadressi lisamine ei ole lubatud.'
     request_confirmation: '&cPalun kinnita oma meiliaadress!'
     changed: '&2Meiliaadress edukalt muudetud!'
+    change_not_allowed: '&cMeiliaadressi muutmine ei ole lubatud.'
     email_show: '&2Sinu praegune meiliaadress on: &f%email'
-    incomplete_settings: 'Viga: meili saatmiseks pole kõik vajalikud seaded seadistatud. Teata sellest administraatorit.'
-    already_used: '&4See meiliaadress on juba kasutuses!'
-    send_failure: 'Meili ei õnnestunud saata. Teata sellest administraatorit.'
     no_email_for_account: '&2Selle kasutajaga ei ole seotud ühtegi meiliaadressi.'
-    add_email_request: '&3Palun seo oma kasutajaga meiliaadress kasutades käsklust: /email add <sinuEmail> <kinnitaEmail>'
+    already_used: '&4See meiliaadress on juba kasutuses!'
+    incomplete_settings: 'Viga: meili saatmiseks pole kõik vajalikud seaded seadistatud. Teata sellest administraatorit.'
+    send_failure: 'Meili ei õnnestunud saata. Teata sellest administraatorit.'
     change_password_expired: 'Selle käsklusega ei saa sa enam parooli muuta.'
     email_cooldown_error: '&cMeil on juba saadetud. Sa pead ootama %time enne kui saad küsida uue saatmist.'
-    add_not_allowed: '&cMeiliaadressi lisamine ei ole lubatud.'
-    change_not_allowed: '&cMeiliaadressi muutmine ei ole lubatud.'
 
 # Password recovery by email
 recovery:
@@ -131,6 +134,17 @@ verification:
     code_expired: '&3Kood on aegunud! Kasuta mõnda ohtlikku käsklust, et saada uus kood!'
     email_needed: '&3Konto kinnitamiseks pead siduma oma kontoga enda meiliaadressi!'
 
+# Time units
+time:
+  second: 'sekund'
+  seconds: 'sekundit'
+  minute: 'minut'
+  minutes: 'minutit'
+  hour: 'tund'
+  hours: 'tundi'
+  day: 'päev'
+  days: 'päeva'
+
 # Two-factor authentication
 two_factor:
     code_created: '&2Sinu privaatne kood on %code. Sa saad selle skännida aadressil %url'
@@ -144,13 +158,27 @@ two_factor:
     removed_success: 'Sinu kontolt on edukalt eemaldatud kaheastmeline autentimine.'
     invalid_code: 'Vale kood!'
 
-# Time units
-time:
-    second: 'sekund'
-    seconds: 'sekundit'
-    minute: 'minut'
-    minutes: 'minutit'
-    hour: 'tund'
-    hours: 'tundi'
-    day: 'päev'
-    days: 'päeva'
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aKinnitamine õnnestus!'
+  bedrock_auto_verify_success: '&aBedrocki kinnitamine õnnestus!'
+  captcha_window_name: '%random Kinnitus'
+  captcha_clickable_name: '%random Ma olen inimene'
+  message_on_retry: '&cKinnitamine ebaõnnestus, teil on jäänud %times katset'
+  denied_message_sending: '&cPalun kinnitage end enne vestlemist!'
+  kick_on_failed: '&cPalun viige kinnitus lõpule!'
+  kick_on_timeout: '&cKinnitamise aeg on läbi!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrocki automaatne sisselogimine õnnestus!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aOlete sisselogimise ajal portaalis kinni.'
+  fix_underground: '&aOlete sisselogimise ajal maa all kinni.'
+  cannot_fix_underground: '&aOlete sisselogimise ajal maa all kinni, kuid me ei saa seda parandada.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cTeid on ühendatud lahti kahekordse sisselogimise tõttu.'

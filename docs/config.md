@@ -2,6 +2,7 @@
 <!-- File auto-generated on Wed May 29 21:00:00 CST 2024. See docs/config/config.tpl.md -->
 
 ## AuthMe Configuration
+
 The first time you run AuthMe it will create a config.yml file in the plugins/AuthMe folder,
 with which you can configure various settings. The following is the initial contents of
 the generated config.yml file.
@@ -689,4 +690,6 @@ To change settings on a running server, save your changes to config.yml and use
 
 ---
 
-This page was automatically generated on the [HaHaWTH/AuthMeReReloaded repository](https://github.com/HaHaWTH/AuthMeReReloaded/tree/master/docs/) on Wed May 29 21:00:00 CST 2024
+This page was automatically generated on
+the [HaHaWTH/AuthMeReReloaded repository](https://github.com/HaHaWTH/AuthMeReReloaded/tree/master/docs/) on Wed May 29
+21:00:00 CST 2024
