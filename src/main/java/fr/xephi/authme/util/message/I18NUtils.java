@@ -7,11 +7,14 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class I18NUtils {
 
     private static Method spigotGetLocale;
+    private static final Map<String, String> LOCALE_MAP = new HashMap<>();
     private static final List<String> LOCALE_LIST = Arrays.asList(
         "en", "bg", "de", "eo", "es", "et", "eu", "fi", "fr", "gl", "hu", "id", "it", "ja", "ko", "lt", "nl", "pl",
         "pt", "ro", "ru", "sk", "sr", "tr", "uk"
@@ -24,6 +27,20 @@ public class I18NUtils {
         } catch (NoSuchMethodException e) {
             spigotGetLocale = null;
         }
+
+        LOCALE_MAP.put("pt_br", "br");
+        LOCALE_MAP.put("cs_cz", "cz");
+        LOCALE_MAP.put("nds_de", "de");
+        LOCALE_MAP.put("sxu", "de");
+        LOCALE_MAP.put("swg", "de");
+        LOCALE_MAP.put("rpr", "ru");
+        LOCALE_MAP.put("sl_si", "si");
+        LOCALE_MAP.put("vi_vn", "vn");
+        LOCALE_MAP.put("lzh", "zhcn");
+        LOCALE_MAP.put("zh_cn", "zhcn");
+        LOCALE_MAP.put("zh_hk", "zhhk");
+        LOCALE_MAP.put("zh_tw", "zhtw");
+        // LOCALE_MAP.put("zhmc", "zhmc");
     }
 
     /**
@@ -64,30 +81,8 @@ public class I18NUtils {
         }
 
         // Match certain locale code
-        switch (locale) {
-            case "pt_br":
-                return "br";
-            case "cs_cz":
-                return "cz";
-            case "nds_de":
-            case "sxu":
-            case "swg":
-                return "de";
-            case "rpr":
-                return "ru";
-            case "sl_si":
-                return "si";
-            case "vi_vn":
-                return "vn";
-            case "lzh":
-            case "zh_cn":
-                return "zhcn";
-            case "zh_hk":
-                return "zhhk";
-            case "zh_tw":
-                return "zhtw";
-            //case "zhmc":
-            //    return "zhmc";
+        if (LOCALE_MAP.containsKey(locale)) {
+            return LOCALE_MAP.get(locale);
         }
 
         if (locale.contains("_")) {
