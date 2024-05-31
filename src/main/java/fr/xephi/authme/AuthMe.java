@@ -214,8 +214,11 @@ public class AuthMe extends JavaPlugin {
         }
         //detect server brand with classloader
         checkServerType();
-        Objects.requireNonNull(getCommand("register")).setTabCompleter(new TabCompleteHandler());
-        Objects.requireNonNull(getCommand("login")).setTabCompleter(new TabCompleteHandler());
+        try {
+            Objects.requireNonNull(getCommand("register")).setTabCompleter(new TabCompleteHandler());
+            Objects.requireNonNull(getCommand("login")).setTabCompleter(new TabCompleteHandler());
+        } catch (NullPointerException ignored) {
+        }
         logger.info("AuthMeReReloaded is enabled successfully!");
         // Purge on start if enabled
         PurgeService purgeService = injector.getSingleton(PurgeService.class);
@@ -394,7 +397,7 @@ public class AuthMe extends JavaPlugin {
         if (onShutdownPlayerSaver != null) {
             onShutdownPlayerSaver.saveAllPlayers();
         }
-        if (settings.getProperty(EmailSettings.SHUTDOWN_MAIL)){
+        if (settings != null && settings.getProperty(EmailSettings.SHUTDOWN_MAIL)) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy'.'MM'.'dd'.' HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             emailService.sendShutDown(settings.getProperty(EmailSettings.SHUTDOWN_MAIL_ADDRESS),dateFormat.format(date));
