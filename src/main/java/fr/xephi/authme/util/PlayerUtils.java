@@ -10,7 +10,6 @@ public final class PlayerUtils {
     // Utility class
     private PlayerUtils() {
     }
-
     private static final boolean IS_LEAVES_SERVER = Utils.isClassLoaded("top.leavesmc.leaves.LeavesConfig");
 
     /**
@@ -36,4 +35,5 @@ public final class PlayerUtils {
             return player.hasMetadata("NPC");
         }
     }
+
 }
