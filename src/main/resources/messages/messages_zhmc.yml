@@ -9,7 +9,7 @@ registration:
     name_taken: '&c您已經註冊此用戶名!'
     register_request: '&3[請先注冊] 請按T , 然後輸入 "/register [你的密碼] [重覆確認你的密碼]" 來注冊。'
     command_usage: '&c使用方法: 輸入"/register [你的密碼] [重覆確認你的密碼]"'
-    reg_only: '&4只有註冊用戶才能加入服務器！ 請訪問http://example.com註冊！'
+    reg_only: '&4只有註冊用戶才能加入服務器！ 請訪問https://example.com註冊！'
     success: '&2已成功註冊!'
     kicked_admin_registered: '管理員剛剛註冊了您; 請重新登錄。'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&c所選的你的密碼並不安全的，請選擇另一個...'
     forbidden_characters: '&4您的密碼含有非法字符。允許的字符：%valid_chars'
     wrong_length: '&c你的密碼太短或太長!請嘗試另一個!'
+    pwned_password: '&c你使用的密碼並不安全。它已經被使用了 %pwned_count 次! 請使用一個更強大的密碼...'
 
 # Login
 login:
@@ -40,7 +41,7 @@ error:
     max_registration: '&c您已超過註冊的最大數量(%reg_count/%max_acc %reg_names)!'
     logged_in: '&c您已經登錄!'
     kick_for_vip: '&3一名VIP玩家在服務器已滿時已加入伺服器!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&c發生了一個錯誤: 無法解析玩家的主機名'
     tempban_max_logins: '&c由於登錄失敗次數過多，您已被暫時禁止。'
 
 # AntiBot
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&c你的帳戶未激活,請確認電郵!'
+    not_activated: '&c賬戶未激活,請註冊激活後再次嘗試.'
     password_changed: '&2密碼已更變!'
     logout: '&2已成功註銷!'
     reload: '&2伺服器已正確地被重新加載配置和數據庫！'
@@ -79,7 +81,7 @@ on_join_validation:
     country_banned: '&4您的國家/地區已被禁止使用此伺服器!'
     not_owner_error: '您不是此帳戶的所有者。 請選擇其他名稱!'
     invalid_name_case: '您應該使用用戶名 %valid 而不是 %invalid 來加入。'
-    # TODO quick_command: 'You used a command too fast! Please, join the server again and wait more before using any command.'
+    quick_command: '&c您發送命令的速度太快了,請重新加入伺服器等待一會後再使用命令'
 
 # Email
 email:
@@ -90,17 +92,17 @@ email:
     old_email_invalid: '&c舊電子郵件地址無效，請重試!'
     invalid: '&c電子郵件地址無效，請重試!'
     added: '&2電子郵件地址已成功添加到您的帳戶!'
-    # TODO add_not_allowed: '&cAdding email was not allowed'
+    add_not_allowed: '&c伺服器不允許添加電子郵箱'
     request_confirmation: '&c請確認你的電郵地址!'
     changed: '&2已正確地更改電子郵件地址!'
-    # TODO change_not_allowed: '&cChanging email was not allowed'
-    # TODO email_show: '&2Your current email address is: &f%email'
-    # TODO no_email_for_account: '&2You currently don''t have email address associated with this account.'
+    change_not_allowed: '&c伺服器不允許修改郵箱地址'
+    email_show: '&a該賬戶使用的電子郵箱為: &a%email'
+    no_email_for_account: '&c當前並沒有任何郵箱與該賬戶綁定'
     already_used: '&4此電子郵件地址已被使用'
     incomplete_settings: '缺少必要的配置來為發送電子郵件。請聯繫管理員。'
-    # TODO send_failure: 'The email could not be sent. Please contact an administrator.'
-    # TODO change_password_expired: 'You cannot change your password using this command anymore.'
-    # TODO email_cooldown_error: '&cAn email was already sent recently. You must wait %time before you can send a new one.'
+    send_failure: '&c郵件已被作廢,請檢查您的郵箱是否正常工作.'
+    change_password_expired: '&c您不能使用此命令更改密碼'
+    email_cooldown_error: '&c您需要等待 %time 後才能再次請求發送'
 
 # Password recovery by email
 recovery:
@@ -110,48 +112,73 @@ recovery:
     code:
         code_sent: '已將重設密碼的恢復代碼發送到您的電子郵件。'
         incorrect: '恢復代碼錯誤!使用指令: "/email recovery [電郵地址]" 生成新的一個恢復代碼。'
-        # TODO tries_exceeded: 'You have exceeded the maximum number attempts to enter the recovery code. Use "/email recovery [email]" to generate a new one.'
-        # TODO correct: 'Recovery code entered correctly!'
-        # TODO change_password: 'Please use the command /email setpassword <new password> to change your password immediately.'
+        tries_exceeded: '&a您已經達到輸入驗證碼次數的最大允許次數.'
+        correct: '&a*** 驗證通過 ***'
+        change_password: '&c請使用 /email setpassword <新密碼> 立即設置新的密碼'
 
 # Captcha
 captcha:
     usage_captcha: '&3T要登錄您必須使用captcha驗證碼,請使用命令: "/captcha %captcha_code"'
     wrong_captcha: '&c驗證碼錯誤!請按T在聊天中輸入 "/captcha %captcha_code"'
     valid_captcha: '&2驗證碼正確!'
-    # TODO captcha_for_registration: 'To register you have to solve a captcha first, please use the command: /captcha %captcha_code'
-    # TODO register_captcha_valid: '&2Valid captcha! You may now register with /register'
+    captcha_for_registration: '&7請輸入 /captcha %captcha_code 來驗證操作.'
+    register_captcha_valid: '&a驗證通過, 現在可以使用 /register 註冊啦!'
 
 # Verification code
 verification:
-    # TODO code_required: '&3This command is sensitive and requires an email verification! Check your inbox and follow the email''s instructions.'
-    # TODO command_usage: '&cUsage: /verification <code>'
-    # TODO incorrect_code: '&cIncorrect code, please type "/verification <code>" into the chat, using the code you received by email'
-    # TODO success: '&2Your identity has been verified! You can now execute all commands within the current session!'
-    # TODO already_verified: '&2You can already execute every sensitive command within the current session!'
-    # TODO code_expired: '&3Your code has expired! Execute another sensitive command to get a new code!'
-    # TODO email_needed: '&3To verify your identity you need to link an email address with your account!!'
+    code_required: '&a*** 已發送驗證郵件 ***'
+    command_usage: '&c使用方法:/verification <驗證碼>'
+    incorrect_code: '&c錯誤的驗證碼.'
+    success: '&a*** 驗證通過 ***'
+    already_verified: '&a您已經通過驗證'
+    code_expired: '&c驗證碼已失效'
+    email_needed: '&c郵箱未綁定'
 
 # Time units
 time:
-    # TODO second: 'second'
-    # TODO seconds: 'seconds'
-    # TODO minute: 'minute'
-    # TODO minutes: 'minutes'
-    # TODO hour: 'hour'
-    # TODO hours: 'hours'
-    # TODO day: 'day'
-    # TODO days: 'days'
+    second: '秒'
+    seconds: '秒'
+    minute: '分'
+    minutes: '分'
+    hour: '時'
+    hours: '時'
+    day: '天'
+    days: '天'
 
 # Two-factor authentication
 two_factor:
     code_created: '&2您的密碼是 %code。您可以從這裡掃描 %url'
-    # TODO confirmation_required: 'Please confirm your code with /2fa confirm <code>'
-    # TODO code_required: 'Please submit your two-factor authentication code with /2fa code <code>'
-    # TODO already_enabled: 'Two-factor authentication is already enabled for your account!'
-    # TODO enable_error_no_code: 'No 2fa key has been generated for you or it has expired. Please run /2fa add'
-    # TODO enable_success: 'Successfully enabled two-factor authentication for your account'
-    # TODO enable_error_wrong_code: 'Wrong code or code has expired. Please run /2fa add'
-    # TODO not_enabled_error: 'Two-factor authentication is not enabled for your account. Run /2fa add'
-    # TODO removed_success: 'Successfully removed two-factor auth from your account'
-    # TODO invalid_code: 'Invalid code!'
+    confirmation_required: '&7請輸入“/totp confirm <驗證碼>”來確認啟動雙重驗證'
+    code_required: '&c請輸入“/totp code <驗證碼>”來提交驗證碼'
+    already_enabled: '&a雙重驗證已啟用'
+    enable_error_no_code: '&c驗證碼丟失'
+    enable_success: '&a已成功啟用雙重驗證'
+    enable_error_wrong_code: '&c驗證碼錯誤或者已經過期,請重新執行“/totp add”'
+    not_enabled_error: '&c雙重驗證未在您的賬號上啟用,請使用“/totp add”來啟用'
+    removed_success: '&c雙重驗證已從您的賬號上禁用'
+    invalid_code: '&c無效的驗證碼'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&a*** 驗證完成 ***'
+  bedrock_auto_verify_success: '&a*** 基岩版自動驗證完成 ***'
+  captcha_window_name: '&k%random&r&n請驗證你是真人'
+  captcha_clickable_name: '&k%random&r&n我是真人'
+  message_on_retry: '&c驗證失敗,你還有 %times 次機會'
+  denied_message_sending: '&c請先完成驗證再聊天!'
+  kick_on_failed: '&c請先完成驗證!'
+  kick_on_timeout: '&c驗證超時'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: "&a基岩版自動登錄完成"
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&a你在登錄時卡在了地獄門, 現已修正'
+  fix_underground: '&a你被埋住了, 坐標已修正, 下次下線之前請小心!'
+  cannot_fix_underground: '&a你被埋住了, 坐標無法修正, 只好送你去了最高點, 自求多福吧少年~'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&a已修復幽靈玩家, 請重新進入'

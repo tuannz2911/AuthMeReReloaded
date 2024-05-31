@@ -9,7 +9,7 @@ registration:
     name_taken: '&cKorisnik je već registrovan!'
     register_request: '&3Molimo Vas, registrujte se na server komandom: /register <lozinka> <PotvrditeLozinku>'
     command_usage: '&cUpotreba: /register <lozinka> <PotvrditeLozinku>'
-    reg_only: '&4Samo registrovani igrači mogu ući na server! Molimo Vas posetite http://example.com da biste se registrovali!'
+    reg_only: '&4Samo registrovani igrači mogu ući na server! Molimo Vas posetite https://example.com da biste se registrovali!'
     success: '&2Uspešno registrovani!'
     kicked_admin_registered: 'Admin vas je upravo registrovao; molimo Vas uđite ponovo'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cIzabrana lozinka nije bezbedna, molimo vas da izaberete drugu...'
     forbidden_characters: '&4Vaša lozinka sadrži nedozvoljene karaktere. Dozvoljeni karakteri: %valid_chars'
     wrong_length: '&cVaša lozinka je prekratka ili predugačka! Molimo Vas da probate drugu!'
+    pwned_password: '&cVaša izabrana lozinka nije sigurna. Već je korišćena %pwned_count puta! Molimo koristite jaku lozinku...'
 
 # Login
 login:
@@ -40,7 +41,7 @@ error:
     max_registration: '&cDostigli ste maksimalan broj registracija (%reg_count/%max_acc %reg_names) za vaše povezivanje!'
     logged_in: '&cVeć ste ulogovani!'
     kick_for_vip: '&3VIP igrač je ušao na server dok je bio pun!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&cDošlo je do greške: nerešeno ime domaćina igrača!'
     tempban_max_logins: '&cPrivremeno ste banovani zbog previše pogrešnih pokušaja ulogovanja.'
 
 # AntiBot
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cVaš nalog još uvek nije aktiviran, molimo Vas proverite svoj email!'
+    not_activated: '&cNalog nije aktiviran, molimo registrujte se i aktivirajte pre nego što pokušate ponovo.'
     password_changed: '&2Lozinka uspešno promenjena!'
     logout: '&2Uspešno ste se odlogovali!'
     reload: '&2Konfiguracija i databaza su uspešno osveženi!'
@@ -155,3 +157,28 @@ two_factor:
     not_enabled_error: 'Dvo-faktorna autentifikacija nije aktivirana za vaš nalog. Kucajte /2fa add'
     removed_success: 'Uspešno ste uklonili dvo-faktornu autentifikaciju sa vašeg naloga'
     invalid_code: 'Nevažeći kod!'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aVerifikacija uspešna!'
+  bedrock_auto_verify_success: '&aBedrock verifikacija uspešna!'
+  captcha_window_name: '%random Verifikacija'
+  captcha_clickable_name: '%random Ja sam čovek'
+  message_on_retry: '&cVerifikacija nije uspela, imate još %times pokušaja'
+  denied_message_sending: '&cMolimo vas da se verifikujete pre nego što šaljete poruke!'
+  kick_on_failed: '&cMolimo završite verifikaciju!'
+  kick_on_timeout: '&cVerifikacija je istekla!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock automatsko prijavljivanje uspešno!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aZaglavljeni ste u portalu tokom prijavljivanja.'
+  fix_underground: '&aZaglavljeni ste pod zemljom tokom prijavljivanja.'
+  cannot_fix_underground: '&aZaglavljeni ste pod zemljom tokom prijavljivanja, ali ne možemo to popraviti.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cPrekinuti ste zbog duplog prijavljivanja.'
