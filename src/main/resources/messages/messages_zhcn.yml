@@ -190,5 +190,3 @@ login_location_fix:
 # 3rd party features: Double Login Fix
 double_login_fix:
   fix_message: '&a已修复幽灵玩家, 请重新进入'
-
-

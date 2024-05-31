@@ -9,7 +9,7 @@ registration:
     name_taken: '&cJe hebt deze gebruikersnaam al geregistreerd!'
     register_request: '&cRegistreer met het commando: /register <wachtwoord> <herhaal wachtwoord>'
     command_usage: '&cGebruik: /register <wachtwoord> <herhaal wachtwoord>'
-    reg_only: 'Alleen voor geregistreerde spelers! Bezoek http://example.com om te registreren!'
+    reg_only: 'Alleen voor geregistreerde spelers! Bezoek https://example.com om te registreren!'
     success: '&cSuccesvol geregistreerd!'
     kicked_admin_registered: 'Een administrator heeft je net geregistreerd; log alsjeblieft opnieuw in.'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&fDit wachtwoord is onveilig, kies een ander wachtwoord...'
     forbidden_characters: '&cJouw wachtwoord bevat ongeldige tekens. Toegestane karakters zijn: %valid_chars'
     wrong_length: 'Jouw gekozen wachtwoord voldoet niet aan de minimum of maximum lengte, kies een ander wachtwoord...'
+    pwned_password: '&cHet gekozen wachtwoord is niet veilig. Het is al %pwned_count keer gebruikt! Gebruik alstublieft een sterk wachtwoord...'
 
 # Login
 login:
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: 'Je account is nog niet geactiveerd, controleer je mailbox!'
+    not_activated: '&cAccount niet geactiveerd, registreer en activeer het alstublieft voordat u het opnieuw probeert.'
     password_changed: '&cWachtwoord succesvol aangepast!'
     logout: '&2Je bent succesvol uitgelogd!'
     reload: '&2De configuratie en database zijn succesvol herladen!'
@@ -155,3 +157,28 @@ two_factor:
     not_enabled_error: 'Twee-factor authenticatie is uitgeschakeld voor jou account. Voer "/2fa add" uit'
     removed_success: 'Twee-factor authenticatie is met succes van jouw account verwijderd.'
     invalid_code: 'Ongeldige code!'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aVerificatie gelukt!'
+  bedrock_auto_verify_success: '&aBedrock-verificatie gelukt!'
+  captcha_window_name: '%random Verificatie'
+  captcha_clickable_name: '%random Ik ben een mens'
+  message_on_retry: '&cVerificatie mislukt, u heeft nog %times pogingen over'
+  denied_message_sending: '&cGelieve geverifieerd te worden voordat u begint met chatten!'
+  kick_on_failed: '&cVoltooi alstublieft de verificatie!'
+  kick_on_timeout: '&cVerificatie is verlopen!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock automatisch inloggen gelukt!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aU zit vast in een portal tijdens het inloggen.'
+  fix_underground: '&aU zit vast onder de grond tijdens het inloggen.'
+  cannot_fix_underground: '&aU zit vast onder de grond tijdens het inloggen, maar we kunnen het niet repareren.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cU bent losgekoppeld vanwege een dubbele inlog.'

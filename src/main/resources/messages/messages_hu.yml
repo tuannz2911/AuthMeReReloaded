@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cA választott jelszó nem biztonságos, kérlek, válassz másikat...'
     forbidden_characters: '&4A választott jelszó nem engedélyezett karaktereket tartalmaz. Engedélyezett karakterek: %valid_chars'
     wrong_length: 'A jelszavad nem éri el a minimális hosszúságot!'
+    pwned_password: '&cA választott jelszavad nem biztonságos. Már %pwned_count alkalommal használták! Kérlek használj erős jelszót...'
 
 # Login
 login:
@@ -40,7 +41,7 @@ error:
     max_registration: '&cElérted a maximálisan beregisztrálható karakterek számát. (%reg_count/%max_acc %reg_names)'
     logged_in: '&cMár be vagy jelentkezve!'
     kick_for_vip: '&3VIP játékos csatlakozott a szerverhez!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&cHiba történt: feloldatlan játékos hosztnév!'
     tempban_max_logins: '&cIdeiglenesen ki lettél tiltva, mert túl sok alkalommal rontottad el a jelszavad!'
 
 # AntiBot
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cA felhasználód aktiválása még nem történt meg, ellenőrizd a megadott emailed!'
+    not_activated: '&cA fiók nincs aktiválva, kérlek regisztrálj és aktiváld azt mielőtt újra megpróbálkoznál.'
     password_changed: '&cA jelszó sikeresen megváltoztatva!'
     logout: '&cSikeresen kijelentkeztél!'
     reload: 'Beállítások és az adatbázis újratöltve!'
@@ -155,3 +157,28 @@ two_factor:
     not_enabled_error: 'Kétszámjegyű hitelesítés nincs engedélyezve a fiókodban. Futtasd a /2fa add'
     removed_success: 'Sikeresen eltávolítottad a fiók két számjegyű hitelesítőjét'
     invalid_code: 'Érvénytelen kód!'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aAz ellenőrzés sikeres!'
+  bedrock_auto_verify_success: '&aBedrock ellenőrzés sikeres!'
+  captcha_window_name: '%random Ellenőrzés'
+  captcha_clickable_name: '%random Ember vagyok'
+  message_on_retry: '&cAz ellenőrzés sikertelen, még %times próbálkozásod van hátra'
+  denied_message_sending: '&cKérlek, ellenőrizd magad a chat előtt!'
+  kick_on_failed: '&cKérlek, fejezd be az ellenőrzést!'
+  kick_on_timeout: '&cAz ellenőrzés időtúllépés miatt megszakadt!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock automatikus bejelentkezés sikeres!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aBeragadtál a portálban a bejelentkezés közben.'
+  fix_underground: '&aBeragadtál a föld alatt a bejelentkezés közben.'
+  cannot_fix_underground: '&aBeragadtál a föld alatt a bejelentkezés közben, de nem tudjuk megjavítani.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cKét bejelentkezés miatt lecsatlakoztattak.'

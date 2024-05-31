@@ -9,7 +9,7 @@ registration:
     name_taken: '&cKamu telah mendaftarkan username ini!'
     register_request: '&3Silahkan mendaftar ke server menggunakan perintah "/register <password> <ulangiPassword>"'
     command_usage: '&cPenggunaan: /register <password> <KonfirmasiPassword>'
-    reg_only: '&4Hanya pengguna terdaftar yang bisa bergabung! Silahkan kunjungi http://example.com untuk mendaftar!'
+    reg_only: '&4Hanya pengguna terdaftar yang bisa bergabung! Silahkan kunjungi https://example.com untuk mendaftar!'
     success: '&2Register berhasil!'
     kicked_admin_registered: 'Administrator sudah meregistrasi kamu; dimohon untuk login kembali'
 
@@ -40,7 +40,7 @@ error:
     max_registration: '&Kamu telah mencapai batas maksimum pendaftaran di server ini!'
     logged_in: '&cKamu telah login!'
     kick_for_vip: '&3Player VIP mencoba masuk pada saat server sedang penuh!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&cTerjadi kesalahan: nama host pemain tidak dapat dipecahkan!'
     tempban_max_logins: '&cKamu untuk sementara diblokir karena terlalu sering salah saat login.'
 
 # AntiBot
@@ -57,6 +57,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cAkunmu belum diaktifkan, silahkan periksa email kamu!'
+    not_activated: '&cAkun belum diaktifkan, silakan daftar dan aktivasi sebelum mencoba lagi.'
     password_changed: '&2Berhasil mengubah password!'
     logout: '&2Berhasil logout!'
     reload: '&2Konfigurasi dan database telah dimuat ulang!'
@@ -124,13 +125,13 @@ captcha:
 
 # Verification code
 verification:
-    # TODO code_required: '&3This command is sensitive and requires an email verification! Check your inbox and follow the email''s instructions.'
-    # TODO command_usage: '&cUsage: /verification <code>'
-    # TODO incorrect_code: '&cIncorrect code, please type "/verification <code>" into the chat, using the code you received by email'
-    # TODO success: '&2Your identity has been verified! You can now execute all commands within the current session!'
-    # TODO already_verified: '&2You can already execute every sensitive command within the current session!'
-    # TODO code_expired: '&3Your code has expired! Execute another sensitive command to get a new code!'
-    # TODO email_needed: '&3To verify your identity you need to link an email address with your account!!'
+    code_required: '&3Perintah ini sensitif dan memerlukan verifikasi email! Periksa kotak masuk Anda dan ikuti petunjuk email.'
+    command_usage: '&cPenggunaan: /verification <kode>'
+    incorrect_code: '&cKode salah, ketik "/verification <kode>" di chat, menggunakan kode yang Anda terima melalui email'
+    success: '&2Identitas Anda telah diverifikasi! Anda sekarang dapat menjalankan semua perintah dalam sesi saat ini!'
+    already_verified: '&2Anda sudah dapat menjalankan setiap perintah sensitif dalam sesi saat ini!'
+    code_expired: '&3Kode Anda telah kedaluwarsa! Jalankan perintah sensitif lain untuk mendapatkan kode baru!'
+    email_needed: '&3Untuk memverifikasi identitas Anda, Anda perlu menyambungkan alamat email dengan akun Anda!!'
 
 # Time units
 time:
@@ -155,3 +156,28 @@ two_factor:
     not_enabled_error: 'Autentikasi dua langkah tidak diaktifkan untuk akunmu. Jalankan /2fa add'
     removed_success: 'Sukses menghapus autentikasi dua langkah dari akunmu'
     invalid_code: 'Kode tidak valid!'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aVerifikasi berhasil!'
+  bedrock_auto_verify_success: '&aVerifikasi Bedrock berhasil!'
+  captcha_window_name: '%random Verifikasi'
+  captcha_clickable_name: '%random Saya manusia'
+  message_on_retry: '&cVerifikasi gagal, Anda memiliki %times percobaan lagi'
+  denied_message_sending: '&cHarap diverifikasi sebelum chatting!'
+  kick_on_failed: '&cHarap lengkapi verifikasi!'
+  kick_on_timeout: '&cWaktu verifikasi habis!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aLogin otomatis Bedrock berhasil!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aAnda terjebak di portal selama proses login.'
+  fix_underground: '&aAnda terjebak di bawah tanah selama proses login.'
+  cannot_fix_underground: '&aAnda terjebak di bawah tanah selama proses login, tetapi kami tidak dapat memperbaikinya.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cAnda telah terputus karena login ganda.'

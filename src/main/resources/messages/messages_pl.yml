@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cTwoje hasło nie jest bezpieczne, wybierz inne...'
     forbidden_characters: '&4W twoim haśle występują niedozwolone znaki, dozwolone znaki to: %valid_chars'
     wrong_length: '&fTwoje hasło jest za krótkie lub za długie! Spróbuj ponownie...'
+    pwned_password: '&cTwoje wybrane hasło nie jest bezpieczne. Zostało już użyte %pwned_count razy! Proszę użyj silnego hasła...'
 
 # Login
 login:
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&fTwoje konto nie zostało aktywowane! Sprawdź maila.'
+    not_activated: '&cKonto nieaktywowane, proszę zarejestruj się i aktywuj konto przed ponowną próbą.'
     password_changed: '&fHasło zostało zmienione!'
     logout: '&cPomyślnie wylogowany'
     reload: '&fKonfiguracja bazy danych została przeładowana.'
@@ -155,3 +157,28 @@ two_factor:
     not_enabled_error: 'Weryfikacja dwuetapowa nie jest włączona dla twojego konta. Wpisz komende /2fa add'
     removed_success: '&aPomyślnie usunięto weryfikacje dwuetapową z Twojego konta.'
     invalid_code: '&cWpisany kod jest nieprawidłowy, spróbuj jeszcze raz.'
+
+# 3rd party features: GUI Captcha
+gui_captcha:
+  success: '&aWeryfikacja udana!'
+  bedrock_auto_verify_success: '&aWeryfikacja Bedrocka udana!'
+  captcha_window_name: '%random Weryfikacja'
+  captcha_clickable_name: '%random Jestem człowiekiem'
+  message_on_retry: '&cWeryfikacja nie powiodła się, pozostało Ci %times prób'
+  denied_message_sending: '&cProszę zweryfikuj się przed rozpoczęciem czatu!'
+  kick_on_failed: '&cProszę ukończ weryfikację!'
+  kick_on_timeout: '&cCzas weryfikacji minął!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aAutomatyczne logowanie na Bedrocku udane!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aUtknąłeś w portalu podczas logowania.'
+  fix_underground: '&aUtknąłeś pod ziemią podczas logowania.'
+  cannot_fix_underground: '&aUtknąłeś pod ziemią podczas logowania, ale nie możemy tego naprawić.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cZostałeś rozłączony z powodu podwójnego logowania.'
