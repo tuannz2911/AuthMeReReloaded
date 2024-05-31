@@ -64,12 +64,7 @@ import static org.bukkit.Bukkit.getServer;
 /**
  * Listener class for player events.
  */
-public class PlayerListener implements Listener{
-    private final AuthMeApi authmeApi = AuthMeApi.getInstance();
-
-
-
-
+public class PlayerListener implements Listener {
     @Inject
     private Settings settings;
     @Inject
@@ -508,9 +503,8 @@ public class PlayerListener implements Listener{
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInventoryOpen(InventoryOpenEvent event) {
         final HumanEntity player = event.getPlayer();
-        Player ply = (Player) event.getPlayer();
         if (listenerService.shouldCancelEvent(player)
-            && !isInventoryWhitelisted(event.getView()) && listenerService.shouldCancelInvEvent(ply)) {
+            && !isInventoryWhitelisted(event.getView())) {
             event.setCancelled(true);
 
             /*

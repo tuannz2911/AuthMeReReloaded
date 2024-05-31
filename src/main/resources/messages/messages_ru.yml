@@ -155,17 +155,6 @@ time:
   day: 'дн.'
   days: 'дн.'
   
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aВы успешно прошли проверку на робота!'
-  bedrock_auto_verify_success: '&aВы обошли проверку на робота потому что вы играете с Bedrock!'
-  captcha_window_name: '%random Верификация'
-  captcha_clickable_name: '%random Я человек'
-  message_on_retry: '&cНеверно! %times попыток осталось'
-  denied_message_sending: '&cНеобходимо верифицироваться, чтобы писать в чат!'
-  kick_on_failed: '&cВы провалили верификацию!'
-  kick_on_timeout: '&cВремя верификации истекло!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aВы автоматически авторизовались потому что вы играете с Bedrock!'
