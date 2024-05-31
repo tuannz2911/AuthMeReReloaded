@@ -19,8 +19,8 @@ import fr.xephi.authme.settings.SpawnLoader;
 import fr.xephi.authme.settings.properties.HooksSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
-import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.TeleportUtils;
+import fr.xephi.authme.util.message.MiniMessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
@@ -220,7 +220,7 @@ public class PlayerListener implements Listener{
 
         String customJoinMessage = settings.getProperty(RegistrationSettings.CUSTOM_JOIN_MESSAGE);
         if (!customJoinMessage.isEmpty()) {
-            customJoinMessage = ChatColor.translateAlternateColorCodes('&', customJoinMessage);
+            customJoinMessage = ChatColor.translateAlternateColorCodes('&', MiniMessageUtils.parseMiniMessageToLegacy(customJoinMessage));
             event.setJoinMessage(customJoinMessage
                 .replace("{PLAYERNAME}", player.getName())
                 .replace("{DISPLAYNAME}", player.getDisplayName())
@@ -375,17 +375,9 @@ public class PlayerListener implements Listener{
         Location spawn = spawnLoader.getSpawnLocation(player);
         if (spawn != null && spawn.getWorld() != null) {
             if (!player.getWorld().equals(spawn.getWorld())) {
-                if(settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
-                    TeleportUtils.teleport(player,spawn);
-                } else {
-                    player.teleport(spawn);
-                }
+                TeleportUtils.teleport(player,spawn);
             } else if (spawn.distance(player.getLocation()) > settings.getProperty(ALLOWED_MOVEMENT_RADIUS)) {
-                if(settings.getProperty(SecuritySettings.SMART_ASYNC_TELEPORT)) {
-                    TeleportUtils.teleport(player,spawn);
-                } else {
-                    player.teleport(spawn);
-                }
+                TeleportUtils.teleport(player,spawn);
             }
         }
     }

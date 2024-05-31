@@ -48,11 +48,6 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Boolean> ADVANCED_SHULKER_FIX =
         newProperty("3rdPartyFeature.fixes.advancedShulkerFix", false);
 
-    @Comment({"Choose the best teleport method by server brand?",
-        "(Enable this if you are using Paper/Folia)"})
-    public static final Property<Boolean> SMART_ASYNC_TELEPORT =
-        newProperty("3rdPartyFeature.optimizes.smartAsyncTeleport", true);
-
     @Comment("Send a GUI captcha to unregistered players?(Requires ProtocolLib)")
     public static final Property<Boolean> GUI_CAPTCHA =
         newProperty("3rdPartyFeature.features.captcha.guiCaptcha", false);

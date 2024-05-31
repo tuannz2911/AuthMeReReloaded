@@ -58,7 +58,7 @@ public final class ProtectionSettings implements SettingsHolder {
 
     @Comment("Kicks the player that issued a command before the defined time after the join process")
     public static final Property<Integer> QUICK_COMMANDS_DENIED_BEFORE_MILLISECONDS =
-        newProperty("Protection.quickCommands.denyCommandsBeforeMilliseconds", 3000);
+        newProperty("Protection.quickCommands.denyCommandsBeforeMilliseconds", 1000);
 
     private ProtectionSettings() {
     }
