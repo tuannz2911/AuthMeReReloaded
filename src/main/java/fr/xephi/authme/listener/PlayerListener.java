@@ -1,6 +1,5 @@
 package fr.xephi.authme.listener;
 
-import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.data.QuickCommandsProtectionManager;
 import fr.xephi.authme.data.auth.PlayerAuth;
 import fr.xephi.authme.datasource.DataSource;
@@ -188,7 +187,6 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        final AuthMeApi authmeApi = AuthMeApi.getInstance();
         if (!PlayerListener19Spigot.isPlayerSpawnLocationEventCalled()) {
             teleportationService.teleportOnJoin(player);
         }
@@ -491,6 +489,7 @@ public class PlayerListener implements Listener {
         }
     }
 
+    @SuppressWarnings("all")
     private boolean isInventoryWhitelisted(InventoryView inventory) {
         if (inventory == null) {
             return false;

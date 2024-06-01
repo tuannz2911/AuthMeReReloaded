@@ -149,7 +149,6 @@ public class MessageUpdater {
             .put("verification", "Verification code")
             .put("time", "Time units")
             .put("two_factor", "Two-factor authentication")
-            .put("gui_captcha", "3rd party features: GUI Captcha")
             .put("bedrock_auto_login", "3rd party features: Bedrock Auto Login")
             .put("login_location_fix", "3rd party features: Login Location Fix")
             .put("double_login_fix", "3rd party features: Double Login Fix")
@@ -171,7 +170,7 @@ public class MessageUpdater {
 
         // Create ConfigurationData instance
         Map<String, List<String>> commentsMap = comments.entrySet().stream()
-            .collect(Collectors.toMap(e -> e.getKey(), e -> singletonList(e.getValue())));
+            .collect(Collectors.toMap(Map.Entry::getKey, e -> singletonList(e.getValue())));
         return new MessageKeyConfigurationData(builder, commentsMap);
     }
 
