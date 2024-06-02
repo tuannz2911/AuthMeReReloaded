@@ -1,6 +1,5 @@
 package fr.xephi.authme.listener;
 
-import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.data.QuickCommandsProtectionManager;
 import fr.xephi.authme.data.auth.PlayerAuth;
 import fr.xephi.authme.datasource.DataSource;
@@ -64,12 +63,7 @@ import static org.bukkit.Bukkit.getServer;
 /**
  * Listener class for player events.
  */
-public class PlayerListener implements Listener{
-    private final AuthMeApi authmeApi = AuthMeApi.getInstance();
-
-
-
-
+public class PlayerListener implements Listener {
     @Inject
     private Settings settings;
     @Inject
@@ -193,7 +187,6 @@ public class PlayerListener implements Listener{
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        final AuthMeApi authmeApi = AuthMeApi.getInstance();
         if (!PlayerListener19Spigot.isPlayerSpawnLocationEventCalled()) {
             teleportationService.teleportOnJoin(player);
         }
@@ -496,6 +489,7 @@ public class PlayerListener implements Listener{
         }
     }
 
+    @SuppressWarnings("all")
     private boolean isInventoryWhitelisted(InventoryView inventory) {
         if (inventory == null) {
             return false;
@@ -508,9 +502,8 @@ public class PlayerListener implements Listener{
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInventoryOpen(InventoryOpenEvent event) {
         final HumanEntity player = event.getPlayer();
-        Player ply = (Player) event.getPlayer();
         if (listenerService.shouldCancelEvent(player)
-            && !isInventoryWhitelisted(event.getView()) && listenerService.shouldCancelInvEvent(ply)) {
+            && !isInventoryWhitelisted(event.getView())) {
             event.setCancelled(true);
 
             /*

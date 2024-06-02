@@ -1,14 +1,11 @@
 package fr.xephi.authme.listener;
 
-import fr.xephi.authme.AuthMe;
-import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.datasource.DataSource;
 import fr.xephi.authme.initialization.SettingsDependent;
 import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
-import fr.xephi.authme.settings.properties.SecuritySettings;
 import fr.xephi.authme.util.PlayerUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -21,7 +18,6 @@ import javax.inject.Inject;
  * Service class for the AuthMe listeners to determine whether an event should be canceled.
  */
 class ListenerService implements SettingsDependent {
-    private final AuthMeApi authmeApi = AuthMeApi.getInstance();
     private final DataSource dataSource;
     private final PlayerCache playerCache;
     private final ValidationService validationService;
@@ -84,14 +80,6 @@ class ListenerService implements SettingsDependent {
 
         return player != null && !checkAuth(player.getName()) && !PlayerUtils.isNpc(player);
     }
-    public boolean shouldCancelInvEvent(Player player) {
-        try {
-            return !AuthMe.settings.getProperty(SecuritySettings.GUI_CAPTCHA) || authmeApi.isRegistered(player.getName()) || GuiCaptchaHandler.closeReasonMap.containsKey(player)/* || !player.getOpenInventory().getTitle().equals("请验证你是真人")*/;
-        } catch (Exception e) {
-            return true;
-        }
-    }
-
     @Override
     public void reload(Settings settings) {
         isRegistrationForced = settings.getProperty(RegistrationSettings.FORCE);

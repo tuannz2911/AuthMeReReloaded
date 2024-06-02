@@ -6,10 +6,8 @@ import ch.jalu.configme.properties.Property;
 import fr.xephi.authme.security.HashAlgorithm;
 import fr.xephi.authme.settings.EnumSetProperty;
 
-import java.util.List;
 import java.util.Set;
 
-import static ch.jalu.configme.properties.PropertyInitializer.newListProperty;
 import static ch.jalu.configme.properties.PropertyInitializer.newLowercaseStringSetProperty;
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
@@ -20,11 +18,6 @@ public final class SecuritySettings implements SettingsHolder {
         "AuthMe will automatically disable and the server won't be protected!"})
     public static final Property<Boolean> STOP_SERVER_ON_PROBLEM =
         newProperty("Security.SQLProblem.stopServer", false);
-
-    @Comment({"Should send GUI captcha by country code whitelist?",
-        "If the country of the player is in this list, the captcha won't be sent."})
-    public static final Property<List<String>> GUI_CAPTCHA_COUNTRY_WHITELIST =
-        newListProperty("3rdPartyFeature.features.captcha.whiteList");
 
     @Comment({"Should we let Bedrock players login automatically?",
         "(Requires hookFloodgate to be true & floodgate loaded)",
@@ -47,20 +40,6 @@ public final class SecuritySettings implements SettingsHolder {
         "Should we fix the shulker crash bug with advanced method?"})
     public static final Property<Boolean> ADVANCED_SHULKER_FIX =
         newProperty("3rdPartyFeature.fixes.advancedShulkerFix", false);
-
-    @Comment("Send a GUI captcha to unregistered players?(Requires ProtocolLib)")
-    public static final Property<Boolean> GUI_CAPTCHA =
-        newProperty("3rdPartyFeature.features.captcha.guiCaptcha", false);
-
-    @Comment({"Should we kick the players when they don't finish the GUI captcha in seconds?",
-        "(less than or equals 0 is disabled)"})
-    public static final Property<Integer> GUI_CAPTCHA_TIMEOUT =
-        newProperty("3rdPartyFeature.features.captcha.timeOut", 0);
-
-    @Comment({"Should we ignore floodgate players when sending GUI captcha?",
-        "(Requires floodgate and hookFloodgate: true)"})
-    public static final Property<Boolean> GUI_CAPTCHA_BE_COMPATIBILITY =
-        newProperty("3rdPartyFeature.features.captcha.ignoreBedrock", false);
 
     @Comment("Should we fix the location when players logged in the portal?")
     public static final Property<Boolean> LOGIN_LOC_FIX_SUB_PORTAL =

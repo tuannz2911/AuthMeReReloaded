@@ -30,46 +30,6 @@ public enum MessageKey {
     BEDROCK_AUTO_LOGGED_IN("bedrock_auto_login.success"),
 
     /**
-     * %random Verification
-     */
-    GUI_CAPTCHA_WINDOW_NAME("gui_captcha.captcha_window_name", "%random"),
-
-    /**
-     * %random I am human
-     */
-    GUI_CAPTCHA_CLICKABLE_NAME("gui_captcha.captcha_clickable_name", "%random"),
-
-    /**
-     * Verification failed, you have %times retries left
-     */
-    GUI_CAPTCHA_RETRY_MESSAGE("gui_captcha.message_on_retry", "%times"),
-
-    /**
-     * Bedrock verification success!
-     */
-    GUI_CAPTCHA_VERIFIED_AUTO_BEDROCK("gui_captcha.bedrock_auto_verify_success"),
-
-    /**
-     * Please be verified before chatting!
-     */
-    GUI_CAPTCHA_DENIED_MESSAGE("gui_captcha.denied_message_sending"),
-
-    /**
-     * Verification timed out!
-     */
-    GUI_CAPTCHA_KICK_TIMEOUT("gui_captcha.kick_on_timeout"),
-
-    /**
-     * Please complete the verification!
-     */
-    GUI_CAPTCHA_KICK_FAILED("gui_captcha.kick_on_failed"),
-
-    /**
-     * Verification success!
-     */
-    GUI_CAPTCHA_VERIFIED("gui_captcha.success"),
-
-    /**
      * In order to use this command you must be authenticated!
      */
     DENIED_COMMAND("error.denied_command"),

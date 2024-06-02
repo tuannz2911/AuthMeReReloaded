@@ -20,7 +20,6 @@ import fr.xephi.authme.listener.BedrockAutoLoginListener;
 import fr.xephi.authme.listener.BlockListener;
 import fr.xephi.authme.listener.DoubleLoginFixListener;
 import fr.xephi.authme.listener.EntityListener;
-import fr.xephi.authme.listener.GuiCaptchaHandler;
 import fr.xephi.authme.listener.LoginLocationFixListener;
 import fr.xephi.authme.listener.PlayerListener;
 import fr.xephi.authme.listener.PlayerListener111;
@@ -347,13 +346,6 @@ public class AuthMe extends JavaPlugin {
         }
 
         //Register 3rd party listeners
-        if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
-            pluginManager.registerEvents(injector.getSingleton(GuiCaptchaHandler.class), this);
-            logger.info("(Beta)GUICaptcha is enabled successfully!");
-            logger.info("These features are still in early development, if you encountered any problem, please report.");
-        } else if (settings.getProperty(SecuritySettings.GUI_CAPTCHA) && getServer().getPluginManager().getPlugin("ProtocolLib") == null) {
-            logger.warning("ProtocolLib is not loaded, can't enable GUI Captcha.");
-        }
         if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) && getServer().getPluginManager().getPlugin("floodgate") != null) {
             pluginManager.registerEvents(injector.getSingleton(BedrockAutoLoginListener.class), this);
         } else if (settings.getProperty(SecuritySettings.FORCE_LOGIN_BEDROCK) && (!settings.getProperty(HooksSettings.HOOK_FLOODGATE_PLAYER) || getServer().getPluginManager().getPlugin("floodgate") == null)) {
@@ -368,7 +360,7 @@ public class AuthMe extends JavaPlugin {
         if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && !isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
             pluginManager.registerEvents(injector.getSingleton(AdvancedShulkerFixListener.class), this);
         } else if (settings.getProperty(SecuritySettings.ADVANCED_SHULKER_FIX) && isClassLoaded("org.bukkit.event.player.PlayerCommandSendEvent")) {
-            logger.warning("You are running an 1.13+ minecraft server, advancedShulkerFix won't enable.");
+            logger.warning("You are running an 1.13+ minecraft server, AdvancedShulkerFix won't enable.");
         }
         if (settings.getProperty(SecuritySettings.PURGE_DATA_ON_QUIT)) {
             pluginManager.registerEvents(injector.getSingleton(PurgeListener.class), this);
