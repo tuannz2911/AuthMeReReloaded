@@ -52,7 +52,7 @@ public class I18NUtils {
                     return PLAYER_LOCALE.get(player.getUniqueId());
                 }
 
-                if (System.currentTimeMillis() - startTime  > 3000) {
+                if (System.currentTimeMillis() - startTime  > 500) {
                     return null;
                 }
             }

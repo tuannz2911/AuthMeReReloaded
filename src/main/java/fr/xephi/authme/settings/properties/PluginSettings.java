@@ -21,7 +21,7 @@ public final class PluginSettings implements SettingsHolder {
 
     @Comment({
         "Send i18n messages to player based on their client settings, this option will override `settings.messagesLanguage`",
-        "(Requires Protocollib if server version under 1.15.2)",
+        "(Requires Protocollib or Packetevents)",
         "This will not affect language of AuthMe help command."
     })
     public static final Property<Boolean> I18N_MESSAGES =
