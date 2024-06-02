@@ -5,15 +5,16 @@ import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.util.Utils;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class I18NUtils {
 
-    private static Method spigotGetLocale;
+    private static Map<UUID, String> PLAYER_LOCALE = new ConcurrentHashMap<>();
     private static final Map<String, String> LOCALE_MAP = new HashMap<>();
     private static final List<String> LOCALE_LIST = Arrays.asList(
         "en", "bg", "de", "eo", "es", "et", "eu", "fi", "fr", "gl", "hu", "id", "it", "ja", "ko", "lt", "nl", "pl",
@@ -21,13 +22,6 @@ public class I18NUtils {
     );
 
     static {
-        try {
-            spigotGetLocale = Player.Spigot.class.getMethod("getLocale");
-            spigotGetLocale.setAccessible(true);
-        } catch (NoSuchMethodException e) {
-            spigotGetLocale = null;
-        }
-
         LOCALE_MAP.put("pt_br", "br");
         LOCALE_MAP.put("cs_cz", "cz");
         LOCALE_MAP.put("nds_de", "de");
@@ -40,7 +34,7 @@ public class I18NUtils {
         LOCALE_MAP.put("zh_cn", "zhcn");
         LOCALE_MAP.put("zh_hk", "zhhk");
         LOCALE_MAP.put("zh_tw", "zhtw");
-        // LOCALE_MAP.put("zhmc", "zhmc");
+        //LOCALE_MAP.put("zhmc", "zhmc");
     }
 
     /**
@@ -49,16 +43,28 @@ public class I18NUtils {
      * @param player The player
      */
     public static String getLocale(Player player) {
-        if (Utils.majorVersion >= 12) {
+        if (Utils.majorVersion > 15) {
             return player.getLocale().toLowerCase();
         } else {
-            try {
-                return ((String) spigotGetLocale.invoke(player.spigot())).toLowerCase();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+            long startTime = System.currentTimeMillis();
+            for (;;) {
+                if (PLAYER_LOCALE.containsKey(player.getUniqueId())) {
+                    return PLAYER_LOCALE.get(player.getUniqueId());
+                }
+
+                if (System.currentTimeMillis() - startTime  > 3000) {
+                    return null;
+                }
             }
         }
+    }
+
+    public static void addLocale(UUID uuid, String locale) {
+        if (PLAYER_LOCALE == null) {
+            PLAYER_LOCALE = new ConcurrentHashMap<>();
+        }
+
+        PLAYER_LOCALE.put(uuid, locale);
     }
 
     /**
