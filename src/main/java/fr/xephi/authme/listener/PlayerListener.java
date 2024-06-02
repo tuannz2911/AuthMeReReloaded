@@ -495,8 +495,20 @@ public class PlayerListener implements Listener {
             return false;
         }
         Set<String> whitelist = settings.getProperty(RestrictionSettings.UNRESTRICTED_INVENTORIES);
+        if (whitelist.isEmpty()) {
+            return false;
+        }
         //append a string for String whitelist
-        return whitelist.contains(ChatColor.stripColor(inventory.getTitle()).toLowerCase(Locale.ROOT));
+        String invName = ChatColor.stripColor(inventory.getTitle()).toLowerCase(Locale.ROOT);
+        if (settings.getProperty(RestrictionSettings.STRICT_UNRESTRICTED_INVENTORIES_CHECK)) {
+            return whitelist.contains(invName);
+        }
+        for (String wl : whitelist) {
+            if (invName.contains(wl)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)

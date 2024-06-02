@@ -835,10 +835,6 @@
                     <groupId>com.googlecode.json-simple</groupId>
                     <artifactId>json-simple</artifactId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>bungeecord-chat</artifactId>
-                    <groupId>net.md-5</groupId>
-                </exclusion>
             </exclusions>
         </dependency>
         <!--  Keep in sync with spigot 1.19  -->
