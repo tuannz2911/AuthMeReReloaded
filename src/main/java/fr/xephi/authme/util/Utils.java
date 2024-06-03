@@ -113,7 +113,7 @@ public final class Utils {
         .substring(0, Bukkit.getServer().getBukkitVersion().indexOf("-"))
         .split("\\.");
 
-    private final static int mcFirstVersion = Integer.parseInt(serverVersion[0]);
-    public final static int majorVersion = Integer.parseInt(serverVersion[1]);
-    public final static int minorVersion = serverVersion.length == 3 ? Integer.parseInt(serverVersion[2]) : 0;
+    private final static int FIRST_VERSION = Integer.parseInt(serverVersion[0]);
+    public final static int MAJOR_VERSION = Integer.parseInt(serverVersion[1]);
+    public final static int MINOR_VERSION = serverVersion.length == 3 ? Integer.parseInt(serverVersion[2]) : 0;
 }

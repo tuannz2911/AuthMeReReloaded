@@ -142,7 +142,7 @@ public class ProtocolLibService implements SettingsDependent {
 
         this.protectInvBeforeLogin = settings.getProperty(RestrictionSettings.PROTECT_INVENTORY_BEFORE_LOGIN);
         this.denyTabCompleteBeforeLogin = settings.getProperty(RestrictionSettings.DENY_TABCOMPLETE_BEFORE_LOGIN);
-        this.i18nMessagesSending = settings.getProperty(PluginSettings.I18N_MESSAGES) && Utils.majorVersion <= 15;
+        this.i18nMessagesSending = settings.getProperty(PluginSettings.I18N_MESSAGES) && Utils.MAJOR_VERSION <= 15;
 
         //it was true and will be deactivated now, so we need to restore the inventory for every player
         if (oldProtectInventory && !protectInvBeforeLogin && inventoryPacketAdapter != null) {

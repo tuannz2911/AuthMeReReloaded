@@ -43,7 +43,7 @@ public class I18NUtils {
      * @param player The player
      */
     public static String getLocale(Player player) {
-        if (Utils.majorVersion > 15) {
+        if (Utils.MAJOR_VERSION > 15) {
             return player.getLocale().toLowerCase();
         } else {
             long startTime = System.currentTimeMillis();
