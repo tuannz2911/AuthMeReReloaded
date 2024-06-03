@@ -9,7 +9,7 @@ registration:
     name_taken: '&cTài khoản này đã được đăng ký!'
     register_request: '&2Xin vui lòng đăng ký tài khoản với lệnh "/register <mật khẩu> <nhập lại mật khẩu>"'
     command_usage: '&cSử dụng: /register <mật khẩu> <nhập lại mật khẩu>'
-    reg_only: '&4Chỉ có thành viên mới có thể tham gia máy chủ, vui lòng truy cập trang web http://example.com để đăng ký thành viên!'
+    reg_only: '&4Chỉ có thành viên mới có thể tham gia máy chủ, vui lòng truy cập trang web https://example.com để đăng ký thành viên!'
     success: '&2Đăng ký thành công!'
     kicked_admin_registered: 'Một quản trị viên đã đăng ký cho bạn; vui lòng đăng nhập lại'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cMật khẩu của bạn vừa đặt không an toàn, vui lòng đặt lại...'
     forbidden_characters: '&4Mật khẩu của bạn chứa ký tự không hợp lệ. Các ký tự cho phép: %valid_chars'
     wrong_length: '&cMật khẩu của bạn đặt quá dài hoặc quá ngắn, vui lòng đặt lại!'
+    pwned_password: '&cMật khẩu bạn chọn không an toàn. Nó đã được sử dụng %pwned_count lần! Vui lòng sử dụng mật khẩu mạnh...'
 
 # Login
 login:
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cTài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra email!'
+    not_activated: '&cTài khoản chưa được kích hoạt, vui lòng đăng ký và kích hoạt trước khi thử lại.'
     password_changed: '&2Thay đổi mật khẩu thành công!'
     logout: '&2Bạn đã đăng xuất!'
     reload: '&2Cấu hình và cơ sở dử liệu đã được tải lại thành công!'
@@ -156,3 +158,16 @@ two_factor:
     removed_success: 'Đã thành công tắt xác thực 2 lớp khỏi tài khoản của bạn'
     invalid_code: 'Mã xác thực không hợp lệ!'
 
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aĐăng nhập tự động Bedrock thành công!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aBạn bị kẹt trong cổng khi đăng nhập.'
+  fix_underground: '&aBạn bị kẹt dưới lòng đất khi đăng nhập.'
+  cannot_fix_underground: '&aBạn bị kẹt dưới lòng đất khi đăng nhập, nhưng chúng tôi không thể khắc phục điều này.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cBạn đã bị ngắt kết nối do đăng nhập đôi.'

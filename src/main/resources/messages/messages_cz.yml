@@ -19,7 +19,8 @@ password:
     name_in_password: '&cNemůžeš použít své jméno jako heslo, prosím, zvol si jiné heslo...'
     unsafe_password: '&cToto heslo není bezpečné, prosím, zvol si jiné heslo...'
     forbidden_characters: '&4Tvoje heslo obsahuje nepovolené znaky. Přípustné znaky jsou: %valid_chars'
-    wrong_length: '&cTvoje heslo nedosahuje minimální délky (4).'
+    wrong_length: '&cTvoje heslo nedosahuje minimální délky.'
+    pwned_password: '&cZvolené heslo není bezpečné. Bylo použito již %pwned_count krát! Prosím, použijte silné heslo...'
 
 # Login
 login:
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cTvůj účet ještě není aktivovaný, zkontroluj svůj E-mail.'
+    not_activated: '&cÚčet není aktivován, prosím zaregistrujte se a aktivujte ho před dalším pokusem.'
     password_changed: '&cHeslo změněno!'
     logout: '&cÚspěšně jsi se odhlásil.'
     reload: '&cZnovu načtení nastavení AuthMe proběhlo úspěšně.'
@@ -155,3 +157,17 @@ two_factor:
     not_enabled_error: 'Dvoufaktorové ověření není zapnuté na tvém účtu. Můžeš ho zapnout použitím příkazu /2fa add'
     removed_success: 'Dvoufaktorovka byla úspěšně odebrána z tvého účtu'
     invalid_code: 'Nesprávný kód!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aAutomatické přihlášení Bedrock úspěšné!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aPři přihlášení jste uvízli v portálu.'
+  fix_underground: '&aPři přihlášení jste uvízli pod zemí.'
+  cannot_fix_underground: '&aPři přihlášení jste uvízli pod zemí, ale nemůžeme to opravit.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cByli jste odpojeni kvůli dvojímu přihlášení.'

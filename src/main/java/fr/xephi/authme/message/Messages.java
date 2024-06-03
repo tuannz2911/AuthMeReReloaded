@@ -5,6 +5,7 @@ import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.mail.EmailService;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.util.expiring.Duration;
+import fr.xephi.authme.util.message.I18NUtils;
 import fr.xephi.authme.util.message.MiniMessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -121,7 +122,10 @@ public class Messages {
      * @return The message from the file
      */
     private String retrieveMessage(MessageKey key, CommandSender sender) {
-        String message = messagesFileHandler.getMessage(key.getKey());
+        String locale = sender instanceof Player
+            ? I18NUtils.getLocale((Player) sender)
+            : null;
+        String message = messagesFileHandler.getMessageByLocale(key.getKey(), locale);
         String displayName = sender.getName();
         if (sender instanceof Player) {
             displayName = ((Player) sender).getDisplayName();

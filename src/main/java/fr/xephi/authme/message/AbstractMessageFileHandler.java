@@ -8,12 +8,15 @@ import fr.xephi.authme.output.ConsoleLoggerFactory;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.util.FileUtils;
+import fr.xephi.authme.util.message.I18NUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.File;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static fr.xephi.authme.message.MessagePathHelper.DEFAULT_LANGUAGE;
 
@@ -33,6 +36,7 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
 
     private String filename;
     private FileConfiguration configuration;
+    private Map<String, FileConfiguration> i18nConfiguration;
     private final String defaultFile;
 
     protected AbstractMessageFileHandler() {
@@ -46,6 +50,7 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
         filename = createFilePath(language);
         File messagesFile = initializeFile(filename);
         configuration = YamlConfiguration.loadConfiguration(messagesFile);
+        i18nConfiguration = null;
     }
 
     protected String getLanguage() {
@@ -84,6 +89,24 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
     }
 
     /**
+     * Returns the i18n message for the given key and given locale.
+     *
+     * @param key the key to retrieve the message for
+     * @param locale the locale that player client setting uses
+     * @return the message
+     */
+    public String getMessageByLocale(String key, String locale) {
+        if (locale == null || !settings.getProperty(PluginSettings.I18N_MESSAGES)) {
+            return getMessage(key);
+        }
+
+        String message = getI18nConfiguration(locale).getString(key);
+        return message == null
+            ? "Error retrieving message '" + key + "'"
+            : message;
+    }
+
+    /**
      * Returns the message for the given key only if it exists,
      * i.e. without falling back to the default file.
      *
@@ -92,6 +115,27 @@ public abstract class AbstractMessageFileHandler implements Reloadable {
      */
     public String getMessageIfExists(String key) {
         return configuration.getString(key);
+    }
+
+    public FileConfiguration getI18nConfiguration(String locale) {
+        if (i18nConfiguration == null) {
+            i18nConfiguration = new ConcurrentHashMap<>();
+        }
+
+        locale = I18NUtils.localeToCode(locale, settings);
+
+        if (i18nConfiguration.containsKey(locale)) {
+            return i18nConfiguration.get(locale);
+        } else {
+            // Sync with reload();
+            String i18nFilename = createFilePath(locale);
+            File i18nMessagesFile = initializeFile(i18nFilename);
+            FileConfiguration config = YamlConfiguration.loadConfiguration(i18nMessagesFile);
+
+            i18nConfiguration.put(locale, config);
+
+            return config;
+        }
     }
 
     /**

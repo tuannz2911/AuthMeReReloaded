@@ -10,7 +10,7 @@ registration:
     name_taken: '&cHai già eseguito la registrazione!'
     register_request: '&3Per favore, esegui la registrazione con il comando: /register <password> <confermaPassword>'
     command_usage: '&cUtilizzo: /register <password> <confermaPassword>'
-    reg_only: '&4Puoi giocare in questo server solo dopo aver eseguito la registrazione attraverso il sito web! Per favore, vai su http://esempio.it per procedere!'
+    reg_only: '&4Puoi giocare in questo server solo dopo aver eseguito la registrazione attraverso il sito web! Per favore, vai su https://esempio.it per procedere!'
     success: '&2Registrato correttamente!'
     kicked_admin_registered: 'Un amministratore ti ha appena registrato, per favore rientra nel server'
 
@@ -21,6 +21,7 @@ password:
     unsafe_password: '&cLa password che hai inserito non è sicura, per favore scegline un''altra...'
     forbidden_characters: '&4La tua password contiene caratteri non consentiti. I caratteri consentiti sono: %valid_chars'
     wrong_length: '&cLa password che hai inserito è troppo corta o troppo lunga, per favore scegline un''altra...'
+    pwned_password: '&cLa password scelta non è sicura. È stata già utilizzata %pwned_count volte! Si prega di utilizzare una password sicura...'
 
 # Login
 login:
@@ -58,6 +59,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cIl tuo account non è stato ancora verificato, controlla fra le tue email per scoprire come attivarlo!'
+    not_activated: '&cAccount non attivato, si prega di registrarsi e attivarlo prima di riprovare.'
     password_changed: '&2Password cambiata correttamente!'
     logout: '&2Disconnessione avvenuta correttamente!'
     reload: '&2La configurazione e il database sono stati ricaricati correttamente!'
@@ -156,3 +158,17 @@ two_factor:
     not_enabled_error: 'L''autenticazione a 2 fattori non è ancora abilitata per il tuo account. Scrivi: /2fa add'
     removed_success: 'Autenticazione a 2 fattori rimossa correttamente'
     invalid_code: 'Il codice inserito non è valido, riprova!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aAccesso automatico Bedrock riuscito!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aSei bloccato nel portale durante il login.'
+  fix_underground: '&aSei bloccato sottoterra durante il login.'
+  cannot_fix_underground: '&aSei bloccato sottoterra durante il login, ma non possiamo risolverlo.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cSei stato disconnesso a causa di un login doppio.'

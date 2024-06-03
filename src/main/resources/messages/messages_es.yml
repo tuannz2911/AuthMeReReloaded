@@ -10,7 +10,7 @@ registration:
     name_taken: '&cUsuario ya registrado'
     register_request: '&cPor favor, regístrate con "/register <contraseña> <confirmarContraseña">'
     command_usage: '&cUso: /register Contraseña ConfirmarContraseña'
-    reg_only: '&f¡Sólo para jugadores registrados! Por favor visita http://www.example.com/ para registrarte'
+    reg_only: '&f¡Sólo para jugadores registrados! Por favor visita https://www.example.com/ para registrarte'
     success: '&c¡Registrado correctamente!'
     kicked_admin_registered: 'Un administrador te acaba de registrar; entra en la cuenta de nuevo'
 
@@ -21,6 +21,7 @@ password:
     unsafe_password: '&cLa contraseña elegida no es segura, por favor elija otra...'
     forbidden_characters: '&cTu contraseña tiene carácteres no admitidos, los cuales son: %valid_chars'
     wrong_length: '&fTu contraseña es muy larga o muy corta'
+    pwned_password: '&cLa contraseña elegida no es segura. ¡Se ha usado %pwned_count veces ya! Por favor, use una contraseña fuerte...'
 
 # Login
 login:
@@ -41,7 +42,7 @@ error:
     max_registration: '&fHas excedido la cantidad máxima de registros para tu cuenta'
     logged_in: '&c¡Ya has iniciado sesión!'
     kick_for_vip: '&c¡Un jugador VIP ha ingresado al servidor lleno!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&cSe produjo un error: nombre de host del jugador no resuelto!'
     tempban_max_logins: '&cHas sido expulsado temporalmente por intentar iniciar sesión demasiadas veces.'
 
 # AntiBot
@@ -58,6 +59,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&fTu cuenta no está activada aún, ¡revisa tu correo!'
+    not_activated: '&cCuenta no activada, por favor regístrese y actívela antes de intentarlo de nuevo.'
     password_changed: '&c¡Contraseña cambiada!'
     logout: '&cDesconectado correctamente.'
     reload: '&fLa configuración y la base de datos han sido recargados'
@@ -156,3 +158,17 @@ two_factor:
     not_enabled_error: 'La autenticación de dos factores no está habilitada para tu cuenta. Por favor usa /2fa add'
     removed_success: 'Se ha eliminado correctamente la autenticación de dos factores de tu cuenta'
     invalid_code: '¡Código incorrecto!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&a¡Inicio de sesión automático de Bedrock exitoso!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aEstás atascado en el portal durante el inicio de sesión.'
+  fix_underground: '&aEstás atascado bajo tierra durante el inicio de sesión.'
+  cannot_fix_underground: '&aEstás atascado bajo tierra durante el inicio de sesión, pero no podemos solucionarlo.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cHas sido desconectado debido a un inicio de sesión doble.'

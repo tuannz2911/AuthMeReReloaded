@@ -5,13 +5,13 @@
 
 # Registration
 registration:
-  register_request: '&3Te rugam sa te inregistrezi folosind comanda "/register <Parola> <CorfirmareParola>"'
-  command_usage: '&cFoloseste comanda: /register <Parola> <ConfirmareParola>'
-  reg_only: '&4Doar jucatori inregistrati pot intra pe server! Te rugam foloseste http://example.com pentru a te inregistra!'
-  kicked_admin_registered: 'Un administrator tocmai te-a inregistrat, te rog autentifica-te din nou.'
-  success: '&2Te-ai inregistrat cu succes!'
   disabled: '&cInregistrarea in joc nu este activata!'
   name_taken: '&cCineva este inregistrat cu acest nume!'
+  register_request: '&3Te rugam sa te inregistrezi folosind comanda "/register <Parola> <CorfirmareParola>"'
+  command_usage: '&cFoloseste comanda: /register <Parola> <ConfirmareParola>'
+  reg_only: '&4Doar jucatori inregistrati pot intra pe server! Te rugam foloseste https://example.com pentru a te inregistra!'
+  success: '&2Te-ai inregistrat cu succes!'
+  kicked_admin_registered: 'Un administrator tocmai te-a inregistrat, te rog autentifica-te din nou.'
 
 # Password errors on registration
 password:
@@ -20,6 +20,7 @@ password:
   unsafe_password: '&cParola aleasa nu este sigura. Te rugam sa folosesti alta parola...'
   forbidden_characters: '&4Parola ta contine caractere nepermise. Caractere permise: %valid_chars'
   wrong_length: '&cParola ta este prea scurta pentru a te inregistra! Te rugam incearca alta parola!'
+  pwned_password: '&cParola aleasă nu este sigură. A fost folosită de %pwned_count ori! Vă rugăm să utilizați o parolă puternică...'
 
 # Login
 login:
@@ -31,17 +32,17 @@ login:
 
 # Errors
 error:
-  unregistered_user: '&cAcest jucator nu este inregistrat!'
   denied_command: '&cPentru a utiliza aceasta comanda trebuie sa fi autentificat!'
   denied_chat: '&cPentru a utiliza chat-ul trebuie sa fi autentificat!'
+  unregistered_user: '&cAcest jucator nu este inregistrat!'
   not_logged_in: '&cNu esti autentificat!'
-  tempban_max_logins: '&cAi fost banat temporar deoarece ai esuat sa te autentifici de prea multe ori.'
-  max_registration: '&cAi depasit numarul maxim de inregistrari (%reg_count /%max_acc %reg_names) pentru conexiunea dvs.!'
   no_permission: '&4Nu ai permisiunea de a efectua aceasta actiune!'
   unexpected_error: '&4A aparut o eroare, te rugam contacteaza un administrator!'
-  kick_for_vip: '&3Un VIP a intrat pe server cand era plin!'
+  max_registration: '&cAi depasit numarul maxim de inregistrari (%reg_count /%max_acc %reg_names) pentru conexiunea dvs.!'
   logged_in: '&cEsti deja autentificat!'
+  kick_for_vip: '&3Un VIP a intrat pe server cand era plin!'
   kick_unresolved_hostname: '&cA aparut o eroare: nume gazda nerezolvat!'
+  tempban_max_logins: '&cAi fost banat temporar deoarece ai esuat sa te autentifici de prea multe ori.'
 
 # AntiBot
 antibot:
@@ -55,51 +56,52 @@ unregister:
 
 # Other messages
 misc:
-  accounts_owned_self: 'Detii %count conturi:'
-  accounts_owned_other: 'Jucatorul %name are %count conturi:'
   account_not_activated: '&cContul tau nu este activat, te rugam verifica-ti email-ul!'
+  not_activated: '&cContul nu este activat, vă rugăm să vă înregistrați și să îl activați înainte de a încerca din nou.'
   password_changed: '&2Parola a fost schimbata cu succes!'
   logout: '&2Te-ai deconectat cu succes!'
   reload: '&2Configuratiile si baza de date s-au reincarcat corect!'
   usage_change_password: '&cFoloseste comanda: /changepassword <ParolaVeche> <ParolaNoua>'
+  accounts_owned_self: 'Detii %count conturi:'
+  accounts_owned_other: 'Jucatorul %name are %count conturi:'
 
 # Session messages
 session:
-  invalid_session: '&cIP-ul tau a fost schimbat si sesiunea ta a expirat!'
   valid_session: '&2Conectat datorita reconectarii sesiunii.'
+  invalid_session: '&cIP-ul tau a fost schimbat si sesiunea ta a expirat!'
 
 # Error messages when joining
 on_join_validation:
+  same_ip_online: 'Un jucator cu acelasi IP este deja in joc!'
+  same_nick_online: '&4Acelasi nume apartine unui jucator care e deja pe server!'
   name_length: '&4Numele tau este fie prea scurt, fie prea lung!'
   characters_in_name: '&4Numele tau contine caractere ilegale. Caractere permise: %valid_chars'
+  kick_full_server: '&4Server-ul este plin, incearca mai tarziu!'
   country_banned: '&4Tara ta este interzisa pe acest server!'
   not_owner_error: 'Tu nu esti detinatorul acestui cont. Te rugam alege alt nume!'
-  kick_full_server: '&4Server-ul este plin, incearca mai tarziu!'
-  same_nick_online: '&4Acelasi nume apartine unui jucator care e deja pe server!'
   invalid_name_case: 'Ar trebui sa intri cu numele %valid, nu %invalid'
-  same_ip_online: 'Un jucator cu acelasi IP este deja in joc!'
   quick_command: 'Ai folosit o comanda prea repede! Te rugam, intra din nou pe server si astepta mai mult inainte de a utiliza orice comanda.'
 
 # Email
 email:
+  add_email_request: '&3Te rugam adaugati email-ul la contul tau folosind comanda "/email add <Email> <ConfrimaEmail>"'
   usage_email_add: '&cFoloseste comanda: /email add <Email> <ConfrimareEmail>'
   usage_email_change: '&cFoloseste comanda: /email change <EmailVechi> <EmailNou>'
   new_email_invalid: '&cNoul email este nevalid, incearca din nou!'
   old_email_invalid: '&cEmail-ul vechi este nevalid, incearca din nou!'
   invalid: '&cEmail-ul este nevalid, incearca din nou!'
   added: '&2Email-ul a fost adaugat cu succes la contul tau!'
+  add_not_allowed: '&cAdaugarea email-ului nu a fost permisa.'
   request_confirmation: '&cTe rugam sa confirmi adresa ta de email!'
   changed: '&2Email-ul a fost schimbat cu succes!'
+  change_not_allowed: '&cModificarea email-ului nu a fost permisa.'
   email_show: '&2Adresa ta curenta de email este: &f%email'
-  incomplete_settings: 'Eroare: Nu indeplinesti conditiile trimiterii unui email! Te rugam contacteaza un administrator.'
-  already_used: '&4Email-ul acesta este deja folosit de altcineva'
-  send_failure: 'Email-ul nu a putut fi trimis. Ta rugam contactatezi un administrator.'
   no_email_for_account: '&2Nu ai nici o adresa de email asociata cu acest cont.'
-  add_email_request: '&3Te rugam adaugati email-ul la contul tau folosind comanda "/email add <Email> <ConfrimaEmail>"'
+  already_used: '&4Email-ul acesta este deja folosit de altcineva'
+  incomplete_settings: 'Eroare: Nu indeplinesti conditiile trimiterii unui email! Te rugam contacteaza un administrator.'
+  send_failure: 'Email-ul nu a putut fi trimis. Ta rugam contactatezi un administrator.'
   change_password_expired: 'Nu mai iti poti schimba parola folosind aceasta comanda.'
   email_cooldown_error: '&cAi primit deja un mail pentru schimbarea parolei. Trebuie sa astepti %time inainte de a trimite unul nou.'
-  add_not_allowed: '&cAdaugarea email-ului nu a fost permisa.'
-  change_not_allowed: '&cModificarea email-ului nu a fost permisa.'
 
 # Password recovery by email
 recovery:
@@ -131,6 +133,17 @@ verification:
   code_expired: '&3Codul tau a expirat! Executa o alta comanda sensibila pentru a obtine un cod nou!'
   email_needed: '&3Pentru ati verifica identitatea, trebuie sa conectezi o adresa de email cu contul tau!!'
 
+# Time units
+time:
+  second: 'secunda'
+  seconds: 'secunde'
+  minute: 'minut'
+  minutes: 'minute'
+  hour: 'ora'
+  hours: 'ore'
+  day: 'zi'
+  days: 'zile'
+
 # Two-factor authentication
 two_factor:
   code_created: '&2Codul tau secret este %code. Il poti scana de aici %url'
@@ -144,13 +157,16 @@ two_factor:
   removed_success: 'Eliminare cu succes a autentificarii in doi pasi de pe cont'
   invalid_code: 'Cod invalid!'
 
-# Time units
-time:
-  second: 'secunda'
-  seconds: 'secunde'
-  minute: 'minut'
-  minutes: 'minute'
-  hour: 'ora'
-  hours: 'ore'
-  day: 'zi'
-  days: 'zile'
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aAutentificare automată Bedrock reușită!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aSunteți blocat în portal în timpul autentificării.'
+  fix_underground: '&aSunteți blocat sub pământ în timpul autentificării.'
+  cannot_fix_underground: '&aSunteți blocat sub pământ în timpul autentificării, dar nu putem remedia.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cAți fost deconectat din cauza unei autentificări duble.'

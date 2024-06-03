@@ -5,6 +5,9 @@ import ch.jalu.configme.SettingsHolder;
 import ch.jalu.configme.properties.Property;
 import fr.xephi.authme.output.LogLevel;
 
+import java.util.Set;
+
+import static ch.jalu.configme.properties.PropertyInitializer.newLowercaseStringSetProperty;
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
 public final class PluginSettings implements SettingsHolder {
@@ -15,6 +18,26 @@ public final class PluginSettings implements SettingsHolder {
     })
     public static final Property<Boolean> MENU_UNREGISTER_COMPATIBILITY =
         newProperty("3rdPartyFeature.compatibility.menuPlugins", false);
+
+    @Comment({
+        "Send i18n messages to player based on their client settings, this option will override `settings.messagesLanguage`",
+        "(Requires Protocollib or Packetevents)",
+        "This will not affect language of AuthMe help command."
+    })
+    public static final Property<Boolean> I18N_MESSAGES =
+        newProperty("3rdPartyFeature.features.i18nMessages.enabled", false);
+
+    @Comment({"Redirect locale code to certain AuthMe language code as you want",
+        "Minecraft locale list: https://minecraft.wiki/w/Language",
+        "AuthMe language code: https://github.com/HaHaWTH/AuthMeReReloaded/blob/master/docs/translations.md",
+        "For example, if you want to show Russian messages to player using language Tatar(tt_ru),",
+        "and show Chinese Simplified messages to player using language Classical Chinese(lzh), then:",
+        "locale-code-redirect:",
+        "- 'tt_ru:ru'",
+        "- 'lzh:zhcn'"})
+    public static final Property<Set<String>> I18N_CODE_REDIRECT =
+        newLowercaseStringSetProperty("3rdPartyFeature.features.i18nMessages.locale-code-redirect",
+            "tt_ru:ru", "lzh:zhcn");
 
     @Comment({
         "Do you want to enable the session feature?",

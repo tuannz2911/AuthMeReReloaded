@@ -9,7 +9,7 @@ registration:
     name_taken: '&cUtilizador já registado'
     register_request: '&cPor favor registe-se com "/register <password> <confirmePassword>"'
     command_usage: '&cUse: /register <password> <confirmePassword>'
-    reg_only: '&fApenas jogadores registados podem entrar no servidor! Visite http://example.com para se registar'
+    reg_only: '&fApenas jogadores registados podem entrar no servidor! Visite https://example.com para se registar'
     success: '&cRegistado com sucesso!'
     kicked_admin_registered: 'Um administrador registou-te, por favor entre novamente'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cA senha escolhida não é segura, por favor, escolha outra ...'
     forbidden_characters: '&4Sua senha contém caracteres ilegais. Caracteres permitidos: %valid_chars'
     wrong_length: '&fPassword demasiado curta ou longa! Por favor escolhe outra outra!'
+    pwned_password: '&cA senha escolhida não é segura. Ela foi usada %pwned_count vezes! Por favor, use uma senha forte...'
 
 # Login
 login:
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&fA sua conta não foi ainda activada, verifique o seu email onde irá receber indicações para activação de conta. '
+    not_activated: '&cConta não ativada, por favor, registre-se e ative antes de tentar novamente.'
     password_changed: '&cPassword alterada!'
     logout: '&cSaida com sucesso'
     reload: '&fConfiguração e base de dados foram recarregadas'
@@ -155,3 +157,17 @@ two_factor:
     not_enabled_error: 'Autenticação de duas etapas não está habilitada na sua conta. Digite /2fa add'
     removed_success: 'Autenticação de duas etapas removida com sucesso da sua conta'
     invalid_code: 'Codigo invalido!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aLogin automático no Bedrock bem-sucedido!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aVocê está preso no portal durante o login.'
+  fix_underground: '&aVocê está preso no subsolo durante o login.'
+  cannot_fix_underground: '&aVocê está preso no subsolo durante o login, mas não podemos consertar.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cVocê foi desconectado devido a um login duplicado.'

@@ -9,7 +9,7 @@ registration:
     name_taken: '&cПотребителското име е заетo!'
     register_request: '&3Моля регистрирайте се с: /register парола парола.'
     command_usage: '&cКоманда: /register парола парола'
-    reg_only: '&4Само регистрирани потребители могат да влизат в сървъра! Моля посетете http://example.com, за да се регистрирате!'
+    reg_only: '&4Само регистрирани потребители могат да влизат в сървъра! Моля посетете https://example.com, за да се регистрирате!'
     success: '&2Успешна регистрация!'
     kicked_admin_registered: 'Вие бяхте регистриран от администратора, моля да влезете отново!'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cИзбраната парола не е безопасна, моля изберете друга парола.'
     forbidden_characters: '&4Паролата съдържа непозволени символи. Позволени символи: %valid_chars'
     wrong_length: '&cПаролата е твърде къса или прекалено дълга! Моля опитайте с друга парола.'
+    pwned_password: '&cИзбраната парола не е сигурна. Тя е използвана %pwned_count пъти вече! Моля, използвайте силна парола...'
 
 # Login
 login:
@@ -40,7 +41,7 @@ error:
     max_registration: '&cВие сте достигнали максималният брой регистрации (%reg_count/%max_acc %reg_names)!'
     logged_in: '&cВече сте влезли!'
     kick_for_vip: '&3VIP потребител влезе докато сървъра беше пълен, вие бяхте изгонен!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&cВъзникна грешка: неразрешено име на играч!'
     tempban_max_logins: '&cВие бяхте баннат временно, понеже сте си сгрешили паролата прекалено много пъти.'
 
 # AntiBot
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&cВашият акаунт все още не е актириван, моля провете своят email адрес!'
+    not_activated: '&cАкаунтът не е активиран, моля регистрирайте се и го активирайте преди да опитате отново.'
     password_changed: '&2Паротала е променена успешно!'
     logout: '&2Излязохте успешно!'
     reload: '&2Конфигурацията и база данните бяха презаредени правилно!'
@@ -155,3 +157,17 @@ two_factor:
     not_enabled_error: 'Защитата със секретен код не е включена за Вашият акаунт. Моля изпълнете команда /2fa add'
     removed_success: 'Успешно изключихте защитата със секретен код от Вашият акаунт!'
     invalid_code: 'Невалиден код!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aУспешно автоматично влизане за Bedrock!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aЗаседнали сте в портал по време на влизане.'
+  fix_underground: '&aЗаседнали сте под земята по време на влизане.'
+  cannot_fix_underground: '&aЗаседнали сте под земята по време на влизане, но не можем да го поправим.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cБяхте изключени поради двойно влизане.'

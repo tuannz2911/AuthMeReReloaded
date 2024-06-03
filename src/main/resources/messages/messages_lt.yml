@@ -9,7 +9,7 @@ registration:
     name_taken: '&cVartotojo vardas jau užregistruotas'
     register_request: '&ePrašome prisiregistruoti: /register slaptažodis pakartotiSlaptažodį'
     command_usage: '&eNaudojimas: /register slaptažodis pakartotiSlaptažodį'
-    reg_only: '&cTik prisiregistravusiems žaidėjams: apsilankykite: http://example.com tam, kad užsiregistruoti.'
+    reg_only: '&cTik prisiregistravusiems žaidėjams: apsilankykite: https://example.com tam, kad užsiregistruoti.'
     success: '&aSėkmingai prisiregistravote.'
     kicked_admin_registered: 'Administatorius Jus užregistravo. Prisijunkite iš naujo'
 
@@ -20,6 +20,7 @@ password:
     unsafe_password: '&cŠį Slaptažodį lengva nulaužti, pasirinkite kitą slaptažodį'
     forbidden_characters: '&4Jūsų slaptažodis turi netinkamų simbolių. Leidžiami simboliai: %valid_chars'
     wrong_length: '&cJūsų pasirinktas slaptažodis per ilgas arba per trumpas.'
+    pwned_password: '&cJūsų pasirinktas slaptažodis nėra saugus. Jis buvo naudotas %pwned_count kartų! Prašome naudoti stiprų slaptažodį...'
 
 # Login
 login:
@@ -57,6 +58,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&aJūsų vartotojas nėra patvirtintas, pasitikrinkite el.paštą.'
+    not_activated: '&cPaskyra neaktyvuota, prašome užsiregistruoti ir aktyvuoti prieš bandant dar kartą.'
     password_changed: '&aSlaptažodis pakeistas'
     logout: '&aSėkmingai atsijungėte'
     reload: '&aNustatymai ir duomenų bazė buvo perkrauta.'
@@ -155,3 +157,17 @@ two_factor:
     not_enabled_error: 'Dviejų faktorių autentifikavimas nėra įjungtas ant jūsų paskyros. Rašykite /2fa add'
     removed_success: 'Dviejų faktorių autentifikavimas sėkmingai pašalintas iš jūsų paskyros.'
     invalid_code: 'Neteisingas kodas!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock automatinis prisijungimas sėkmingas!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&aJūs užstrigote portale prisijungimo metu.'
+  fix_underground: '&aJūs užstrigote po žeme prisijungimo metu.'
+  cannot_fix_underground: '&aJūs užstrigote po žeme prisijungimo metu, bet mes negalime to pataisyti.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&cJūs buvote atjungtas dėl dvigubo prisijungimo.'

@@ -22,6 +22,7 @@ password:
     unsafe_password: '&b【AuthMe】&6您不可以使用這個不安全的密碼！'
     forbidden_characters: '&b【AuthMe】&c密碼包含非法字符，可使用：%valid_chars'
     wrong_length: '&b【AuthMe】&6您的密碼 超過最大字數 / 小於最小字數'
+    pwned_password: '&b【AuthMe】&c你使用的密碼並不安全。它已經被使用了 %pwned_count 次! 請使用一個更強大的密碼...'
 
 # Login
 login:
@@ -59,6 +60,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&b【AuthMe】&6您的帳號還沒有經過驗證！檢查看看您的電子郵件 (Email) 吧！'
+    not_activated: '&b【AuthMe】&c賬戶未激活,請註冊激活後再次嘗試.'
     password_changed: '&b【AuthMe】&6密碼變更成功！'
     logout: '&b【AuthMe】&6您已成功登出。'
     reload: '&b【AuthMe】&6已重新讀取設定檔及資料庫。'
@@ -157,3 +159,17 @@ two_factor:
     not_enabled_error: '&b【AuthMe】&6雙重驗證尚未開啟，使用 /2fa add 來開啟。'
     removed_success: '&b【AuthMe】&6雙重驗證已成功移除！'
     invalid_code: '&b【AuthMe】&c驗證碼錯誤。'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: "&b【AuthMe】&a基岩版自動登錄完成"
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&b【AuthMe】&a你在登錄時卡在了地獄門, 現已修正'
+  fix_underground: '&b【AuthMe】&a你被埋住了, 坐標已修正, 下次下線之前請小心!'
+  cannot_fix_underground: '&b【AuthMe】&a你被埋住了, 坐標無法修正, 只好送你去了最高點, 自求多福吧少年~'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&b【AuthMe】&a已修復幽靈玩家, 請重新進入'

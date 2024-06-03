@@ -22,6 +22,7 @@ password:
     unsafe_password: '&c이 비밀번호는 안전하지 않습니다, 다른 비밀번호를 사용하세요...'
     forbidden_characters: '&4비밀번호에 잘못된 문자가 있습니다. 허용된 문자: %valid_chars'
     wrong_length: '&c비밀번호가 너무 짧거나 너무 깁니다!'
+    pwned_password: '&c선택한 비밀번호가 안전하지 않습니다. 이미 %pwned_count 번 사용되었습니다! 강력한 비밀번호를 사용하세요...'
 
 # Login
 login:
@@ -42,7 +43,7 @@ error:
     max_registration: '&c당신은 가입할 수 있는 계정 한도를 초과했습니다 (%reg_count/%max_acc %reg_names)!'
     logged_in: '&c이미 로그인되어 있습니다!'
     kick_for_vip: '&3서버가 꽉 차있을 때는 VIP 플레이어만 접속이 가능합니다!'
-    # TODO kick_unresolved_hostname: '&cAn error occurred: unresolved player hostname!'
+    kick_unresolved_hostname: '&c오류 발생: 확인되지 않은 플레이어 호스트 이름!'
     tempban_max_logins: '&c너무 많이 로그인에 실패하여 잠시 서버에서 차단되었습니다.'
 
 # AntiBot
@@ -59,6 +60,7 @@ unregister:
 # Other messages
 misc:
     account_not_activated: '&c계정이 아직 활성화되지 않았습니다. 이메일을 확인해보세요!'
+    not_activated: '&c계정이 활성화되지 않았습니다. 다시 시도하기 전에 등록하고 활성화하세요.'
     password_changed: '&2비밀번호가 변경되었습니다!'
     logout: '&2로그아웃 되었습니다!'
     reload: '&2설정과 데이터 베이스가 새로고침 되었습니다!'
@@ -157,3 +159,17 @@ two_factor:
     not_enabled_error: '2단계 인증 기능을 활성화하시지 않았습니다. /2fa add 명령어를 통해 활성화해주세요.'
     removed_success: '2단계 인증 기능을 성공적으로 비활성화하였습니다.'
     invalid_code: '올바르지 않은 인증 코드입니다!'
+
+# 3rd party features: Bedrock Auto Login
+bedrock_auto_login:
+  success: '&aBedrock 자동 로그인 성공!'
+
+# 3rd party features: Login Location Fix
+login_location_fix:
+  fix_portal: '&a로그인 중에 포탈에 갇혔습니다.'
+  fix_underground: '&a로그인 중에 지하에 갇혔습니다.'
+  cannot_fix_underground: '&a로그인 중에 지하에 갇혔지만, 수정할 수 없습니다.'
+
+# 3rd party features: Double Login Fix
+double_login_fix:
+  fix_message: '&c중복 로그인으로 인해 연결이 종료되었습니다.'
