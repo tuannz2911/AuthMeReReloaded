@@ -45,18 +45,11 @@ public class I18NUtils {
     public static String getLocale(Player player) {
         if (Utils.MAJOR_VERSION > 15) {
             return player.getLocale().toLowerCase();
-        } else {
-            long startTime = System.currentTimeMillis();
-            for (;;) {
-                if (PLAYER_LOCALE.containsKey(player.getUniqueId())) {
-                    return PLAYER_LOCALE.get(player.getUniqueId());
-                }
-
-                if (System.currentTimeMillis() - startTime  > 500) {
-                    return null;
-                }
-            }
+        } else if (PLAYER_LOCALE.containsKey(player.getUniqueId())) {
+            return PLAYER_LOCALE.get(player.getUniqueId());
         }
+
+        return null;
     }
 
     public static void addLocale(UUID uuid, String locale) {
