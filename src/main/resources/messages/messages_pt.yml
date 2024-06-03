@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Autenticação de duas etapas removida com sucesso da sua conta'
     invalid_code: 'Codigo invalido!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerificação bem-sucedida!'
-  bedrock_auto_verify_success: '&aVerificação do Bedrock bem-sucedida!'
-  captcha_window_name: '%random Verificação'
-  captcha_clickable_name: '%random Sou humano'
-  message_on_retry: '&cVerificação falhou, você tem %times tentativas restantes'
-  denied_message_sending: '&cPor favor, seja verificado antes de conversar!'
-  kick_on_failed: '&cPor favor, complete a verificação!'
-  kick_on_timeout: '&cTempo de verificação esgotado!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aLogin automático no Bedrock bem-sucedido!'

@@ -158,17 +158,6 @@ two_factor:
     removed_success: '2 faktoreko autentikazioa desaktibatu duzu'
     invalid_code: 'Kode okerra!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aEgiaztatzea arrakastatsua!'
-  bedrock_auto_verify_success: '&aBedrock egiaztapena arrakastatsua!'
-  captcha_window_name: '%random Egiaztapena'
-  captcha_clickable_name: '%random Gizakia naiz'
-  message_on_retry: '&cEgiaztapena huts egin du, %times saiakera geratzen zaizkizu'
-  denied_message_sending: '&cMesedez, egiazta zaitez hitz egiten hasi aurretik!'
-  kick_on_failed: '&cMesedez, amaitu egiaztapena!'
-  kick_on_timeout: '&cEgiaztapena denbora agortu da!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock automatikoki saioa hasi da!'

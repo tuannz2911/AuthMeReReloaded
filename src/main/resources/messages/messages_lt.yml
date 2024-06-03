@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Dviejų faktorių autentifikavimas sėkmingai pašalintas iš jūsų paskyros.'
     invalid_code: 'Neteisingas kodas!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerifikacija sėkminga!'
-  bedrock_auto_verify_success: '&aBedrock verifikacija sėkminga!'
-  captcha_window_name: '%random Verifikacija'
-  captcha_clickable_name: '%random Esu žmogus'
-  message_on_retry: '&cVerifikacija nepavyko, jums liko %times bandymų'
-  denied_message_sending: '&cPrašome patvirtinti prieš pradėdami pokalbį!'
-  kick_on_failed: '&cPrašome užbaigti verifikaciją!'
-  kick_on_timeout: '&cVerifikacija pasibaigė laiku!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock automatinis prisijungimas sėkmingas!'

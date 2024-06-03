@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Sukcese forigis du-faktoran aŭtentikigon de via konto'
     invalid_code: 'Nevalida kodo!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aSukcesa kontrolo!'
-  bedrock_auto_verify_success: '&aSukcesa Bedrock-kontrolo!'
-  captcha_window_name: '%random Kontrolo'
-  captcha_clickable_name: '%random Mi estas homo'
-  message_on_retry: '&cKontrolo malsukcesis, vi havas %times provojn restanta'
-  denied_message_sending: '&cBonvolu kontroli vin antaŭ ol babili!'
-  kick_on_failed: '&cBonvolu kompletigi la kontrolon!'
-  kick_on_timeout: '&cLa tempo por la kontrolo eksvalidiĝis!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aSukcesa Bedrock-aŭtomata ensaluto!'

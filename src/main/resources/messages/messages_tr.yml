@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Iki-faktorlu dogrulama hesabinizdan basariyla kaldirilmistir'
     invalid_code: 'Gecersiz kod!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aDoğrulama başarılı!'
-  bedrock_auto_verify_success: '&aBedrock doğrulaması başarılı!'
-  captcha_window_name: '%random Doğrulama'
-  captcha_clickable_name: '%random İnsanım'
-  message_on_retry: '&cDoğrulama başarısız, %times deneme hakkınız kaldı'
-  denied_message_sending: '&cLütfen mesaj göndermeden önce doğrulama yapın!'
-  kick_on_failed: '&cLütfen doğrulamayı tamamlayın!'
-  kick_on_timeout: '&cDoğrulama zaman aşımına uğradı!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock otomatik giriş başarılı!'

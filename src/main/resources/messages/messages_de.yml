@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Die Zwei-Faktor-Authentifizierung wurde erfolgreich von deinem Konto entfernt'
     invalid_code: 'Ungültiger Code!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerifizierung erfolgreich!'
-  bedrock_auto_verify_success: '&aBedrock-Verifizierung erfolgreich!'
-  captcha_window_name: '%random Verifizierung'
-  captcha_clickable_name: '%random Ich bin ein Mensch'
-  message_on_retry: '&cVerifizierung fehlgeschlagen, Sie haben noch %times Versuche'
-  denied_message_sending: '&cBitte verifizieren Sie sich, bevor Sie chatten!'
-  kick_on_failed: '&cBitte vervollständigen Sie die Verifizierung!'
-  kick_on_timeout: '&cVerifizierung abgelaufen!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock Auto-Login erfolgreich!'

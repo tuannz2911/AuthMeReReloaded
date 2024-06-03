@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Dvoufaktorovka byla úspěšně odebrána z tvého účtu'
     invalid_code: 'Nesprávný kód!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aOvěření úspěšné!'
-  bedrock_auto_verify_success: '&aOvěření Bedrock úspěšné!'
-  captcha_window_name: '%random Ověření'
-  captcha_clickable_name: '%random Jsem člověk'
-  message_on_retry: '&cOvěření selhalo, zbývá vám %times pokusů'
-  denied_message_sending: '&cProsím, ověřte se před odesláním zprávy!'
-  kick_on_failed: '&cDokončete prosím ověření!'
-  kick_on_timeout: '&cPlatnost ověření vypršela!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aAutomatické přihlášení Bedrock úspěšné!'

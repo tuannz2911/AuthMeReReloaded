@@ -164,17 +164,6 @@ two_factor:
     removed_success: 'Dvojfaktorová autentifikácia bola úspešne odstránená z vášho účtu'
     invalid_code: 'Neplatný kód!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aOverenie úspešné!'
-  bedrock_auto_verify_success: '&aOverenie Bedrocku úspešné!'
-  captcha_window_name: '%random Overenie'
-  captcha_clickable_name: '%random Som človek'
-  message_on_retry: '&cOverenie zlyhalo, máte %times pokusov zostávajúcich.'
-  denied_message_sending: '&cPred chatovaním sa prosím overte!'
-  kick_on_failed: '&cProsím, dokončite overenie!'
-  kick_on_timeout: '&cOverenie vypršalo!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aAutomatické prihlásenie do Bedrocku úspešné!'

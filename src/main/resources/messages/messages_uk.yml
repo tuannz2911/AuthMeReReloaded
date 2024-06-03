@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Двофакторну авторизацію успішно видалено з вашого акаунту'
     invalid_code: 'Невірний код!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aВерифікація успішна!'
-  bedrock_auto_verify_success: '&aВерифікація Bedrock успішна!'
-  captcha_window_name: '%random Верифікація'
-  captcha_clickable_name: '%random Я людина'
-  message_on_retry: '&cВерифікація не вдалася, у вас залишилось %times спроб'
-  denied_message_sending: '&cБудь ласка, пройдіть верифікацію перед відправленням повідомлень!'
-  kick_on_failed: '&cБудь ласка, завершіть верифікацію!'
-  kick_on_timeout: '&cЧас верифікації вийшов!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aАвтоматичний вхід Bedrock успішний!'

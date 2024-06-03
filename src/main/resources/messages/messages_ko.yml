@@ -160,17 +160,6 @@ two_factor:
     removed_success: '2단계 인증 기능을 성공적으로 비활성화하였습니다.'
     invalid_code: '올바르지 않은 인증 코드입니다!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&a인증 성공!'
-  bedrock_auto_verify_success: '&aBedrock 인증 성공!'
-  captcha_window_name: '%random 확인'
-  captcha_clickable_name: '%random 사람임을 인증합니다'
-  message_on_retry: '&c인증 실패, 남은 재시도 횟수: %times'
-  denied_message_sending: '&c채팅하기 전에 인증하세요!'
-  kick_on_failed: '&c인증을 완료하세요!'
-  kick_on_timeout: '&c인증 시간이 초과되었습니다!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock 자동 로그인 성공!'

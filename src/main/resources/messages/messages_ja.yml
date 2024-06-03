@@ -158,17 +158,6 @@ two_factor:
   removed_success: 'アカウントから二要素認証が正常に削除されました'
   invalid_code: '無効なコードです！'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&a検証成功！'
-  bedrock_auto_verify_success: '&aBedrock 検証成功！'
-  captcha_window_name: '%random 検証'
-  captcha_clickable_name: '%random 私は人間です'
-  message_on_retry: '&c検証に失敗しました、あと %times 回のリトライが残っています'
-  denied_message_sending: '&cチャットをする前に検証してください！'
-  kick_on_failed: '&c検証を完了してください！'
-  kick_on_timeout: '&c検証のタイムアウト！'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock 自動ログイン成功！'

@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Успешно изключихте защитата със секретен код от Вашият акаунт!'
     invalid_code: 'Невалиден код!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aУспешна проверка!'
-  bedrock_auto_verify_success: '&aУспешна проверка на Bedrock!'
-  captcha_window_name: '%random Проверка'
-  captcha_clickable_name: '%random Аз съм човек'
-  message_on_retry: '&cПроверката не бе успешна, имате %times оставащи опити'
-  denied_message_sending: '&cМоля, потвърдете се преди да чатите!'
-  kick_on_failed: '&cМоля, завършете проверката!'
-  kick_on_timeout: '&cПроверката изтече!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aУспешно автоматично влизане за Bedrock!'

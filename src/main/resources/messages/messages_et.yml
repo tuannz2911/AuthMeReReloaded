@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Sinu kontolt on edukalt eemaldatud kaheastmeline autentimine.'
     invalid_code: 'Vale kood!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aKinnitamine õnnestus!'
-  bedrock_auto_verify_success: '&aBedrocki kinnitamine õnnestus!'
-  captcha_window_name: '%random Kinnitus'
-  captcha_clickable_name: '%random Ma olen inimene'
-  message_on_retry: '&cKinnitamine ebaõnnestus, teil on jäänud %times katset'
-  denied_message_sending: '&cPalun kinnitage end enne vestlemist!'
-  kick_on_failed: '&cPalun viige kinnitus lõpule!'
-  kick_on_timeout: '&cKinnitamise aeg on läbi!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrocki automaatne sisselogimine õnnestus!'

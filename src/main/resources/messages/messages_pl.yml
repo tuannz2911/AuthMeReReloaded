@@ -158,17 +158,6 @@ two_factor:
     removed_success: '&aPomyślnie usunięto weryfikacje dwuetapową z Twojego konta.'
     invalid_code: '&cWpisany kod jest nieprawidłowy, spróbuj jeszcze raz.'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aWeryfikacja udana!'
-  bedrock_auto_verify_success: '&aWeryfikacja Bedrocka udana!'
-  captcha_window_name: '%random Weryfikacja'
-  captcha_clickable_name: '%random Jestem człowiekiem'
-  message_on_retry: '&cWeryfikacja nie powiodła się, pozostało Ci %times prób'
-  denied_message_sending: '&cProszę zweryfikuj się przed rozpoczęciem czatu!'
-  kick_on_failed: '&cProszę ukończ weryfikację!'
-  kick_on_timeout: '&cCzas weryfikacji minął!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aAutomatyczne logowanie na Bedrocku udane!'

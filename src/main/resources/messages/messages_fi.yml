@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Kaksivaiheinen todennus poistettu tililtäsi onnistuneesti'
     invalid_code: 'Virheellinen koodi!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVarmennus onnistui!'
-  bedrock_auto_verify_success: '&aBedrock-varmennus onnistui!'
-  captcha_window_name: '%random Varmistus'
-  captcha_clickable_name: '%random Olen ihminen'
-  message_on_retry: '&cVarmennus epäonnistui, sinulla on %times yritystä jäljellä'
-  denied_message_sending: '&cOle hyvä ja varmista ennen kuin lähetät viestejä!'
-  kick_on_failed: '&cOle hyvä ja suorita varmennus loppuun!'
-  kick_on_timeout: '&cVarmennus aikaraja ylitetty!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock-automaattinen sisäänkirjautuminen onnistui!'

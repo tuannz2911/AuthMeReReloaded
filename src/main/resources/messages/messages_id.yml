@@ -157,17 +157,6 @@ two_factor:
     removed_success: 'Sukses menghapus autentikasi dua langkah dari akunmu'
     invalid_code: 'Kode tidak valid!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerifikasi berhasil!'
-  bedrock_auto_verify_success: '&aVerifikasi Bedrock berhasil!'
-  captcha_window_name: '%random Verifikasi'
-  captcha_clickable_name: '%random Saya manusia'
-  message_on_retry: '&cVerifikasi gagal, Anda memiliki %times percobaan lagi'
-  denied_message_sending: '&cHarap diverifikasi sebelum chatting!'
-  kick_on_failed: '&cHarap lengkapi verifikasi!'
-  kick_on_timeout: '&cWaktu verifikasi habis!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aLogin otomatis Bedrock berhasil!'

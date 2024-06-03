@@ -159,17 +159,6 @@ two_factor:
     removed_success: 'Autenticazione a 2 fattori rimossa correttamente'
     invalid_code: 'Il codice inserito non è valido, riprova!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerifica riuscita!'
-  bedrock_auto_verify_success: '&aVerifica Bedrock riuscita!'
-  captcha_window_name: '%random Verifica'
-  captcha_clickable_name: '%random Sono un essere umano'
-  message_on_retry: '&cVerifica fallita, hai %times tentativi rimasti'
-  denied_message_sending: '&cSi prega di verificarsi prima di chattare!'
-  kick_on_failed: '&cSi prega di completare la verifica!'
-  kick_on_timeout: '&cTempo scaduto per la verifica!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aAccesso automatico Bedrock riuscito!'

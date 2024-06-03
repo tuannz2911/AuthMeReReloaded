@@ -157,17 +157,6 @@ two_factor:
   removed_success: 'Eliminare cu succes a autentificarii in doi pasi de pe cont'
   invalid_code: 'Cod invalid!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerificare reușită!'
-  bedrock_auto_verify_success: '&aVerificarea Bedrock a fost un succes!'
-  captcha_window_name: '%random Verificare'
-  captcha_clickable_name: '%random Sunt un om'
-  message_on_retry: '&cVerificarea a eșuat, mai aveți %times încercări rămase'
-  denied_message_sending: '&cVă rugăm să fiți verificați înainte de a discuta!'
-  kick_on_failed: '&cVă rugăm să finalizați verificarea!'
-  kick_on_timeout: '&cTimpul de verificare a expirat!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aAutentificare automată Bedrock reușită!'

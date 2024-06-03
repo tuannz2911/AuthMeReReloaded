@@ -161,17 +161,6 @@ two_factor:
     removed_success: '&8[&6用戶系統&8] &2你已成功關閉兩步驗證功能；&c為保障帳戶安全，請儘快於可行的情況下重新啟用本功能。'
     invalid_code: '&8[&6用戶系統&8] &c無效的兩步驗證碼 ！'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&a*** 驗證完成 ***'
-  bedrock_auto_verify_success: '&a*** 基岩版自動驗證完成 ***'
-  captcha_window_name: '&k%random&r&n請驗證你是真人'
-  captcha_clickable_name: '&k%random&r&n我是真人'
-  message_on_retry: '&8[&6用戶系統&8] &c驗證失敗,你還有 %times 次機會'
-  denied_message_sending: '&8[&6用戶系統&8] &c請先完成驗證再聊天!'
-  kick_on_failed: '&8[&6用戶系統&8] &c請先完成驗證!'
-  kick_on_timeout: '&8[&6用戶系統&8] &c驗證超時'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: "&8[&6用戶系統&8] &a基岩版自動登錄完成"

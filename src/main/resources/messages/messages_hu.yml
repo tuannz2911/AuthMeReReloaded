@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Sikeresen eltávolítottad a fiók két számjegyű hitelesítőjét'
     invalid_code: 'Érvénytelen kód!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aAz ellenőrzés sikeres!'
-  bedrock_auto_verify_success: '&aBedrock ellenőrzés sikeres!'
-  captcha_window_name: '%random Ellenőrzés'
-  captcha_clickable_name: '%random Ember vagyok'
-  message_on_retry: '&cAz ellenőrzés sikertelen, még %times próbálkozásod van hátra'
-  denied_message_sending: '&cKérlek, ellenőrizd magad a chat előtt!'
-  kick_on_failed: '&cKérlek, fejezd be az ellenőrzést!'
-  kick_on_timeout: '&cAz ellenőrzés időtúllépés miatt megszakadt!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock automatikus bejelentkezés sikeres!'

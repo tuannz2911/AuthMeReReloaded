@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Usprešno ste odstranili dvo stopično prijavo za vaš račun.'
     invalid_code: 'Nepravilna koda!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aPreverjanje uspešno!'
-  bedrock_auto_verify_success: '&aPreverjanje Bedrock uspešno!'
-  captcha_window_name: '%random Preverjanje'
-  captcha_clickable_name: '%random Sem človek'
-  message_on_retry: '&cPreverjanje ni uspelo, imate %times preostale poskuse.'
-  denied_message_sending: '&cPred klepetom morate biti preverjeni!'
-  kick_on_failed: '&cProsim, dokončajte preverjanje!'
-  kick_on_timeout: '&cPreverjanje je poteklo!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aSamodejno prijavljanje v Bedrocku uspešno!'

@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Uspešno ste uklonili dvo-faktornu autentifikaciju sa vašeg naloga'
     invalid_code: 'Nevažeći kod!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aVerifikacija uspešna!'
-  bedrock_auto_verify_success: '&aBedrock verifikacija uspešna!'
-  captcha_window_name: '%random Verifikacija'
-  captcha_clickable_name: '%random Ja sam čovek'
-  message_on_retry: '&cVerifikacija nije uspela, imate još %times pokušaja'
-  denied_message_sending: '&cMolimo vas da se verifikujete pre nego što šaljete poruke!'
-  kick_on_failed: '&cMolimo završite verifikaciju!'
-  kick_on_timeout: '&cVerifikacija je istekla!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aBedrock automatsko prijavljivanje uspešno!'

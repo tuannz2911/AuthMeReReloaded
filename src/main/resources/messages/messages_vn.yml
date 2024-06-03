@@ -158,17 +158,6 @@ two_factor:
     removed_success: 'Đã thành công tắt xác thực 2 lớp khỏi tài khoản của bạn'
     invalid_code: 'Mã xác thực không hợp lệ!'
 
-# 3rd party features: GUI Captcha
-gui_captcha:
-  success: '&aXác minh thành công!'
-  bedrock_auto_verify_success: '&aXác minh Bedrock thành công!'
-  captcha_window_name: '%random Xác minh'
-  captcha_clickable_name: '%random Tôi là người'
-  message_on_retry: '&cXác minh thất bại, bạn còn %times lần thử'
-  denied_message_sending: '&cVui lòng xác minh trước khi trò chuyện!'
-  kick_on_failed: '&cVui lòng hoàn thành xác minh!'
-  kick_on_timeout: '&cThời gian xác minh đã hết!'
-
 # 3rd party features: Bedrock Auto Login
 bedrock_auto_login:
   success: '&aĐăng nhập tự động Bedrock thành công!'
