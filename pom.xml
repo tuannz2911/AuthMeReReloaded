@@ -195,22 +195,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Unit testing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <!-- Force the right file encoding during unit testing -->
-                    <!-- Set language to English in order to get consistent results for localized time formatting -->
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding} -Duser.language=en @{argLine}</argLine>
-                    <systemPropertyVariables>
-                        <project.skipExtendedHashTests>${project.skipExtendedHashTests}</project.skipExtendedHashTests>
-                    </systemPropertyVariables>
-                    <!-- Don't trim stack traces -->
-                    <trimStackTrace>false</trimStackTrace>
-                </configuration>
-            </plugin>
             <!-- Generate a jar containing classes and resources -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1136,35 +1120,6 @@
                 <exclusion>
                     <groupId>org.checkerframework</groupId>
                     <artifactId>checker-qual</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- Unit Testing Libraries -->
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>4.13.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>java-hamcrest</artifactId>
-            <scope>test</scope>
-            <version>2.0.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-            <version>5.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hamcrest-core</artifactId>
-                    <groupId>org.hamcrest</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
