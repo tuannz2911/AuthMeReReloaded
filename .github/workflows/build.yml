@@ -37,3 +37,24 @@ jobs:
         with:
           name: Artifacts
           path: outs/
+  runtime-test:
+    name: Plugin Runtime Test
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - mcVersion: '1.8.8'
+            javaVersion: '8'
+          - mcVersion: '1.12.2'
+            javaVersion: '8'
+          - mcVersion: '1.18.2'
+            javaVersion: '17'
+          - mcVersion: '1.20.4'
+            javaVersion: '21'
+    steps:
+      - uses: HaHaWTH/minecraft-plugin-runtime-test@paper
+        with:
+          server-version: ${{ matrix.mcVersion }}
+          java-version: ${{ matrix.javaVersion }}
+          artifact-name: Artifacts
