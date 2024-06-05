@@ -131,7 +131,7 @@ tasks {
         // Options
         archiveAppendix.set("")
         archiveClassifier.set("")
-        archiveBaseName.set("Authme")
+        archiveBaseName.set("AuthMe")
         destinationDirectory.set(file("$rootDir/outs"))
         // Libraries Relocate
         relocate("org.apache.http", "fr.xephi.authme.libs.org.apache.http")
