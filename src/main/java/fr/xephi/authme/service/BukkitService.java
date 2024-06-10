@@ -380,7 +380,11 @@ public class BukkitService implements SettingsDependent {
      * @param bytes the message
      */
     public void sendVelocityMessage(Player player, byte[] bytes) {
-        player.sendPluginMessage(authMe, "authmevelocity:main", bytes);
+        if (player != null) {
+            player.sendPluginMessage(authMe, "authmevelocity:main", bytes);
+        } else {
+            Bukkit.getServer().sendPluginMessage(authMe, "authmevelocity:main", bytes);
+        }
     }
 
 
