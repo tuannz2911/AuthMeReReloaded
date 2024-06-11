@@ -39,7 +39,7 @@ jobs:
           path: outs/
   runtime-test:
     name: Plugin Runtime Test
-    needs: [ Build ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -51,6 +51,8 @@ jobs:
           - mcVersion: '1.18.2'
             javaVersion: '17'
           - mcVersion: '1.20.4'
+            javaVersion: '21'
+          - mcVersion: '1.20.6'
             javaVersion: '21'
     steps:
       - uses: HaHaWTH/minecraft-plugin-runtime-test@paper
