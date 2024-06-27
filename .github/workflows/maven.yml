@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Download
-          path: ./target/AuthMe-5.6.0-FORK-Universal.jar
+          path: ./target/AuthMe-*-FORK-Universal.jar
   runtime-test:
     name: Plugin Runtime Test 
     needs: [Build]
