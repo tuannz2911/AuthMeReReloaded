@@ -7,7 +7,7 @@ description: A fork of AuthMeReloaded that contains bug fixes
 # noinspection YAMLSchemaValidation
 main: ${pluginDescription.main}
 folia-supported: true
-version: 5.6.1-FORK-b51
+version: 5.7.0-FORK-b51
 api-version: 1.13
 softdepend:
     - Vault
