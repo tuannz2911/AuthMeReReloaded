@@ -75,9 +75,7 @@ class ListenerService implements SettingsDependent {
      * @param player the player to verify
      * @return true if the associated event should be canceled, false otherwise
      */
-
     public boolean shouldCancelEvent(Player player) {
-
         return player != null && !checkAuth(player.getName()) && !PlayerUtils.isNpc(player);
     }
     @Override
