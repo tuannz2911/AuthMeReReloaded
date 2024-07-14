@@ -15,6 +15,10 @@ public final class HooksSettings implements SettingsHolder {
     public static final Property<Boolean> MULTIVERSE =
         newProperty("Hooks.multiverse", true);
 
+    @Comment("Do we need to hook with PlaceholderAPI for AuthMe placeholders?")
+    public static final Property<Boolean> PLACEHOLDER_API =
+        newProperty("Hooks.placeholderapi", true);
+
     @Comment("Do we need to hook with BungeeCord?")
     public static final Property<Boolean> BUNGEECORD =
         newProperty("Hooks.bungeecord", false);

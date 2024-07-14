@@ -37,7 +37,7 @@ public class GeoIpService {
     private volatile boolean downloading;
 
     @Inject
-     GeoIpService(@DataFolder File dataFolder){
+    GeoIpService(@DataFolder File dataFolder) {
         this.dataFile = dataFolder.toPath().resolve(DATABASE_FILE);
 
         // Fires download of recent data or the initialization of the look up service

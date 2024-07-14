@@ -6,6 +6,8 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.output.ConsoleLoggerFactory;
+import fr.xephi.authme.service.hook.papi.AuthMeExpansion;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -26,6 +28,8 @@ public class PluginHookService {
     private Essentials essentials;
     private Plugin cmi;
     private MultiverseCore multiverse;
+    private PlaceholderAPIPlugin placeholderApi;
+    private AuthMeExpansion authMeExpansion;
 
     /**
      * Constructor.
@@ -38,6 +42,7 @@ public class PluginHookService {
         tryHookToEssentials();
         tryHookToCmi();
         tryHookToMultiverse();
+        tryHookToPlaceholderApi();
     }
 
     /**
@@ -134,6 +139,20 @@ public class PluginHookService {
     }
 
     /**
+     * Attempts to create a hook into PlaceholderAPI.
+     */
+    public void tryHookToPlaceholderApi() {
+        try {
+            placeholderApi = getPlugin(pluginManager, "PlaceholderAPI", PlaceholderAPIPlugin.class);
+            authMeExpansion = new AuthMeExpansion();
+            authMeExpansion.register();
+        } catch (Exception | NoClassDefFoundError ignored) {
+            placeholderApi = null;
+            authMeExpansion = null;
+        }
+    }
+
+    /**
      * Attempts to create a hook into CMI.
      */
     public void tryHookToCmi() {
@@ -178,6 +197,16 @@ public class PluginHookService {
      */
     public void unhookMultiverse() {
         multiverse = null;
+    }
+
+    /**
+     * Unhooks from PlaceholderAPI.
+     */
+    public void unhookPlaceholderApi() {
+        if (placeholderApi != null) {
+            authMeExpansion.unregister();
+            placeholderApi = null;
+        }
     }
 
     // ------
