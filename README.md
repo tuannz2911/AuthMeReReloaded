@@ -41,8 +41,6 @@
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)
 [Actions(Dev builds, use at your own risk!)](https://github.com/HaHaWTH/AuthMeReReloaded/actions/workflows/maven.yml)
 
-If you are using FRP(内网穿透) for your server, this plugin may help [HAProxy-Detector](https://github.com/HaHaWTH/HAProxy-Detector)
-
 **Pull Requests and suggestions are welcome!**
 
 ## License
