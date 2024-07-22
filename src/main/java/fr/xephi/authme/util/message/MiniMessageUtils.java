@@ -70,6 +70,7 @@ public class MiniMessageUtils {
             try {
                 methodKick.invoke(player, componentClass.cast((Object) message));
             } catch (Exception e) {
+                if (e instanceof ClassCastException) e.printStackTrace();
                 player.kickPlayer(LegacyComponentSerializer.legacySection().serialize(message));
             }
         } else {
@@ -91,6 +92,7 @@ public class MiniMessageUtils {
             try {
                 methodDisallow.invoke(event, result, componentClass.cast((Object) message));
             } catch (Exception e) {
+                if (e instanceof ClassCastException) e.printStackTrace();
                 event.disallow(result, LegacyComponentSerializer.legacySection().serialize(message));
             }
         } else {
