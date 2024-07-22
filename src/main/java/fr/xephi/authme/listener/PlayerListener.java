@@ -21,7 +21,6 @@ import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.util.TeleportUtils;
 import fr.xephi.authme.util.message.I18NUtils;
-import fr.xephi.authme.util.message.MiniMessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
@@ -219,7 +218,7 @@ public class PlayerListener implements Listener {
 
         String customJoinMessage = settings.getProperty(RegistrationSettings.CUSTOM_JOIN_MESSAGE);
         if (!customJoinMessage.isEmpty()) {
-            customJoinMessage = ChatColor.translateAlternateColorCodes('&', MiniMessageUtils.parseMiniMessageToLegacy(customJoinMessage));
+            customJoinMessage = ChatColor.translateAlternateColorCodes('&', customJoinMessage);
             event.setJoinMessage(customJoinMessage
                 .replace("{PLAYERNAME}", player.getName())
                 .replace("{DISPLAYNAME}", player.getDisplayName())
