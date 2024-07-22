@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 public class MiniMessageUtils {
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
+    private static final char SECTION_CHAR = '§';
+    private static final char AMPERSAND_CHAR = '&';
 
     /**
      * Parse a MiniMessage string into a legacy string.
@@ -28,9 +30,10 @@ public class MiniMessageUtils {
      * @return The parsed message.
      */
     public static Component parseMiniMessage(String message) {
-        return miniMessage.deserialize(convertLegacyToMiniMessage(message, false, '§', true));
+        return miniMessage.deserialize(convertLegacyToMiniMessage(message, false, SECTION_CHAR, true));
     }
 
+    @SuppressWarnings("all")
     private static String convertLegacyToMiniMessage(String legacy, boolean concise, char charCode, boolean rgb) {
         String miniMessage = legacy.replaceAll(Pattern.quote(String.valueOf(charCode)) + "0", "<black>")
             .replaceAll(Pattern.quote(String.valueOf(charCode)) + "1", "<dark_blue>")
