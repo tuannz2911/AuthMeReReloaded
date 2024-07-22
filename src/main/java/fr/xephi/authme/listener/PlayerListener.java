@@ -21,6 +21,7 @@ import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.util.TeleportUtils;
 import fr.xephi.authme.util.message.I18NUtils;
+import fr.xephi.authme.util.message.MiniMessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
@@ -323,7 +324,7 @@ public class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         if (!quickCommandsProtectionManager.isAllowed(player.getName())) {
             event.setCancelled(true);
-            bukkitService.runTaskIfFolia(player, () -> player.kickPlayer(messages.retrieveSingle(player, MessageKey.QUICK_COMMAND_PROTECTION_KICK)));
+            bukkitService.runTaskIfFolia(player, () -> MiniMessageUtils.kickPlayer(player, MiniMessageUtils.parseMiniMessage(messages.retrieveSingle(player, MessageKey.QUICK_COMMAND_PROTECTION_KICK))));
             // AuthMeReReloaded - Folia compatibility
             return;
         }
