@@ -173,7 +173,7 @@ public final class RestrictionSettings implements SettingsHolder {
 
     @Comment("Regex syntax for allowed chars in email.")
     public static final Property<String> ALLOWED_EMAIL_REGEX =
-        newProperty("settings.restrictions.allowedEmailCharacters", "^[A-Za-z0-9_.]{3,20}@(qq|outlook|163|gmail|icloud)\\.com$");
+        newProperty("settings.restrictions.allowedEmailCharacters", "^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})$");
 
 
     @Comment("Force survival gamemode when player joins?")
