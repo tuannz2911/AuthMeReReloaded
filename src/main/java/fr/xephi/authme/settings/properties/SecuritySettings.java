@@ -62,6 +62,11 @@ public final class SecuritySettings implements SettingsHolder {
     public static final Property<Integer> HAVE_I_BEEN_PWNED_LIMIT =
         newProperty("Security.account.haveIBeenPwned.limit", 0);
 
+    @Comment({"Require email verification when changing password if email feature enabled.",
+        "Original behavior is true"})
+    public static final Property<Boolean> CHANGE_PASSWORD_EMAIL_VERIFICATION_REQUIRED =
+        newProperty("Security.account.emailVerification.required", true);
+
     @Comment("Enable captcha when a player uses wrong password too many times")
     public static final Property<Boolean> ENABLE_LOGIN_FAILURE_CAPTCHA =
         newProperty("Security.captcha.useCaptcha", false);
