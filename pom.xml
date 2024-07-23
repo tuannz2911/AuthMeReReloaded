@@ -455,10 +455,6 @@
                             <shadedPattern>fr.xephi.authme.libs.com.alessiodp.libby</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>net.kyori.adventure</pattern>
-                            <shadedPattern>fr.xephi.authme.libs.net.kyori.adventure</shadedPattern>
-                        </relocation>
-                        <relocation>
                             <pattern>net.kyori.examination</pattern>
                             <shadedPattern>fr.xephi.authme.libs.net.kyori.examination</shadedPattern>
                         </relocation>

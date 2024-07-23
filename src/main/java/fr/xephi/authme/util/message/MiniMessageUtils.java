@@ -16,23 +16,17 @@ public class MiniMessageUtils {
     private static final char SECTION_CHAR = '§';
     private static final char AMPERSAND_CHAR = '&';
     private static final boolean HEX_SUPPORTED = Utils.MAJOR_VERSION >= 16;
-    private static Class<?> componentClass;
     private static Method methodDisallow;
     private static Method methodKick;
 
     static {
         try {
-            componentClass = Class.forName("net{}kyori{}adventure{}text{}Component".replace("{}", "."));
-        } catch (Exception e) {
-            componentClass = null;
-        }
-        try {
-            methodDisallow = AsyncPlayerPreLoginEvent.class.getMethod("disallow", AsyncPlayerPreLoginEvent.Result.class, componentClass);
+            methodDisallow = AsyncPlayerPreLoginEvent.class.getMethod("disallow", AsyncPlayerPreLoginEvent.Result.class, Component.class);
         } catch (Exception e) {
             methodDisallow = null;
         }
         try {
-            methodKick = Player.class.getMethod("kick", componentClass);
+            methodKick = Player.class.getMethod("kick", Component.class);
         } catch (Exception e) {
             methodKick = null;
         }
@@ -64,13 +58,11 @@ public class MiniMessageUtils {
      * @param player the player to kick
      * @param message the message to send
      */
-    @SuppressWarnings("all")
     public static void kickPlayer(Player player, Component message) {
         if (methodKick != null) {
             try {
-                methodKick.invoke(player, componentClass.cast((Object) message));
+                methodKick.invoke(player, message);
             } catch (Exception e) {
-                if (e instanceof ClassCastException) e.printStackTrace();
                 player.kickPlayer(LegacyComponentSerializer.legacySection().serialize(message));
             }
         } else {
@@ -85,14 +77,12 @@ public class MiniMessageUtils {
      * @param result the event result to set
      * @param message the denial message
      */
-    @SuppressWarnings("all")
     public static void disallowPreLoginEvent(AsyncPlayerPreLoginEvent event,
                                                               AsyncPlayerPreLoginEvent.Result result, Component message) {
         if (methodDisallow != null) {
             try {
-                methodDisallow.invoke(event, result, componentClass.cast((Object) message));
+                methodDisallow.invoke(event, result, message);
             } catch (Exception e) {
-                if (e instanceof ClassCastException) e.printStackTrace();
                 event.disallow(result, LegacyComponentSerializer.legacySection().serialize(message));
             }
         } else {
