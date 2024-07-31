@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AuthMeExpansion extends PlaceholderExpansion {
     private final Settings settings = AuthMe.settings;
-    private final AuthMeApi authMeApi = AuthMeApi.getInstance();
     @Override
     public @NotNull String getIdentifier() {
         return "authme";
@@ -39,6 +38,8 @@ public class AuthMeExpansion extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
         if (!settings.getProperty(HooksSettings.PLACEHOLDER_API)) return null;
+        AuthMeApi authMeApi = AuthMeApi.getInstance();
+        if (authMeApi == null) return null;
         if (params.equalsIgnoreCase("version")) {
             return getVersion();
         }
