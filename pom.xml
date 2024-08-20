@@ -898,16 +898,6 @@
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.17.0</version>
         </dependency>
-        <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-platform-bukkit</artifactId>
-            <version>4.3.4</version>
-        </dependency>
-        <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-text-serializer-gson</artifactId>
-            <version>4.17.0</version>
-        </dependency>
 
         <!-- LuckPerms plugin -->
         <dependency>

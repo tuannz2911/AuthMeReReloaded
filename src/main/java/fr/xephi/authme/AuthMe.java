@@ -76,7 +76,7 @@ public class AuthMe extends JavaPlugin {
     // Version and build number values
     private static String pluginVersion = "5.7.0-Fork";
     private static final String pluginBuild = "b";
-    private static String pluginBuildNumber = "52";
+    private static String pluginBuildNumber = "53";
     // Private instances
     private EmailService emailService;
     private CommandHandler commandHandler;
