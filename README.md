@@ -27,15 +27,14 @@
  10. Player login logic improvement to reduce lag
  11. Automatically purge bot data
  12. **Folia support (in active testing)**
- 13. Offhand Menu compatibility(Thats amazing)
- 14. **Velocity support (See [Velocity Support](./vc-support.md))**
- 15. Support Virtual Threads caching
- 16. Automatically fix portal stuck issue
- 17. Automatically login for Bedrock players(configurable)
- 18. Fix shulker box crash bug on legacy versions(MC 1.13-)
- 19. **H2 database support**
- 20. **100% compatibility with original authme and extensions**
- 21. More......
+ 13. **Velocity support (See [Velocity Support](./vc-support.md))**
+ 14. Support Virtual Threads caching
+ 15. Automatically fix portal stuck issue
+ 16. Automatically login for Bedrock players(configurable)
+ 17. Fix shulker box crash bug on legacy versions(MC 1.13-)
+ 18. **H2 database support**
+ 19. **100% compatibility with original authme and extensions**
+ 20. More......
 
 **Download links:**
 [Releases](https://github.com/HaHaWTH/AuthMeReReloaded/releases/latest)

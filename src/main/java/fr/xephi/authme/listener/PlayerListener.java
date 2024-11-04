@@ -52,12 +52,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -97,8 +94,6 @@ public class PlayerListener implements Listener {
     private PermissionsManager permissionsManager;
     @Inject
     private QuickCommandsProtectionManager quickCommandsProtectionManager;
-
-    public static List<Inventory> PENDING_INVENTORIES = new ArrayList<>();
 
     // Lowest priority to apply fast protection checks
     @EventHandler(priority = EventPriority.LOWEST)
@@ -500,17 +495,6 @@ public class PlayerListener implements Listener {
         }
     }
 
-    private boolean isInventoryOpenedByApi(Inventory inventory) {
-        if (inventory == null) {
-            return false;
-        }
-        if (PENDING_INVENTORIES.contains(inventory)) {
-            PENDING_INVENTORIES.remove(inventory);
-            return true;
-        } else {
-            return false;
-        }
-    }
     @SuppressWarnings("all")
     private boolean isInventoryWhitelisted(InventoryView inventory) {
         if (inventory == null) {
@@ -537,8 +521,7 @@ public class PlayerListener implements Listener {
     public void onPlayerInventoryOpen(InventoryOpenEvent event) {
         final HumanEntity player = event.getPlayer();
         if (listenerService.shouldCancelEvent(player)
-            && !isInventoryWhitelisted(event.getView())
-            && !isInventoryOpenedByApi(event.getInventory())) {
+            && !isInventoryWhitelisted(event.getView())) {
             event.setCancelled(true);
 
             /*
@@ -556,12 +539,4 @@ public class PlayerListener implements Listener {
             event.setCancelled(true);
         }
     }
-//    @EventHandler(priority = EventPriority.LOWEST)
-//    public void onSwitchHand(PlayerSwapHandItemsEvent event) {
-//        Player player = event.getPlayer();
-//        if (!player.isSneaking() || !player.hasPermission("keybindings.use"))
-//            return;
-//        event.setCancelled(true);
-//        Bukkit.dispatchCommand(event.getPlayer(), "help");
-//    }
 }
