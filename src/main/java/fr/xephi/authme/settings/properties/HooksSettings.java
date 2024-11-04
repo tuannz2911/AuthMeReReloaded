@@ -17,7 +17,7 @@ public final class HooksSettings implements SettingsHolder {
 
     @Comment("Do we need to hook with PlaceholderAPI for AuthMe placeholders?")
     public static final Property<Boolean> PLACEHOLDER_API =
-        newProperty("Hooks.placeholderapi", true);
+        newProperty("Hooks.placeholderapi", false);
 
     @Comment("Do we need to hook with BungeeCord?")
     public static final Property<Boolean> BUNGEECORD =
