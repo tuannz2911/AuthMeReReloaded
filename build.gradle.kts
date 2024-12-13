@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "9.0.0-beta4"
 }
 
 description = "Fork of the first authentication plugin for the Bukkit API!"
@@ -29,11 +29,9 @@ repositories {
     maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.dmulloy2.net/nexus/repository/releases/")
     maven("https://repo.dmulloy2.net/nexus/repository/snapshots/")
-    maven("https://repo.onarandombox.com/content/repositories/multiverse/")
-    maven("https://repo.onarandombox.com/content/repositories/multiverse-snapshots/")
-    maven("https://nexuslite.gcnt.net/repos/other/")
+    maven("https://repo.onarandombox.com/multiverse-releases")
     maven("https://jitpack.io/")
-    maven("https://repo.maven.apache.org/maven2/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 }
 
 dependencies {
@@ -94,9 +92,6 @@ dependencies {
     compileOnly("net.luckperms:api:5.4")
     // PermissionsEx plugin
     compileOnly("ru.tehkode:PermissionsEx:1.23.5-SNAPSHOT")
-    // Dependencies used by HAProxy feature
-//    implementation("io.netty:netty-codec-haproxy:4.1.104.Final")
-//    compileOnly("commons-validator:commons-validator:1.8.0")
     // zPermissions plugin
     compileOnly("org.tyrannyofheaven.bukkit:zPermissions:1.4.3-SNAPSHOT") {
         exclude("org.avaje", "ebean")
@@ -104,11 +99,13 @@ dependencies {
     // Vault, https://dev.bukkit.org/bukkit-plugins/vault/
     compileOnly("net.milkbowl.vault:VaultAPI:1.7")
     // Multi World plugin, https://www.spigotmc.org/resources/multiverse-core.390/
-    compileOnly("com.onarandombox.multiversecore:Multiverse-Core:4.3.1")
+    compileOnly("com.onarandombox.multiversecore:multiverse-core:4.3.14")
     // EssentialsX plugin
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
     // BCrypt implementation
     implementation("at.favre.lib:bcrypt:0.10.2")
+    // PlaceholderAPI
+    compileOnly("me.clip:placeholderapi:2.11.6")
     // XAuth, another authentication plugin, required by the database converter
     compileOnly("de.luricos.bukkit:xAuth:2.6.1-SNAPSHOT")
     implementation("ch.jalu:datasourcecolumns:0.1.1-SNAPSHOT")
@@ -125,6 +122,11 @@ dependencies {
 }
 
 tasks {
+    processResources {
+        filesMatching("**/*.yml") {
+            expand(project.properties)
+        }
+    }
     build { dependsOn(shadowJar) }
     // ShadowJar Config
     shadowJar {
