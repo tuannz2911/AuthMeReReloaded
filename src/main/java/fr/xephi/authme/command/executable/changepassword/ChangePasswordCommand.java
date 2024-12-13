@@ -8,6 +8,7 @@ import fr.xephi.authme.process.Management;
 import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.service.ValidationService.ValidationResult;
+import fr.xephi.authme.settings.properties.SecuritySettings;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
@@ -42,11 +43,14 @@ public class ChangePasswordCommand extends PlayerCommand {
             commonService.send(player, MessageKey.NOT_LOGGED_IN);
             return;
         }
-        // Check if the user has been verified or not
-        if (codeManager.isVerificationRequired(player)) {
-            codeManager.codeExistOrGenerateNew(name);
-            commonService.send(player, MessageKey.VERIFICATION_CODE_REQUIRED);
-            return;
+
+        if (commonService.getProperty(SecuritySettings.CHANGE_PASSWORD_EMAIL_VERIFICATION_REQUIRED)) {
+            // Check if the user has been verified or not
+            if (codeManager.isVerificationRequired(player)) {
+                codeManager.codeExistOrGenerateNew(name);
+                commonService.send(player, MessageKey.VERIFICATION_CODE_REQUIRED);
+                return;
+            }
         }
 
         String oldPassword = arguments.get(0);

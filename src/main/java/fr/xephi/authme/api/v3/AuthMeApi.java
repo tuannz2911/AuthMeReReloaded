@@ -32,6 +32,7 @@ import java.util.Optional;
  * AuthMeApi authmeApi = AuthMeApi.getInstance();
  * </code>
  */
+@SuppressWarnings("unused")
 public class AuthMeApi {
 
     private static AuthMeApi singleton;

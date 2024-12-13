@@ -1,10 +1,13 @@
-name: AuthMe
-authors: [sgdc3, games647, Hex3l, krusic22, DGun Otto]
+# noinspection YAMLSchemaValidation
+name: ${pluginDescription.name}
+# noinspection YAMLSchemaValidation
+authors: [${pluginDescription.authors}]
 website: https://github.com/HaHaWTH/AuthMeReReloaded/
 description: A fork of AuthMeReloaded that contains bug fixes
-main: fr.xephi.authme.AuthMe
+# noinspection YAMLSchemaValidation
+main: ${pluginDescription.main}
 folia-supported: true
-version: 5.6.0-FORK-b50
+version: 5.7.0-FORK-b53
 api-version: 1.13
 softdepend:
     - Vault
@@ -17,6 +20,7 @@ softdepend:
     - EssentialsSpawn
     - ProtocolLib
     - floodgate
+    - PlaceholderAPI
 commands:
   authme:
     description: AuthMe op commands

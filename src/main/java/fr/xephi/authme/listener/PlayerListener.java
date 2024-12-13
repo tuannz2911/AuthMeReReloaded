@@ -16,9 +16,11 @@ import fr.xephi.authme.service.ValidationService;
 import fr.xephi.authme.settings.Settings;
 import fr.xephi.authme.settings.SpawnLoader;
 import fr.xephi.authme.settings.properties.HooksSettings;
+import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
 import fr.xephi.authme.settings.properties.RestrictionSettings;
 import fr.xephi.authme.util.TeleportUtils;
+import fr.xephi.authme.util.message.I18NUtils;
 import fr.xephi.authme.util.message.MiniMessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -92,7 +94,6 @@ public class PlayerListener implements Listener {
     private PermissionsManager permissionsManager;
     @Inject
     private QuickCommandsProtectionManager quickCommandsProtectionManager;
-
 
     // Lowest priority to apply fast protection checks
     @EventHandler(priority = EventPriority.LOWEST)
@@ -246,6 +247,11 @@ public class PlayerListener implements Listener {
             if (listenerService.shouldCancelEvent(event)) {
                 event.setQuitMessage(null);
             }
+        }
+
+        // Remove data from locale map when player quit
+        if (settings.getProperty(PluginSettings.I18N_MESSAGES)) {
+            I18NUtils.removeLocale(player.getUniqueId());
         }
 
         if (antiBotService.wasPlayerKicked(player.getName())) {
@@ -533,12 +539,4 @@ public class PlayerListener implements Listener {
             event.setCancelled(true);
         }
     }
-//    @EventHandler(priority = EventPriority.LOWEST)
-//    public void onSwitchHand(PlayerSwapHandItemsEvent event) {
-//        Player player = event.getPlayer();
-//        if (!player.isSneaking() || !player.hasPermission("keybindings.use"))
-//            return;
-//        event.setCancelled(true);
-//        Bukkit.dispatchCommand(event.getPlayer(), "help");
-//    }
 }

@@ -11,17 +11,10 @@ import static ch.jalu.configme.properties.PropertyInitializer.newLowercaseString
 import static ch.jalu.configme.properties.PropertyInitializer.newProperty;
 
 public final class PluginSettings implements SettingsHolder {
-    @Comment({
-        "Should we execute /help command when unregistered players press Shift+F?",
-        "This keeps compatibility with some menu plugins",
-        "If you are using TrMenu, don't enable this because TrMenu already implemented this."
-    })
-    public static final Property<Boolean> MENU_UNREGISTER_COMPATIBILITY =
-        newProperty("3rdPartyFeature.compatibility.menuPlugins", false);
 
     @Comment({
         "Send i18n messages to player based on their client settings, this option will override `settings.messagesLanguage`",
-        "(Requires Protocollib or Packetevents)",
+        "(Requires ProtocolLib)",
         "This will not affect language of AuthMe help command."
     })
     public static final Property<Boolean> I18N_MESSAGES =

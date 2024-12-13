@@ -1,10 +1,13 @@
 package fr.xephi.authme.task;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.util.Scanner;
 
 public class Updater {
     private final String currentVersion;
@@ -32,14 +35,16 @@ public class Updater {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(10000);
             conn.setReadTimeout(10000);
-            Scanner scanner = new Scanner(conn.getInputStream());
-            String response = scanner.useDelimiter("\\Z").next();
-            scanner.close();
-            String latestVersion = response.substring(response.indexOf("tag_name") + 11);
-            latestVersion = latestVersion.substring(0, latestVersion.indexOf("\""));
-            this.latestVersion = latestVersion;
-            isUpdateAvailable = !currentVersion.equals(latestVersion);
-            return isUpdateAvailable;
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/vnd.github+json");
+            try (InputStreamReader reader = new InputStreamReader(conn.getInputStream())) {
+                JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
+                String latest = jsonObject.get("tag_name").getAsString();
+                latestVersion = latest;
+                isUpdateAvailable = !currentVersion.equals(latest);
+                reader.close();
+                return isUpdateAvailable;
+            }
         } catch (IOException ignored) {
             this.latestVersion = null;
             isUpdateAvailable = false;

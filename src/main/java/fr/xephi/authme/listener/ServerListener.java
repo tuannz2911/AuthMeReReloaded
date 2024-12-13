@@ -53,6 +53,9 @@ public class ServerListener implements Listener {
         } else if ("ProtocolLib".equalsIgnoreCase(pluginName)) {
             protocolLibService.disable();
             logger.warning("ProtocolLib has been disabled, unhooking packet adapters!");
+        } else if ("PlaceholderAPI".equalsIgnoreCase(pluginName)) {
+            pluginHookService.unhookPlaceholderApi();
+            logger.info("PlaceholderAPI has been disabled: unhooking placeholders");
         }
     }
 
@@ -74,6 +77,8 @@ public class ServerListener implements Listener {
             spawnLoader.loadCmiSpawn();
         } else if ("ProtocolLib".equalsIgnoreCase(pluginName)) {
             protocolLibService.setup();
+        } else if ("PlaceholderAPI".equalsIgnoreCase(pluginName)) {
+            pluginHookService.tryHookToPlaceholderApi();
         }
     }
 }
